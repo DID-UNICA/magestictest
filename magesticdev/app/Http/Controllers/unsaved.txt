@@ -1,0 +1,32 @@
+{{ Form::open(array('route' => 'constancias.generatePDF')) }}
+                {{ Form::token()}}
+
+                {{ Form::label('Curso de catalogo', 'Curso de Catálogo: ') }}
+                {{  Form::select('curso', $cursosCatalogo) }}
+                {{ Form::label('Semestre de Impartición', 'Semestre de Impartición: ')}}
+                {{  Form::text('semestre') }}
+                {{ Form::label('Tipo de constancia', 'Tipo de constancia: ')}}
+                {{  Form::select('tipoConstancia', array(
+                  'Instructores y Coordinador'=> array('A' => "Un instructor",
+                  'B' => "Dos instructores",
+                  'C' => "Tres instructores"),
+
+                   'Instructores y Coordinación General'=> array('AA' => "Un instructor",
+                    'BB' => "Dos instructores",
+                    'CC' => "Tres instructores",
+                    'U' => "UNICA"),
+
+                      'Instructores y SAD'=> array('AAA' => "Un instructor",
+                      'BBB' => "Dos instructores y SAD",
+                      'D' => "SAD y Director"),
+                      
+                      'Instructores'=> array('E' => "Coordinación General",
+                      'EE' => "Coordinador y Coordinación General",
+                      'EEE' => "Coordinación General y SAD",
+                      'SDI' => "SAD y Director: impartir",
+                      'SDC' => "SAD y Director: coordinar",
+                      'DI' => "Director: impartir",
+                      'DC' => "Director: coordinar"),
+                )) }}
+                {{ Form::submit('Seleccionar') }}
+                {{ Form::close() }}
