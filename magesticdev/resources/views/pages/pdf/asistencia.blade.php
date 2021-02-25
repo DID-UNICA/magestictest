@@ -9,10 +9,10 @@
 	    width:100%;
     }
     .margen{
-        border: 1px solid #ddd;        
+        border: 1px solid #ddd;
     }
     .margen2{
-        border: 1px solid black;        
+        border: 1px solid black;
     }
     #tabla_encabezado{
         border-collapse: collapse;
@@ -42,7 +42,7 @@
         font-family:Arial, Helvetica, Sans-serif,cursive; 
         text-align: center;
         font-size: 12px;
-        line-height:90%;
+        line-height:130%;
     }
     #imagen_izquierda{
         margin-left: 15%;
@@ -64,6 +64,14 @@
         font-size: 14px;
         font-weight: bold;
     }
+
+    .tipo2{
+        font-family:Arial, Helvetica, Sans-serif,cursive; 
+        font-size: 14px;
+        font-weight: bold;
+        padding-left: 3.5cm;
+    }
+
    .mayus{
         text-transform: uppercase;
     }
@@ -84,7 +92,7 @@
 			        Formato
 				</td>
 				<td width= 9% class="margen">
-                    <img id="imagen_derecha" src="img/asistencia1.png">
+          <img id="imagen_derecha" src="img/asistencia1.png">
 				</td>
 		</table>
         <table id="tabla_encabezado_debajo">
@@ -107,7 +115,7 @@
 					Página 1 de 1
 				</td>
 		</table>
-        <table style="width: 85%">
+        <table style="width: 100%"> <!--width = 85% originalmente-->
             <tr>
                 <td class="titulos">Coordinación</td>
                 <td class="valores">{{$coordinacion->nombre_coordinacion}}</td>
@@ -115,8 +123,8 @@
 			<tr >
 				<td class="titulos" width="10%">Instructor</td>
 				<td class="valores mayus" width="30%">{{ $curso->getProfesores() }}</td>
-				<td width=12% class="tipo mayus">{{ $tipo }}</td>
-                <td width=36% class="tipo">{{ $cursoCatalogo->nombre_curso}}</td>
+				<td width=10% class="tipo mayus">{{ $tipo }}</td> <!-- class="tipo mayus" width al 12% originalmente-->
+                <td width=28% class="tipo">{{ $cursoCatalogo->nombre_curso}}</td> <!-- Corregir el Espacio ;width al 36% originalmente -->
 			</tr>
 		</table> 
 		<br>
@@ -167,7 +175,7 @@
             $num_lista += 1;
 	        print("
 	        	<tr >
-		        	<td class='margen2' style='font-size: 13px;'width=25%>{$num_lista}.     {$alumno->apellido_paterno} {$alumno->apellido_materno} {$alumno->nombres}</td>
+		        	<td class='margen2' style='font-size: 11px;'width=25%>{$num_lista}.     {$alumno->apellido_paterno} {$alumno->apellido_materno} {$alumno->nombres}</td>
 					<td class='margen2' width='5%'><b></b></td>
 					<td class='margen2' width='5%'><b></b></td>
 					<td class='margen2' width='5%'><b></b></td>
@@ -183,7 +191,7 @@
 					<td class='margen2' width='10%'><b></b></td>
 
 	    		</tr>
-	        ");	
+	        ");	//Corregido el font-size de 13 px a 11px
 			}}
 		
     ?>

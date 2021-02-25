@@ -37,7 +37,7 @@
                 @include('flash::message')
                 <div class="logos col-md-12 col-center">
                 	<img class="img-escudo" src="{{ asset('img/cdd.png') }}">
-                	Manejo y Gestión de información del centro de docencia.</h3>
+                	Manejo y Gestión de información del Centro de Docencia.</h3>
                 </div>
 
                 <hr>
@@ -86,6 +86,8 @@
                                     <option value="f3">Tres firmantes</option>
                                     <option value="f4">Cuatro firmantes</option>
                                     <option value="f5">Cinco firmantes</option>
+                                    <option value="J"> Centro de Docencia y Secretaria de Apoyo a la Docencia</option>
+
                                 @endif
                                 </select>
                                 @if ($errors->has('type'))
@@ -96,11 +98,18 @@
                             </div>
                 </div>
                 <br>
+                <br>
+                <div class="form-group col-md-4">
+                    {!!Form::label("typeId_label", "Folio institucional (Número consecutivo):")!!}
+                </div>
+                <div class="form-group col-md-6">
+                    {!!Form::text("typeid", null, [ "class" => "form-control", "placeholder" => "Dígitos nueve, diez y once del folio"])!!}
+                </div>
                 <div class="form-group col-md-4">
                     {!!Form::label("numero", "Número Inicial:")!!}
                 </div>
                 <div class="form-group col-md-6">
-                    {!!Form::text("numero", null, [ "class" => "form-control", "placeholder" => "Número", "required"])!!}
+                    {!!Form::text("numero", null, [ "class" => "form-control", "placeholder" => "Número"])!!}
                 </div>
                 
 

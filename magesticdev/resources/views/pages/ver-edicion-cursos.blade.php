@@ -86,13 +86,13 @@
 
 
                         <div class="form-group col-md-6">
-                            {!!Form::label("cupo_maximo", "Cupo maximo")!!}
-                            {!!Form::text("cupo_maximo", $user->cupo_maximo, [ "class" => "form-control", "placeholder" => "Cupo maximo", "required","disabled"])!!}
+                            {!!Form::label("cupo_maximo", "Cupo máximo")!!}
+                            {!!Form::text("cupo_maximo", $user->cupo_maximo, [ "class" => "form-control", "placeholder" => "Cupo máximo", "required","disabled"])!!}
                         </div>
 
                         <div class="form-group col-md-6">
-                            {!!Form::label("cupo_minimo", "Cupo minimo")!!}
-                            {!!Form::text("cupo_minimo", $user->cupo_minimo, [ "class" => "form-control", "placeholder" => "Cupo minimo", "required","disabled"])!!}
+                            {!!Form::label("cupo_minimo", "Cupo mínimo")!!}
+                            {!!Form::text("cupo_minimo", $user->cupo_minimo, [ "class" => "form-control", "placeholder" => "Cupo mínimo", "required","disabled"])!!}
                         </div>
 
                         <div class="form-group col-md-6">

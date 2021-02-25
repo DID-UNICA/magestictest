@@ -31,7 +31,7 @@
 
 
                         <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
-                            <label for="nombre" class="col-md-4 control-label">Nombre de la Division</label>
+                            <label for="nombre" class="col-md-4 control-label">Nombre de la División</label>
 
                             <div class="col-md-6">
                                 <input id="nombre" type="text" class="form-control" name="nombre" value="{{ old('nombre') }}"  required oninvalid="this.setCustomValidity('Ingrese un nombre por favor')" oninput="this.setCustomValidity('')">
@@ -49,7 +49,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Crear Division
+                                    Crear División
                                 </button>
                             </div>
                         </div>

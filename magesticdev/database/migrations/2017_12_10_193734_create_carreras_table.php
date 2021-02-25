@@ -17,11 +17,6 @@ class CreateCarrerasTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->integer('clave');
-            $table->integer('id_division')->unsigned();
-            $table->foreign('id_division')->references('id')->on('divisions');
-            $table->integer('id_facultad')->unsigned();
-            $table->foreign('id_facultad')->references('id')->on('facultads');
-
             $table->timestamps();
 
         });

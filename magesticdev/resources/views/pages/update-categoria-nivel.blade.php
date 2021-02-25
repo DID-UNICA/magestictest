@@ -28,8 +28,8 @@
                     <div class="row col-md-12 ">{!! Form::open(['route' => array('categoria.actualizar', $user->id), "method" => "PUT"]) !!}
 
                         <div class="form-group col-md-4">
-                            {!!Form::label("categoria", "Categoria")!!}
-                            {!!Form::text("categoria", $user->categoria, [ "class" => "form-control", "placeholder" => "Categoria", "required",""])!!}
+                            {!!Form::label("categoria", "Categoría")!!}
+                            {!!Form::text("categoria", $user->categoria, [ "class" => "form-control", "placeholder" => "Categoría", "required",""])!!}
                         </div>
 
                         <div class="form-group col-md-4">

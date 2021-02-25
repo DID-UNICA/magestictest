@@ -42,7 +42,7 @@
       </div>
 
       <div class="form-group col-md-6">
-            <label for="name" class="col-md-12 control-label">Semestre:</label>
+            <label for="name" class="col-md-12 control-label">Periodo:</label>
               <div class="col-md-4">
                 <input id="semestreAnio" type="text" class="form-control" name="semestreAnio" value="{{$user->semestre_anio}}" minlength="4" maxlength= "4" required>
 
@@ -117,12 +117,12 @@
 
 
     <div class="form-group col-md-6">
-        {!!Form::label("dias_semana", "Dias a la semana:")!!}
-        {!!Form::text("dias_semana", $user->dias_semana, [ "class" => "form-control", "placeholder" => "Dias a la semana", "required",""])!!}
+        {!!Form::label("dias_semana", "Días a la semana:")!!}
+        {!!Form::text("dias_semana", $user->dias_semana, [ "class" => "form-control", "placeholder" => "Días a la semana", "required",""])!!}
     </div>
 
     <div class="form-group col-md-6">
-        {!!Form::label("numero_sesiones", "Numero de sesiones")!!}
+        {!!Form::label("numero_sesiones", "Número de sesiones")!!}
         {!!Form::number("numero_sesiones", $user->numero_sesiones, [ "class" => "form-control", "placeholder" => "Sesiones", "required",""])!!}
     </div>
     <div class="form-group col-md-6 ">
@@ -138,17 +138,17 @@
     </div>
 
     <div class="form-group col-md-6">
-        {!!Form::label("cupo_maximo", "Cupo maximo:")!!}
-        {!!Form::number("cupo_maximo", $user->cupo_maximo, [ "class" => "form-control", "placeholder" => "Cupo maximo", "required",""])!!}
+        {!!Form::label("cupo_maximo", "Cupo máximo:")!!}
+        {!!Form::number("cupo_maximo", $user->cupo_maximo, [ "class" => "form-control", "placeholder" => "Cupo máximo", "required",""])!!}
     </div>
 
     <div class="form-group col-md-6">
-        {!!Form::label("cupo_minimo", "Cupo minimo")!!}
-        {!!Form::number("cupo_minimo", $user->cupo_minimo, [ "class" => "form-control", "placeholder" => "Cupo minimo", "required",""])!!}
+        {!!Form::label("cupo_minimo", "Cupo mínimo")!!}
+        {!!Form::number("cupo_minimo", $user->cupo_minimo, [ "class" => "form-control", "placeholder" => "Cupo mínimo", "required",""])!!}
     </div>
 
     <div class="form-group col-md-6">
-        {!!Form::label("salon_id", "Salon:")!!}
+        {!!Form::label("salon_id", "Sede:")!!}
         {!!Form::select("salon_id", $user->allSalon()->pluck('sede','id'),$user->getIdSalon(),['class'=>'form-control'])!!}
     </div>
     <div class="form-group col-md-8">

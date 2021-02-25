@@ -18,7 +18,7 @@
         <div class="panel panel-default">
         @include ('partials.messages')
             <div class="panel-heading">
-                <h3>Categoria y Nivel</h3>
+                <h3>Categoría y Nivel</h3>
 
             </div>
         </div>
@@ -28,7 +28,7 @@
 
 
                         <div class="form-group{{ $errors->has('categoria') ? ' has-error' : '' }}">
-                            <label for="categoria" class="col-md-4 control-label">Nombre de la Categoria o Nivel</label>
+                            <label for="categoria" class="col-md-4 control-label">Nombre de la Categoría o Nivel</label>
 
                             <div class="col-md-6">
                                 <input id="categoria" type="text" class="form-control" name="categoria" value="{{ old('catgeoria') }}"  required>
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('abreviatura') ? ' has-error' : '' }}">
-                            <label for="abreviatura" class="col-md-4 control-label">Abreviatura de la Categoria o Nivel</label>
+                            <label for="abreviatura" class="col-md-4 control-label">Abreviatura de la Categoría o Nivel</label>
 
                             <div class="col-md-6">
                                 <input id="abreviatura" type="text" class="form-control" name="abreviatura" value="{{ old('abreviatura') }}" required >
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Crear Categoria
+                                    Crear Categoría
                                 </button>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
             <div class="panel-body">
                 <table class="col-md-12">
                     <tr>
-                        <th>Categoria</th>
+                        <th>Categoría</th>
                         <th>Abreviatura</th>
                     </tr>
                     @foreach($users as $user)
@@ -87,7 +87,7 @@
                         <div class="modal-content">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Eliminar Categoria</h4>
+                            <h4 class="modal-title">Eliminar Categoría</h4>
                           </div>
                           <div class="modal-body">
                             <p>¿Está seguro de eliminar la categoria {{ $user->categoria }}?</p>

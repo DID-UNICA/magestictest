@@ -36,7 +36,7 @@
     </div>
 
     <div class="form-group col-md-4">
-      {!!Form::label("ubicacion", "Ubicacion")!!}
+      {!!Form::label("ubicacion", "Ubicación")!!}
       {!!Form::text("ubicacion", $user->ubicacion, [ "class" => "form-control", "placeholder" => "Ubicacion", "required","disabled"])!!}
     </div>
   </div>
@@ -48,7 +48,7 @@
 
   
 
- <td><a href="{{ URL::to('salon/actualizar', $user->id) }}" class="btn btn-info">Actualiza información</a>
+ <td><a href="{{ URL::to('salon/actualizar', $user->id) }}" class="btn btn-info">Actualizar información</a>
             <a href="{{ URL::to('salon/baja', $user->id) }}" class="btn btn-danger">Dar de baja</a></td>
     
 </div>

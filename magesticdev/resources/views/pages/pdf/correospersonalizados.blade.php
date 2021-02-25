@@ -128,9 +128,9 @@ body {
             </thead>
         </table>
         <div class="message">
-            <p class="message-content">Estimado profesor {{$profesor->getNombreSinApellidos()}}, hemos detectado que en el semestre {{$cursoMatch->getSemestre()}} ud. tomó el curso</p>
+            <p class="message-content">Estimado profesor@ {{$profesor->getNombreSinApellidos()}}, hemos detectado que en el semestre {{$cursoMatch->getSemestre()}} ud. tomó el curso</p>
             <p class="message-references">{{$catalogoMatch->nombre_curso}}</p>
-            <p class="message-content">en el cual solicitó la impartición de {{$curso->getNombreCursoSinClave()}}, y nos complace informarle que en este periodo el CDD ha abierto un curso que responde a esa temática.</p>
+            <p class="message-content">en el cual solicitó la impartición de {{$tematicas}} y nos complace informarle que en este periodo el CDD ha abierto un curso que responde a esa temática.</p>
             <p class="message-content">Esperando que el curso que hemos desarrollado sea de su interés, nos despedimos de Ud. enviándole un cordial saludo.</p>
         </div>
         <hr class="line">

@@ -4,7 +4,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/img/favicon.ico') }}" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Magesti - CD </title>
+    <title>MagestiCD </title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('dist/jquery.fancybox.min.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/font-awesome.min.css') }}"/>
@@ -73,8 +73,8 @@
                 <div class="link"><i class="fa fa-lg fa-book"></i>Cursos<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
                     <li><a href="{{ route('curso.consulta') }}">Cursos programados</a></li>
-                    <li><a href="{{ route('catalogo-cursos.consulta') }}">Catalogo de cursos</a></li>
-                    <li><a href="{{ route('catalogo-cursos.nuevo') }}">Alta Catalogo</a></li>
+                    <li><a href="{{ route('catalogo-cursos.consulta') }}">Catálogo de cursos</a></li>
+                    <li><a href="{{ route('catalogo-cursos.nuevo') }}">Alta Catálogo</a></li>
 
                 </ul>
             </li>
@@ -84,7 +84,7 @@
                 <ul class="submenu">
                     <li><a href="{{ route('profesor.nuevo') }}">Alta Profesor</a></li>
                     <li><a href="{{ route('profesor.consulta') }}">Consulta de profesores</a></li>
-                    <li><a href="{{route('categoria.consulta')}}">Categoria y Nivel</a></li>
+                    <li><a href="{{route('categoria.consulta')}}">Categoría y Nivel</a></li>
                   <!--  <li><a href="#">Curriculum</a></li> -->
 
                 </ul>
@@ -94,7 +94,7 @@
                 <div class="link"><i class="fa fa-building"></i>Salones<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
                     <li><a href="{{ route('salon.consulta') }}">Consulta Salones</a></li>
-                    <li><a href="{{ route('salon.nuevo') }}">Alta de Salon</a></li>
+                    <li><a href="{{ route('salon.nuevo') }}">Alta de Salón</a></li>
                     <!--<li><a href="#">Baja de Salon</a></li>-->
                 </ul>
             </li>
@@ -109,7 +109,7 @@
             <li class="nav-header">
                 <div class="link"><i class="fa fa-lg fa-map-marker"></i>Coordinaciones<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
-                    <li><a href="{{route('coordinacion.nuevo')}}">Alta de coordinación</a></li>
+                    <li><a href="{{route('coordinacion.nuevo')}}">Alta de Coordinación</a></li>
                     <li><a href="{{route('coordinacion.consulta')}}">Consulta de coordinaciones</a></li>
                     <li><a href="{{route('coordinador-general.consulta')}}">Coordinación general</a></li>
                     <li><a href="{{route('secretario-apoyo.consulta')}}">Secretaría de apoyo</a></li>

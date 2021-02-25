@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gmeono
- * Date: 10/12/17
- * Time: 02:12 PM
- */
 
 namespace App;
 use Illuminate\Notifications\Notifiable;
@@ -23,7 +17,7 @@ class Carrera extends Authenticatable
 
     protected $table = "carreras";
     protected $fillable = [
-        'clave','nombre','id_division','id_facultad'
+        'clave','nombre'
     ];
 
     /**

@@ -39,7 +39,7 @@
 
     <div class="form-group col-md-4">
       {!!Form::label("ubicacion", "Ubicacion")!!}
-      {!!Form::text("ubicacion", $user->ubicacion, [ "class" => "form-control", "placeholder" => "Ubicacion", "required",""])!!}
+      {!!Form::text("ubicacion", $user->ubicacion, [ "class" => "form-control", "placeholder" => "Ubicación", "required",""])!!}
     </div>
   </div>
 

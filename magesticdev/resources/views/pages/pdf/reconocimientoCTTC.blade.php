@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <head>
-    <title>Coordinacion General</title>
+    <title>Coordinación General</title>
 </head>
 <style>
+
 html{
-	    width:100%;
-      height: 100%
-    }
+  width:100%;
+  height:100%
+}
+
 body {
   font-family:Arial, Helvetica, Sans-serif,cursive;
 }
 #fondo{
-  background-image: url("/img/ri_1.png");
+  background-image: url("../public/img/ri_1.png");
   background-size: auto;
   background-repeat: no-repeat;
   background-position: 4cm 1.9cm;
@@ -30,7 +32,7 @@ body {
   color: #8D8D8D;
 }
 .encabezado{
-  line-height:170%;
+  line-height:150%;
   text-align: center;
 }
 #encabezado_1{
@@ -48,15 +50,15 @@ body {
   text-align: center;
 }
 #img2{
- position: absolute;
- margin-top: 1%;
+  position: absolute;
+  margin-top: 1%;
 
 }
 #img1{
- position: absolute;
- margin-top: 0.5cm;
- margin-right: 2%;
- margin-left: 82%;
+  position: absolute;
+  margin-top: 0.5cm;
+  margin-right: 2%;
+  margin-left: 82%;
 }
 #encabezado_4{
   font-size: 23px;
@@ -73,23 +75,23 @@ body {
   font-weight: bold;
 }
 .nombre_profesor{
-    font-family:'Tangerine', serif;
-    font-style:italic;
-    font-size: 35px;
-    line-height: 100%
+  font-family:'Tangerine', serif;
+  font-style:italic;
+  font-size: 35px;
+  line-height: 100%
 }
 .nombre_curso{
-    font-family:'Tangerine', serif;
-    font-style:italic;
-    font-size: 33px;
-    line-height: 100%
+  font-family:'Tangerine', serif;
+  font-style:italic;
+  font-size: 33px;
+  line-height: 100%
 }
 .centro {
-    line-height: 20%;
-    text-align: center;
+  line-height: 20%;
+  text-align: center;
 }
 .page-break {
-    page-break-after: always;
+  page-break-after: always;
 }
 
 #coordinador{
@@ -132,31 +134,13 @@ body {
     <h3 style="text-align: center;font-size: 24px;font-style: normal;">Otorgan el presente reconocimiento a la:</h2>
     @endif
       <br>
-      @if ($profesor->grado == "Licenciatura")
-        <h2 class='nombre_profesor'>Lic. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      @elseif ($profesor->grado == "Ingeniería")
-        <h2 class='nombre_profesor'>Ing. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      @elseif ($profesor->grado == "Maestría")
-        @if($profesor->genero == "masculino")
-          <h2 class='nombre_profesor'>Mtro. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-        @elseif($profesor->genero == "femenino")
-          <h2 class='nombre_profesor'>Mtra. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-        @endif
-      @elseif ($profesor->grado == "Doctorado")
-          @if($profesor->genero == "masculino")
-            <h2 class='nombre_profesor'>Dr. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-          @elseif($profesor->genero == "femenino")
-            <h2 class='nombre_profesor'>Dra. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-          @endif
-      @else
-        <h2 class='nombre_profesor'>{{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      @endif
+      <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
       <h3 style="font-size: 17px;line-height: 30%;">por impartir el {{$curso->getTipoCadena()}}</h3>
       <h2 class='nombre_curso'>{{$cursoCatalogo->nombre_curso}}</h2>
       <p style="padding-top: 1.1cm; font-size:105%;">{{$fechaimp}}</h5>
       <p style="padding-bottom: 0.4cm; font-size:105%">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
       <p style="line-height: 20%; font-size: 17px; font-weight: bold;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 11px; padding-bottom: 2.35cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="font-size: 11px; padding-bottom: 0.35cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
     <div class = "tabla-centro">
     <table>
@@ -175,10 +159,12 @@ body {
     </table>
     </div>
   </div>
-  <table width=100% style="padding-top: 93%;">
+  <table width=100% style="padding-bottom: 0.1cm">
     <tr width=100% >
-      <td id="folio">{{ $folio }}</td>
-      <td id="numero_inferior">{{ $folio_der }}</td>
+@if($folio_der > 0)
+<td id="numero_inferior">{{ $folio_der }}</td>
+@endif
+      <td style='text-align:right' id="folio">{{ $folio }}</td>
     </tr>
   </table>
   </body>

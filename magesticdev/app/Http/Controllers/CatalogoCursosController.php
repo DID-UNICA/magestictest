@@ -20,19 +20,17 @@ class CatalogoCursosController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+      $this->middleware('auth');
     }
 
 
     public function index()
     {
-        $coordinaciones = Coordinacion::all();
-        $users = CatalogoCurso::all();
-        return view("pages.consulta-catalogo-cursos")
-            ->with("coordinaciones",$coordinaciones)
-            ->with("users",$users);
-
-
+      $coordinaciones = Coordinacion::all();
+      $users = CatalogoCurso::all();
+      return view("pages.consulta-catalogo-cursos")
+          ->with("coordinaciones",$coordinaciones)
+          ->with("users",$users);
     }
 
     
@@ -61,19 +59,19 @@ class CatalogoCursosController extends Controller
      */
     public function show($id)
     {
-        $user = CatalogoCurso::find($id);
+        $catalogoCurso = CatalogoCurso::find($id);
         return view("pages.ver-catalogo-cursos")
-            ->with("user",$user);
+            ->with("user",$catalogoCurso);
     }
 
 
     public function edit($id)
     {
-        $user = CatalogoCurso::find($id);
+        $catalogoCurso = CatalogoCurso::find($id);
         $coordinaciones = Coordinacion::all(['id','nombre_coordinacion']);
         
         return view("pages.update-catalogo-cursos")
-            ->with("user",$user)->with("coordinaciones",$coordinaciones);
+            ->with("user",$catalogoCurso)->with("coordinaciones",$coordinaciones);
     }
 
     /**
@@ -85,31 +83,31 @@ class CatalogoCursosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = CatalogoCurso::find($id);
-        $user->nombre_curso = $request->nombre_curso;
-        $user->duracion_curso = $request->duracion_curso;
-        $user->coordinacion_id = $request->coordinacion_id;
-        $user->tipo = $request->tipo;
-        $user->institucion = $request->institucion;
-        $user->presentacion = $request->presentacion;
-        $user->dirigido = $request->dirigido;
-        $user->objetivo = $request->objetivo;
-        $user->contenido = $request->contenido;
-        $user->acreditacion = $request->acreditacion;
-        $user->previo = $request->antesc;
-        $user->evaluacion = $request->evaluacion;
-        $user->bibliografia = $request->bibliografia;
-        $user->fecha_disenio = $request->fecha_disenio;
-        $user->clave_curso = $request->clave_curso;
+        $catalogoCurso = CatalogoCurso::find($id);
+        $catalogoCurso->nombre_curso = $request->nombre_curso;
+        $catalogoCurso->duracion_curso = $request->duracion_curso;
+        $catalogoCurso->coordinacion_id = $request->coordinacion_id;
+        $catalogoCurso->tipo = $request->tipo;
+        $catalogoCurso->institucion = $request->institucion;
+        $catalogoCurso->presentacion = $request->presentacion;
+        $catalogoCurso->dirigido = $request->dirigido;
+        $catalogoCurso->objetivo = $request->objetivo;
+        $catalogoCurso->contenido = $request->contenido;
+        $catalogoCurso->acreditacion = $request->acreditacion;
+        $catalogoCurso->previo = $request->antesc;
+        $catalogoCurso->evaluacion = $request->evaluacion;
+        $catalogoCurso->bibliografia = $request->bibliografia;
+        $catalogoCurso->fecha_disenio = $request->fecha_disenio;
+        $catalogoCurso->clave_curso = $request->clave_curso;
 
-        $user->save();
-        $temas = TemaSeminario::where('catalogo_id', $user->id)->get();
+        $catalogoCurso->save();
+        $temas = TemaSeminario::where('catalogo_id', $catalogoCurso->id)->get();
         //El tipo se actualizó a seminario y hay que cambiar temas
         if($request->tipo == 'S'){
             return view("pages.update-temas-seminario")
                 ->with('temas', $temas)
                 ->with('num_temas', $request->num_temas)
-                ->with('catalogo_id', $user->id);
+                ->with('catalogo_id', $catalogoCurso->id);
         }
         //El tipo dejó de ser seminario y hay que eliminar todos sus temas
         if(!$temas->isEmpty()){
@@ -118,7 +116,7 @@ class CatalogoCursosController extends Controller
             }
         }
         return view("pages.ver-catalogo-cursos")
-            ->with("user",$user)
+            ->with("user",$catalogoCurso)
             ->with('msj','Se han actualizado los cambios');
     }
 
@@ -182,11 +180,14 @@ class CatalogoCursosController extends Controller
     public function delete($id)
     {
          try{
-            $user = CatalogoCurso::findOrFail($id);
-            $user -> delete();
-            return redirect('/catalogo-cursos')->with('msj', 'Se ha dado de baja el curso del catálogo');
+            $catalogoCurso = CatalogoCurso::findOrFail($id);
+            $catalogoCurso -> delete();
+            return redirect('/catalogo-cursos')->with('msj', 
+              'Se ha dado de baja el curso del catálogo'
+            );
         }catch (\Illuminate\Database\QueryException $e){
-                return redirect()->back()->with('error', 'El catálogo de cursos no puede ser eliminado porque tiene cursos asignados.');
+                return redirect()->back()->with('error', 
+                  'El catálogo de cursos no puede ser eliminado porque tiene cursos asignados.');
             }
     }
 

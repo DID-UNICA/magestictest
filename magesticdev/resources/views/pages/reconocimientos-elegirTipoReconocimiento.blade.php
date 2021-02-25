@@ -31,11 +31,11 @@
                 @include('flash::message')
                 <div class="logos col-md-12 col-center">
                 	<img class="img-escudo" src="{{ asset('img/cdd.png') }}">
-                	Manejo y Gestión de información del centro de docencia.</h3>
+                	Manejo y Gestión de información del Centro de Docencia.</h3>
                 </div>
 
                 <hr>
-                <h2>Reconocimientos <span class="fa fa-file-pdf-o"</span></h2>
+                <h2>Reconocimientos <span class="fa fa-file-pdf-o"></span></h2>
 
 
                     <table class="table table-hover">
@@ -50,7 +50,7 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Instructor</th>
-                    <th>Semestre</th>
+                    <th>Periodo</th>
                     <th>Tipo Detectado</th>
                     <th>
                     @if ($curso->getTipoCadenaUpper()=='Evento')
@@ -75,8 +75,12 @@
                       </td>
                 </tr>
                 <tr>
+                <td> {!!Form::label("typeId_label", "Folio institucional (Número consecutivo):")!!}</td>
+                <td> {!!Form::text("typeid", null, [ "class" => "form-control", "placeholder" => "Tipo"])!!}</td>
+                </tr>
+                <tr>
                 <td> {!!Form::label("numeroinicial", "Número Inicial:")!!}</td>
-                <td> {!!Form::number("folio_der", null, [ "class" => "form-control", "placeholder" => "Número", "required",""])!!}</td>
+                <td> {!!Form::text("folio_der", null, [ "class" => "form-control", "placeholder" => "Número"])!!}</td>
                 </tr>
                 
 

@@ -38,80 +38,84 @@
       {!!Form::text("ap_mat", $user->apellido_materno, [ "class" => "form-control", "placeholder" => "Apellido Materno", "required","disabled"])!!}
     </div>
 
-  <div class="form-group col-md-3 col-sm-6">
-      {!!Form::label("numero_trabajador", "Núm. Trabajador:")!!}
-      {!!Form::text("numero_trabajador", $user->numero_trabajador, [ "class" => "form-control", "placeholder" => "Número de Trabajador", "required","disabled"])!!}
+    <div class="form-group col-md-3 col-sm-6">
+        {!!Form::label("numero_trabajador", "Núm. Trabajador:")!!}
+        {!!Form::text("numero_trabajador", $user->numero_trabajador, [ "class" => "form-control", "placeholder" => "Número de Trabajador", "required","disabled"])!!}
     </div>
-
-  <div class="form-group col-md-3 col-sm-6">
-    {!!Form::label("rfc", "RFC:")!!}
-    {!!Form::text("rfc", $user->rfc, [ "class" => "form-control", "placeholder" => "RFC", "required","disabled"])!!}
-  </div>
 
     <div class="form-group col-md-3 col-sm-6">
-        {!!Form::label("CURP", "CURP:")!!}
-        {!!Form::text("CURP", $user->curp, [ "class" => "form-control", "placeholder" => "CURP", "required","disabled"])!!}
+      {!!Form::label("rfc", "RFC:")!!}
+      {!!Form::text("rfc", $user->rfc, [ "class" => "form-control", "placeholder" => "RFC", "required","disabled"])!!}
     </div>
-
-  <div class="form-group col-md-3 col-sm-6">
-    {!!Form::label("fecha_nacimiento", "Fecha de Nacimiento:")!!}
-    {!!Form::text("fecha_nacimiento", $user->fecha_nacimiento, [ "class" => "form-control", "placeholder" => "Fecha de nacimiento", "required","disabled"])!!}
-  </div>
-
-   <div class="form-group col-md-3 col-sm-6">
-    {!!Form::label("genero", "Género:")!!}
-    {!!Form::text("genero", $user->genero, [ "class" => "form-control", "placeholder" => "Genero", "required","disabled"])!!}
-  </div>
 
     <div class="form-group col-md-3 col-sm-6">
-        {!!Form::label("categoria_nivel_id", "Categoría y Nivel:")!!}
-        {!!Form::text("categoria_nivel_id", $user->getCategoria(), [ "class" => "form-control", "placeholder" => "Categoria y nivel", "required","disabled"])!!}
+      {!!Form::label("fecha_nacimiento", "Fecha de Nacimiento:")!!}
+      {!!Form::text("fecha_nacimiento", $user->fecha_nacimiento, [ "class" => "form-control", "placeholder" => "Fecha de nacimiento", "required","disabled"])!!}
     </div>
 
-   <div class="form-group col-md-3 col-sm-6">
-    {!!Form::label("grado", "Grado:")!!}
-    {!!Form::text("grado", $user->grado, [ "class" => "form-control", "placeholder" => "Grado", "required","disabled"])!!}
-  </div>
+    <div class="form-group col-md-3 col-sm-6">
+      {!!Form::label("genero", "Género:")!!}
+      {!!Form::text("genero", $user->genero, [ "class" => "form-control", "placeholder" => "Genero", "required","disabled"])!!}
+    </div>
 
-   <div class="form-group col-md-3 col-sm-6">
-    {!!Form::label("created_at", "Fecha de Alta:")!!}
-    {!!Form::text("created_at", $user->created_at, [ "class" => "form-control", "placeholder" => "Fecha de alta", "required","disabled"])!!}
-  </div>
+    <div class="form-group col-md-3 col-sm-6">
+      {!!Form::label("categoria_nivel_id", "Categoría y Nivel:")!!}
+      {!!Form::text("categoria_nivel_id", $user->getCategoria(), [ "class" => "form-control", "placeholder" => "Categoría y nivel", "required","disabled"])!!}
+    </div>
 
-   <div class="form-group col-md-4 col-sm-6">
-    {!!Form::label("email", "Email:")!!}
-    {!!Form::text("email", $user->email, [ "class" => "form-control", "placeholder" => "Email", "required","disabled"])!!}
-  </div>
+    <div class="form-group col-md-3 col-sm-6">
+      {!!Form::label("grado", "Grado:")!!}
+      {!!Form::text("grado", $user->grado, [ "class" => "form-control", "placeholder" => "Grado", "required","disabled"])!!}
+    </div>
 
-  <div class="form-group col-md-4 col-sm-6">
-    {!!Form::label("telefono", "Número de Teléfono:")!!}
-    {!!Form::text("telefono", $user->telefono, [ "class" => "form-control", "placeholder" => "Número de Teléfono", "required","disabled"])!!}
-  </div>
+    <div class="form-group col-md-3 col-sm-6">
+      {!!Form::label("abreviatura_grado", "Abreviatura de grado:")!!}
+      {!!Form::text("abreviatura_grado", $user->abreviatura_grado, [ "class" => "form-control", "placeholder" => "Abreviatura", "required","disabled"])!!}
+    </div>
 
-   <div class="form-group col-md-4 col-sm-6">
-    {!!Form::label("facebook", "Facebook:")!!}
-    {!!Form::text("facebook", $user->facebook, [ "class" => "form-control", "placeholder" => "Facebook", "required","disabled"])!!}
-  </div>
-  <div class="form-group col-md-4 col-sm-6">
-    {!!Form::label("unam_bool", "UNAM:")!!}
+    <div class="form-group col-md-3 col-sm-6">
+      {!!Form::label("created_at", "Fecha de Alta:")!!}
+      {!!Form::text("created_at", $user->created_at, [ "class" => "form-control", "placeholder" => "Fecha de alta", "required","disabled"])!!}
+    </div>
+
+    <div class="form-group col-md-4 col-sm-6">
+      {!!Form::label("email", "Email:")!!}
+      {!!Form::text("email", $user->email, [ "class" => "form-control", "placeholder" => "Email", "required","disabled"])!!}
+    </div>
+
+    <div class="form-group col-md-4 col-sm-6">
+      {!!Form::label("telefono", "Número de Teléfono:")!!}
+      {!!Form::text("telefono", $user->telefono, [ "class" => "form-control", "placeholder" => "Número de Teléfono", "required","disabled"])!!}
+    </div>
+
+    <div class="form-group col-md-4 col-sm-6">
+      {!!Form::label("facebook", "Facebook:")!!}
+      {!!Form::text("facebook", $user->facebook, [ "class" => "form-control", "placeholder" => "Facebook", "required","disabled"])!!}
+    </div>
+    <div class="form-group col-md-4 col-sm-6">
+      {!!Form::label("unam_bool", "UNAM:")!!}
     @if($user->unam == 1)
       {!!Form::text("unam_bool", "Sí", [ "class" => "form-control", "placeholder" => "Sí", "required","disabled"])!!}
-      </div>
-      <div class="form-group col-md-4 col-sm-6">
-        {!!Form::label("carrera", "Carrera:")!!}
-        {!!Form::text("carrera", $user->getCarrera(), [ "class" => "form-control", "placeholder" => "Carrera", "required","disabled"])!!}
-      </div>
-      <div class="form-group col-md-4 col-sm-6">
-        {!!Form::label("facultad", "Facultad:")!!}
-        {!!Form::text("facultad", $user->getFacultad(), [ "class" => "form-control", "placeholder" => "Facultad", "required","disabled"])!!}
-      </div>
+    </div>
+    <div class="form-group col-md-4 col-sm-6">
+      {!!Form::label("carrera", "Carrera(s):")!!}
+      {!!Form::text("carrera", $user->getCarrerasPorNombre(), [ "class" => "form-control", "placeholder" => "Carrera", "required","disabled"])!!}
+    </div>
+    <div class="form-group col-md-4 col-sm-6">
+      {!!Form::label("division", "Division(es):")!!}
+      {!!Form::text("division", $user->getDivisionesPorNombre(), [ "class" => "form-control", "placeholder" => "Division", "required","disabled"])!!}
+    </div>
+    <div class="form-group col-md-4 col-sm-6">
+      {!!Form::label("facultad", "Facultad:")!!}
+      {!!Form::text("facultad", $user->getFacultad(), [ "class" => "form-control", "placeholder" => "Facultad", "required","disabled"])!!}
+    </div>
     @else
       {!!Form::text("unam_bool", "No", [ "class" => "form-control", "placeholder" => "No", "required","disabled"])!!}
-      </div>
-      <div class="form-group col-md-8 col-sm-6">
-        {!!Form::label("procedencia", "Procedencia:")!!}
-        {!!Form::text("procedencia", $user->procedencia, [ "class" => "form-control", "placeholder" => "Procedencia", "required","disabled"])!!}
-      </div>
+    </div>
+    <div class="form-group col-md-8 col-sm-6">
+      {!!Form::label("procedencia", "Procedencia:")!!}
+      {!!Form::text("procedencia", $user->procedencia, [ "class" => "form-control", "placeholder" => "Procedencia", "required","disabled"])!!}
+    </div>
     @endif
    <div class="form-group col-md-4 col-sm-6">
     {!!Form::label("comentarios", "Comentarios:")!!}
@@ -129,7 +133,4 @@
 </div>
 </div>
 </div>
-     </section>
-     
 @endsection
-  

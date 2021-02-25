@@ -37,7 +37,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <select class="form-control" onchange="fun();" id="catalogoCursos" name="catalogoCursos">
-                                            <option disabled selected>Seleccione un catalogo</option>
+                                            <option disabled selected>Seleccione un catálogo</option>
                                             @foreach($catCursos as $catcurso)
                                             <option value="{{$catcurso->id}}">{{$catcurso->nombre_curso}}</option>
                                             @endforeach

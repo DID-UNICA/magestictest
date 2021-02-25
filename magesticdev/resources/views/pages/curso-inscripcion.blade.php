@@ -20,8 +20,8 @@
             <div class="panel-heading">
                 <h2>{{ $curso->getNombreCurso()}}</h2>
                 <h3>Lista de profesores</h3>
-                <h3>Cupo maximo: {{$count}}/{{$cupo}}</h3><h3>Lista de espera: {{$lista}}</h3>
-                @if($count >= $cupo)<div class="alert alert-danger" role='alert'>El curso ya está lleno.</div>@endif
+                <h3>Cupo máximo: {{$count}}/{{$cupo}}</h3><h3>Lista de espera: {{$lista}}</h3>
+                @if($count >= $cupo)<div class="alert alert-danger" role='alert'>El curso ya está lleno, las siguientes inscripciones entrarán a lista de espera.</div>@endif
                 {!! Form::open(["route" => ["profesor.consulta1", $curso_id], "method" => "POST"]) !!}
                 <div class="input-group">
                     {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Profesor"])!!}
@@ -55,7 +55,7 @@
                     @foreach($users as $user)
                     {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.registrar', $user->id,$curso_id] ,'files' => true, 'method' => 'POST' )) !!}
                         <tr>
-                            <td>{{ $user->nombres }} {{ $user->apellido_paterno }} {{ $user->apellido_materno }}</td>
+                            <td>{{ $user->apellido_paterno }} {{ $user->apellido_materno }} {{ $user->nombres }}</td>
                             <td>{{ $user->email}}</td>
                             <td>{{ $user->rfc}}</td>
                             <td align="center">{{ $user->numero_trabajador}}</td>

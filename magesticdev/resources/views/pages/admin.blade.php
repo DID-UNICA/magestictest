@@ -24,7 +24,7 @@
 
                 <div class="logos col-md-12 col-center">
                     <img class="img-escudo" src="{{ asset('img/cdd.png') }}">
-                    Manejo y Gestión de información del centro de docencia.</h3>
+                    Manejo y Gestión de información del Centro de Docencia.</h3>
                 
                 </div>
 

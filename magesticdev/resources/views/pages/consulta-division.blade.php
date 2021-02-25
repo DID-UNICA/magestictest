@@ -47,10 +47,10 @@
                         <div class="modal-content">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Eliminar Division</h4>
+                            <h4 class="modal-title">Eliminar División</h4>
                           </div>
                           <div class="modal-body">
-                            <p>¿Está seguro de eliminar la division {{$user->nombre}}?</p>
+                            <p>¿Está seguro de eliminar la división {{$user->nombre}}?</p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-normal" data-dismiss="modal" aria-label="Close">Cancelar</button>

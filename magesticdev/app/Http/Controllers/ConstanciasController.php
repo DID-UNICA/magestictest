@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use PDF;
 use App\Curso;
@@ -18,7 +19,9 @@ use Zipper;
 use Laracasts\Flash\Flash;
 use iio\libmergepdf\Merger;
 use iio\libmergepdf\Pages;
-use App\Http\Controllers\PDFManage;
+use File;
+use PdfMerger;
+use PdfManage;
 
 class ConstanciasController extends Controller{
     public function selectType($id)
@@ -52,38 +55,54 @@ class ConstanciasController extends Controller{
         }
     }
 
-    public function generar($id, Request $request)
-    {
+    public function generar($id, Request $request){
+        $pdfMerger = new PdfManage;
         $generacion = $request->generacion;
-        $folio_der = intval($request->numero);
+        $folio_der = (strlen($request->numero) != 0 and is_numeric($request->numero)) ?  intval($request->numero) : -1;
         $zip = new Zipper();
         $zip::make(public_path('constancias.zip'));
         $count = ProfesoresCurso::select('id')
         ->where('curso_id',$id)
         ->count();
-    //Obtención de personal académico
+        try{
+            $hash_aux = substr(Hash::make(url()->full(), [
+                            'rounds' => 4,
+                        ]),-5);
+        }catch(\ErrorException  $e){
+            return redirect()->back()->with('msj', 'Problemas con la url');
+        }
+         //Obtención de personal académico
         try{
             $coordinadorGeneral = CoordinadorGeneral::all();
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Coordinador General');
+            return redirect()->back()->with(
+                'msj',
+                'Primero hay que dar de alta al Coordinador General'
+            );
         }
         try{
             $secretarioApoyo = SecretarioApoyo::all();
             $secretarioApoyo = $secretarioApoyo[0];
         }catch(\ErrorException  $e){
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');
+            return redirect()->back()->with(
+                'msj', 
+                'Primero hay que dar de alta al Secretario de Apoyo a la Docencia'
+            );
         }
         try{
             $director = Director::all();
             $director = $director[0];
         }catch(\ErrorException  $e){
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Director');
+            return redirect()->back()->with(
+                'msj',
+                'Primero hay que dar de alta al Director'
+            );
         }
-//Obtención de datos del curso
+        //Obtención de datos del curso
         $tipoDeConstancia = $request->type;
         $curso = Curso::findOrFail($id);
-        $idTipo = $curso->getTypeId();
+        $idTipo = (strlen($request->typeid) != 0 and is_numeric($request->typeid)) ? intval($request->typeid) : $curso->getTypeId();
         if($idTipo>99){
             $idTipo = (string)$idTipo;
         }elseif($idTipo>9){
@@ -96,44 +115,55 @@ class ConstanciasController extends Controller{
         $tipo = $cursoCatalogo->tipo;
         if($tipo == 'CT'){$tipo = 'T';}
         $institucion = $cursoCatalogo->institucion;
-//Obtención de Profesores
+        //Obtención de Profesores
         $profesoresCurso = ProfesoresCurso::where('curso_id',$id)->get();
         $profesores = array();
         foreach($profesoresCurso as $profesorCurso){
             $tmp = Profesor::find($profesorCurso->profesor_id);
             array_push($profesores,$tmp);
         }
-//Obtención de participantes ordenados y acreditados
+        //Obtención de participantes ordenados y acreditados
         if($institucion == 'DGAPA'){
             $acreditacion = '6';
         }
         else if($institucion == 'CD'){
             $acreditacion = '8';
         }
-        $participantes = Profesor::leftJoin('participante_curso','profesors.id','=','participante_curso.profesor_id')
-            ->where('participante_curso.curso_id',$id)
-            ->where('participante_curso.calificacion','>=',$acreditacion)
-            ->where('participante_curso.asistencia', TRUE)
-            ->where('participante_curso.acreditacion', TRUE)
-            ->select('profesors.*')->get();
+        $participantes = Profesor::leftJoin(
+            'participante_curso',
+            'profesors.id','=','participante_curso.profesor_id'
+        )
+        ->where('participante_curso.curso_id',$id)
+        ->where('participante_curso.calificacion','>=',$acreditacion)
+        ->where('participante_curso.asistencia', TRUE)
+        ->where('participante_curso.acreditacion', TRUE)
+        ->select('profesors.*')->get();
         if(count($participantes) <= 0){
-                return redirect()->back()->with('msj', 'No hay alumnos que ameriten constancia');
-            }
+            return redirect()->back()->with(
+                'msj',
+                'No hay alumnos que ameriten constancia'
+            );
+        }
         if($count == null){
             $zip::close();
-            return redirect()->back()->with('msj', 'No hay profesores asignados para dicho curso');
+            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            return redirect()->back()->with(
+                'msj', 'No hay profesores asignados para dicho curso'
+            );
         }
         $participantes = $participantes->sortBy(function($user){
                 return $user->apellido_paterno;
-            });
+        });
         $tmp = array();
         foreach($participantes as $participante){
-            $tmp2 = ParticipantesCurso::where('participante_curso.profesor_id',$participante->id)
+            $tmp2 = ParticipantesCurso::where(
+                'participante_curso.profesor_id',$participante->id
+            )
             ->where('participante_curso.curso_id',$id)->get();
             array_push($tmp,$tmp2[0]);
-
         }
         $participantes = $tmp;
+        //Obtención de fechas
         $fechaimp = $curso->getFecha();
         $fecha = Carbon::parse($curso->getFechaFin());
         $fecha = $fecha->format('d/m/Y');
@@ -143,70 +173,92 @@ class ConstanciasController extends Controller{
         $mes_a = $fecha[1];
         if ($mes_a == '01'){
             $mes_a = 'enero';
-          }
-          elseif ($mes_a == '02') {
+        } elseif ($mes_a == '02') {
             $mes_a = 'febrero';
-          }
-          elseif ($mes_a == '03') {
+        } elseif ($mes_a == '03') {
             $mes_a = 'marzo';
-          }
-          elseif ($mes_a == '04') {
+        } elseif ($mes_a == '04') {
             $mes_a = 'abril';
-          }
-          elseif ($mes_a == '05') {
+        } elseif ($mes_a == '05') {
             $mes_a = 'mayo';
-          }
-          elseif ($mes_a == '06') {
+        } elseif ($mes_a == '06') {
             $mes_a = 'junio';
-          }
-          elseif ($mes_a == '07') {
+        } elseif ($mes_a == '07') {
             $mes_a = 'julio';
-          }
-          elseif ($mes_a == '08') {
+        } elseif ($mes_a == '08') {
             $mes_a = 'agosto';
-          }
-          elseif ($mes_a == '09') {
+        } elseif ($mes_a == '09') {
             $mes_a = 'septiembre';
-          }
-          elseif ($mes_a == '10') {
+        } elseif ($mes_a == '10') {
             $mes_a = 'octubre';
-          }
-          elseif ($mes_a == '11') {
+        } elseif ($mes_a == '11') {
             $mes_a = 'noviembre';
-          }
-          elseif ($mes_a == '12') {
+        } elseif ($mes_a == '12') {
             $mes_a = 'diciembre';
-          }
+        }
         $fecha = $dia_a . " de " .$mes_a . " de " . $anio;
         $folio = "F04".$anio.$tipo;
         try{
-
-        if ($tipoDeConstancia == "A"){
-        // El tipo de constancia es Instructores y Coordinador
-
-            if($count == 1){
-            //La constancia es para cuando sólo hay un instructor
-              $iter = 1;
-              foreach($participantes as $participante){
+            try{
+                File::makeDirectory(resource_path('views/pages/tmp'.$hash_aux),0777,true);
+            }catch(\ErrorException  $e){
+                return redirect()->back()->with(
+                    'msj', 'Problemas con el directorio "tmp"'
+                );    
+            }
+            if ($tipoDeConstancia == "A"){
+            // El tipo de constancia es Instructores y Coordinador
+                if($count == 1){
+                //La constancia es para cuando sólo hay un instructor
+                    $iter = 1;
+                foreach($participantes as $participante){
                     $folio = "F04".$anio.$tipo;
-                    $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
-                    $profesor = Profesor::findOrFail($participante->profesor_id);
-                    $pdf = PDF::loadView('pages.pdf.constanciaUnInstructor', 
-                    array('curso' => $curso,
-                          'profesor'=>$profesor,
-                          'cursoCatalogo' => $cursoCatalogo,
-                          'fechaimp'=>$fechaimp,'fecha'=>$fecha, 
-                          'coordinacion'=>$coordinacion,
-                          'instructor1'=>$profesores[0],
-                          'folio_der'=>strval($folio_der), 
-                          'folio'=>$folio.$idTipo."C".$numLista))->setPaper('letter', 'landscape');
+                    $numLista = app(
+                        'App\Http\Controllers\ConstanciasController'
+                    )->convertirACadena($iter);
+                    $profesor = Profesor::findOrFail(
+                        $participante->profesor_id
+                    );
+                    $pdf = PDF::loadView(
+                        'pages.pdf.constanciaUnInstructor', 
+                        array('curso' => $curso,
+                            'profesor'=>$profesor,
+                            'cursoCatalogo' => $cursoCatalogo,
+                            'fechaimp'=>$fechaimp,
+                            'fecha'=>$fecha,
+                            'coordinacion'=>$coordinacion,
+                            'instructor1'=>$profesores[0],
+                            'folio_der'=>strval($folio_der), 
+                            'folio'=>$folio.$idTipo."C".$numLista
+                        )
+                    )->setPaper('letter', 'landscape');
                     $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                    $pdf->save(
+                        resource_path(
+                            'views/pages/tmp'.$hash_aux.'/'.$nombreArchivo
+                        )
+                    );
+                    $pdfMerger->addPDF(
+                        resource_path(
+                            'views/pages/tmp'.$hash_aux.'/'.$nombreArchivo
+                        ), 
+                        'all','L'
+                    );
                     $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                     $iter++;
-                    $folio_der++;
-              }
-              $zip::close();
-              return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
+                    $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
+                }
+                $zip::addString(
+                    'Constancias_'.$curso->id.'.pdf',
+                    $pdfMerger->merge(
+                        'string',resource_path(
+                            'views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf'
+                        )
+                    )
+                );
+                $zip::close();
+                File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
             }elseif($count == 2){
                 $iter = 1;
                 foreach($participantes as $participante){
@@ -224,12 +276,16 @@ class ConstanciasController extends Controller{
                     'folio'=>$folio.$idTipo."C".$numLista, 
                     'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                         $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                        $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                        $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                         $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                         $iter++;
-                        $folio_der++;
+                        $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
                     
                 }
+                  $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
+                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
                 }elseif($count == 3){
@@ -253,13 +309,17 @@ class ConstanciasController extends Controller{
                     'folio'=>$folio.$idTipo."C".$numLista,
                     'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                     $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                    $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                    $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                     $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                     $iter++;
-                    $folio_der++;
+                    $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
                   
-                  $zip::close();
-                  return response()->download(public_path('constancias.zip'));//->deleteFileAfterSend(public_path('constancias.zip'));
               }
+                  $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
+                  $zip::close();
+                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                  return response()->download(public_path('constancias.zip'));//->deleteFileAfterSend(public_path('constancias.zip'));
             }
         }elseif ($tipoDeConstancia == "B"){
             // El tipo de constancia es Instructores y Coordinación General
@@ -281,12 +341,16 @@ class ConstanciasController extends Controller{
                 'folio'=>$folio.$idTipo."C".$numLista,
                 'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
 
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
             }elseif($count == 2){
@@ -308,12 +372,16 @@ class ConstanciasController extends Controller{
                         'folio'=>$folio.$idTipo."C".$numLista,
                         'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                         $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                        $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                        $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                         $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                     $iter++;
-                    $folio_der++;
+                    $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
 
                 }
+                  $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
+                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
                 }elseif($count == 3){
@@ -336,13 +404,17 @@ class ConstanciasController extends Controller{
                     'folio'=>$folio.$idTipo."C".$numLista,
                     'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                     $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                    $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                    $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                     $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                     $iter++;
-                    $folio_der++;
-                  
-                  $zip::close();
-                  return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
+                    $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+                  
+                  $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
+                  $zip::close();
+                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                  return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
             }
         }elseif ($tipoDeConstancia == "AA"){
         // El tipo de constancia es Coordinador
@@ -363,11 +435,15 @@ class ConstanciasController extends Controller{
                 'folio'=>$folio.$idTipo."C".$numLista,
                 'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
 
@@ -392,11 +468,15 @@ class ConstanciasController extends Controller{
                 'folio'=>$folio.$idTipo."C".$numLista,
                 'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
             }elseif($count == 2){
@@ -417,11 +497,15 @@ class ConstanciasController extends Controller{
                         'folio'=>$folio.$idTipo."C".$numLista,
                         'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                         $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                        $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                        $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                         $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                     $iter++;
-                    $folio_der++;
+                    $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
                 }
+                  $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
+                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
             }elseif($count == 3){
@@ -442,11 +526,15 @@ class ConstanciasController extends Controller{
                     'instructor3'=>$profesores[2],
                      'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                     $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                    $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                    $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                     $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                   $iter++;
-                  $folio_der++;
+                  $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
             return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
                 }
         }elseif ($tipoDeConstancia == "D"){
@@ -467,11 +555,15 @@ class ConstanciasController extends Controller{
                 'folio'=>$folio.$idTipo."C".$numLista,
                 'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "E"){
             //Director
@@ -490,11 +582,15 @@ class ConstanciasController extends Controller{
                 'folio'=>$folio.$idTipo."C".$numLista,
                 'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "F"){
             //Coord. Gral. y SAD
@@ -514,15 +610,19 @@ class ConstanciasController extends Controller{
                  'folio'=>$folio.$idTipo."C".$numLista,
                  'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }
 
-        elseif ($tipoDeConstancia == "G"){
+        elseif ($tipoDeConstancia == "G"){ ////////////////////////Usado como base para constanciaCDDYSAD
             //SAD y Director
             $iter = 1;
             foreach($participantes as $participante){
@@ -540,11 +640,15 @@ class ConstanciasController extends Controller{
                  'folio'=>$folio.$idTipo."C".$numLista,
                  'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
             }
+            $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
             $zip::close();
+            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
             return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "H"){
             //UNICA
@@ -567,11 +671,15 @@ class ConstanciasController extends Controller{
                 'folio'=>$folio.$idTipo."C".$numLista,
                 'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
             }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
             }elseif($count == 2){
@@ -592,11 +700,15 @@ class ConstanciasController extends Controller{
                     'folio'=>$folio.$idTipo."C".$numLista,
                     'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                     $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                    $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                    $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                     $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                     $iter++;
-                    $folio_der++;
+                    $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
                 }
+                  $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
+                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
                 }elseif($count == 3){
@@ -619,11 +731,15 @@ class ConstanciasController extends Controller{
                     'folio'=>$folio.$idTipo."C".$numLista,
                     'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                     $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                    $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                    $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                     $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                     $iter++;
-                    $folio_der++;
+                    $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
             }
         }elseif ($tipoDeConstancia == "I"){
@@ -644,11 +760,15 @@ class ConstanciasController extends Controller{
                     'folio'=>$folio.$idTipo."C".$numLista,
                     'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         } elseif ($tipoDeConstancia == "f1"){
             //Un Firmante
@@ -675,11 +795,15 @@ class ConstanciasController extends Controller{
                         'texto'=>$texto,'folio_der'=>strval($folio_der), ))
                         ->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "f2"){
             //Dos Firmantes
@@ -708,11 +832,15 @@ class ConstanciasController extends Controller{
                         'texto'=>$texto,'folio_der'=>strval($folio_der), ))
                         ->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "f3"){
             //Tres Firmantes
@@ -744,11 +872,15 @@ class ConstanciasController extends Controller{
                         'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
 
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
     }elseif ($tipoDeConstancia == "f4"){
             //Cuatro Firmantes
@@ -782,11 +914,15 @@ class ConstanciasController extends Controller{
                         'folio_der'=>strval($folio_der), ))
                         ->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
     } elseif ($tipoDeConstancia == "f5"){
             //Cinco Firmantes
@@ -816,21 +952,60 @@ class ConstanciasController extends Controller{
                         'cargo3'=>$request->posicion3E,
                         'nombre4'=>$request->name4E,
                         'cargo4'=>$request->posicion4E,
-                        'nombre5'=>$request->name4E,
-                        'cargo5'=>$request->posicion4E,
+                        'nombre5'=>$request->name5E,
+                        'cargo5'=>$request->posicion5E,
                         'texto'=>$texto,
                         'folio_der'=>strval($folio_der), ))
                         ->setPaper('letter', 'landscape');
                 $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
                 $iter++;
-                $folio_der++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
               }
+              $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
+              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }
+            elseif ($tipoDeConstancia == "J"){ ////////////////////////////////
+            //Constancia CDDYSAD
+            $iter = 1;
+            foreach($participantes as $participante){
+                $profesor = Profesor::findOrFail($participante->profesor_id);
+                $folio = "F04".$anio.$tipo;
+                $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                $pdf = PDF::loadView('pages.pdf.constanciaCDDYSAD', 
+                array('curso' => $curso,
+                'profesor'=>$profesor,
+                'cursoCatalogo' => $cursoCatalogo,
+                'fechaimp'=>$fechaimp,
+                'fecha'=>$fecha, 
+                 'folio'=>$folio.$idTipo."C".$numLista,
+                 'folio_der'=>strval($folio_der), ))->setPaper('letter', 'landscape');
+                $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+                $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
+                $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
+                $iter++;
+                $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
+            }
+            $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
+            $zip::close();
+            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
+        }
+
+
+
+
     }catch(\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException  $e){
-        return redirect()->back()->with('msj', 'El curso no tiene alumnos que ameriten constancia');    }
+        File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+        return redirect()->back()->with('msj', 'El curso no tiene alumnos que ameriten constancia');
+    }catch(Exception $e){
+        File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+    }
 
     }//End Funcion
 }//End Clase

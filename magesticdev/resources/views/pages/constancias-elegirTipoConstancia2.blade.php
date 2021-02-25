@@ -31,7 +31,7 @@
                 @include('flash::message')
                 <div class="logos col-md-12 col-center">
                 	<img class="img-escudo" src="{{ asset('img/cdd.png') }}">
-                	Manejo y Gestión de información del centro de docencia.</h3>
+                	Manejo y Gestión de información del Centro de Docencia.</h3>
                 </div>
 
                 <hr>
@@ -57,7 +57,7 @@
                                     <option value="D">Coordinación General</option>
                                     <option value="I">Coordinación y Coordinador general</option>
                                     <option value="E">Director</option>
-                                    <option value="F">Coordinación General  y Secretaría de Apoyo a la Docencia</option>
+                                    <option value="F">Coordinación General y Secretaría de Apoyo a la Docencia</option>
                                     <option value="G">Secretaría de Apoyo a la Docencia y Director</option>
                                     <option value="H">UNICA</option>
                                     <option value="f1">Un firmante</option>
@@ -222,8 +222,8 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Profesor</th>
-                    <th>Salon</th>
-                    <th>Semestre</th>
+                    <th>Salón</th>
+                    <th>Periodo</th>
                     <th></th>
                 </tr>
                 @foreach($cursos as $curso)

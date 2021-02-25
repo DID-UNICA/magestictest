@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use PDF;
 use App\Carrera;
+use App\Division;
 use App\ParticipantesCurso;
+use App\ProfesoresCarreras;
+use App\ProfesoresDivisiones;
 use App\CategoriaNivel;
 use App\Curso;
 use App\Facultad;
@@ -45,11 +48,13 @@ class ProfesorController extends Controller
 
         $facultades = Facultad::all();
         $carreras = Carrera::all();
+        $divisiones = Division::all();
         $categorias = CategoriaNivel::all();
         $id_fac = 0;
         return view("pages.alta-profesor")
             ->with("facultades",$facultades)
             ->with("carreras",$carreras)
+            ->with("divisiones",$divisiones)
             ->with("categorias",$categorias)
             ->with("id_fac",$id_fac);
 
@@ -79,11 +84,13 @@ class ProfesorController extends Controller
     {
         $user = Profesor::find($id);
         $carreras = Carrera::all();
+        $divisiones = Division::all();
         $facultades = Facultad::all();
         return view("pages.update-profesor")
             ->with("user",$user)
             ->with("facultades", $facultades)
-            ->with("carreras", $carreras);
+            ->with("carreras", $carreras)
+            ->with("divisiones", $divisiones);
     }
 
     /**
@@ -103,27 +110,73 @@ class ProfesorController extends Controller
         $user->rfc = $request->rfc;
         $user->numero_trabajador=$request->numero_trabajador;
         $user->telefono = $request->telefono;
-        $user->curp = $request->curp;
         $user->categoria_nivel_id = $request->categoria_nivel_id;
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->telefono = $request->telefono;
         $user->grado = $request->grado;
+        $user->grado = $request->grado;
+        if($request->grado == 'Otro')
+          $user->abreviatura_grado = $request->abr_grado;
+        else if ($request->grado == "Licenciatura")
+          $user->abreviatura_grado = "Lic.";
+        else if ($request->grado == "Ingeniería")
+          $user->abreviatura_grado= "Ing.";
+        else if ($request->grado == "Maestría" and $request->genero == "masculino")
+          $user->abreviatura_grado = "Mtro.";
+        else if($request->grado == "Maestría" and $request->genero == "femenino")
+          $user->abreviatura_grado="Mtra.";
+        else if ($request->grado == "Doctorado" and $request->genero == "masculino")
+          $user->abreviatura_grado="Dr.";
+        else if($request->grado == "Doctorado" and $request->genero == "femenino")
+          $user->abreviatura_grado="Dra.";
+        else
+          $user->abreviatura_grado="";
         $user->comentarios = $request->comentarios;
         $user->genero = $request->genero;
         $user->semblanza_corta = $request->semblanza_corta;
         $user->facebook = $request->facebook;
         $user->email = $request->email;
         $user->unam = $request->unam;
+        /*TODO: Insertar en profesorescarreras las carreras*/
         if($user->unam == 1){
             $user->procedencia = null;
             $user->facultad_id = $request->facultad_id;
-            $user->carrera_id = $request->carrera_id;
         }else if ($user->unam == 0){
             $user->procedencia = $request->procedencia;
             $user->facultad_id = null;
-            $user->carrera_id = null;
         }
         $user->save();
+        $fac_ing = Facultad::where('nombre', '=', 'Facultad de Ingeniería')->first();
+        if($user->facultad_id == $fac_ing->id){
+          $carreras_old = ProfesoresCarreras::where('id_profesor', $user->id)->get();
+          foreach($carreras_old as $old){
+            $old->delete();
+          }
+          $divisiones_old = ProfesoresDivisiones::where('id_profesor', $user->id)->get();
+          foreach($divisiones_old as $old){
+            $old->delete();
+          }
+          $num_carreras = Carrera::count();
+          $num_divisiones = Division::count();
+          for($i = 0; $i<$num_carreras; $i++){
+              $value = $request->{"carrera_option".$i};
+              if(!is_null($value)){
+                $profesor_carrera = new ProfesoresCarreras;
+                $profesor_carrera->id_profesor = $user->id;
+                $profesor_carrera->id_carrera = $value;
+                $profesor_carrera->save();
+              }
+            }
+            for($i = 0; $i<$num_divisiones; $i++){
+              $value = $request->{"division_option".$i};
+              if(!is_null($value)){
+                $profesor_division = new ProfesoresDivisiones;
+                $profesor_division->id_profesor = $user->id;
+                $profesor_division->id_division = $value;
+                $profesor_division->save();
+              }
+            }
+        }
         return view("pages.ver-profesor")
             ->with("user",$user);
     }
@@ -138,46 +191,59 @@ class ProfesorController extends Controller
      */
     public function search(Request $request)
     {
+        $arreglo_aux = array();
+        $users = collect();
         if($request->type == "nombre")
         {
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
+                array_push($arreglo_aux, Profesor::whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
                     ->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
                     ->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
-                    -> get();
+                    ->get()
+                    ->sortBy("apellido_paterno"));
             }
-            
+            foreach ($arreglo_aux as $usuarios) {
+                $users = $users->concat($usuarios);
+            }
 
         }elseif($request->type == "correo"){
 
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
-                    -> get();
+                array_push($arreglo_aux, Profesor::whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
+                    -> get());
+            }
+            foreach ($arreglo_aux as $usuarios) {
+                $users = $users->concat($usuarios);
             }
             
         }elseif($request->type == "rfc"){
 
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
-                    -> get();
+                array_push($arreglo_aux, Profesor::whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
+                    -> get());
+            }
+            foreach ($arreglo_aux as $usuarios) {
+                $users = $users->concat($usuarios);
             }
             
         }elseif($request->type == "num"){
 
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::whereRaw("lower(unaccent(numero_trabajador)) ILIKE lower(unaccent('%".$word."%'))")
-                    -> get();
+                array_push($arreglo_aux, Profesor::whereRaw("lower(unaccent(numero_trabajador)) ILIKE lower(unaccent('%".$word."%'))")-> get());
+            }
+            foreach ($arreglo_aux as $usuarios) {
+                $users = $users->concat($usuarios);
             }
             
         }else{
             $users = Profesor::all();
         }
         return view("pages.consulta-profesores")
-            ->with("users",$users);
+            ->with("users",$users->unique());
 
     }
     /* Consulta-Alta */
@@ -198,14 +264,20 @@ class ProfesorController extends Controller
 
         if($request->type == "nombre")
         {
+            $arreglo_aux = array();
+            $users = collect();
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('rfc',$inscritos)->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
+                array_push($arreglo_aux, Profesor::select('*')->whereNotIn('rfc',$inscritos)->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
                 ->whereNotIn('rfc',$inscritos)->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
                 ->whereNotIn('rfc',$inscritos)->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('rfc',$inscritos)->get();
+                ->whereNotIn('rfc',$inscritos)->get()->sortBy("apellido_paterno"));
 
             }
+            foreach ($arreglo_aux as $usuarios) {
+              $users = $users->concat($usuarios);
+          }
+          $users = $users->unique()->sortBy("apellido_paterno");
             return view("pages.curso-inscripcion")
                 ->with("users",$users->whereNotIn('id',$instructores))->with("count", $request->count)->with("cupo", $request->cupo)->with("curso_id", $request->curso_id)
                 ->with("nombre_curso", $request->nombre_curso)->with("curso",$curso)->with("lista",$enLista);
@@ -256,13 +328,20 @@ class ProfesorController extends Controller
 
     public function delete($id)
     {
-
-        try{$user = Profesor::findOrFail($id);
-                $user -> delete();
-                return redirect('/profesor');
-            }catch (\Illuminate\Database\QueryException $e){
-                return redirect()->back()->with('msj', 'El profesor no puede ser eliminado porque tiene cursos asignados.');
-            }
+        //TODO Borrar la presencia del profesor en sus tablas transitivas de carreras y divisiones
+        try{
+            $user = Profesor::findOrFail($id);
+            $divisions = ProfesoresDivisiones::where('id_profesor', $id)->get();
+            foreach($divisions as $division)
+              $division->delete();
+            $carreras = ProfesoresCarreras::where('id_profesor', $id)->get();
+            foreach($carreras as $carrera)
+              $carrera->delete();
+            $user -> delete();
+            return redirect('/profesor')->with('msj', 'El profesor fue dado de baja correctamente.');
+        }catch (\Illuminate\Database\QueryException $e){
+            return redirect('/profesor')->with('msj', 'El profesor no puede ser eliminado porque tiene cursos asignados.');
+        }
     }
 
     public function cursos($id){
@@ -296,20 +375,36 @@ class ProfesorController extends Controller
         $user->apellido_paterno = $request->apellido_paterno;
         $user->apellido_materno = $request->apellido_materno;
         if($request->grupoRFC == "a"){
-            $user->rfc = $request->rfc1;
+          $user->rfc = $request->rfc1;
         }
         else if($request->grupoRFC == "b"){
-            $user->rfc = $request->rfc2;
+          $user->rfc = $request->rfc2;
         }
-        else{
-            return $request->curp;
-        }
+/*        else{
+          return $request->curp;
+        } 
+*/
         $user->telefono = $request->telefono;
-        $user->curp = $request->curp;
         $user->categoria_nivel_id = $request->categoria_nivel_id;
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->telefono = $request->telefono;
         $user->grado = $request->grado;
+        if($request->grado == 'Otro')
+          $user->abreviatura_grado = $request->abr_grado;
+        else if ($request->grado == "Licenciatura")
+          $user->abreviatura_grado = "Lic.";
+        else if ($request->grado == "Ingeniería")
+          $user->abreviatura_grado= "Ing.";
+        else if ($request->grado == "Maestría" and $request->genero == "masculino")
+          $user->abreviatura_grado = "Mtro.";
+        else if($request->grado == "Maestría" and $request->genero == "femenino")
+          $user->abreviatura_grado="Mtra.";
+        else if ($request->grado == "Doctorado" and $request->genero == "masculino")
+          $user->abreviatura_grado="Dr.";
+        else if($request->grado == "Doctorado" and $request->genero == "femenino")
+          $user->abreviatura_grado="Dra.";
+        else
+          $user->abreviatura_grado="";
         $user->email = $request->email;
         $user->comentarios = $request->comentarios;
         $user->genero = $request->genero;
@@ -320,24 +415,40 @@ class ProfesorController extends Controller
         if($user->unam == 1){
             $user->procedencia = null;
             $user->facultad_id = $request->facultad_id;
-            $user->carrera_id = $request->carrera_id;
         }else if ($user->unam == 0){
             $user->procedencia = $request->procedencia;
             $user->facultad_id = null;
-            $user->carrera_id = null;
         }
-        
-
-
-        $bandera = Profesor::where('rfc', $user->rfc1)->exists();
-        $bandera = $bandera or Profesor::where('rfc', $user->rfc2)->exists();
-        $bandera = $bandera or Profesor::where('curp', $user->curp)->exists();
+        $bandera = Profesor::where('rfc', $user->rfc)->exists();
         $bandera = $bandera or Profesor::where('email', $user->email)->exists();
         $bandera = $bandera or Profesor::where('numero_trabajador', $user->numero_trabajador)->exists();
          if ($bandera) {
             return redirect()->back()->with('msj', 'Datos incorrectos. Alguno de los datos ingresados ya esta registrado en el sistema')->with('D','danger');
          }else{
             $user->save();
+            $fac_ing = Facultad::where('nombre', '=', 'Facultad de Ingeniería')->first();
+            if($user->facultad_id == $fac_ing->id){
+              $num_carreras = Carrera::count();
+              $num_divisiones = Division::count();
+              for($i = 0; $i<$num_carreras; $i++){
+                  $value = $request->{"carrera_option".$i};
+                  if(!is_null($value)){
+                    $profesor_carrera = new ProfesoresCarreras;
+                    $profesor_carrera->id_profesor = $user->id;
+                    $profesor_carrera->id_carrera = $value;
+                    $profesor_carrera->save();
+                  }
+                }
+                for($i = 0; $i<$num_divisiones; $i++){
+                  $value = $request->{"division_option".$i};
+                  if(!is_null($value)){
+                    $profesor_division = new ProfesoresDivisiones;
+                    $profesor_division->id_profesor = $user->id;
+                    $profesor_division->id_division = $value;
+                    $profesor_division->save();
+                  }
+                }
+            }
             return redirect()->back()->with('msj', 'Se ha dado de alta al profesor');
         }
     }

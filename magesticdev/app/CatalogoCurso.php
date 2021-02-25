@@ -13,11 +13,16 @@ protected $table = 'catalogo_cursos';
 * @var array
 */
 protected $fillable = [
-'nombre_curso','duracion_curso','coordinacion_id','tipo','presentacion','dirigido','objetivo','contenido','sintesis','metodologia','acreditacion','evaluacion','bibliografia','consecuentes', 'previo','fecha_disenio','clave_curso'
+  'nombre_curso','duracion_curso','coordinacion_id','tipo','presentacion',
+  'dirigido','objetivo','contenido','sintesis','metodologia','acreditacion',
+  'evaluacion','bibliografia','consecuentes', 'previo','fecha_disenio',
+  'clave_curso'
 ];
 
     public function getCoordinacion(){
-        $coordinacion = Coordinacion::findOrFail($this->coordinacion_id)->nombre_coordinacion;
+        $coordinacion = Coordinacion::findOrFail(
+          $this->coordinacion_id
+        )->nombre_coordinacion;
         return $coordinacion;
     }
     

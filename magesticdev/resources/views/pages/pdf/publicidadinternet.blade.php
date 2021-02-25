@@ -10,9 +10,9 @@ html{
 	width:100%;
 }
 body {
-  font-family: Arial, Helvetica, Sans-serif;
+  font-family: Calibri, Helvetica, Arial, serif;
   align-items: center;
-  font-size: 18px;
+  font-size: 18pt;
 }
 table{
 	table-layout: auto;
@@ -21,6 +21,13 @@ table{
 hr{
   border: 1px solid #000;
   border-spacing: 0;
+}
+#fondo{
+  background-image: url("../public/img/Logo_CDD.jpeg");
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: 50% 80%;
+
 }
 #mayusculas{
 	text-transform: uppercase;
@@ -34,56 +41,63 @@ hr{
 .encabezado{
   line-height:160%;
   text-align: center;
+  font-family: Calibri, Helvetica, Arial, serif;
+
 }
 #encabezado_1{
-  font-size: 25px;
+  font-size: 16pt;
   font-weight: bold;
+  font-family: Calibri, Helvetica, Arial, serif;
 }
 #encabezado_2{
-  font-size: 22px;
+  font-size: 16pt;
   font-weight: bold;
+  font-family: Calibri, Helvetica, Arial, serif;
 }
 #encabezado_3{
-  font-size: 20px;
+  font-size: 16pt;
   font-weight: bold;
   text-align: center;
+  font-family: Calibri, Helvetica, Arial, serif;
 }
 #encabezado_4{
-  font-size: 20px;
+  font-size: 14pt;
   font-weight: bold;
   text-align: center;
+  font-family: Calibri, Helvetica, Arial, serif;
 }
 #encabezado_5{
-  font-size: 18px;
+  font-size: 14pt;
   font-style: italic;
-  font-family:'Tangerine', serif;
+  font-family:Tangerine;
   text-align: center;
-	line-height: 230%;
+	line-height: 220%;
   font-weight: bold;
 }
 #encabezado_6{
-  font-size: 20px;
+  font-size: 14pt;
   font-weight: bold;
+  font-family:Calibri, Helvetica, Arial, serif;
 }
 
 .rubros{
 	vertical-align: top;
 	padding-bottom: 8px;
-  font-size: 17px;
+  font-size: 11pt;
   font-weight: bold;
 	font-style: italic;
   text-align: left;
 }
 #rubro-temario{
 	vertical-align: top;
-  font-size: 17px;
+  font-size: 11pt;
   font-weight: bold;
 	font-style: italic;
   text-align: left;
 }
 #rubro-Ant{
 	vertical-align: top;
-  font-size: 17px;
+  font-size: 11pt;
   font-weight: bold;
 	font-style: italic;
   text-align: left;
@@ -93,42 +107,48 @@ hr{
 .contenidos{
 	vertical-align: top;
 	padding-bottom: 8px;
-  font-size: 17px;
+  font-size: 11pt;
+  font-family: Calibri, Helvetica, Arial, serif;
+  text-align: left;
   font-style: italic;
-	text-align: left;
 }
 #contenidos-Ant{
 	vertical-align: top;
 	padding-bottom: 8px;
 	padding-top: 8px;
-  font-size: 17px;
+  font-size: 11pt;
   font-style: italic;
 	text-align: left;
 }
 .temario{
 	vertical-align: top;
-  font-size: 17px;
+  font-size: 11pt;
   font-style: italic;
 	text-align: left;
 }
 .profesores{
-  font-family:'Tangerine', serif;
-	font-size: 17px;
+  font-family: Calibri, Helvetica, Arial, serif;
+	font-size: 11pt;
   font-weight: bold;
 	font-style: italic;
   text-align: left;
 	
 }
 .comentarios{
-	font-family:'Tangerine', serif;
-  font-size: 20px;
+  font-family: Calibri, Helvetica, Arial, serif;
+  font-size: 12pt;
   font-style: italic;
-  text-align: center;
+  text-align: justify;
 }
+
+#tipolower{
+	text-transform: lowercase;
+}
+
 </style>
 
 <body>
-<div style="height: 90%">
+<div id= fondo style="height: 90%">
 	<div height="10%">
 	<hr>
 		<div class=encabezado id=encabezado_1>UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
@@ -138,14 +158,20 @@ hr{
 		<div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>
 		<div id=encabezado_4>CENTRO DE DOCENCIA</div>
 		<div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
-		<div class=encabezado id=encabezado_6>{{$curso->getTipoCadenaUpper()}}: {{$cursoCatalogo->nombre_curso}}</div>
+		<div class=encabezado id=encabezado_6>{{$tipo}}: {{$cursoCatalogo->nombre_curso}}</div>
 		<hr>
 	</div>
+
+	<!--Ffont family mayoría como"Calibri"-->
+	<!--Añadido "font-family: Calibri, Helvetica, Arial, serif;" A todos los encabezados a excepción del 5" -->
+	<!-- Clase contenidos originalmente tenía font-style: Italic;-->
+	<!--Clase comentarios modificado el font-size de 20px a 16px-->
+	<!--Clase contenidos modificado el font-size de 27px a 16px-->
 	<div id="cuerpo">
 		<table>
 			<tr>
 				<td class=rubros>Modalidad:</td>
-				<td class=contenidos>{{ $curso->getTipoCadena() }}</td>
+				<td class=contenidos>{{$tipo}}</td> <!--Originalmente con "id=tipolower"-->
 			</tr>
 			<tr>
 				<td class=rubros>Dirigido a:</td>
@@ -158,7 +184,7 @@ hr{
 		</table>
 		
 		@foreach ($curso->getInstanciaProfesores() as $profesor)
-    	<p class=profesores>{{ $profesor->nombres }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}</p>
+    	<p class=profesores> {{ $profesor->abreviatura_grado }} {{ $profesor->nombres }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}</p>
 		<p class=comentarios>{{ $profesor->semblanza_corta }}</p>
 		@endforeach
 		
@@ -199,3 +225,5 @@ hr{
 	</div>
 </body>
 </html>
+
+<!--Sustituidos todos los px por pt en textos-->

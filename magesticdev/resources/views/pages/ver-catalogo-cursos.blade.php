@@ -43,14 +43,14 @@
                             </div>
 
                             <div class="form-group col-md-4">
-                                {!!Form::label("coordinacion_id", "Coordinacion:")!!}
+                                {!!Form::label("coordinacion_id", "Coordinación:")!!}
                                 {!!Form::text("coordinacion_id", $user->getCoordinacion(), [ "class" => "form-control", "required","disabled"])!!}
                             </div>
                         </div>
 
                         <div class="form-group col-md-6">
                             {!!Form::label("tipo", "Tipo:")!!}
-                            {!!Form::select('tipo', array('S' => 'Seminario','CT' => 'Curso-Taller',  'T' => 'Taller','C' => 'Curso','E' => 'Evento', 'D' => 'Módulo de diplomado'),$user->tipo, ["disabled", 'class'=>'form-control']) !!}
+                            {!!Form::select('tipo', array('S' => 'Seminario','CT' => 'Curso-Taller',  'T' => 'Taller','F' => 'Foro', 'C' => 'Curso','E' => 'Evento', 'D' => 'Módulo de diplomado'),$user->tipo, ["disabled", 'class'=>'form-control']) !!}
                         </div>
 
                         <div class="form-group col-md-6">
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            {!!Form::label("presentacion", "Presentacion:")!!}
+                            {!!Form::label("presentacion", "Presentación:")!!}
                             {!!Form::text("presentacion", $user->presentacion, [ "class" => "form-control", "required","disabled"])!!}
                         </div>
 
@@ -80,11 +80,11 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            {!!Form::label("acreditacion", "Acreditacion:")!!}
+                            {!!Form::label("acreditacion", "Acreditación:")!!}
                             {!!Form::textarea("acreditacion", $user->acreditacion, [ "class" => "form-control", "required","disabled"])!!}
                         </div>
                         <div class="form-group col-md-6">
-                            {!!Form::label("evaluacion", "Evaluacion:")!!}
+                            {!!Form::label("evaluacion", "Evaluación:")!!}
                             {!!Form::textarea("evaluacion", $user->evaluacion, [ "class" => "form-control", "required","disabled"])!!}
                         </div>
 
@@ -98,13 +98,10 @@
                             {!!Form::date("fecha_disenio",$user->fecha_disenio , [ "class" => "form-control", "required","disabled"])!!}
                         </div>
 
-
-
-
                         <td>
                             <a href="{{ URL::to('catalogo-cursos') }}" class="btn btn-info">Regresar</a>
-                            <a href="{{ URL::to('catalogo-cursos/ver-antescedentes',$user->id) }}" class="btn btn-primary">Ver Antescedentes</a>
-                            <a href="{{ URL::to('catalogo-cursos/actualizar', $user->id) }}" class="btn btn-primary">Actualiza información</a>
+                            <a href="{{ URL::to('catalogo-cursos/ver-antescedentes',$user->id) }}" class="btn btn-primary">Ver Antecedentes</a>
+                            <a href="{{ URL::to('catalogo-cursos/actualizar', $user->id) }}" class="btn btn-primary">Actualizar información</a>
                             <a href="{{ URL::to('catalogo-cursos/baja', $user->id) }}" class="btn btn-danger">Dar de baja</a></td>
 
                     </div>

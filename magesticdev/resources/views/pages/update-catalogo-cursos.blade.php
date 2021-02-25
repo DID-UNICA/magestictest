@@ -38,18 +38,18 @@
           {!!Form::text("nombre_curso", $user->nombre_curso, [ "class" => "form-control", "placeholder" => "Nombre del curso", "required"])!!}
       </div>
       <div class="form-group col-md-4">
-          {!!Form::label("duracion_curso", "Duracion del curso:")!!}
+          {!!Form::label("duracion_curso", "Duración del curso:")!!}
           {!!Form::text("duracion_curso", $user->duracion_curso, [ "class" => "form-control", "placeholder" => "Duracion_curso", "required"])!!}
       </div>
 
       <div class="form-group col-md-4">
-          {!!Form::label("coordinacion_id", "Coordinacion:")!!}
+          {!!Form::label("coordinacion_id", "Coordinación:")!!}
           {!!Form::select("coordinacion_id", $user->allCoordinacion()->pluck('nombre_coordinacion','id'),$user->getIdCoordinacion(),['class'=>'form-control'])!!}
       </div>
 
     <div class="form-group col-md-4">
         {!!Form::label("tipo", "Tipo:")!!}
-        {!!Form::select('tipo', array('S' => 'Seminario','CT' => 'Curso-Taller',  'T' => 'Taller','C' => 'Curso','E' => 'Evento', 'D' => 'Módulo de diplomado'),$user->tipo,['id' =>'tipoT', 'class'=>'form-control', 'onchange'=>'cantidadtemas()']) !!}
+        {!!Form::select('tipo', array('S' => 'Seminario','CT' => 'Curso-Taller',  'T' => 'Taller','F' => 'Foro', 'C' => 'Curso','E' => 'Evento', 'D' => 'Módulo de diplomado'),$user->tipo,['id' =>'tipoT', 'class'=>'form-control', 'onchange'=>'cantidadtemas()']) !!}
     </div>
 
     <div id="NumTemas" style="display:none;"class="form-group col-md-4">
@@ -63,7 +63,7 @@
   </div>
 
     <div class="form-group col-md-6">
-        {!!Form::label("presentacion", "Presentacion:")!!}
+        {!!Form::label("presentacion", "Presentación:")!!}
         {!!Form::textarea("presentacion", $user->presentacion, [ "class" => "form-control"])!!}
     </div>
 
@@ -84,11 +84,11 @@
     </div>
 
     <div class="form-group col-md-6">
-        {!!Form::label("acreditacion", "Acreditacion:")!!}
+        {!!Form::label("acreditacion", "Acreditación:")!!}
         {!!Form::textarea("acreditacion", $user->acreditacion, [ "class" => "form-control"])!!}
     </div>
     <div class="form-group col-md-6">
-        {!!Form::label("evaluacion", "Evaluacion:")!!}
+        {!!Form::label("evaluacion", "Evaluación:")!!}
         {!!Form::textarea("evaluacion", $user->evaluacion, [ "class" => "form-control"])!!}
     </div>
     <div class="form-group col-md-6">
@@ -99,9 +99,6 @@
         {!!Form::label("fecha_disenio", "Fecha de diseño:")!!}
         {!!Form::date("fecha_disenio",$user->fecha_disenio , [ "class" => "form-control", "required"])!!}
     </div>
-
-
-
 
     <div>
     <a href="{{ URL::to('catalogo-cursos', $user->id) }}" class="btn btn-info">Regresar</a>

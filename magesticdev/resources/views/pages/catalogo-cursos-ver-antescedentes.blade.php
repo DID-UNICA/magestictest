@@ -24,7 +24,7 @@
         <br>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>Antescedentes de {{$catalogoCurso->nombre_curso}}---</h3>
+                <h3>Antecedentes de {{$catalogoCurso->nombre_curso}}---</h3>
 
             </div>
             <div class="panel-body">
@@ -43,7 +43,7 @@
                             <td>{{$antescedente->nombre_curso}}</td>
                             <td>{{$antescedente->getCoordinacion()}}</td>
                             <td>
-                                <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$antescedente->clave_curso}}">Descartar de Antescedentes</a>
+                                <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$antescedente->clave_curso}}">Descartar de Antecedentes</a>
                             </td>
                         </tr>
                     <!-- Modal -->
@@ -53,14 +53,14 @@
                         <div class="modal-content">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Descartar Antescedentes</h4>
+                            <h4 class="modal-title">Descartar Antecedentes</h4>
                           </div>
                           <div class="modal-body">
-                            <p>¿Está seguro de descartar el antescedente {{ $antescedente->nombre_curso }}?</p>
+                            <p>¿Está seguro de descartar el antecedente {{ $antescedente->nombre_curso }}?</p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-normal" data-dismiss="modal" aria-label="Close">Cancelar</button>
-                            <a href="{{ URL::to('catalogo-cursos/descartarAntescedente', [$catalogoCurso->id,$antescedente->id]) }}" class="btn btn-danger">Descartar de Antescedentes</a>
+                            <a href="{{ URL::to('catalogo-cursos/descartarAntescedente', [$catalogoCurso->id,$antescedente->id]) }}" class="btn btn-danger">Descartar de Antecedentes</a>
                           </div>
                         </div>
                       </div>

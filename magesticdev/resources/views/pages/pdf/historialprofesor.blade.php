@@ -66,6 +66,7 @@ hr{
 #encabezado_6{
   font-size: 17px;
   font-weight: bold;
+  padding-bottom: 2%;
 }
 .img{
   padding-top: 3%;
@@ -78,6 +79,7 @@ hr{
     text-align:left;
     vertical-align:top;
     font-size: 15px;
+    padding-bottom: 2%;
 }
 .table-cursos .col-th{
     font-weight: normal;
@@ -99,15 +101,18 @@ th{
 .renglon-curso-nombre{
     padding-left: 2%;
     font-size:13px;
+    padding-bottom: 2%;
 }
 .renglon-curso-duracion{
     padding-left: 2%;
     font-size:13px;
     text-align: center;
+    padding-bottom: 2%;
 }
 .renglon-curso-periodo{
     font-size:13px;
     text-align: center;
+    padding-bottom: 2%;
 }
 </style>
 
@@ -137,7 +142,7 @@ th{
     <tr>
         <th width="80%" class="col-th-cursos">Cursos Acreditados</th>
         <th width="14%" class="col-th">Periodo</th>
-        <th width="6%" class="col-th">Duración</th>
+        <th width="6%" class="col-th">Duración(hrs)</th>
     </tr>
     </thead>
     <tbody>
@@ -161,7 +166,7 @@ th{
     <table class="table-resultados">
         <tr>
             <td class="col-resultados">Cursos Acreditados:    <b>{{count($cursos)}}</b></td>
-            <td class="col-resultados">Total de horas:    <b>{{$totalhoras}}</b></td>
+            <td class="col-resultados">Total de horas:    <b>{{$totalhoras}}h</b></td>
         </tr>    
     </table>
     </div>

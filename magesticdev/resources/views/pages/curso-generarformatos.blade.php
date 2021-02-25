@@ -1,4 +1,4 @@
-
+ 
 @extends('layouts.principal')
 
 @section('contenido')
@@ -31,7 +31,7 @@
                     <tr>
                         <td class=boton><a href="{{ route('formatos.generar',[$curso->id,'B1']) }}" class="btn btn-success">Verificación Datos con Lista Espera</a></td>
                         <td class=boton><a href="{{ route('formatos.generar',[$curso->id,'B']) }}" class="btn btn-success">Verificación Datos</a></td>
-                        <td class=boton><a href="{{ route('formatos.generar',[$curso->id,'B2']) }}" class="btn btn-success">Correos personalizados</a></td>
+                        <td class=boton><a href="{{ route('curso.Wsearch',[$curso->id]) }}" class="btn btn-success">Correos personalizados</a></td>
                     </tr>    
                     <tr>
                         <td class=boton><a href="{{ route('formatos.generar',[$curso->id,'C']) }}" class="btn btn-success">Identificadores: Grandes</a></td>

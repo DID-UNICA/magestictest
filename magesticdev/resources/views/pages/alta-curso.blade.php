@@ -28,7 +28,7 @@
 
 
                          <div class="form-group{{ $errors->has('semestre_imparticion') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Semestre:</label>
+                            <label for="name" class="col-md-4 control-label">Periodo:</label>
 
                             <div class="col-md-3">
                                 <input id="semestreAnio" type="text" class="form-control" name="semestreAnio" value="{{ old('semestreAnio') }}" minlength="4" maxlength= "4" required>
@@ -68,7 +68,7 @@
                             <label for="name" class="col-md-4 control-label">Fecha de inicio:</label>
 
                             <div class="col-md-6">
-                                <input id="fecha_inicio" type="date" class="form-control" name="fecha_inicio" value="{{ old('fecha_inicio') }}" required>
+                                <input id="fecha_inicio" placeholder="MM/DD/AA" type="date" class="form-control" name="fecha_inicio" value="{{ old('fecha_inicio') }}" required>
 
                                 @if ($errors->has('fecha_inicio'))
                                     <span class="help-block">
@@ -83,7 +83,7 @@
                             <label for="name" class="col-md-4 control-label">Fecha de fin: </label>
 
                             <div class="col-md-6">
-                                <input id="fecha_fin" type="date" class="form-control" name="fecha_fin" value="{{ old('fecha_fin') }}" required>
+                                <input placeholder="MM/DD/AA" id="fecha_fin" type="date" class="form-control" name="fecha_fin" value="{{ old('fecha_fin') }}" required>
 
                                 @if ($errors->has('fecha_fin'))
                                     <span class="help-block">
@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('dias_semana') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Dias a la semana:</label>
+                            <label for="name" class="col-md-4 control-label">Días a la semana:</label>
 
                             <div class="col-md-6">
                                 <table align='center' width="100%">
@@ -155,6 +155,9 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <!--Modificaciones Carlos -->
+
+                                <p1 style="color: red;"> *Recuerde que la fecha de fin debe coincidir con el día de la semana seleccionado </p1>
 
                                 @if ($errors->has('dias_semana'))
                                     <span class="help-block">
@@ -165,7 +168,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('numero_sesiones') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Numero de sesiones:</label>
+                            <label for="name" class="col-md-4 control-label">Número de sesiones:</label>
 
                             <div class="col-md-6">
                                 <input id="numero_sesiones" type="numbrer" min="1" class="form-control" name="numero_sesiones" value="{{ old('numero_sesiones') }}" required>
@@ -213,7 +216,7 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <input id="costo" type="number" min="1" class="form-control" name="costo" step='0.01' value="{{ old('costo') }}" required>
+                                    <input id="costo" type="number" min="0" class="form-control" name="costo" step='0.01' value="{{ old('costo') }}" required>
                                 </div>
                                 @if ($errors->has('costo'))
                                     <span class="help-block">
@@ -224,7 +227,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('cupo_maximo') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Cupo maximo:</label>
+                            <label for="name" class="col-md-4 control-label">Cupo máximo:</label>
                             <div class="col-md-6">
                                 <input id="cupo_maximo" type="number" min =1 class="form-control" name="cupo_maximo" value="{{ old('cupo_maximo') }}" required>
 
@@ -237,7 +240,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('cupo_minimo') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Cupo minimo:</label>
+                            <label for="name" class="col-md-4 control-label">Cupo mínimo:</label>
 
                             <div class="col-md-6">
                                 <input id="cupo_minimo" type="number" min="1" class="form-control" name="cupo_minimo" value="{{ old('cupo_minimo') }}" required>
@@ -268,7 +271,7 @@
                         <input id="catalogo_id" type="hidden" class="form-control" name="catalogo_id" value="{{ $user->id}}" required>
 
                         <div class="form-group{{ $errors->has('salon_id') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Salon:</label>
+                            <label for="name" class="col-md-4 control-label">Sede:</label>
 
                             <div class="col-md-6">
                                 <select name="salon_id" form="cursoform" class="form-control">

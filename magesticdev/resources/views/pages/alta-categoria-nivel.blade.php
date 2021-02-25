@@ -17,7 +17,7 @@
         <br>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>Alta Categoria y Nivel</h3>
+                <h3>Alta Categoría y Nivel</h3>
                 
             </div>
             <div class="panel-body">
@@ -28,7 +28,7 @@
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('categoria') ? ' has-error' : '' }}">
-                        <label for="categoria" class="col-md-4 control-label">Categoria:</label>
+                        <label for="categoria" class="col-md-4 control-label">Categoría:</label>
                         <div class="col-md-6">
                             <input id="categoria" type="text" class="form-control" name="categoria" value="{{ old('categoria') }}"  required>
 
@@ -57,7 +57,7 @@
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="submit" class="btn btn-primary">
-                                Crear categoria
+                                Crear categoría
                             </button>
                         </div>
                     </div>

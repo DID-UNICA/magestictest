@@ -7,6 +7,7 @@ use PDF;
 use DB;
 use App\Curso;
 use App\CatalogoCurso;
+use App\ParticipantesCurso;
 use App\Profesor;
 use App\Coordinacion;
 use Carbon\Carbon;
@@ -32,60 +33,110 @@ class FormatosController extends Controller
             $datos = array(
                 'periodo'=>$periodo, 
                 'coordinaciones'=>$coordinaciones,
-                'cursos'=>$cursos);
+                'cursos'=>$cursos
+            );
             $pdf = PDF::loadView('pages.pdf.reportecomentarios', $datos)
                 ->setPaper('letter');
             return $pdf->download('Reporte-Comentarios'.$periodo.'.pdf'); 
-
-        }
-        elseif ($request->type2 == 'periodo'){
+        }elseif ($request->type2 == 'periodo'){
             $cursos = Curso::all()
-                ->where('semestre_anio', $anio)
-                ->where('semestre_pi', $pi)
-                ->where('semestre_si', $si);
+            ->where('semestre_anio', $anio)
+            ->where('semestre_pi', $pi)
+            ->where('semestre_si', $si);
             foreach($cursos as $curso){
                 if ($curso->getTipo() == 'C'){
                     $curso->leyenda = 'por haber acreditado el curso';
-                }
-                elseif ($curso->getTipo() == 'T'){
+                }elseif ($curso->getTipo() == 'T'){
                     $curso->leyenda = 'por haber acreditado el taller';
-                }
-                elseif ($curso->getTipo() == 'CT'){
+                }elseif ($curso->getTipo() == 'F'){
+                    $curso->leyenda = 'por haber acreditado el foro';
+                }elseif ($curso->getTipo() == 'CT'){
                     $curso->leyenda = 'por haber acreditado el curso-taller';
-                }
-                elseif ($curso->getTipo() == 'S'){
+                }elseif ($curso->getTipo() == 'S'){
                     $curso->leyenda = 'por haber acreditado el seminario';
-                }
-                elseif ($curso->getTipo() == 'E'){
+                }elseif ($curso->getTipo() == 'E'){
                     $curso->leyenda = 'por haber asistido a ';
-                }
-                elseif ($curso->getTipo() == 'D'){
+                }elseif ($curso->getTipo() == 'D'){
                     $curso->leyenda = 'por haber acreditado el ';
                 }
             }
             $datos = array('periodo'=>$periodo, 'cursos'=>$cursos);
             $pdf = PDF::loadView('pages.pdf.reportecursosperiodo', $datos)
-                ->setPaper('letter');
+            ->setPaper('letter');
             return $pdf->download('Reporte'.$periodo.'.pdf'); 
         }
     }
-    public function sendPDF($id,$tipoDeConstancia){
+  
+    //Correos personalizados
+  public function generarCorreosPer(Request $request, $id){
+      $curso = Curso::findOrFail($id);
+      $str_tematicas = '';
+      $tematicas = preg_split("/#/", $request->words);
+        unset($tematicas[0]);
+      if(empty($tematicas))
+        return redirect()->back()->with('msj', 'ERROR. Recuerde que cada palabra debe comenzar con #');
+      $tematicas = str_replace(' ', '', $tematicas);
+      foreach($tematicas as $index => $tematica)
+        if($index === 1)
+            $str_tematicas = $tematica;
+        else
+            $str_tematicas = $str_tematicas . ', '.$tematica;
+      $interesados = $curso->getInteresados($tematicas);
+      $new_interesados = array(); 
+      if($interesados === 0)
+        return redirect()->back()->with('msj', 'No hubo interesados con esas temáticas.');
+      //Deshacemos colección
+        foreach($interesados as $interesados_curso){
+        foreach($interesados_curso as $interesado){
+           array_push($new_interesados, $interesado->id);
+        }
+      }
+      //Eliminamos duplicados
+      $arrUnicos = array_count_values($new_interesados);
+      $arrPreFinal=array();
+      foreach ($arrUnicos  as $key => $value)  {
+        array_push($arrPreFinal, $key);
+      }
+      //Obtenemos a los interesados finalmente
+      $arrayFinal = array();
+      foreach($arrPreFinal as $inter){
+        $participante = ParticipantesCurso::findOrFail($inter);
+        array_push($arrayFinal, $participante);
+      }
+      $datos = array(
+          'curso' => $curso,
+          'interesados'=> $arrayFinal,
+          'tematicas'=> $str_tematicas);
+      $pdf = PDF::loadView(
+          'pages.pdf.correospersonalizados', $datos
+      )->setPaper('letter');
+      return $pdf->download(
+          "CorreosPersonalizados".$curso->id.".pdf"
+      ); 
+    }
+    public function sendPDF($id,$formato){
         $curso = Curso::findOrFail($id);
         $cursoCatalogo = CatalogoCurso::findOrFail($curso->catalogo_id);
-        $coordinacion=Coordinacion::findOrFail($cursoCatalogo->coordinacion_id);
+        $coordinacion=Coordinacion::findOrFail(
+            $cursoCatalogo->coordinacion_id
+        );
         $profesor = $curso->getProfesores();
         $salon=Salon::findOrFail($curso->salon_id);
         $fecha = Carbon::now();
         $fecha = $fecha->format('d-m-Y');
-        $fechaimp = $curso->getFecha();
-
-        $participantes = Profesor::leftJoin('participante_curso','profesors.id','=','participante_curso.profesor_id')
-            ->where('participante_curso.curso_id',$id)
-            ->select('profesors.*', 'participante_curso.cancelación', 'participante_curso.espera')->get();
+        $fechaimp = $curso->getFecha_sinLeyenda();
+        $participantes = Profesor::leftJoin(
+            'participante_curso','profesors.id',
+            '=',
+            'participante_curso.profesor_id'
+        )->where('participante_curso.curso_id',$id)
+        ->select('profesors.*', 'participante_curso.cancelación', 
+            'participante_curso.espera'
+        )->get();
 
         $participantes = $participantes->sortBy(function($user){
-                return $user->apellido_paterno;
-            });
+            return $user->apellido_paterno;
+        });
         $tipo=$cursoCatalogo->tipo;
 
         if( $cursoCatalogo->tipo == "C"){
@@ -94,47 +145,75 @@ class FormatosController extends Controller
             $tipo="Seminario";
         }elseif($cursoCatalogo->tipo == "T"){
             $tipo="Taller";
+        }elseif($cursoCatalogo->tipo == "F"){
+            $tipo="Foro";
         }elseif($cursoCatalogo->tipo == "CT"){
             $tipo="Curso-Taller";
         }elseif($cursoCatalogo->tipo == "E"){
             $tipo="Evento";
         }
-
-        $datos = array('curso' => $curso,'profesor'=>$profesor,'cursoCatalogo' => $cursoCatalogo,'coordinacion'=>$coordinacion,'fecha'=>$fecha,'fechaimp'=>$fechaimp, 'salon'=>$salon, 'participantes' => $participantes,'tipo' => $tipo);
-        if ($tipoDeConstancia == "A"){
+        $datos = array(
+            'curso' => $curso,
+            'profesor' => $profesor,
+            'cursoCatalogo' => $cursoCatalogo,
+            'coordinacion' => $coordinacion,
+            'fecha'=> $fecha,
+            'fechaimp'=>$fechaimp,
+            'salon'=>$salon,
+            'participantes' => $participantes,
+            'tipo' => $tipo
+        );
+        if ($formato == "A"){
         //Lista de asistencia
-            $pdf = PDF::loadView('pages.pdf.asistencia', $datos)->setPaper('a4', 'landscape');
-            return $pdf->download($cursoCatalogo->nombre_curso .'Asistencia.pdf'); 
-        }elseif ($tipoDeConstancia == "B"){
-        //Hoja de Verificación de Datos  
-            $pdf = PDF::loadView('pages.pdf.formatos-HojaConfirmacion', $datos);
-            return $pdf->download($cursoCatalogo->nombre_curso . 'HojaVerificacionDatos.pdf');
-        }elseif ($tipoDeConstancia == "B1"){
+            $pdf = PDF::loadView(
+                'pages.pdf.asistencia', $datos
+            )->setPaper(
+                'a4', 'landscape'
+            );
+            return $pdf->download(
+                $cursoCatalogo->nombre_curso .'Asistencia.pdf'
+            );
+        }elseif ($formato == "B"){
+        //Hoja de Verificación de Datos
+            $pdf = PDF::loadView(
+                'pages.pdf.formatos-HojaConfirmacion', $datos
+            );
+            return $pdf->download(
+                $cursoCatalogo->nombre_curso.'HojaVerificacionDatos.pdf'
+            );
+        }elseif ($formato == "B1"){
         //Hoja de Verificación de Datos con Lista de espera
-                $datos_verificacion = array('curso' => $curso,'profesor'=>$profesor,'cursoCatalogo' => $cursoCatalogo,'coordinacion'=>$coordinacion,'fecha'=>$fecha, 'fechaimp'=>$fechaimp, 'salon'=>$salon, 'participantes' => $participantes,'tipo' => $tipo);    
-                $pdf = PDF::loadView('pages.pdf.formatos-VerfDatosLS', $datos_verificacion)->setPaper('letter');
-                return $pdf->download($cursoCatalogo->nombre_curso . 'VerificacionDatos.pdf');
-        } elseif ($tipoDeConstancia == "B2"){
-            $interesados = $curso->getInteresados();
-            $datos = array(
-                'curso' => $curso,
-                'interesados'=> $interesados);
-            $pdf = PDF::loadView('pages.pdf.correospersonalizados', $datos)
-                ->setPaper('letter');
-            return $pdf->download("CorreosPersonalizados".$curso->id.".pdf");
-        } elseif ($tipoDeConstancia == "C"){ 
-        //Identificadores Grandes
-            $pdf = PDF::loadView('pages.pdf.formatos-identificadores', $datos);
-            return $pdf->download($cursoCatalogo->nombre_curso . 'Identificadores.pdf'); 
-        } elseif ($tipoDeConstancia == "C1"){ 
+            $pdf = PDF::loadView(
+                'pages.pdf.formatos-VerfDatosLS',
+                $datos
+            )->setPaper('letter');
+            return $pdf->download(
+                $cursoCatalogo->nombre_curso.'VerificacionDatos.pdf'
+            );
+          }elseif ($formato == "C"){ 
+            //Identificadores Grandes
+                $pdf = PDF::loadView(
+                    'pages.pdf.formatos-identificadores', $datos
+                );
+                return $pdf->download(
+                    $cursoCatalogo->nombre_curso . 'Identificadores.pdf'
+                );
+        } elseif ($formato == "C1"){ 
         //Identificadores Pequeños
-            $pdf = PDF::loadView('pages.pdf.formatos-identificadoresPequeños', $datos);
-            return $pdf->download($cursoCatalogo->nombre_curso . 'Identificadores.pdf'); 
-        }
-        elseif ($tipoDeConstancia == "D"){ 
+            $pdf = PDF::loadView(
+                'pages.pdf.formatos-identificadoresPequeños', $datos
+            );
+            return $pdf->download(
+                $cursoCatalogo->nombre_curso . 'Identificadores.pdf'
+            );
+        }elseif ($formato == "D"){ 
         //Publicidad
-                $pdf = PDF::loadView('pages.pdf.publicidadinternet', $datos);
-                return $pdf->download($cursoCatalogo->nombre_curso . 'Publicidad.pdf'); 
-            }   
+            $pdf = PDF::loadView(
+                'pages.pdf.publicidadinternet', $datos
+            );
+            return $pdf->download(
+                $cursoCatalogo->nombre_curso . 'Publicidad.pdf'
+            );
+        }
     }
 }

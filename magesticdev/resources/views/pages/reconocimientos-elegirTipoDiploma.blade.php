@@ -31,7 +31,7 @@
                 @include('flash::message')
                 <div class="logos col-md-12 col-center">
                 	<img class="img-escudo" src="{{ asset('img/cdd.png') }}">
-                	Manejo y Gestión de información del centro de docencia.</h3>
+                	Manejo y Gestión de información del Centro de Docencia.</h3>
                 </div>
 
                 <hr>
@@ -50,7 +50,7 @@
             <div class="col-7">
             <label for="catalogoCursos" class="col-md-4 control-label">Curso: </label>
                 <select class="form-control" onchange="fun();" id="catalogoCursos" name="catalogoCursos">
-                    <option disabled selected>Seleccione un catalogo</option>
+                    <option disabled selected>Seleccione un catálogo</option>
                     @foreach($cursosCatalogo as $catcurso)
                     <option value="{{$catcurso->id}}">{{$catcurso->nombre_curso}}</option>
                     @endforeach
@@ -64,8 +64,8 @@
                     <th>Nombre</th>
                     <th>Tipo</th>
                     <th>Profesor</th>
-                    <th>Salon</th>
-                    <th>Semestre</th>
+                    <th>Sede</th>
+                    <th>Periodo</th>
                     <th></th>
                 </tr>
                
@@ -108,14 +108,8 @@
         }
             </script>
           </form>
-
-                
-                                                        
       </div>
-
      </section>
-
-
     <script type="text/javascript">
 
       function determinarFirmantes(){

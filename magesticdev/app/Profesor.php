@@ -5,6 +5,8 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+use App\Division;
 
 class Profesor extends Authenticatable
 {
@@ -18,9 +20,9 @@ class Profesor extends Authenticatable
 
     protected $table = "profesors";
     protected $fillable = [
-        'nombres', 'apellido_paterno','apellido_materno','rfc','numero_trabajador','curp','categoria_nivel_id',
-        'fecha_nacimiento','telefono','grado','email','usuario', 'fecha_alta','grado','comentarios','genero',
-        'baja','causa_baja','semblanza_corta','facebook','unam','procedencia','facultad_id','carrera_id'
+        'nombres', 'apellido_paterno','apellido_materno','rfc','numero_trabajador', 'categoria_nivel_id',
+        'fecha_nacimiento','telefono','grado','abreviatura_grado','email','usuario', 'fecha_alta','grado','comentarios','genero',
+        'baja','causa_baja','semblanza_corta','facebook','unam','procedencia','facultad_id'
     ];
 
     /**
@@ -49,8 +51,10 @@ class Profesor extends Authenticatable
     }
 
     public function getCategoria(){
-        $categoria = CategoriaNivel::findOrFail($this->categoria_nivel_id)->categoria;
-        return $categoria;
+        if($this->categoria_nivel_id)
+            return CategoriaNivel::findOrFail($this->categoria_nivel_id)->categoria;
+        else
+            return "";
     }
 
     public function allCategoria(){
@@ -63,7 +67,8 @@ class Profesor extends Authenticatable
             'Licenciatura'=>'Licenciatura',
             'Ingeniería'=>'Ingeniería',
             'Maestría'=>'Maestría',
-            'Doctorado'=>'Doctorado'
+            'Doctorado'=>'Doctorado',
+            'Otro'=>'Otro'
         ];
         return $grado;
     }
@@ -73,16 +78,93 @@ class Profesor extends Authenticatable
         return $this->categoria_nivel_id;
     }
 
+    public function getDivision(){
+      $divisiones = DB::table('divisions')
+        ->join('carreras', 'carreras.id_division', '=', 'divisions.id')
+        ->join('profesores_carreras', 'profesores_carreras.id_carrera', '=','carreras.id')
+        ->join('profesors','profesors.id', '=', 'profesores_carreras.id_profesor')
+        ->where('profesors.id', '=', $this->id);
+      return $divisiones;
+    }
     public function getDivisionNombre()
     {
-        $division = Division::where('id', Carrera::where('id', $this->carrera_id)->get()[0]->id_division)->get();
-        return $division[0]->getNombre();
+        $carreras = $this->getCarreras();
+        $count = $carreras->count();
+        if($count === 0)
+          return "Ninguna";
+        $i = 0;
+        $divisiones = "";
+        foreach($carreras as $carrera){
+          $division = Division::findOrFail($carrera->divison_id);
+          if($i === 0)
+            $divisiones = $division->nombre;
+          elseif($i < $count)
+            $divisiones = $divisiones.", ".$division->nombre;
+        }
+        return $divisiones;
     }
-    public function getCarrera()
+
+
+//Retorna una colección de carreras
+    public function getCarreras()
     {
-        $carrera = Carrera::where('id', $this->carrera_id)->get()[0]->nombre;
-        return $carrera;
+        $carreras = DB::table('profesors')
+          ->join('profesores_carreras', 'profesors.id', '=', 'profesores_carreras.id_profesor')
+          ->join('carreras', 'carreras.id', '=', 'profesores_carreras.id_carrera')
+          ->select('carreras.nombre')
+          ->where('profesors.id', '=', $this->id)
+          ->get();
+        return $carreras;
     }
+
+//Retorna las carreras como una cadena
+    public function getCarrerasPorNombre()
+    {
+        $carreras = DB::table('profesors')
+          ->join('profesores_carreras', 'profesors.id', '=', 'profesores_carreras.id_profesor')
+          ->join('carreras', 'carreras.id', '=', 'profesores_carreras.id_carrera')
+          ->select('carreras.nombre')
+          ->where('profesors.id', '=', $this->id)
+          ->get();
+        $count = $carreras->count();
+        if($count === 0)
+          return "Ninguna";
+        $carreras_str = "";
+        $i = 0;
+          foreach($carreras as $carrera){
+            if($i === 0)
+              $carreras_str = $carrera->nombre;
+            elseif($i < $count)
+              $carreras_str = $carreras_str.', '.$carrera->nombre;
+            $i++;
+        }
+        return $carreras_str;
+    }
+
+//Retorna las divisiones como una cadena
+    public function getDivisionesPorNombre()
+    {
+        $divisiones = DB::table('profesors')
+          ->join('profesores_divisiones', 'profesors.id', '=', 'profesores_divisiones.id_profesor')
+          ->join('divisions', 'divisions.id', '=', 'profesores_divisiones.id_division')
+          ->select('divisions.nombre')
+          ->where('profesors.id', '=', $this->id)
+          ->get();
+        $count = $divisiones->count();
+        if($count === 0)
+          return "Ninguna";
+        $divisiones_str = "";
+        $i = 0;
+          foreach($divisiones as $division){
+            if($i === 0)
+              $divisiones_str = $division->nombre;
+            elseif($i < $count)
+              $divisiones_str = $divisiones_str.', '.$division->nombre;
+            $i++;
+        }
+        return $divisiones_str;
+    }
+
     public function getFacultad()
     {
         $facultad = Facultad::where('id', $this->facultad_id)->get()[0]->nombre;
@@ -92,11 +174,14 @@ class Profesor extends Authenticatable
         $participante_curso = ParticipantesCurso::where('curso_id', $curso_id)
             ->where('profesor_id', $this->id)->first();
         if(!$participante_curso){
-            return "No contestó encuesta";
+            return "NULL";
         }
         $encuesta = EncuestaFinalSeminario::where('participante_curso_id', $participante_curso->id)->first();
         if(!$encuesta){
-            return "No contestó encuesta";
+            return "NULL";
+        }
+        if($encuesta->sug == "Ninguna" or $encuesta->sug == "NINGUNA" or $encuesta->sug == "En blanco"){
+            return "NULL";
         }
         return $encuesta->sug;
     }
@@ -104,40 +189,15 @@ class Profesor extends Authenticatable
         $participante_curso = ParticipantesCurso::where('curso_id', $curso_id)
             ->where('profesor_id', $this->id)->first();
         if(!$participante_curso){
-            return "No contestó encuesta";
+            return "NULL";
         }
         $encuesta = EncuestaFinalCurso::where('participante_curso_id', $participante_curso->id)->first();
         if(!$encuesta){
-            return "No contestó encuesta";
+            return "NULL";
+        }
+        if($encuesta->sug == "Ninguna" or $encuesta->sug == "En blanco"){
+            return "NULL";
         }
         return $encuesta->sug;
-    }
-    public function getGrado()
-    {
-      if ($this->grado == "Licenciatura"){
-            $abrev= "Lic.";
-      }
-      else if ($this->grado == "Ingeniería"){
-            $abrev= "Ing."; }
-      else if ($this->grado == "Maestría"){
-        if($this->genero == "masculino"){
-            $abrev="Mtro.";
-        }
-        else if($this->genero == "femenino"){
-            $abrev="Mtra.";
-        }
-      }
-      else if ($this->grado == "Doctorado"){
-          if($this->genero == "masculino"){
-            $abrev="Dr.";
-          }
-          else if($this->genero == "femenino"){
-            $abrev="Dra.";
-          }
-      }
-      else{
-        $abrev="";
-      }
-      return $abrev;
     }
 }

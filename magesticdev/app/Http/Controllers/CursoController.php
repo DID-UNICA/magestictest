@@ -175,7 +175,6 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*wut??*/
     public function search(Request $request)
     {
         if($request->type == "nombre")
@@ -201,6 +200,10 @@ class CursoController extends Controller
                 return view('pages.consulta-cursos')->with("users",$users);
         }
 
+    }
+
+    public function searchWords($id){
+      return view('pages.buscador-tematicas')->with('curso_id', $id);
     }
     public function Csearch(Request $request){
         #dd($request);
@@ -259,6 +262,11 @@ class CursoController extends Controller
             }
             $curso_prof = ProfesoresCurso::select('curso_id')->whereIn('profesor_id', $profesores)->get();
             $res_busqueda = Curso::whereIn('id',$curso_prof)->get();
+            return view('pages.consulta-cursos')->with("cursos",$res_busqueda);
+        }elseif ($request->type=="clave") {
+            $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")->get();
+            $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
+                ->get();
             return view('pages.consulta-cursos')->with("cursos",$res_busqueda);
         }
     }
@@ -414,7 +422,8 @@ class CursoController extends Controller
                 ->where('participante_curso.curso_id',$id)
                 ->select('profesors.rfc')->get())
             ->whereNotIn('id', ProfesoresCurso::where('curso_id',$id)->select('profesor_id')->get())
-            ->get();
+            ->get()
+            ->sortBy("apellido_paterno");
         #$users = Profesor::all();
         $nombre_curso = CatalogoCurso::findOrFail($id)->nombre_curso;
         $enLista = ParticipantesCurso::select('id')->where('estuvo_en_lista',true)->where('curso_id',$id)->count();

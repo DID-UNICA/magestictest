@@ -7,7 +7,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/img/favicon.ico') }}" />
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Magesti - CD </title>
+        <title>MagestiCD </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -26,8 +26,8 @@
     <img class="cdd" src="./img/cdd.png" alt="">
     
     
-    <h1>Magesticd</h1>
-    <h3>Manejo y Gestión de información del centro de docencia</h3>
+    <h1>MagestiCD</h1>
+    <h3>Manejo y Gestión de información del Centro de Docencia</h3>
    
     <div class="box">
                             <form class="form-horizontal" method="POST" action="{{ route('login') }}">

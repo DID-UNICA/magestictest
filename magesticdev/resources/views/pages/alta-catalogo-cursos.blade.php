@@ -26,7 +26,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>Alta Catálogo de cursos</h3>
-                <h4>Cordinación de Gestión y Vinculación</h4>
+                <h4>Coordinación de Gestión y Vinculación</h4>
             </div>
             <div class="panel-body">
 
@@ -78,7 +78,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('coordinacion_id') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Coordinacion:</label>
+                        <label for="name" class="col-md-4 control-label">Coordinación:</label>
                         <div class="col-md-6">
                             <select name="coordinacion_id" form="catalogocursoform" class="form-control" required>
                                 @foreach($coordinaciones as $coordinacion)
@@ -101,6 +101,7 @@
                                 <select onchange="cantidadtemas()" id="tipo" class="form-control" name="tipo" value="{{ old('tipo')}}">
                                     <option value="T">Taller </option>
                                     <option value="C">Curso </option>
+                                    <option value="F">Foro </option>
                                     <option value="S">Seminario </option>
                                     <option value="E">Evento </option>
                                     <option value="CT">Curso-Taller</option>
@@ -156,14 +157,11 @@
                         <label for="name" class="col-md-4 control-label">Dirigido:</label>
 
                         <div class="col-md-6">
-                            <textarea rows="4" cols="50" id="dirigido" type="text" class="form-control" name="dirigido" value="{{ old('dirigido') }}">
-
-                            @if ($errors->has('dirigido'))
+                            <textarea rows="4" cols="50" id="dirigido" type="text" class="form-control" name="dirigido" value="{{ old('dirigido') }}">@if ($errors->has('dirigido'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('dirigido') }}</strong>
                                     </span>
-                            @endif
-                            </textarea>
+                            @endif</textarea>
                         </div>
                     </div>
 
@@ -171,57 +169,48 @@
                         <label for="name" class="col-md-4 control-label">Objetivo:</label>
 
                         <div class="col-md-6">
-                            <textarea rows="4" cols="50" id="objetivo" type="text" class="form-control" name="objetivo" value="{{ old('objetivo') }}">
-
-                            @if ($errors->has('objetivo'))
+                            <textarea rows="4" cols="50" id="objetivo" type="text" class="form-control" name="objetivo" value="{{ old('objetivo') }}">@if ($errors->has('objetivo'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('objetivo') }}</strong>
                                     </span>
-                            @endif
-                            </textarea>
+                            @endif</textarea>
                         </div>
                     </div>
                     <div class="form-group{{ $errors->has('contenido') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Contenidos (Iniciando y separando por guiones):</label>
                         <div class="col-md-6">
-                                <textarea rows="4" cols="50" id="contenido" type="text"   class="form-control" name="contenido" value="{{ old('contenido') }}">
+                                <input rows="4" cols="50" id="contenido" type="text" placeholder="-Contenido1-Contenido2-Contenido3" class="form-control" name="contenido" value="{{ old('contenido') }}">
                                 @if ($errors->has('contenido'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('contenido') }}</strong>
                                 </span>
                                 
                             @endif
-                            </textarea>
+                            </input>
                         </div>
                     </div>
 
 
                     <div class="form-group{{ $errors->has('acreditacion') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Acreditacion:</label>
+                        <label for="name" class="col-md-4 control-label">Acreditación:</label>
 
                         <div class="col-md-6">
-                            <textarea rows="4" cols="50" id="acreditacion" type="text" class="form-control" name="acreditacion" value="{{ old('acreditacion') }}">
-
-                            @if ($errors->has('acreditacion'))
+                            <textarea rows="4" cols="50" id="acreditacion" type="text" class="form-control" name="acreditacion" value="{{ old('acreditacion') }}">@if ($errors->has('acreditacion'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('acreditacion') }}</strong>
                                     </span>
-                            @endif
-                        </textarea>
+                            @endif</textarea>
                         </div>
                     </div>
                     <div class="form-group{{ $errors->has('evaluacion') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Evaluacion:</label>
+                        <label for="name" class="col-md-4 control-label">Evaluación:</label>
 
                         <div class="col-md-6">
-                            <textarea rows="4" cols="50" id="acreditacion" type="text" class="form-control" name="evaluacion" value="{{ old('evaluacion') }}">
-
-                            @if ($errors->has('evaluacion'))
+                            <textarea rows="4" cols="50" id="acreditacion" type="text" class="form-control" name="evaluacion" value="{{ old('evaluacion') }}">@if ($errors->has('evaluacion'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('evaluacion') }}</strong>
                                     </span>
-                            @endif
-                            </textarea>
+                            @endif</textarea>
                         </div>
                     </div>
                     
@@ -301,7 +290,6 @@
             }
               esconder();
         </script>
-
     </section>
 
 @endsection

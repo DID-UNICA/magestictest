@@ -39,6 +39,7 @@ Route::get('curso/{id}', "CursoController@show")->name('curso.show');
 Route::get('curso', "CursoController@index")->name("curso.consulta");
 Route::get('curso/busqueda', "CursoController@search")->name('curso.busqueda');
 Route::post('cursos/busqueda', "CursoController@Csearch")->name('curso.Csearch');
+Route::get('cursos/busquedapalabras/{id}', "CursoController@searchWords")->name('curso.Wsearch');
 Route::get('curso/actualizar/{id}', "CursoController@edit")->name('curso.update');
 Route::get('curso/inscripcion/{id}', "CursoController@inscripcionParticipante")->name('curso.inscripcion');
 Route::post('curso/inscripcion/{curso_id}/busqueda', "ProfesorController@search1")->name('profesor.consulta1');
@@ -192,7 +193,8 @@ Route::get('reconocimientos/{id}/generar','ReconocimientosController@generar')->
 Route::get('reconocimientos/{diplomadoid}/{cursoid}/generar','ReconocimientosController@generard')->name('reconocimientos.generard');
 
 /**Rutas de Formatos */
-Route::get('formatos/generar/{id}/{tipoDeConstancia}','FormatosController@sendPDF')->name('formatos.generar');
+Route::get('formatos/generar/{id}/{formato}','FormatosController@sendPDF')->name('formatos.generar');
+Route::post('formatos/generar/{id}/palabras','FormatosController@generarCorreosPer')->name('formatos.correos');
 Route::get('historialprofesor/{id}', 'ProfesorController@generarhistorial')->name('historial.generar');
 Route::get('reportecursos', 'FormatosController@generarreporte')->name('reporte.generar');
 Route::get('reportecursos/{periodo}', 'FormatosController@generarreporteperiodo')->name('reporte.periodo');

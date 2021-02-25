@@ -37,7 +37,7 @@
       {!!Form::label("cupo_maximo", "Cupo Máximo:")!!}
       {!!Form::number("cupo_maximo", $diplomado->cupo_maximo, [ "class" => "form-control", "placeholder" => "Cupo Máximo", "required","disabled",'min'=>"0" ])!!}
     </div>
-    <a href="{{ URL::to('diplomado/actualizar', $diplomado->id) }}" class="btn btn-success">Actualiza información</a>
+    <a href="{{ URL::to('diplomado/actualizar', $diplomado->id) }}" class="btn btn-success">Actualizar información</a>
     <a href="{{ URL::to('diplomado/baja', $diplomado->id) }}" class="btn btn-danger">Dar de baja</a></td>
     <a href="{{ route('diplomado.consulta') }}" class="btn btn-info">Regresar</a>
 

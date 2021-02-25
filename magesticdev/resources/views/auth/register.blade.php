@@ -81,20 +81,6 @@
                             </div>
                         </div>
 
-                                                 <div class="form-group{{ $errors->has('curp') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">CURP</label>
-
-                            <div class="col-md-6">
-                                <input id="curp" type="text" class="form-control" name="curp" value="{{ old('curp') }}" required autofocus>
-
-                                @if ($errors->has('curp'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('curp') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>    
-
                                                  <div class="form-group{{ $errors->has('fecha_nacimiento') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Fecha de nacimiento</label>
 

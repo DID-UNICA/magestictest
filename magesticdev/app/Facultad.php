@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gmeono
- * Date: 10/12/17
- * Time: 02:07 PM
- */
 
 namespace App;
 use Illuminate\Notifications\Notifiable;

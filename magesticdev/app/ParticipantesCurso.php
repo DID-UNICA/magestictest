@@ -23,7 +23,7 @@ class ParticipantesCurso extends Model
     }
     public function getCatalogoCurso(){
         $curso = Curso::find($this->curso_id);
-        $catalogo = CatalogoCurso::find($curso->id);
+        $catalogo = CatalogoCurso::find($curso->catalogo_id);
         return $catalogo;
     }
     public function getCurso(){

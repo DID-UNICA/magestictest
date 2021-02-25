@@ -201,6 +201,7 @@ return [
         'Zipper' => Chumper\Zipper\Zipper::class,
         'Flash' => Laracasts\Flash\Flash::class,
         'PdfMerger' => LynX39\LaraPdfMerger\Facades\PdfMerger::class,
+        'PdfManage' => LynX39\LaraPdfMerger\PdfManage::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,

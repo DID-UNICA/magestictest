@@ -11,7 +11,7 @@ body {
   font-family:Arial, Helvetica, Sans-serif,cursive;
 }
 #fondo{
-  background-image: url("/img/ri_1.png");
+  background-image: url("../public/img/ri_1.png");
   background-size: auto;
   background-repeat: no-repeat;
   background-position: 4cm 1.9cm;
@@ -138,30 +138,7 @@ body {
     <div class="centro">
       <h3 style="text-align: center;font-size: 34px;font-style: normal;">A G R A D E C I M I E N T O</h2>
       <br>
-      @if($profesor->genero == "masculino")
-        <h3 style="text-align: center;font-size: 24px;font-style: normal;"> al </h2>
-      @elseif($profesor->genero == "femenino")
-        <h3 style="text-align: center;font-size: 24px;font-style: normal;"> a la </h2>
-      @endif
-      @if ($profesor->grado == "Licenciatura")
-        <h2 class='nombre_profesor'>Lic. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      @elseif ($profesor->grado == "Ingeniería")
-        <h2 class='nombre_profesor'>Ing. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      @elseif ($profesor->grado == "Maestría")
-        @if($profesor->genero == "masculino")
-          <h2 class='nombre_profesor'>Mtro. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-        @elseif($profesor->genero == "femenino")
-          <h2 class='nombre_profesor'>Mtra. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-        @endif
-      @elseif ($profesor->grado == "Doctorado")
-          @if($profesor->genero == "masculino")
-            <h2 class='nombre_profesor'>Dr. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-          @elseif($profesor->genero == "femenino")
-            <h2 class='nombre_profesor'>Dra. {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-          @endif
-      @else
-        <h2 class='nombre_profesor'>{{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      @endif
+      <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
       <h3 class="texto">{{$tema}}</h3>
       <p style="">{{$fechaimp}}</p>
       <p>Duración: {{$cursoCatalogo->duracion_curso }} h</p>
@@ -187,10 +164,12 @@ body {
 </table>
 </div>
   </div>
-  <table width=100% style="padding-top: 93%;">
+  <table width=100% style="padding-bottom: 0.1cm">
     <tr width=100% >
-      <td id="folio">{{ $folio }}</td>
-      <td id="numero_inferior">{{ $folio_der }}</td>
+@if($folio_der > 0)
+<td id="numero_inferior">{{ $folio_der }}</td>
+@endif
+      <td style='text-align:right' id="folio">{{ $folio }}</td>
     </tr>
   </table>
   </body>

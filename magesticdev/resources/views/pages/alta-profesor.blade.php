@@ -4,100 +4,109 @@
 
 @section('contenido')
 
+<script>
+    var id_fac = 50;
+    var carreras = [];
+    var divisiones = [];
+    var facultades = [];
+    var i = 0;
+    var ingenieria_id = 0;
+    window.onload =  initial;
+    @for($i = 0; $i<sizeof($carreras); $i++)
+        carreras[{{$i}}] = {
+        id: {{ $carreras[$i]->id}},
+        nombre: "{{ $carreras[$i]->nombre}}"
+    }
+    @endfor
+    @for($i = 0; $i<sizeof($divisiones); $i++)
+        divisiones[{{$i}}] = {
+        id: {{ $divisiones[$i]->id}},
+        nombre: "{{ $divisiones[$i]->nombre}}"
+    }
+    @endfor
+    @for($i = 0; $i<sizeof($facultades); $i++)
+        @if($facultades[$i]->nombre == "Facultad de Ingeniería")
+          ingenieria_id = {{$facultades[$i]->id}};
+        @endif;
+        facultades[{{$i}}] = {
+        id: {{ $facultades[$i]->id}},
+        nombre: "{{ $facultades[$i]->nombre}}"
+    }
+    @endfor
+    function initial(){
+        rfc_check();
+    }
+    function externo() {
+        document.getElementById("externo").style.display = "initial";
+        document.getElementById("facultad").style.display = "none";
+        document.getElementById("carreras").style.display = "none";
+    }
+    function interno() {
+        document.getElementById("externo").style.display = "none";
+        document.getElementById("facultad").style.display = "initial";
+        document.getElementById("carreras").style.display = "none";
+        changeFunc();
+    }
+    function rfc_check(){
+        var con_n = document.getElementById("rfc1_n");
+        var con_v = document.getElementById("rfc1_v");
+        var sin_n = document.getElementById("rfc2_n")
+        var sin_v = document.getElementById("rfc2_v");
+        var radioCon = document.getElementById("radioCon");
+        var radioSin = document.getElementById("radioSin");
+        
+        if(radioCon.checked == true && radioSin.checked == false){
+            con_n.style.display = "initial";
+            con_v.style.display = "block";
+            sin_n.style.display = "none";
+            sin_v.style.display = "none";
+            $('#rfc2_v').removeAttr("required");
+        }
+        else if(radioCon.checked == false && radioSin.checked == true){
+            sin_n.style.display = "initial";
+            sin_v.style.display = "block";
+            con_n.style.display = "none";
+            con_v.style.display = "none";
+            $('#rfc2_v').prop("required", true);
+        }
+        else{
+            con_n.style.display = "none";
+            con_v.style.display = "none";
+            sin_n.style.display = "none";
+            sin_v.style.display = "none";
+        }
+    }
+    function showCarreras() {
+      selectElement = document.querySelector('#facultad_option'); 
+      output = selectElement.value;
+        if(output == ingenieria_id){
+          document.getElementById("carreras").style.display = "initial";
+          document.getElementById("divisiones").style.display = "initial";
+        }
+        else{
+          document.getElementById("carreras").style.display = "none";
+          document.getElementById("divisiones").style.display = "none";
+        }
+    }
+    function changeFunc() {
+        var selectBox = document.getElementById("facultad_option");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        id_fac = selectedValue;
+        showCarreras();
+    }
 
-    <script>
-        var id_fac = 50;
-        var carreras = [];
-        var facultades = [];
-        var test = [];
-        var i = 0;
-        window.onload =  initial;
-        @for($i = 0; $i<sizeof($carreras); $i++)
-            carreras[{{$i}}] = {
-            id: {{ $carreras[$i]->id}},
-            nombre: "{{ $carreras[$i]->nombre}}",
-            id_facultad: {{ $carreras[$i]->id_facultad}}
-        }
-        @endfor
-                @for($i = 0; $i<sizeof($facultades); $i++)
-            facultades[{{$i}}] = {
-            id: {{ $facultades[$i]->id}},
-            nombre: "{{ $facultades[$i]->nombre}}"
-        }
-        @endfor
-        function initial(){
-            rfc_check();
-        }
-        function externo() {
-            document.getElementById("externo").style.display = "initial";
-            document.getElementById("facultad").style.display = "none";
-            document.getElementById("carreras").style.display = "none";
-        }
-        function interno() {
-            document.getElementById("externo").style.display = "none";
-            document.getElementById("facultad").style.display = "initial";
-            document.getElementById("carreras").style.display = "none";
-            changeFunc();
-        }
-        function rfc_check(){
-            var con_n = document.getElementById("rfc1_n");
-            var con_v = document.getElementById("rfc1_v");
-            var sin_n = document.getElementById("rfc2_n")
-            var sin_v = document.getElementById("rfc2_v");
-            var radioCon = document.getElementById("radioCon");
-            var radioSin = document.getElementById("radioSin");
-           
-            if(radioCon.checked == true && radioSin.checked == false){
-                con_n.style.display = "initial";
-                con_v.style.display = "block";
-                sin_n.style.display = "none";
-                sin_v.style.display = "none";
-                con_v.setAttribute("required", "");
-                sin_v.removeAttribute("required");
-            
+    function changeGrado(){
+      var grado = document.getElementById("grado");
+      var abre = document.getElementById("abr_grado_div");
+      var opc = grado.selectedIndex;
+      abre.style.display="none";
+      if (opc==4){
+        abre.style.display="block";
+      }
+    }
+</script>
 
-            }
-            else if(radioCon.checked == false && radioSin.checked == true){
-                sin_n.style.display = "initial";
-                sin_v.style.display = "block";
-                con_n.style.display = "none";
-                con_v.style.display = "none";
-                sin_v.setAttribute("required", "");
-                con_v.removeAttribute("required"); 
-            
-            }
-            else{
-                
-                con_n.style.display = "none";
-                con_v.style.display = "none";
-                sin_n.style.display = "none";
-                sin_v.style.display = "none";
-            }
-        }
-        function showCarreras() {
-            document.getElementById("carreras").style.display = "initial";
-        }
-        function changeFunc() {
-            showCarreras();
-            var selectBox = document.getElementById("facultad_option");
-            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-            id_fac = selectedValue;
-            getSelectedValue();
-        }
-        function getSelectedValue(){
-            var content = "";
-            var opcion = "";
-            for(i=0; i<carreras.length; i++){
-                if(id_fac==carreras[i].id_facultad){
-                    opcion="<option value=\"" +carreras[i].id +"\"\>"+carreras[i].nombre+"</option>\n";
-                    content=content+opcion;
-                }
-            }
-            document.getElementById("carrera_option").innerHTML = content;
-        }
-    </script>
-
-        <!--Body content-->
+<!--Body content-->
 
 <div class="content">
     <div class="top-bar">
@@ -108,12 +117,11 @@
         </a>
     </div>
     <section class="content-inner">
-     @if(session()->has('msj'))
-       @if(session()->has('D'))
-        <div class="alert alert-danger" role='alert'>{{session('msj')}}</div>
-       @else
-        <div class="alert alert-success" role='alert'>{{session('msj')}}</div>
-       @endif
+     @if(session('msj'))
+      <div class="alert alert-success" role='alert'>{{session('msj')}}</div>
+      @endif
+     @if(session('D'))
+      <div class="alert-danger" role='alert'>{{session('D')}}</div>
      @endif
 
         <br>
@@ -125,7 +133,6 @@
             </div>
         </div>
         <div class="panel-body">
-
             <form class="form-horizontal" method="POST" action="{{ route('profesor.store') }}">
                 {{ csrf_field() }}
                 <div class="form-group{{ $errors->has('nombres') ? ' has-error' : '' }}">
@@ -167,10 +174,9 @@
                 <div class="form-group{{ $errors->has('rfc') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">RFC</label>
                     <div class="col-md-6">
-
                         Con Homoclave <input name="grupoRFC"  id="radioCon" value="a" onclick="rfc_check()" class="col-md-1 control-label" type="radio">
                         <br>
-                        Sin Homoclave <input name="grupoRFC"  id="radioSin" value="b" onclick="rfc_check()" class="col-md-1 control-label" type="radio" required>
+                        Sin Homoclave <input name="grupoRFC"  id="radioSin" value="b" onclick="rfc_check()" class="col-md-1 control-label" type="radio">
                         @if ($errors->has('rfc'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('rfc') }}</strong>
@@ -191,32 +197,20 @@
                 <div class="form-group col-md-6">
                     {!!Form::text("rfc2_v", null, [ "name"=>"rfc2","id" => "rfc2_v", "class" => "form-control", 'maxlength' => 10, "placeholder" => "RFC"])!!}
                 </div>
-            <div class="form-group{{ $errors->has('numero_trabajador') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">Número de Trabajador</label>
-                    <div class="col-md-6">
-                        <input id="numero_trabajador" type="text" class="form-control" name="numero_trabajador" value="{{ old('numero_trabajador') }}" required>
-                        @if ($errors->has('numero_trabajador'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('numero_trabajador') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group{{ $errors->has('curp') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">CURP</label>
-                    <div class="col-md-6">
-                        <input minlength="18" maxlength= "18" id="curp" type="text" class="form-control" name="curp" value="{{ old('curp') }}" required oninvalid="this.setCustomValidity('Ingrese su CURP por favor')" oninput="this.setCustomValidity('')">
-                        @if ($errors->has('curp'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('curp') }}</strong>
-                            </span>
-                        @endif
-                    </div>
+                <div class="form-group{{ $errors->has('numero_trabajador') ? ' has-error' : '' }}">
+                  <label for="name" class="col-md-4 control-label">Número de Trabajador</label>
+                  <div class="col-md-6">
+                    <input id="numero_trabajador" type="text" class="form-control" name="numero_trabajador" value="{{ old('numero_trabajador') }}">
+                    @if ($errors->has('numero_trabajador'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('numero_trabajador') }}</strong>
+                      </span>
+                    @endif
+                  </div>
                 </div>
 
                 <div class="form-group{{ $errors->has('categoria_nivel_id') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">Categoria y nivel:</label>
+                    <label for="name" class="col-md-4 control-label">Categoría y nivel:</label>
                     <div class="col-md-6">
                         <select name="categoria_nivel_id" class="btn dropdown-toggle pull-left">
                             @foreach($categorias as $categoria)
@@ -225,8 +219,8 @@
                         </select>
                         @if ($errors->has('coordinacion_id'))
                             <span class="help-block">
-                                        <strong>{{ $errors->first('coordinacion_id') }}</strong>
-                                    </span>
+                              <strong>{{ $errors->first('coordinacion_id') }}</strong>
+                            </span>
                         @endif
                     </div>
                 </div>
@@ -234,7 +228,7 @@
                 <div class="form-group{{ $errors->has('fecha_nacimiento') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Fecha de nacimiento</label>
                     <div class="col-md-6">
-                        <input id="fecha_nacimiento" type="date" class="form-control" name="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" required oninvalid="this.setCustomValidity('Ingrese una fecha por favor')" oninput="this.setCustomValidity('')">
+                        <input id="fecha_nacimiento" type="date" class="form-control" name="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}">
                         @if ($errors->has('fecha_nacimiento'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
@@ -244,7 +238,7 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">Telefono</label>
+                    <label for="name" class="col-md-4 control-label">Teléfono</label>
                     <div class="col-md-6">
                         <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('telefono') }}">
                         @if ($errors->has('telefono'))
@@ -257,14 +251,13 @@
 
                 <div class="form-group{{ $errors->has('grado') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Grado</label>
-
-                    <select name="grado" class="btn dropdown-toggle pull-left">
+                    <select name="grado" onchange="changeGrado();" id="grado" class="btn dropdown-toggle pull-left">
                         <option  value="Licenciatura">Licenciatura</option>
-                        <option  value="Licenciatura">Ingeniería</option>
-                        <option  value="Maestria">Maestria</option>
+                        <option  value="Ingeniería">Ingeniería</option>
+                        <option  value="Maestría">Maestría</option>
                         <option  value="Doctorado">Doctorado</option>
+                        <option  value="Otro">Otro</option>
                     </select>
-
                     @if ($errors->has('grado'))
                         <span class="help-block">
                             <strong>{{ $errors->first('grado') }}</strong>
@@ -272,10 +265,22 @@
                     @endif
                 </div>
 
+                <div name="abr_grado_div" id="abr_grado_div" style="display:none" class="form-group{{ $errors->has('abr_grado') ? ' has-error' : '' }}">
+                    <label for="name" class="col-md-4 control-label">Abreviatura de grado:</label>
+                    <div class="col-md-6">
+                      <input name="abr_grado" id="abr_grado" type="text" class="form-control" value="{{ old('abr_grado') }}">
+                        @if ($errors->has('abr_grado'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('abr_grado') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     <label for="email" class="col-md-4 control-label">E-Mail</label>
                     <div class="col-md-6">
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required oninvalid="this.setCustomValidity('Ingrese su email por favor')" oninput="this.setCustomValidity('')">
+                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" oninvalid="this.setCustomValidity('Ingrese su email por favor')" oninput="this.setCustomValidity('')">
                         @if ($errors->has('email'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('email') }}</strong>
@@ -285,14 +290,14 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('genero') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">Genero</label>
+                    <label for="name" class="col-md-4 control-label">Género</label>
                     <div class="col-md-6">
                         Femenino: <input type="radio" name="genero" value="femenino" >
                         Masculino: <input type="radio" name="genero" value="masculino" >
                         @if ($errors->has('genero'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('genero') }}</strong>
-                            </span>
+                          <span class="help-block">
+                              <strong>{{ $errors->first('genero') }}</strong>
+                          </span>
                         @endif
                     </div>
                 </div>
@@ -336,9 +341,10 @@
                 <div class="form-group{{ $errors->has('unam') ? ' has-error' : '' }}">
                     <label for="unam" class="col-md-4 control-label">Profesor de la UNAM </label>
                     <div class="col-md-6">
-
-                        Si: <input  onclick="interno()" id="unam_si" type="radio" class="" name="unam" value='1' >
-                        No:  <input id="unam_no" onclick="externo()"   type="radio" class="" name="unam" value='0' >
+                        Si: 
+                        <input  onclick="interno()" id="unam_si" type="radio" class="" name="unam" value='1' >
+                        No:
+                        <input id="unam_no" onclick="externo()"   type="radio" class="" name="unam" value='0' >
                         @if ($errors->has('unam'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('unam') }}</strong>
@@ -360,39 +366,61 @@
                 </div>
 
                 <div style="display:none;" id="facultad" class="form-group{{ $errors->has('facultad_id') ? ' has-error' : '' }}">
-                <div class="col-md-4" style="text-align:right; margin-right:1px">
-                    {!!Form::label("facultad", "Facultad:", ["id" =>"facultad_n"])!!}
-                </div>
-                    <div class="col-md-6">
+                  <div class="col-md-4" style="text-align:right; margin-right:1px">
+                      {!!Form::label("facultad", "Facultad:", ["id" =>"facultad_n"])!!}
+                  </div>
+                  <div class="col-md-6">
                     <select id="facultad_option" onchange="changeFunc();" name="facultad_id" class="form-control">
-                    @foreach($facultades as $fac)
+                      @foreach($facultades as $fac)
                         <option  value="{{ $fac->id }} "> {{ $fac->nombre }} </option>
-                    @endforeach
-                  </select>
-                        @if ($errors->has('facultad_id'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('facultad_id') }}</strong>
-                            </span>
-                        @endif
-                    </div>
+                      @endforeach
+                    </select>
+                    @if ($errors->has('facultad_id'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('facultad_id') }}</strong>
+                      </span>
+                    @endif
+                  </div>
                 </div>
 
+                
                 <div id="carreras" style="display:none;" class="form-group{{ $errors->has('carrera_id') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">Carrera</label>
+                    <label for="name" class="col-md-4 control-label">Carrera(s):</label>
                     <div class="col-md-6">
-                        <select  id="carrera_option" name="carrera_id" class="form-control">
                         @for($i = 0; $i<sizeof($carreras); $i++)
-                            <option value="{{$carreras[$i]->id }}"> {{$carreras[$i]->nombre}}  </option>
+                          <div class="form-check col-md-6">
+                            <label style="font-weight: normal" class="form-check-label col-md-6"> {{ $carreras[$i]->nombre }} </label>
+                            <input class="form-check-input col-md-4" type="checkbox" name="carrera_option{{$i}}" id="carrera_option{{$i}}" value="{{$carreras[$i]->id }}">
+                          </div>
                         @endfor
-                        </select>
+                    </div>
 
                         @if ($errors->has('carrera_id'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('carrera_id') }}</strong>
                             </span>
                         @endif
-                    </div>
                 </div>
+
+                <div id="divisiones" style="display:none;" class="form-group{{ $errors->has('division_id') ? ' has-error' : '' }}">
+                    <label for="name" class="col-md-4 control-label">Division(es):</label>
+                    <div class="col-md-6">
+                        @for($i = 0; $i<sizeof($divisiones); $i++)
+                          <div class="form-check col-md-6">
+                            <label style="font-weight: normal" class="form-check-label col-md-6"> {{ $divisiones[$i]->nombre }} </label>
+                            <input class="form-check-input col-md-4" type="checkbox" name="division_option{{$i}}" id="division_option{{$i}}" value="{{$divisiones[$i]->id }}">
+                          </div>
+                        @endfor
+                    </div>
+
+                        @if ($errors->has('carrera_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('carrera_id') }}</strong>
+                            </span>
+                        @endif
+                </div>
+
+
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
@@ -401,9 +429,6 @@
                         </button>
                     </div>
                 </div>
-
-            </form>
+          </form>
         </div>
-    </section>
-
 @endsection

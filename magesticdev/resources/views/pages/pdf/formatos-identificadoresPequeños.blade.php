@@ -15,7 +15,7 @@ html{
 	margin-left: 2%;
 }
 .nombre{
-	font-size: 70px;
+	font-size: 30px;
 	font-family:'Tangerine', serif;
 	font-weight: bold;
 	text-align: center;

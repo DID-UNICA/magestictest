@@ -31,13 +31,13 @@
     </div>
 
     <div class="form-group col-md-4">
-      {!!Form::label("semestre_imparticion", "Semestre:")!!}
+      {!!Form::label("semestre_imparticion", "Periodo:")!!}
       {!!Form::text("semestre_imparticion", $user->semestre_anio.'-'.$user->semestre_pi.$user->semestre_si, [ "class" => "form-control", "placeholder" => "Semestre", "required","disabled"])!!}
     </div>
 
     <div class="form-group col-md-4">
-        {!!Form::label("salon_id", "Salon:")!!}
-        {!!Form::text("salon_id", $user->getSalon(), [ "class" => "form-control", "placeholder" => "Salon", "required","disabled"])!!}
+        {!!Form::label("salon_id", "Sede:")!!}
+        {!!Form::text("salon_id", $user->getSalon(), [ "class" => "form-control", "placeholder" => "Sede", "required","disabled"])!!}
     </div>
   </div>
 
@@ -62,12 +62,12 @@
 
 
  <div class="form-group col-md-6">
-    {!!Form::label("dias_semana", "Dias a la semana:")!!}
+    {!!Form::label("dias_semana", "Días a la semana:")!!}
     {!!Form::text("dias_semana", $user->dias_semana, [ "class" => "form-control", "placeholder" => "Dias a la semana", "required","disabled"])!!}
   </div>
 
    <div class="form-group col-md-6">
-    {!!Form::label("numero_sesiones", "Numero de sesiones")!!}
+    {!!Form::label("numero_sesiones", "Número de sesiones")!!}
     {!!Form::text("numero_sesiones", $user->numero_sesiones, [ "class" => "form-control", "placeholder" => "Sesiones", "required","disabled"])!!}
   </div>
   <div class="form-group col-md-6 ">
@@ -81,13 +81,13 @@
   </div>
 
    <div class="form-group col-md-6">
-    {!!Form::label("cupo_maximo", "Cupo maximo:")!!}
-    {!!Form::text("cupo_maximo", $user->cupo_maximo, [ "class" => "form-control", "placeholder" => "Cupo maximo", "required","disabled"])!!}
+    {!!Form::label("cupo_maximo", "Cupo máximo:")!!}
+    {!!Form::text("cupo_maximo", $user->cupo_maximo, [ "class" => "form-control", "placeholder" => "Cupo máximo", "required","disabled"])!!}
   </div>
 
     <div class="form-group col-md-6">
-    {!!Form::label("cupo_minimo", "Cupo minimo")!!}
-    {!!Form::text("cupo_minimo", $user->cupo_minimo, [ "class" => "form-control", "placeholder" => "Cupo minimo", "required","disabled"])!!}
+    {!!Form::label("cupo_minimo", "Cupo mínimo")!!}
+    {!!Form::text("cupo_minimo", $user->cupo_minimo, [ "class" => "form-control", "placeholder" => "Cupo mínimo", "required","disabled"])!!}
   </div>
 
   <div class="form-group col-md-6">
@@ -103,7 +103,7 @@
 
  
 
- <td><a href="{{ URL::to('curso/actualizar', $user->id) }}" class="btn btn-info">Actualiza información</a>
+ <td><a href="{{ URL::to('curso/actualizar', $user->id) }}" class="btn btn-info">Actualizar información</a>
             <a href="{{ URL::to('curso/baja', $user->id) }}" class="btn btn-danger">Dar de baja</a></td>
     
 </div>

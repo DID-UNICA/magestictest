@@ -15,7 +15,7 @@ html{
 	margin-left: 2%;
 }
 .nombre{
-	font-size: 100px;
+	font-size: 60px;
 	font-family:'Tangerine', serif;
 	font-weight: bold;
 	text-align: center;
@@ -51,8 +51,6 @@ table{
 	width: 18.7cm;
 }
 </style>
-
-
 <body>
 	<div>
 	<table class=margenes>
@@ -96,4 +94,6 @@ table{
 	</div>
 </table>    
 </body>
+
+
 </html>

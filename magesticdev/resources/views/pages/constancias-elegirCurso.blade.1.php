@@ -29,7 +29,7 @@
 
                 <div class="logos col-md-12 col-center">
                 	<img class="img-escudo" src="{{ asset('img/cdd.png') }}">
-                	Manejo y Gestión de información del centro de docencia.</h3>
+                	Manejo y Gestión de información del Centro de Docencia.</h3>
                 
                 </div>
                 <hr>
@@ -37,7 +37,7 @@
 
                 <table class="col-md-12">
                     <tr>
-                        <th>Semestre</th>
+                        <th>Periodo</th>
                         <th>Fecha de Inicio</th>
                         <th>Fecha Final</th>
                         <th> </th>

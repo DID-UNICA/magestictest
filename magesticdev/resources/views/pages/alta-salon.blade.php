@@ -60,7 +60,7 @@
                         </div>
 
                          <div class="form-group{{ $errors->has('ubicacion') ? ' has-error' : '' }}">
-                            <label for="sigla" class="col-md-4 control-label">Ubicacion</label>
+                            <label for="sigla" class="col-md-4 control-label">Ubicación</label>
 
                             <div class="col-md-6">
                                 <input id="ubicacion" type="text" class="form-control" name="ubicacion" value="{{ old('ubicacion') }}" >

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Coordinacion General</title>
+    <title>Diploma</title>
 </head>
 <style>
 html{

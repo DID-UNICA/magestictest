@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use PDF;
 use App\Curso;
@@ -18,6 +20,9 @@ use App\Coordinacion;
 use Carbon\Carbon;
 use Zipper;
 use Laracasts\Flash\Flash;
+use File;
+use PdfMerger;
+use PdfManage;
 
 class DiplomasController extends Controller{
 
@@ -40,25 +45,37 @@ class DiplomasController extends Controller{
     }
     public function generar(Request $request){
 
-    try{
+      try{
+          $hash_aux = Hash::make(url()->full(), [
+              'rounds' => 4,
+          ]);
+      }catch(\ErrorException  $e){
+          return redirect()->back()->with('msj', 'Problemas con la url');
+      }
+      try{
+        File::makeDirectory(resource_path('views/pages/tmp'.$hash_aux),0777,true);
+        $pdfMerger = new PdfManage;
         $zip = new Zipper();
         $zip::make(public_path('diplomas.zip'));
         try{
             $coordinadorGeneral = CoordinadorGeneral::all();
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
+            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('msj', 'Primero hay que dar de alta al Coordinador General');    
         } 
         try{
             $secretarioApoyo = SecretarioApoyo::all();
             $secretarioApoyo = $secretarioApoyo[0];
         }catch(\ErrorException  $e){
+            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('msj', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
         }
         try{
             $director = Director::all();
             $director = $director[0];
         }catch(\ErrorException  $e){
+            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('msj', 'Primero hay que dar de alta al Director');    
         }     
         $diplomado = Diplomado::find($request->id);
@@ -184,17 +201,24 @@ class DiplomasController extends Controller{
               'diplomado'=>$diplomado))
               ->setPaper('letter', 'landscape');
             $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+            $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+            $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
             $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
           }
         $folio_der++;
         $iterprof++;   
         }
+      $zip::addString('Diplomas_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Diplomas_'.$curso->id.'.pdf')));
       $zip::close();
+      File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
       return response()->download(public_path('diplomas.zip'))->deleteFileAfterSend(public_path('diplomas.zip'));
     }catch(\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException  $e){
+      File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
       return redirect()
         ->back()
         ->with('msj', 'El diplomado no tiene alumnos que ameriten diploma');
+    }catch(Exception $e){
+        File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
     }
   }
 }//End Clase

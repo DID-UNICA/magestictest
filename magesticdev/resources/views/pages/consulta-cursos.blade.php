@@ -83,6 +83,7 @@
                     <div class="col-md-12">
                       <select name="type" class = 'btn dropdown-toggle pull-left' id='myselect' onchange="deter()">
                         <option value="nombre_curso" >Por nombre</option>
+                        <option value="clave" >Por clave</option>
                         <option value="fechas" >Por periodo</option>
                         <option value="titular" >Por profesor titular</option>
                       </select>

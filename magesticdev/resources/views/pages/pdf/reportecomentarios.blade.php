@@ -140,20 +140,29 @@ body {
                 $participantes = $curso->getParticipantes();
             @endphp
             @foreach($participantes as $participante)
+            @if ($curso->getTipo() == 'S' and $participante->getSugerenciaFinalSeminario($curso->id) != 'NULL')
             <table class="table-sugerencia">
                 <tbody>
                     <tr>
                         <td width=40% class="col-td-instructor">{{$participante->getNombresMayus()}}</td>
-                        @if ($curso->getTipo() == 'S')
                           <td width=40% class="col-td-sugerencia">{{$participante->getSugerenciaFinalSeminario($curso->id)}}</td>
-                        @else
-                          <td width=40% class="col-td-sugerencia">{{$participante->getSugerenciaFinalCurso($curso->id)}}</td>
-                        @endif
                         <td width=20% class="col-td-proceso"></td>
                     </tr>
                 </tbody>
             </table>
             <hr>
+            @elseif ($curso->getTipo() != 'S' and $participante->getSugerenciaFinalCurso($curso->id) != 'NULL')
+            <table class="table-sugerencia">
+                <tbody>
+                    <tr>
+                        <td width=40% class="col-td-instructor">{{$participante->getNombresMayus()}}</td>
+                        <td width=40% class="col-td-sugerencia">{{$participante->getSugerenciaFinalCurso($curso->id)}}</td>
+                        <td width=20% class="col-td-proceso"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            @endif
             @endforeach
             @endif
             @endforeach

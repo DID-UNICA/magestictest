@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Db;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 set_time_limit(120);
@@ -123,9 +123,11 @@ class Curso extends Model
         foreach ($dias_semana_array as $diaSemana) {
             if (substr_count($this->dias_semana, $diaSemana) > 0){
                 array_push($dias_curso_array, array_search($diaSemana, $dias_semana_array)+1);
-            }
-        }
 
+             }
+
+
+        }
         $hayIntervalo = 0;
         //aqui se obtiene el posible intervalo de dias en una semana
         if (sizeof($dias_curso_array) >= 3) {
@@ -205,6 +207,10 @@ class Curso extends Model
 
     }
 
+    public function getFecha_sinLeyenda(){
+        return str_replace('El día ', '', str_replace('Los días ', '', $this->getFecha()));
+    }
+
     public function getTipoCadena(){
         $catalogoCurso=CatalogoCurso::find($this->catalogo_id);
         $tipoStr="curso";
@@ -212,6 +218,8 @@ class Curso extends Model
             $tipoStr = "curso";
         } elseif($catalogoCurso->tipo == "T"){
             $tipoStr = "taller";
+        } elseif($catalogoCurso->tipo == "F"){
+            $tipoStr = "foro";
         } elseif($catalogoCurso->tipo == "S"){
             $tipoStr = "seminario";
         } elseif($catalogoCurso->tipo == "CT"){
@@ -225,11 +233,12 @@ class Curso extends Model
     }
     public function getTipoCadenaUpper(){
         $catalogoCurso=CatalogoCurso::find($this->catalogo_id);
-        $tipoStr="curso";
         if($catalogoCurso->tipo == "C"){
             $tipoStr = "Curso";
         } elseif($catalogoCurso->tipo == "T"){
-            $tipoStr = "Taller";
+           $tipoStr = "Taller";
+        } elseif($catalogoCurso->tipo == "F"){
+            $tipoStr = "Foro";
         } elseif($catalogoCurso->tipo == "S"){
             $tipoStr = "Seminario";
         } elseif($catalogoCurso->tipo == "CT"){
@@ -274,30 +283,40 @@ class Curso extends Model
         $thisCatalogo = CatalogoCurso::findOrFail($this->catalogo_id);
         return $thisCatalogo->nombre_curso;
     }
-    public function getInteresados(){
-        $nombre = $this->getNombreCursoSinClave();
-        $interesados = array();
-        $encuestasCurso = EncuestaFinalCurso::all();
-        $encuestasSeminario = EncuestaFinalSeminario::all();
-        foreach($encuestasCurso as $encuesta){
-            if(stripos($encuesta->otros, $nombre) === false){
-                continue;
+
+    public function getInteresados($tematicas){
+        $interesados_collection = array();
+        foreach($tematicas as $tematica){
+            #TODO por cada encuesta buscar la tematica
+            $encuestascursos = EncuestaFinalCurso::whereRaw("lower(unaccent(otros)) LIKE lower(unaccent('%".$tematica."%'))")->get();
+            $encuestassemis = EncuestaFinalSeminario::whereRaw("lower(unaccent(otros)) LIKE lower(unaccent('%".$tematica."%'))")->get();
+            #TODO hacer join hasta los profesores que contestaron su encuesta
+            foreach($encuestascursos as $encuestacurso){
+                $interesados = DB::table('_evaluacion_final_curso')
+                            ->join('participante_curso', '_evaluacion_final_curso.participante_curso_id', '=', 'participante_curso.id')
+                            ->select('participante_curso.id')
+                            ->where('_evaluacion_final_curso.id', '=', $encuestacurso->id)
+                            ->get();
+                if($interesados->isEmpty())
+                    continue;
+                else
+                    array_push($interesados_collection, $interesados);
             }
-            else{
-                $interesado = ParticipantesCurso::find($encuesta->participante_curso_id);
-                array_push($interesados, $interesado);
-            }
+            foreach($encuestassemis as $encuestasemi){
+              $interesados = DB::table('_evaluacion_final_seminario')
+                          ->join('participante_curso', '_evaluacion_final_seminario.participante_curso_id', '=', 'participante_curso.id')
+                          ->select('participante_curso.id')
+                          ->where('_evaluacion_final_seminario.id', '=', $encuestasemi->id)
+                          ->get();
+              if($interesados->isEmpty())
+                  continue;
+              else
+                  array_push($interesados_collection, $interesados);
+          }
         }
-        foreach($encuestasSeminario as $encuesta){
-            if(stripos($encuesta->otros, $nombre) === false){
-                continue;
-            }
-            else{
-                $interesado = ParticipantesCurso::find($encuesta->participante_curso_id);
-                array_push($interesados, $interesado);
-            }
-        }
-        return $interesados;
+        if (empty($interesados_collection))
+            return 0; //No hubo interesados con esas tematicas
+        return $interesados_collection;
     }
 
     public function getDuracion(){
@@ -419,3 +438,4 @@ class Curso extends Model
     }
 
 }
+

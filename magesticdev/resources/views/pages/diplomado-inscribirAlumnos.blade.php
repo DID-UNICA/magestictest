@@ -26,7 +26,7 @@
       <div class="panel-heading">
             <h1>Diplomado: {{ $diplomado->nombre_diplomado }}</h1>
             <h2>Inscripción de Alumnos</h2>
-            <h3>Cupo maximo: {{$count}}/{{$cupo}}</h3>
+            <h3>Cupo máximo: {{$count}}/{{$cupo}}</h3>
             <div class="input-group">
             {!! Form::open(["route" => ["diplomado.buscarCandidatos", $diplomado->id], "method" => "GET"]) !!}
               {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Profesor"])!!}
