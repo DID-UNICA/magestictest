@@ -22,7 +22,7 @@ use iio\libmergepdf\Pages;
 use File;
 use PdfMerger;
 use PdfManage;
-
+set_time_limit(300);
 class ConstanciasController extends Controller{
     public function selectType($id)
     {

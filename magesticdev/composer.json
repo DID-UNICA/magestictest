@@ -8,14 +8,16 @@
         "php": ">=7.0.0",
         "barryvdh/laravel-dompdf": "^0.8.4",
         "chumper/zipper": "^1.0",
+        "daltcore/lara-pdf-merger": "^2.0",
         "fideloper/proxy": "~3.3",
+        "iio/libmergepdf": "^4.0",
+        "kylekatarnls/laravel-carbon-2": "^1.0.0",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
-        "lynx39/lara-pdf-merger": "^1.0",
-        "nesbot/carbon": "^2.16",
-        "iio/libmergepdf": "^4.0"
+        "maatwebsite/excel": "^3.1",
+        "nesbot/carbon": "2.41.5 as 1.39.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
