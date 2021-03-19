@@ -20,7 +20,6 @@ class CreateTableProfesores extends Migration
             $table->string('apellido_materno')->nullable();
             $table->string('rfc')->unique()->nullable();
             $table->string('numero_trabajador')->unique()->nullable();
-            $table->integer('categoria_nivel_id')->unsigned()->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->string('telefono')->nullable();
             $table->string('grado')->nullable();
@@ -36,6 +35,7 @@ class CreateTableProfesores extends Migration
             $table->string('procedencia')->nullable();
             $table->integer('facultad_id')->unsigned()->nullable();
             $table->foreign('facultad_id')->references('id')->on('facultads');
+            $table->integer('categoria_nivel_id')->unsigned()->nullable();
             $table->foreign('categoria_nivel_id')->references('id')->on('categoria_nivel');
             $table->timestamps();
             

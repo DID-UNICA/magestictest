@@ -26,9 +26,7 @@ class CreateCatalogoCursos extends Migration
             $table->longText('contenido')->nullable();
             $table->longText('sintesis')->nullable();
             $table->longText('metodologia')->nullable();
-            $table->longText('acreditacion')->nullable();
             $table->longText('previo')->nullable();
-            $table->longText('evaluacion')->nullable();
             $table->longText('bibliografia')->nullable();
             $table->date('fecha_disenio');
             $table->integer('coordinacion_id')->unsigned();

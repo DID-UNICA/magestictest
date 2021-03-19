@@ -29,7 +29,7 @@ class TemaSeminarioController extends Controller
         }
         return redirect()
             ->route('catalogo-cursos.consulta')
-            ->with('msj', 'El catálogo se ha creado exitosamente.');
+            ->with('success', 'El catálogo se ha creado exitosamente.');
     }
 
     public function update($catalogo_id, $num_temas, Request $request)
@@ -49,7 +49,7 @@ class TemaSeminarioController extends Controller
         }
         return redirect()
             ->route('catalogo-cursos.consulta')
-            ->with('msj', 'El catálogo se ha actualizado exitosamente.');
+            ->with('success', 'El catálogo se ha actualizado exitosamente.');
     }
 
     public function delete($id){
@@ -58,7 +58,7 @@ class TemaSeminarioController extends Controller
             $user -> delete();
             return;
         }catch (\Illuminate\Database\QueryException $e){
-                return redirect()->back()->with('msj', 'El tema de seminario no pudo ser eliminado.');
+                return redirect()->back()->with('danger', 'El tema de seminario no pudo ser eliminado.');
             }
     }
 

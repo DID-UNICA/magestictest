@@ -82,10 +82,17 @@
         if(output == ingenieria_id){
           document.getElementById("carreras").style.display = "initial";
           document.getElementById("divisiones").style.display = "initial";
+          document.getElementById("externo").style.display = "none";
+        }
+        else if(output == 0){
+            document.getElementById("externo").style.display = "initial";
+            document.getElementById("carreras").style.display = "none";
+            document.getElementById("divisiones").style.display = "none";
         }
         else{
           document.getElementById("carreras").style.display = "none";
           document.getElementById("divisiones").style.display = "none";
+          document.getElementById("externo").style.display = "none";
         }
     }
     function changeFunc() {
@@ -117,13 +124,6 @@
         </a>
     </div>
     <section class="content-inner">
-     @if(session('msj'))
-      <div class="alert alert-success" role='alert'>{{session('msj')}}</div>
-      @endif
-     @if(session('D'))
-      <div class="alert-danger" role='alert'>{{session('D')}}</div>
-     @endif
-
         <br>
         <div class="panel panel-default">
         @include ('partials.messages')
@@ -353,24 +353,11 @@
                     </div>
                 </div>
 
-                <div style="display:none;" id="externo" class="form-group{{ $errors->has('procedencia') ? ' has-error' : '' }}">
-                    <label for="procedencia" class="col-md-4 control-label">Procedencia</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" name="procedencia" value="{{ old('procedencia') }}" >
-                        @if ($errors->has('procedencia'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('procedencia') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
                 <div style="display:none;" id="facultad" class="form-group{{ $errors->has('facultad_id') ? ' has-error' : '' }}">
-                  <div class="col-md-4" style="text-align:right; margin-right:1px">
-                      {!!Form::label("facultad", "Facultad:", ["id" =>"facultad_n"])!!}
-                  </div>
+                      <label for="facultad" class="col-md-4 control-label" id="facultad_n">Facultad</label>
                   <div class="col-md-6">
                     <select id="facultad_option" onchange="changeFunc();" name="facultad_id" class="form-control">
+                        <option  value="0"> Otra </option>
                       @foreach($facultades as $fac)
                         <option  value="{{ $fac->id }} "> {{ $fac->nombre }} </option>
                       @endforeach
@@ -383,6 +370,17 @@
                   </div>
                 </div>
 
+                <div style="display:none;" id="externo" class="form-group{{ $errors->has('procedencia') ? ' has-error' : '' }}">
+                    <label for="procedencia" class="col-md-4 control-label">Procedencia</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="procedencia" value="{{ old('procedencia') }}" >
+                        @if ($errors->has('procedencia'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('procedencia') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
                 
                 <div id="carreras" style="display:none;" class="form-group{{ $errors->has('carrera_id') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Carrera(s):</label>

@@ -93,9 +93,7 @@ class CatalogoCursosController extends Controller
         $catalogoCurso->dirigido = $request->dirigido;
         $catalogoCurso->objetivo = $request->objetivo;
         $catalogoCurso->contenido = $request->contenido;
-        $catalogoCurso->acreditacion = $request->acreditacion;
         $catalogoCurso->previo = $request->antesc;
-        $catalogoCurso->evaluacion = $request->evaluacion;
         $catalogoCurso->bibliografia = $request->bibliografia;
         $catalogoCurso->fecha_disenio = $request->fecha_disenio;
         $catalogoCurso->clave_curso = $request->clave_curso;
@@ -117,7 +115,7 @@ class CatalogoCursosController extends Controller
         }
         return view("pages.ver-catalogo-cursos")
             ->with("user",$catalogoCurso)
-            ->with('msj','Se han actualizado los cambios');
+            ->with('success','Se han actualizado los cambios');
     }
 
     /**
@@ -182,11 +180,11 @@ class CatalogoCursosController extends Controller
          try{
             $catalogoCurso = CatalogoCurso::findOrFail($id);
             $catalogoCurso -> delete();
-            return redirect('/catalogo-cursos')->with('msj', 
+            return redirect('/catalogo-cursos')->with('success', 
               'Se ha dado de baja el curso del catálogo'
             );
         }catch (\Illuminate\Database\QueryException $e){
-                return redirect()->back()->with('error', 
+                return redirect()->back()->with('danger', 
                   'El catálogo de cursos no puede ser eliminado porque tiene cursos asignados.');
             }
     }
@@ -211,9 +209,7 @@ class CatalogoCursosController extends Controller
         $catalogoCurso->dirigido = $request->dirigido;
         $catalogoCurso->objetivo = $request->objetivo;
         $catalogoCurso->contenido = $request->contenido;
-        $catalogoCurso->acreditacion = $request->acreditacion;
         $catalogoCurso->previo = $request->antesc;
-        $catalogoCurso->evaluacion = $request->evaluacion;
         $catalogoCurso->bibliografia = $request->bibliografia;
         $catalogoCurso->fecha_disenio = $request->fecha_disenio;
         $catalogoCurso->clave_curso = $request->clave_curso;
@@ -237,7 +233,7 @@ class CatalogoCursosController extends Controller
                 ->with('num_temas', $request->temas)
                 ->with('catalogo_id', $catalogoCurso->id);
         }
-        return redirect()->back()->with('msj','Se ha dado de alta al catalogo de curso '.$catalogoCurso->nombre_curso.' exitosamente.');
+        return redirect()->back()->with('success','Se ha dado de alta al catalogo de curso '.$catalogoCurso->nombre_curso.' exitosamente.');
     }
 
     public function verAntescedentes($id){

@@ -13,19 +13,13 @@
             <span class='burger_inside' id='bgrThree'></span>
         </a>
     </div>
-    @if(session()->has('msj'))
-        <div class="alert alert-success" role='alert'>{{session('msj')}}</div>
-    @endif
     @if(sizeof($users)==0)
-      <div class="alert alert-danger" role='alert'>No hay resultados</div>
+      <div class="alert alert-warning" role='alert'>No hay resultados</div>
     @endif
-
-    @if(session()->has('error'))
-        <div class="alert alert-danger" role='alert'>{{session('error')}}</div>
-      @endif
     <section class="content-inner">
         <br>
         <div class="panel panel-default">
+        @include ('partials.messages')
             <div class="panel-heading">
                 <h3>Catálogo de cursos</h3>
 

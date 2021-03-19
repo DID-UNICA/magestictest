@@ -19,11 +19,9 @@
       </a>      
     </div>
     <section class="content-inner">
-    @if(session()->has('msj'))
-            <div class="alert alert-danger" role='alert'>{{session('msj')}}</div>
-        @endif
     <br>
       <div class="panel panel-default">
+      @include ('partials.messages')
                 <div class="panel-heading">
                     <h3>Coordinación de Gestión y Vinculación</h3>
                 </div>
@@ -76,11 +74,11 @@
                 </tr>
                 <tr>
                 <td> {!!Form::label("typeId_label", "Folio institucional (Número consecutivo):")!!}</td>
-                <td> {!!Form::text("typeid", null, [ "class" => "form-control", "placeholder" => "Tipo"])!!}</td>
+                <td> {!!Form::text("typeid", null, [ "class" => "form-control", "placeholder" => "Dígitos nueve, diez y once del folio"])!!}</td>
                 </tr>
                 <tr>
-                <td> {!!Form::label("numeroinicial", "Número Inicial:")!!}</td>
-                <td> {!!Form::text("folio_der", null, [ "class" => "form-control", "placeholder" => "Número"])!!}</td>
+                <td> {!!Form::label("numeroinicial", "Folio pequeño:")!!}</td>
+                <td> {!!Form::text("folio_der", null, [ "class" => "form-control", "placeholder" => "Número inicial"])!!}</td>
                 </tr>
                 
 

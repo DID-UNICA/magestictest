@@ -12,16 +12,12 @@
       </a>      
     </div>
     <section class="content-inner">
-    @if(session()->has('msj'))
-      <div class="alert alert-danger" role='alert'>{{session('msj')}}</div>
-    @endif
     <br>
       <div class="panel panel-default">
       @include ('partials.messages')
                 <div class="panel-heading">
                     <div class="container">
                   <h3>Diplomados programados</h3>
-
                   </div>
                 </div>
       </div>

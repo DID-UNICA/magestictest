@@ -55,7 +55,7 @@ class DiplomadoController extends Controller
         $diplomado->nombre_diplomado = $request->nombre;
         $diplomado->cupo_maximo = $request->cupo_max;
         $diplomado->save();
-        return redirect()->back()->with('msj', 'El diplomado: '.$diplomado->nombre_diplomado.' ha sido dado de alta exitosamente');
+        return redirect()->back()->with('success', 'El diplomado: '.$diplomado->nombre_diplomado.' ha sido dado de alta exitosamente');
     }
     public function verDiplomado($id)
     {
@@ -126,7 +126,7 @@ class DiplomadoController extends Controller
                 return redirect('/diplomado');
 
             }catch (\Illuminate\Database\QueryException $e){
-                return redirect()->back()->with('msj', 'El curso no puede ser eliminado porque tiene alumnos inscritos.');
+                return redirect()->back()->with('danger', 'El curso no puede ser eliminado porque tiene alumnos inscritos.');
             }
     }
 
@@ -156,7 +156,7 @@ class DiplomadoController extends Controller
             }
         }
         ParticipantesCurso::where('curso_id', '=', $curso_id)->delete();
-        return redirect()->back()->with('msj', 'El curso ha sido descartado del diplomado '.$diplomado->nombre_diplomado.' exitosamente.');
+        return redirect()->back()->with('success', 'El curso ha sido descartado del diplomado '.$diplomado->nombre_diplomado.' exitosamente.');
     }
 
     public function descartarParticipante($diplomado_id, $profesor_id){
@@ -178,7 +178,7 @@ class DiplomadoController extends Controller
             ->where('curso_id',$curso->id)
             ->delete();
         }
-        return redirect()->back()->with('msj', 'El profesor ha sido descartado del diplomado '.$diplomado->nombre_diplomado.' exitosamente y de todos los cursos que lo conforman.');
+        return redirect()->back()->with('success', 'El profesor ha sido descartado del diplomado '.$diplomado->nombre_diplomado.' exitosamente y de todos los cursos que lo conforman.');
     }
 
     public function añadirCursos($id){
@@ -230,7 +230,7 @@ class DiplomadoController extends Controller
             }
             $num_modulo++;
         }
-        return redirect()->back()->with('msj', 'El diplomado ha sido actualizado exitosamente');
+        return redirect()->back()->with('success', 'El diplomado ha sido actualizado exitosamente');
     }
 
     public function update(Request $request, $id){
@@ -238,7 +238,7 @@ class DiplomadoController extends Controller
         $diplomado->nombre_diplomado = $request->nombre;
         $diplomado->cupo_maximo = $request->cupo_maximo;
         $diplomado->save();
-        return redirect()->back()->with('msj', 'El diplomado ha sido actualizado exitosamente');
+        return redirect()->back()->with('success', 'El diplomado ha sido actualizado exitosamente');
     }
 
     public function inscribirAlumnos($id){
@@ -251,9 +251,9 @@ class DiplomadoController extends Controller
         $cupo = $diplomado->cupo_maximo;
 
         $profesores = Profesor::select('*')
-            ->whereNotIn('rfc',Profesor::join('diplomado_profesor','diplomado_profesor.profesor_id','profesors.id')
+            ->whereNotIn('id',Profesor::join('diplomado_profesor','diplomado_profesor.profesor_id','profesors.id')
                 ->where('diplomado_profesor.diplomado_id',$diplomado->id)
-                ->select('profesors.rfc')->get())
+                ->select('profesors.id')->get())
             ->get();
         return view("pages.diplomado-inscribirAlumnos")
             ->with("count",$count)
@@ -265,17 +265,17 @@ class DiplomadoController extends Controller
     {
         $inscritos = Profesor::join('diplomado_profesor','diplomado_profesor.profesor_id','profesors.id')
                 ->where('diplomado_profesor.diplomado_id', '=', $request->diplomado_id)
-                ->select('profesors.rfc')->get();
+                ->select('profesors.id')->get();
         $diplomado = Diplomado::findOrFail($request->diplomado_id);
 
         if($request->type == "nombre")
         {
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('rfc',$inscritos)->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('rfc',$inscritos)->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('rfc',$inscritos)->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('rfc',$inscritos)->get();
+                $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
+                ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
+                ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
+                ->whereNotIn('id',$inscritos)->get();
 
             }
             return view("pages.diplomado-inscribirAlumnos")
@@ -285,7 +285,7 @@ class DiplomadoController extends Controller
 
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('rfc',$inscritos)->whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
+                $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
                     ->get();
             }
             return view("pages.diplomado-inscribirAlumnos")
@@ -294,7 +294,7 @@ class DiplomadoController extends Controller
 
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('rfc',$inscritos)->whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
+                $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
                 ->get();
             }
             return view("pages.diplomado-inscribirAlumnos")
@@ -303,7 +303,7 @@ class DiplomadoController extends Controller
 
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('rfc',$inscritos)->whereRaw("lower(unaccent(numero_trabajador)) ILIKE lower(unaccent('%".$word."%'))")
+                $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(numero_trabajador)) ILIKE lower(unaccent('%".$word."%'))")
                 ->get();
             }
             return view("pages.diplomado-inscribirAlumnos")
@@ -350,11 +350,9 @@ public function registrarParticipante(Request $request){
             //return $inscripciones;
 
 
-            return redirect()->route("diplomado.inscribirAlumnos",$request->diplomado_id)->with('msj', 'El alumno ha sido dado de alta en el diplomado y todos los cursos que le conforman exitosamente');
-            //redirect()->back()->with('msj', 'El alumno ha sido dado de alta en el diplomado y todos los cursos que le conforman exitosamente');
+            return redirect()->route("diplomado.inscribirAlumnos",$request->diplomado_id)->with('success', 'El alumno ha sido dado de alta en el diplomado y todos los cursos que le conforman exitosamente');
         }else{
-            //redirect()->back()->with('msj', 'El alumno no se puede dar de alta en el diplomado porque ya se llenó el cupo');
-            return redirect()->route("diplomado.inscribirAlumnos",$request->diplomado_id)->with('msjMalo', 'El alumno no puede darse de alta debido a que el cupo ha sido llenado');
+            return redirect()->route("diplomado.inscribirAlumnos",$request->diplomado_id)->with('danger', 'El alumno no puede darse de alta debido a que el cupo ha sido llenado');
         }
 
     }

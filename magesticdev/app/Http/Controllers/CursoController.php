@@ -32,7 +32,7 @@ class CursoController extends Controller
      */
     public function index()
     {
-        $enDiplomadoObj = DiplomadosCurso::select('curso_id')->get();
+        /*$enDiplomadoObj = DiplomadosCurso::select('curso_id')->get();
         $enDiplomadoArray = array();
         foreach ($enDiplomadoObj as $enDip) {
             array_push($enDiplomadoArray, $enDip->curso_id);
@@ -44,9 +44,9 @@ class CursoController extends Controller
             if ($curso->getTipo() != 'D'){
                 array_push($cursos,$curso);
             }
-        }
+        }*/
         return view("pages.consulta-cursos")
-            ->with("cursos",$cursos);
+            ->with("cursos",Curso::all());
     }
 
     /**
@@ -275,7 +275,7 @@ class CursoController extends Controller
     {
         $participantes = ParticipantesCurso::where('curso_id', $id)->get();
         if(empty($participantes[0]) == FALSE){
-            return redirect()->back()->with('msj', 'El curso no puede ser eliminado porque tiene alumnos inscritos.');
+            return redirect()->back()->with('warning', 'El curso no puede ser eliminado porque tiene alumnos inscritos.');
         }
         $profesores = ProfesoresCurso::where('curso_id', $id)->get();
         foreach($profesores as $profesor){
@@ -283,13 +283,13 @@ class CursoController extends Controller
         }
         $user = Curso::findOrFail($id);
         $user -> delete(); 
-        return redirect('/curso')->with('msj', "El curso se eliminó exitosamente");
+        return redirect('/curso')->with('success', "El curso se eliminó exitosamente");
     }
     public function deleteModulo($id)
     {
         $participantes = ParticipantesCurso::where('curso_id', $id)->get();
         if(empty($participantes[0]) == FALSE){
-            return redirect()->back()->with('msj', 'El curso no puede ser eliminado porque tiene alumnos inscritos.');
+            return redirect()->back()->with('danger', 'El curso no puede ser eliminado porque tiene alumnos inscritos.');
         }
         $profesores = ProfesoresCurso::where('curso_id', $id)->get();
         foreach($profesores as $profesor){
@@ -297,7 +297,7 @@ class CursoController extends Controller
         }
         $user = Curso::findOrFail($id);
         $user -> delete(); 
-        return redirect('/diplomado')->with('msj', "El curso se eliminó exitosamente");
+        return redirect('/diplomado')->with('success', "El curso se eliminó exitosamente");
     }
     public function bajaParticipante($id,$curso,$espera)
     {
@@ -418,9 +418,9 @@ class CursoController extends Controller
         $cupo = Curso::findOrFail($id)->cupo_maximo;
 
         $users = Profesor::select('*')
-            ->whereNotIn('rfc',Profesor::join('participante_curso','participante_curso.profesor_id','profesors.id')
+            ->whereNotIn('id',Profesor::join('participante_curso','participante_curso.profesor_id','profesors.id')
                 ->where('participante_curso.curso_id',$id)
-                ->select('profesors.rfc')->get())
+                ->select('profesors.id')->get())
             ->whereNotIn('id', ProfesoresCurso::where('curso_id',$id)->select('profesor_id')->get())
             ->get()
             ->sortBy("apellido_paterno");
@@ -679,11 +679,16 @@ class CursoController extends Controller
             ->where('curso_id',$request->curso_id)
             ->count();
         $enLista = ParticipantesCurso::select('id')
+            ->where('curso_id',$request->curso_id)
             ->where('estuvo_en_lista',true)
             ->count();
-//Queda pendiente el registro
+        $cancelados = ParticipantesCurso::select('id')
+            ->where('curso_id',$request->curso_id)
+            ->where('cancelación',true)
+            ->count();
         $cupo = Curso::findOrFail($request->curso_id)->cupo_maximo;
-        if($count-$enLista < $cupo){
+//Queda pendiente el registro
+        if($count-$enLista-$cancelados < $cupo){
 
             $user = new ParticipantesCurso;
             $user->curso_id = $request->curso_id;

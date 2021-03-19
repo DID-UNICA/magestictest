@@ -14,9 +14,6 @@
       </a>      
     </div>
     <section class="content-inner">
-    @if(session()->has('msj'))
-      <div class="alert alert-danger" role='alert'>{{session('msj')}}</div>
-    @endif
     @if(sizeof($cursos)==0)
       <div class="alert alert-danger" role='alert'>No hay resultados</div>
     @endif

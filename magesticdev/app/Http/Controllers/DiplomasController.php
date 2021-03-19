@@ -50,7 +50,7 @@ class DiplomasController extends Controller{
               'rounds' => 4,
           ]);
       }catch(\ErrorException  $e){
-          return redirect()->back()->with('msj', 'Problemas con la url');
+          return redirect()->back()->with('danger', 'Problemas con la url');
       }
       try{
         File::makeDirectory(resource_path('views/pages/tmp'.$hash_aux),0777,true);
@@ -62,24 +62,24 @@ class DiplomasController extends Controller{
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Coordinador General');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Coordinador General');    
         } 
         try{
             $secretarioApoyo = SecretarioApoyo::all();
             $secretarioApoyo = $secretarioApoyo[0];
         }catch(\ErrorException  $e){
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
         }
         try{
             $director = Director::all();
             $director = $director[0];
         }catch(\ErrorException  $e){
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Director');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Director');    
         }     
         $diplomado = Diplomado::find($request->id);
-        $idFol = $diplomado->getTypeId();
+        $idFol = (strlen($request->typeid) != 0 and is_numeric($request->typeid)) ? intval($request->typeid) : $diplomado->getTypeId();
         $foja = $request->foja;
         $libro = $request->libro;
         $diplomadosCurso = DiplomadosCurso::where('diplomado_id',$diplomado->id)->get();
@@ -134,15 +134,15 @@ class DiplomasController extends Controller{
         if (!$diplomadosProfesor){
           return redirect()
             ->back()
-            ->with('msj', 'El diplomado no tiene alumnos inscritos');
+            ->with('warning', 'El diplomado no tiene alumnos inscritos');
         }
         if(!$diplomadosCurso){
           return redirect()
             ->back()
-            ->with('msj', 'El diplomado no tiene cursos inscritos');
+            ->with('warning', 'El diplomado no tiene cursos inscritos');
         }
         $tmp = Profesor::all();
-        $folio_der = $request->folder;
+        $folio_der = (strlen($request->folder) != 0 and is_numeric($request->folder)) ?  intval($request->folder) : 1;
         $iterprof = 1;
         foreach($diplomadosProfesor as $diplomadoProfesor){
           $acredito = true;
@@ -208,7 +208,7 @@ class DiplomasController extends Controller{
         $folio_der++;
         $iterprof++;   
         }
-      $zip::addString('Diplomas_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Diplomas_'.$curso->id.'.pdf')));
+      $zip::addString('Diplomas_'.$diplomado->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Diplomas_'.$diplomado->id.'.pdf')));
       $zip::close();
       File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
       return response()->download(public_path('diplomas.zip'))->deleteFileAfterSend(public_path('diplomas.zip'));
@@ -216,7 +216,7 @@ class DiplomasController extends Controller{
       File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
       return redirect()
         ->back()
-        ->with('msj', 'El diplomado no tiene alumnos que ameriten diploma');
+        ->with('warning', 'El diplomado no tiene alumnos que ameriten diploma');
     }catch(Exception $e){
         File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
     }

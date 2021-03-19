@@ -14,8 +14,7 @@ protected $table = 'catalogo_cursos';
 */
 protected $fillable = [
   'nombre_curso','duracion_curso','coordinacion_id','tipo','presentacion',
-  'dirigido','objetivo','contenido','sintesis','metodologia','acreditacion',
-  'evaluacion','bibliografia','consecuentes', 'previo','fecha_disenio',
+  'dirigido','objetivo','contenido','sintesis','metodologia','bibliografia','consecuentes', 'previo','fecha_disenio',
   'clave_curso'
 ];
 

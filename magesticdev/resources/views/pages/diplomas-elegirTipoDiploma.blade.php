@@ -19,11 +19,9 @@
       </a>      
     </div>
     <section class="content-inner">
-      @if(session()->has('msj'))
-        <div class="alert alert-success" role='alert'>{{session('msj')}}</div>
-      @endif
       <br>
       <div class="panel panel-default">
+      @include ('partials.messages')
         <div class="panel-heading">
           <h3>Coordinación de Gestión y Vinculación</h3>
         </div>
@@ -43,7 +41,7 @@
                     <tr>
                      <th>Nombre:</th>
                       <th>
-                      Número Inicial:
+                      Folio pequeño:
                       </th>
                     </tr>
                     <tr>
@@ -63,6 +61,12 @@
                       <td class= "col-md-2">
                         <button type="submit" class="btn btn-info form-control" name="id" value="{{$diplomado->id}}">Crear</button>
                       </td>
+                    </tr>
+                    <tr>
+                      <td> {!!Form::label("typeId_label", "Folio institucional (Número consecutivo):")!!}</td>
+                    </tr>
+                    <tr>
+                      <td> {!!Form::text("typeid", null, [ "class" => "form-control", "placeholder" => "Dígitos nueve, diez y once del folio"])!!}</td>
                     </tr>
                     <tr>
                       <td> {!!Form::label("numfoja", "Número Foja:")!!}</td>

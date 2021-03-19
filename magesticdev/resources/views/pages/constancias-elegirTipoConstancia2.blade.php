@@ -16,14 +16,11 @@
         <span class='burger_inside' id='bgrThree'></span>
       </a>      
     </div>
-
-     @if(session()->has('msj'))
-        <div class="alert alert-danger" role='alert'>{{session('msj')}}</div>
-      @endif
     
     <section class="content-inner">
     <br>
       <div class="panel panel-default">
+      @include ('partials.messages')
                 <div class="panel-heading">
                     <h3>Coordinación de Gestión y Vinculación</h3>
                 </div>

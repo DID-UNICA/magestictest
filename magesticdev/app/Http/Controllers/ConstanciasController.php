@@ -69,7 +69,7 @@ class ConstanciasController extends Controller{
                             'rounds' => 4,
                         ]),-5);
         }catch(\ErrorException  $e){
-            return redirect()->back()->with('msj', 'Problemas con la url');
+            return redirect()->back()->with('danger', 'Problemas con la url');
         }
          //Obtención de personal académico
         try{
@@ -77,7 +77,7 @@ class ConstanciasController extends Controller{
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
             return redirect()->back()->with(
-                'msj',
+                'info',
                 'Primero hay que dar de alta al Coordinador General'
             );
         }
@@ -86,7 +86,7 @@ class ConstanciasController extends Controller{
             $secretarioApoyo = $secretarioApoyo[0];
         }catch(\ErrorException  $e){
             return redirect()->back()->with(
-                'msj', 
+                'info', 
                 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia'
             );
         }
@@ -95,7 +95,7 @@ class ConstanciasController extends Controller{
             $director = $director[0];
         }catch(\ErrorException  $e){
             return redirect()->back()->with(
-                'msj',
+                'info',
                 'Primero hay que dar de alta al Director'
             );
         }
@@ -140,7 +140,7 @@ class ConstanciasController extends Controller{
         ->select('profesors.*')->get();
         if(count($participantes) <= 0){
             return redirect()->back()->with(
-                'msj',
+                'warning',
                 'No hay alumnos que ameriten constancia'
             );
         }
@@ -148,7 +148,7 @@ class ConstanciasController extends Controller{
             $zip::close();
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with(
-                'msj', 'No hay profesores asignados para dicho curso'
+                'warning', 'No hay profesores asignados para dicho curso'
             );
         }
         $participantes = $participantes->sortBy(function($user){
@@ -203,7 +203,7 @@ class ConstanciasController extends Controller{
                 File::makeDirectory(resource_path('views/pages/tmp'.$hash_aux),0777,true);
             }catch(\ErrorException  $e){
                 return redirect()->back()->with(
-                    'msj', 'Problemas con el directorio "tmp"'
+                    'warning', 'Problemas con el directorio "tmp"'
                 );    
             }
             if ($tipoDeConstancia == "A"){
@@ -1002,7 +1002,7 @@ class ConstanciasController extends Controller{
 
     }catch(\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException  $e){
         File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-        return redirect()->back()->with('msj', 'El curso no tiene alumnos que ameriten constancia');
+        return redirect()->back()->with('warning', 'El curso no tiene alumnos que ameriten constancia');
     }catch(Exception $e){
         File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
     }

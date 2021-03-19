@@ -87,7 +87,7 @@ class CoordinacionController extends Controller
             Session::flash('delete', 'Se ha borrado el registro exitosamente');
             return redirect('/coordinacion');
         }catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()->with('msjMalo', 'No se puede dar de baja ya que hay cursos asignados a dicha coordinacion');    
+            return redirect()->back()->with('danger', 'No se puede dar de baja ya que hay cursos asignados a dicha coordinacion');    
 
         }
 

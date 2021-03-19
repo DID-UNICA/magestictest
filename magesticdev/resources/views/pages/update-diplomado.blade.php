@@ -17,9 +17,6 @@
     <br>
       <div class="panel panel-default">
       @include ('partials.messages')
-     @if(session()->has('msj'))
-        <div class="alert alert-success" role='alert'>{{session('msj')}}</div>
-      @endif
                 <div class="panel-heading">
                       <h1>Diplomado: {{ $diplomado->nombre_diplomado }}</h1>
                 </div>

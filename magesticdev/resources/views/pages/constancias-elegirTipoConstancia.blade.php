@@ -23,13 +23,10 @@
       </a>
     </div>
 
-     @if(session()->has('msj'))
-        <div class="alert alert-danger" role='alert'>{{session('msj')}}</div>
-      @endif
-
     <section class="content-inner">
     <br>
       <div class="panel panel-default">
+      @include ('partials.messages')
                 <div class="panel-heading">
                     <h3>Coordinación de Gestión y Vinculación</h3>
                 </div>
@@ -106,10 +103,10 @@
                     {!!Form::text("typeid", null, [ "class" => "form-control", "placeholder" => "Dígitos nueve, diez y once del folio"])!!}
                 </div>
                 <div class="form-group col-md-4">
-                    {!!Form::label("numero", "Número Inicial:")!!}
+                    {!!Form::label("numero", "Folio pequeño:")!!}
                 </div>
                 <div class="form-group col-md-6">
-                    {!!Form::text("numero", null, [ "class" => "form-control", "placeholder" => "Número"])!!}
+                    {!!Form::text("numero", null, [ "class" => "form-control", "placeholder" => "Número inicial"])!!}
                 </div>
                 
 

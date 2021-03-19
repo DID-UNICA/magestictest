@@ -338,7 +338,7 @@ class Curso extends Model
        $profesor = Profesor::join('profesor_curso', 'profesors.id', '=', 'profesor_curso.profesor_id')
        ->join('cursos', 'cursos.id', '=', 'profesor_curso.curso_id')
        ->where('cursos.id', '=', $this->id)
-       ->select('profesors.nombres', 'profesors.apellido_paterno', 'profesors.apellido_materno', 'profesors.semblanza_corta')
+       ->select('profesors.nombres', 'profesors.apellido_paterno', 'profesors.apellido_materno', 'profesors.semblanza_corta', 'profesors.abreviatura_grado')
        ->get();
         return $profesor;
     }

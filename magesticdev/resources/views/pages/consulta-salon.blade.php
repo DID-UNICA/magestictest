@@ -12,13 +12,10 @@
       </a>      
     </div>
     <section class="content-inner">
-      @if(session()->has('msj'))
-        <div class="alert alert-danger" role='alert'>{{session('msj')}}</div>
-      @endif
     <br>
       <div class="panel panel-default">
+      @include ('partials.messages')
                 <div class="panel-heading">
-                @include ('partials.messages')
                     <h3>Lista de salones</h3>
                       
  {!! Form::open(["action" => "SalonController@search", "method" => "POST"])!!}

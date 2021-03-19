@@ -36,7 +36,6 @@
             <td>{{ $registro->rfc }}</td>
             <td>{{ $registro->nombre }}</td>
             <td>{{ $registro->categoria }}</td>
-            <td>{{ $registro->division }}</td>
             <td>{{ $registro->nombrec }}</td>
             <td>{{ $registro->duracion }}</td>
             <td>{{ $registro->fecha_inicio }}</td>
@@ -76,7 +75,6 @@
             @endif
             <td>{{ $registro->email }}</td>
             <td>{{ $registro->telefono }}</td>
-            <td>{{ $registro->division }}</td>
             <td>{{ $registro->edad }}</td>
             @if ($registro->edad >= 21 && $registro->edad <= 29)
                 <td>21-29</td>

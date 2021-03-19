@@ -16,19 +16,19 @@ class AllCursosExport implements FromView, ShouldAutosize
 {
     use Exportable;
     public function view():View {   
-            $registros = DB::table('participante_curso AS pc') 
+            $registros = DB::table('participante_curso AS pc')
             ->join('cursos AS c', 'pc.curso_id', '=', 'c.id')
             ->join('profesors AS p', 'p.id','=','pc.profesor_id')
             ->join('catalogo_cursos AS ct','c.catalogo_id','=','ct.id')
-            ->join('categoria_nivel AS cn','cn.id','=','p.categoria_nivel_id')
-            ->join('carreras AS cr','cr.id','=','p.carrera_id')
-            ->join('divisions AS d','d.id','=','cr.id_division')
+            ->leftjoin('categoria_nivel AS cn','cn.id','=','p.categoria_nivel_id')
+            
+            //->join('carreras AS cr','cr.id','=','p.carrera_id')
+            //->join('divisions AS d','d.id','=','cr.id_division')
             ->select('ct.clave_curso AS clave', 
             'c.semestre_anio','c.semestre_pi','c.semestre_si',
             'p.rfc AS rfc',
             'p.nombres', 'p.apellido_paterno', 'p.apellido_materno',
             'cn.abreviatura AS categoria',
-            'd.nombre AS division' ,
             'ct.nombre_curso AS nombrec',
             'ct.duracion_curso AS duracion',
             'c.fecha_inicio AS fecha_inicio',

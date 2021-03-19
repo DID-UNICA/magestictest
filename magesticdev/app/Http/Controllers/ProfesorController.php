@@ -258,7 +258,7 @@ class ProfesorController extends Controller
         }
         $inscritos = Profesor::join('participante_curso','participante_curso.profesor_id','profesors.id')
                 ->where('participante_curso.curso_id', '=', $request->curso_id)
-                ->select('profesors.rfc')->get();
+                ->select('profesors.id')->get();
         $curso = Curso::findOrFail($request->curso_id);
         $enLista = ParticipantesCurso::select('id')->where('estuvo_en_lista',true)->where('curso_id',$request->curso_id)->count();
 
@@ -268,10 +268,10 @@ class ProfesorController extends Controller
             $users = collect();
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                array_push($arreglo_aux, Profesor::select('*')->whereNotIn('rfc',$inscritos)->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('rfc',$inscritos)->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('rfc',$inscritos)->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('rfc',$inscritos)->get()->sortBy("apellido_paterno"));
+                array_push($arreglo_aux, Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
+                ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
+                ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
+                ->whereNotIn('id',$inscritos)->get()->sortBy("apellido_paterno"));
 
             }
             foreach ($arreglo_aux as $usuarios) {
@@ -286,9 +286,9 @@ class ProfesorController extends Controller
 
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('rfc',Profesor::join('participante_curso','participante_curso.profesor_id','profesors.id')
+                $users = Profesor::select('*')->whereNotIn('id',Profesor::join('participante_curso','participante_curso.profesor_id','profesors.id')
                 ->where('participante_curso.curso_id',$request->curso_id)
-                ->select('profesors.rfc')->get())->whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
+                ->select('profesors.id')->get())->whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
                     ->get();
             }
             return view("pages.curso-inscripcion")
@@ -298,9 +298,9 @@ class ProfesorController extends Controller
 
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('rfc',Profesor::join('participante_curso','participante_curso.profesor_id','profesors.id')
+                $users = Profesor::select('*')->whereNotIn('id',Profesor::join('participante_curso','participante_curso.profesor_id','profesors.id')
                 ->where('participante_curso.curso_id',$request->curso_id)
-                ->select('profesors.rfc')->get())->whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
+                ->select('profesors.id')->get())->whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
                 ->get();
             }
             return view("pages.curso-inscripcion")
@@ -338,9 +338,9 @@ class ProfesorController extends Controller
             foreach($carreras as $carrera)
               $carrera->delete();
             $user -> delete();
-            return redirect('/profesor')->with('msj', 'El profesor fue dado de baja correctamente.');
+            return redirect('/profesor')->with('success', 'El profesor fue dado de baja correctamente.');
         }catch (\Illuminate\Database\QueryException $e){
-            return redirect('/profesor')->with('msj', 'El profesor no puede ser eliminado porque tiene cursos asignados.');
+            return redirect('/profesor')->with('danger', 'El profesor no puede ser eliminado porque tiene cursos asignados.');
         }
     }
 
@@ -412,10 +412,10 @@ class ProfesorController extends Controller
         $user->facebook = $request->facebook;
         $user ->unam = (int)$request -> unam;
         $user->numero_trabajador=$request->numero_trabajador;
-        if($user->unam == 1){
+        if($user->unam == 1 and $request->facultad_id != 0){
             $user->procedencia = null;
             $user->facultad_id = $request->facultad_id;
-        }else if ($user->unam == 0){
+        }else{
             $user->procedencia = $request->procedencia;
             $user->facultad_id = null;
         }
@@ -423,7 +423,7 @@ class ProfesorController extends Controller
         $bandera = $bandera or Profesor::where('email', $user->email)->exists();
         $bandera = $bandera or Profesor::where('numero_trabajador', $user->numero_trabajador)->exists();
          if ($bandera) {
-            return redirect()->back()->with('msj', 'Datos incorrectos. Alguno de los datos ingresados ya esta registrado en el sistema')->with('D','danger');
+            return redirect()->back()->with('danger', 'Datos incorrectos. Alguno de los datos ingresados ya esta registrado en el sistema');
          }else{
             $user->save();
             $fac_ing = Facultad::where('nombre', '=', 'Facultad de Ingeniería')->first();
@@ -449,7 +449,7 @@ class ProfesorController extends Controller
                   }
                 }
             }
-            return redirect()->back()->with('msj', 'Se ha dado de alta al profesor');
+            return redirect()->back()->with('success', 'Se ha dado de alta al profesor');
         }
     }
 

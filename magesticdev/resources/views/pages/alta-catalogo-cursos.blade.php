@@ -15,15 +15,9 @@
         </a>
     </div>
     <section class="content-inner">
-        @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-        @endif
-        
-        @if(session()->has('msj'))
-            <div class="alert alert-success" role='alert'>{{session('msj')}}</div>
-        @endif
         <br>
         <div class="panel panel-default">
+        @include ('partials.messages')
             <div class="panel-heading">
                 <h3>Alta Catálogo de cursos</h3>
                 <h4>Coordinación de Gestión y Vinculación</h4>
@@ -187,30 +181,6 @@
                                 
                             @endif
                             </input>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group{{ $errors->has('acreditacion') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Acreditación:</label>
-
-                        <div class="col-md-6">
-                            <textarea rows="4" cols="50" id="acreditacion" type="text" class="form-control" name="acreditacion" value="{{ old('acreditacion') }}">@if ($errors->has('acreditacion'))
-                                <span class="help-block">
-                                        <strong>{{ $errors->first('acreditacion') }}</strong>
-                                    </span>
-                            @endif</textarea>
-                        </div>
-                    </div>
-                    <div class="form-group{{ $errors->has('evaluacion') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Evaluación:</label>
-
-                        <div class="col-md-6">
-                            <textarea rows="4" cols="50" id="acreditacion" type="text" class="form-control" name="evaluacion" value="{{ old('evaluacion') }}">@if ($errors->has('evaluacion'))
-                                <span class="help-block">
-                                        <strong>{{ $errors->first('evaluacion') }}</strong>
-                                    </span>
-                            @endif</textarea>
                         </div>
                     </div>
                     

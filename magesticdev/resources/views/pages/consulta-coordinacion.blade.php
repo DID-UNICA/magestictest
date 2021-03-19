@@ -14,13 +14,10 @@
         </a>
     </div>
     <section class="content-inner">
-     @if(session()->has('msjMalo'))
-        <div class="alert alert-danger" role='alert'>{{session('msjMalo')}}</div>
-      @endif
         <br>
         <div class="panel panel-default">
+        @include ('partials.messages')
             <div class="panel-heading">
-            @include ('partials.messages')
                 <h3>Coordinaciones</h3> 
                 </div>
             </div>

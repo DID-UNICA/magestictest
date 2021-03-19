@@ -66,7 +66,7 @@ class ReconocimientosController extends Controller{
                 'rounds' => 4,
             ]);
         }catch(\ErrorException  $e){
-            return redirect()->back()->with('msj', 'Problemas con la url');
+            return redirect()->back()->with('danger', 'Problemas con la url');
         }
         File::makeDirectory(resource_path('views/pages/tmp'.$hash_aux),0777,true);
         try{
@@ -74,19 +74,19 @@ class ReconocimientosController extends Controller{
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Coordinador General');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Coordinador General');    
         }try{
             $secretarioApoyo = SecretarioApoyo::all();
             $secretarioApoyo = $secretarioApoyo[0];
         }catch(\ErrorException  $e){
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
         }try{
             $director = Director::all();
             $director = $director[0];
         }catch(\ErrorException  $e){
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Director');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Director');    
         }
         $idTipo = (strlen($request->typeid) != 0 and is_numeric($request->typeid)) ? intval($request->typeid) : $curso->getTypeId();
         if($idTipo>99){
@@ -153,7 +153,7 @@ class ReconocimientosController extends Controller{
         $folio = "F04".$anio.$tipo;
         if($count == null){
             $zip::close();
-            return redirect()->back()->with('msj', 'No hay profesores asignados para dicho curso');
+            return redirect()->back()->with('warning', 'No hay profesores asignados para dicho curso');
         }
         $iter = 1;
         $ceros = "000";
@@ -199,7 +199,7 @@ class ReconocimientosController extends Controller{
                 'rounds' => 4,
             ]);
         }catch(\ErrorException  $e){
-            return redirect()->back()->with('msj', 'Problemas con la url');
+            return redirect()->back()->with('danger', 'Problemas con la url');
         }
         File::makeDirectory(resource_path('views/pages/tmp'.$hash_aux),0777,true);
         try{
@@ -207,21 +207,21 @@ class ReconocimientosController extends Controller{
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Coordinador General');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Coordinador General');    
         } 
         try{
             $secretarioApoyo = SecretarioApoyo::all();
             $secretarioApoyo = $secretarioApoyo[0];
         }catch(\ErrorException  $e){
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
         }
         try{
             $director = Director::all();
             $director = $director[0];
         }catch(\ErrorException  $e){
             File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('msj', 'Primero hay que dar de alta al Director');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Director');    
         } 
         $curso = Curso::findOrFail($request->id);
         
@@ -295,7 +295,7 @@ class ReconocimientosController extends Controller{
         $folio = "F04".$anio.$auxiliar;
         if($count == null){
             $zip::close();
-            return redirect()->back()->with('msj', 'No hay profesores asignados para dicho curso');
+            return redirect()->back()->with('warning', 'No hay profesores asignados para dicho curso');
         }
     try{
 
@@ -393,7 +393,7 @@ class ReconocimientosController extends Controller{
         }
     }catch(\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException  $e){
         File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
-        return redirect()->back()->with('msj', 'Error');
+        return redirect()->back()->with('danger', 'Error');
       }catch(Exception $e){
         File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
     }

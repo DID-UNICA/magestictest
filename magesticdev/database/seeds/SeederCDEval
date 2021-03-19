@@ -1526,10 +1526,8 @@ class StartSeeder extends Seeder
                             -Temas avanzados',
             'sintesis' => 'Sintesis',
             'metodologia' => 'Metodologia',
-            'acreditacion' => '10% Tareas
             90% Examen',
             'previo' => 'Conocimientos básicos de informática y tecnologías de información: Qué es una computadora y cómo funciona',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'www.paginasobreprogramacion.com
             A.J. Tyson, Programacion para dummys. Pearson, 2008.',
             'fecha_disenio' => '2018-05-18',

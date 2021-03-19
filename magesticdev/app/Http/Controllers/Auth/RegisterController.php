@@ -52,10 +52,7 @@ class RegisterController extends Controller
             'usuario' => 'required|string|max:255|unique:users',
             'apellido_paterno' => 'required|string|max:255',
             'apellido_materno' => 'required|string|max:255',
-            'rfc' => 'required|string|max:255',
             'fecha_nacimiento' => 'required|string|max:255',
-            'telefono' => 'required|string|max:255',
-            'grado' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -74,10 +71,7 @@ class RegisterController extends Controller
             'usuario' => $data['usuario'],
             'apellido_paterno' => $data['apellido_paterno'],
             'apellido_materno' => $data['apellido_materno'],
-            'rfc' => $data['rfc'],
             'fecha_nacimiento' => $data['fecha_nacimiento'],
-            'telefono' => $data['telefono'],
-            'grado' => $data['grado'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

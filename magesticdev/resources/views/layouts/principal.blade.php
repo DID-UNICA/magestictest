@@ -127,7 +127,6 @@
             </li>
         </ul>
     </aside>
-
     @yield('contenido')
 
     <footer class="content-inner">

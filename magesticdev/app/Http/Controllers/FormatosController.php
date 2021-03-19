@@ -74,7 +74,7 @@ class FormatosController extends Controller
       $tematicas = preg_split("/#/", $request->words);
         unset($tematicas[0]);
       if(empty($tematicas))
-        return redirect()->back()->with('msj', 'ERROR. Recuerde que cada palabra debe comenzar con #');
+        return redirect()->back()->with('danger', 'ERROR: Recuerde que cada palabra debe comenzar con #');
       $tematicas = str_replace(' ', '', $tematicas);
       foreach($tematicas as $index => $tematica)
         if($index === 1)
@@ -84,7 +84,7 @@ class FormatosController extends Controller
       $interesados = $curso->getInteresados($tematicas);
       $new_interesados = array(); 
       if($interesados === 0)
-        return redirect()->back()->with('msj', 'No hubo interesados con esas temáticas.');
+        return redirect()->back()->with('info', 'No hubo interesados con esas temáticas.');
       //Deshacemos colección
         foreach($interesados as $interesados_curso){
         foreach($interesados_curso as $interesado){
@@ -152,6 +152,9 @@ class FormatosController extends Controller
         }elseif($cursoCatalogo->tipo == "E"){
             $tipo="Evento";
         }
+      elseif($cursoCatalogo->tipo == "D"){
+        $tipo="Módulo Diplomado";
+      }
         $datos = array(
             'curso' => $curso,
             'profesor' => $profesor,

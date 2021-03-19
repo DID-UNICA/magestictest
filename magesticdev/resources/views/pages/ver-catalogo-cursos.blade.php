@@ -78,16 +78,6 @@
                             {!!Form::label("contenido", "Contenido:")!!}
                             {!!Form::textarea("contenido", $user->contenido, [ "class" => "form-control", "required","disabled"])!!}
                         </div>
-
-                        <div class="form-group col-md-6">
-                            {!!Form::label("acreditacion", "Acreditación:")!!}
-                            {!!Form::textarea("acreditacion", $user->acreditacion, [ "class" => "form-control", "required","disabled"])!!}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {!!Form::label("evaluacion", "Evaluación:")!!}
-                            {!!Form::textarea("evaluacion", $user->evaluacion, [ "class" => "form-control", "required","disabled"])!!}
-                        </div>
-
                         <div class="form-group col-md-6">
                             {!!Form::label("antescedentes", "Otros antecedentes:")!!}
                             {!!Form::textarea("antesc", $user->previo, [ "class" => "form-control", "required","disabled"])!!}

@@ -18,10 +18,7 @@ class StartSeeder extends Seeder
             'nombres'=> 'Mauricio',
             'apellido_paterno' => 'Ramos',
             'apellido_materno' => 'Villaseñor',
-            'rfc' => 'RAVC971212',
             'fecha_nacimiento' => '1997-12-12',
-            'telefono' => '5656978610',
-            'grado' => 'Doctor',
             'email' => 'mauri334455@gmail.com',
             'usuario' => 'mauri334455',
             'password' => Hash::make('amores334455')
@@ -310,6 +307,8 @@ class StartSeeder extends Seeder
         DB::table('categoria_nivel')->insert(['categoria' => 'Investigador titular C MT', 'abreviatura' => 'INV TIT C M  T']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Investigador titular C TC', 'abreviatura' => 'INV TIT C T  C']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Profesor Emérito', 'abreviatura' => 'PROF EMERITO']);
+        DB::table('categoria_nivel')->insert(['categoria' => 'Profesor de Asignatura A', 'abreviatura' => 'PROF ASG A']);
+        DB::table('categoria_nivel')->insert(['categoria' => 'Profesor de Asignatura B', 'abreviatura' => 'PROF ASG B']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Profesor Titular A TC', 'abreviatura' => 'PROF TIT A T C']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Profesor Titular B TC', 'abreviatura' => 'PROF TIT B T C']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Profesor Titular C TC', 'abreviatura' => 'PROF TIT C T C']);
@@ -805,10 +804,7 @@ class StartSeeder extends Seeder
                             -Temas avanzados',
             'sintesis' => 'Sintesis',
             'metodologia' => 'Metodologia',
-            'acreditacion' => '10% Tareas
-            90% Examen',
             'previo' => 'Conocimientos básicos de informática y tecnologías de información: Qué es una computadora y cómo funciona',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'www.paginasobreprogramacion.com
             A.J. Tyson, Programacion para dummys. Pearson, 2008.',
             'fecha_disenio' => '2018-05-18',
@@ -827,8 +823,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Que es la administracion y sus derivados',
             'sintesis' => 'Se aprendera sobre la administracion',
             'metodologia' => 'Presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'El libro sobre administracion',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'FJHCZC'
@@ -846,8 +840,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Bases de administracion',
             'sintesis' => 'Se aprendera lo basico de administracion',
             'metodologia' => 'online',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'El libro administratico',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'FJHCZB'
@@ -864,8 +856,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Lo basico de ecuaciones diferenciales',
             'sintesis' => 'Aqui se aprenderan las bases para resolver ecuaciones diferenciales',
             'metodologia' => 'presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Zill',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ED1HCZ12'
@@ -883,8 +873,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Metodos de integracion',
             'sintesis' => 'Se aprendera a integrar mub bien en este curso',
             'metodologia' => 'Presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de Integrales',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'CI2HCZA'
@@ -902,8 +890,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Transformaciones lineales y espacios vectoriales',
             'sintesis' => 'Aqui se aprendera algebra vectorial',
             'metodologia' => 'presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de Algebra Lineal',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ALA3HCZ'
@@ -921,8 +907,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Matrices y polinomios',
             'sintesis' => 'Aquí se aprenderá sobre Álgebra',
             'metodologia' => 'Presencia',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de Álgebra',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'A1A27HCZ'
@@ -940,8 +924,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Temas de Análisis Numérico',
             'sintesis' => 'Aqui se aprenderan los temas básicos de Ánalisis numérico',
             'metodologia' => 'Online',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de Analisis Numerico',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'AN412HCZ'
@@ -959,8 +941,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Temas Avanzados de programacion',
             'sintesis' => 'En este curso los alumnos seran capaces al finalizar de programar cualquier cosa',
             'metodologia' => 'Online',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de super programación',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ADFVJ080578451'
@@ -977,9 +957,7 @@ class StartSeeder extends Seeder
             'objetivo' => 'Aprender todo sobre administracion',
             'contenido' => 'Temas avanzados de aministracion',
             'sintesis' => 'En este curso se aprenderan los temas más avanzados de administracion',
-            'metodologia' => 'Presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
+            'metodologia' => 'Presencial', 
             'bibliografia' => 'Libro super avanzado de Administracion',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'FJHCZA'
