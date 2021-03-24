@@ -198,3 +198,7 @@ Route::post('formatos/generar/{id}/palabras','FormatosController@generarCorreosP
 Route::get('historialprofesor/{id}', 'ProfesorController@generarhistorial')->name('historial.generar');
 Route::get('reportecursos', 'FormatosController@generarreporte')->name('reporte.generar');
 Route::get('reportecursos/{periodo}', 'FormatosController@generarreporteperiodo')->name('reporte.periodo');
+
+/* Rutas Usuario */
+Route::post('usuario/edit', "UserController@edit")->name('usuario.editar');
+Route::post('usuario/actualizar', "UserController@update")->name('usuario.update');

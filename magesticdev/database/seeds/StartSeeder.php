@@ -81,8 +81,12 @@ class StartSeeder extends Seeder
         ]);
 
         DB::table('divisions')->insert([
-          'nombre' => 'Otros internos'
+          'nombre' => 'Externos'
         ]);
+
+        DB::table('divisions')->insert([
+            'nombre' => 'Secretarias'
+          ]);
 
         DB:: table('facultads')->insert([
             'id' => 1,

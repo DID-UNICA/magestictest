@@ -88,22 +88,20 @@ class Profesor extends Authenticatable
     }
     public function getDivisionNombre()
     {
-        $carreras = $this->getCarreras();
-        $count = $carreras->count();
-        if($count === 0)
-          return "Ninguna";
-        $i = 0;
-        $divisiones = "";
-        foreach($carreras as $carrera){
-          $division = Division::findOrFail($carrera->divison_id);
-          if($i === 0)
-            $divisiones = $division->nombre;
-          elseif($i < $count)
-            $divisiones = $divisiones.", ".$division->nombre;
+      $divisiones_str = '';
+      $divisiones = DB::table('profesors')
+        ->join('profesores_divisiones', 'profesores_divisiones.id_profesor', '=', 'profesors.id')
+        ->join('divisions', 'divisions.id', '=', 'profesores_divisiones.id_division')
+        ->select('divisions.nombre')
+        ->where('profesors.id', '=', $this->id)->get();
+        foreach($divisiones as $index => $division){
+          if($index == 0)
+            $divisiones_str = $division->nombre;
+          else
+            $divisiones_str = $divisiones_str.", ".$division->nombre;
         }
-        return $divisiones;
+        return $divisiones_str;
     }
-
 
 //Retorna una colección de carreras
     public function getCarreras()

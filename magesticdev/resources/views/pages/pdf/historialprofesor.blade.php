@@ -166,7 +166,7 @@ th{
     <table class="table-resultados">
         <tr>
             <td class="col-resultados">Cursos Acreditados:    <b>{{count($cursos)}}</b></td>
-            <td class="col-resultados">Total de horas:    <b>{{$totalhoras}}h</b></td>
+            <td class="col-resultados">Total de horas:    <b>{{$totalhoras}} h</b></td>
         </tr>    
     </table>
     </div>

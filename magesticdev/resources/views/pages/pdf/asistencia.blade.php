@@ -123,7 +123,11 @@
 			<tr >
 				<td class="titulos" width="10%">Instructor</td>
 				<td class="valores mayus" width="30%">{{ $curso->getProfesores() }}</td>
-				<td width=10% class="tipo mayus">{{ $tipo }}</td> <!-- class="tipo mayus" width al 12% originalmente-->
+				@if ($tipo == 'Módulo Diplomado')
+        <td width=10% class="tipo mayus"></td> <!-- class="tipo mayus" width al 12% originalmente-->
+        @else
+        <td width=10% class="tipo mayus">{{ $tipo }}</td> <!-- class="tipo mayus" width al 12% originalmente-->
+        @endif
                 <td width=28% class="tipo">{{ $cursoCatalogo->nombre_curso}}</td> <!-- Corregir el Espacio ;width al 36% originalmente -->
 			</tr>
 		</table> 

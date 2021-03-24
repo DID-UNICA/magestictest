@@ -26,6 +26,21 @@ use Laracasts\Flash\Flash;
 use PdfMerger;
 use PdfManage;
 
+function rrmdir($dir) { 
+    if (is_dir($dir)) { 
+        $objects = scandir($dir);
+        foreach ($objects as $object) { 
+            if ($object != "." && $object != "..") { 
+                if (is_dir($dir. "/" .$object) && !is_link($dir."/".$object))
+                    rrmdir($dir. "/" .$object);
+                else
+                    unlink($dir. "/" .$object); 
+            }
+        }
+        rmdir($dir); 
+    } 
+}
+
 class ReconocimientosController extends Controller{
 
     public function convertirACadena($iter){
@@ -62,9 +77,9 @@ class ReconocimientosController extends Controller{
             ->where('curso_id', $curso->id)
             ->count();
         try{
-            $hash_aux = Hash::make(url()->full(), [
-                'rounds' => 4,
-            ]);
+            $hash_aux = str_replace(".", "0",substr(Hash::make(url()->full(), [
+                                        'rounds' => 4,
+                                    ]),-4));
         }catch(\ErrorException  $e){
             return redirect()->back()->with('danger', 'Problemas con la url');
         }
@@ -73,19 +88,19 @@ class ReconocimientosController extends Controller{
             $coordinadorGeneral = CoordinadorGeneral::all();
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Coordinador General');    
         }try{
             $secretarioApoyo = SecretarioApoyo::all();
             $secretarioApoyo = $secretarioApoyo[0];
         }catch(\ErrorException  $e){
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
         }try{
             $director = Director::all();
             $director = $director[0];
         }catch(\ErrorException  $e){
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Director');    
         }
         $idTipo = (strlen($request->typeid) != 0 and is_numeric($request->typeid)) ? intval($request->typeid) : $curso->getTypeId();
@@ -185,7 +200,7 @@ class ReconocimientosController extends Controller{
         }
         $zip::addString('Reconocimientos_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Reconocimientos_'.$curso->id.'.pdf')));
         $zip::close();
-        File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+        rrmdir(resource_path('views/pages/tmp'.$hash_aux));
         return response()->download(public_path('reconocimientos.zip'))->deleteFileAfterSend(public_path('reconocimientos.zip'));
     }
     public function generar(Request $request){
@@ -195,9 +210,9 @@ class ReconocimientosController extends Controller{
         ->where('curso_id',$request->id)
         ->count();
         try{
-            $hash_aux = Hash::make(url()->full(), [
-                'rounds' => 4,
-            ]);
+            $hash_aux = str_replace(".", "0",substr(Hash::make(url()->full(), [
+                                        'rounds' => 4,
+                                    ]),-4));
         }catch(\ErrorException  $e){
             return redirect()->back()->with('danger', 'Problemas con la url');
         }
@@ -206,21 +221,21 @@ class ReconocimientosController extends Controller{
             $coordinadorGeneral = CoordinadorGeneral::all();
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Coordinador General');    
         } 
         try{
             $secretarioApoyo = SecretarioApoyo::all();
             $secretarioApoyo = $secretarioApoyo[0];
         }catch(\ErrorException  $e){
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
         }
         try{
             $director = Director::all();
             $director = $director[0];
         }catch(\ErrorException  $e){
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Director');    
         } 
         $curso = Curso::findOrFail($request->id);
@@ -330,7 +345,7 @@ class ReconocimientosController extends Controller{
             }
             $zip::addString('Reconocimientos_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Reconocimientos_'.$curso->id.'.pdf')));
             $zip::close();
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return response()->download(public_path('reconocimientos.zip'))->deleteFileAfterSend(public_path('reconocimientos.zip'));
         }elseif($tipo == "E"){
             $iter = 1;
@@ -359,7 +374,7 @@ class ReconocimientosController extends Controller{
             }
             $zip::addString('Reconocimientos_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Reconocimientos_'.$curso->id.'.pdf')));
             $zip::close();
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return response()->download(public_path('reconocimientos.zip'))->deleteFileAfterSend(public_path('reconocimientos.zip'));
         }elseif($tipo == "S"){
           $tsprofes = TemaSeminarioProfesor::where('curso_id', $curso->id)
@@ -385,19 +400,20 @@ class ReconocimientosController extends Controller{
           }
           $zip::addString('Reconocimientos_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Reconocimientos_'.$curso->id.'.pdf')));
           $zip::close();
-          File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+          rrmdir(resource_path('views/pages/tmp'.$hash_aux));
           return response()->download(public_path('reconocimientos.zip'))->deleteFileAfterSend(public_path('reconocimientos.zip'));
         }
         else{
             return "Error en el tipo";
         }
     }catch(\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException  $e){
-        File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+        rrmdir(resource_path('views/pages/tmp'.$hash_aux));
         return redirect()->back()->with('danger', 'Error');
       }catch(Exception $e){
-        File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+        rrmdir(resource_path('views/pages/tmp'.$hash_aux));
     }
          
     }//End Funcion 
+
 
 }//End Clase

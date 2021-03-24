@@ -160,7 +160,7 @@ body {
     <table width=auto style="padding-left: 2.5cm;">
       <tr width=auto>
         <td width=260 class="firma1" style="padding-top: 1cm;">_____________________</td>
-        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 1.2cm;">_____________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 1.2cm;">_______________________</td>
       </tr>
     </table>
 

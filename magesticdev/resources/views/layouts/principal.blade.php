@@ -50,6 +50,22 @@
                                 {{ csrf_field() }}
                             </form>
                         </li>
+                        <li>
+                            <a href="{{ route('usuario.editar') }}"
+                               onclick="event.preventDefault();
+                                document.getElementById('ajustes-form').submit();">
+                                <div style="text-align: left;">
+                                Ajustes 
+                               
+                                </div>
+                            </a>
+                            
+                            
+                            <form id="ajustes-form" action="{{ route('usuario.editar') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                                <input name="id" value="{{ auth()->user()->id }}">
+                            </form>
+                        </li>
                     </ul>
 
             </ul>

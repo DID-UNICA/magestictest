@@ -24,6 +24,20 @@ use File;
 use PdfMerger;
 use PdfManage;
 
+function rrmdir($dir) { 
+    if (is_dir($dir)) { 
+        $objects = scandir($dir);
+        foreach ($objects as $object) { 
+            if ($object != "." && $object != "..") { 
+                if (is_dir($dir. "/" .$object) && !is_link($dir."/".$object))
+                    rrmdir($dir. "/" .$object);
+                else
+                    unlink($dir. "/" .$object); 
+            }
+        }
+        rmdir($dir); 
+    } 
+}
 class DiplomasController extends Controller{
 
     public function convertirACadena($iter){
@@ -46,9 +60,9 @@ class DiplomasController extends Controller{
     public function generar(Request $request){
 
       try{
-          $hash_aux = Hash::make(url()->full(), [
-              'rounds' => 4,
-          ]);
+          $hash_aux = str_replace(".", "0",substr(Hash::make(url()->full(), [
+                                        'rounds' => 4,
+                                    ]),-4));
       }catch(\ErrorException  $e){
           return redirect()->back()->with('danger', 'Problemas con la url');
       }
@@ -61,21 +75,21 @@ class DiplomasController extends Controller{
             $coordinadorGeneral = CoordinadorGeneral::all();
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Coordinador General');    
         } 
         try{
             $secretarioApoyo = SecretarioApoyo::all();
             $secretarioApoyo = $secretarioApoyo[0];
         }catch(\ErrorException  $e){
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Secretario de Apoyo a la Docencia');    
         }
         try{
             $director = Director::all();
             $director = $director[0];
         }catch(\ErrorException  $e){
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Director');    
         }     
         $diplomado = Diplomado::find($request->id);
@@ -210,15 +224,16 @@ class DiplomasController extends Controller{
         }
       $zip::addString('Diplomas_'.$diplomado->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Diplomas_'.$diplomado->id.'.pdf')));
       $zip::close();
-      File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+      rrmdir(resource_path('views/pages/tmp'.$hash_aux));
       return response()->download(public_path('diplomas.zip'))->deleteFileAfterSend(public_path('diplomas.zip'));
     }catch(\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException  $e){
-      File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+      rrmdir(resource_path('views/pages/tmp'.$hash_aux));
       return redirect()
         ->back()
         ->with('warning', 'El diplomado no tiene alumnos que ameriten diploma');
     }catch(Exception $e){
-        File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+        rrmdir(resource_path('views/pages/tmp'.$hash_aux));
     }
   }
+
 }//End Clase

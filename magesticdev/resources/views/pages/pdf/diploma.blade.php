@@ -12,7 +12,7 @@ body {
   font-family:Arial, Helvetica, Sans-serif,cursive;
 }
 #fondo{
-  background: url("/img/BGDiplomas.jpg");
+  background: url("../public/img/BGDiplomas.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
 }

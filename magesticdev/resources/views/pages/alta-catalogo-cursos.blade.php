@@ -173,14 +173,11 @@
                     <div class="form-group{{ $errors->has('contenido') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Contenidos (Iniciando y separando por guiones):</label>
                         <div class="col-md-6">
-                                <input rows="4" cols="50" id="contenido" type="text" placeholder="-Contenido1-Contenido2-Contenido3" class="form-control" name="contenido" value="{{ old('contenido') }}">
-                                @if ($errors->has('contenido'))
+                                <textarea rows="4" cols="50" id="contenido" type="text" placeholder="-Contenido1-Contenido2-Contenido3" class="form-control" name="contenido" value="{{ old('contenido') }}">@if ($errors->has('contenido'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('contenido') }}</strong>
                                 </span>
-                                
-                            @endif
-                            </input>
+                            @endif</textarea>
                         </div>
                     </div>
                     

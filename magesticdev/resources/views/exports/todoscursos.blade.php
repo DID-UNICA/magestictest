@@ -7,7 +7,7 @@
         <th>RFC_profesor</th>
         <th>Nombre Completo</th>
         <th>Categoria y nivel</th>
-        <th>División secretaría</th>
+        <th>División y Secretaría</th>
         <th>Nombre del curso</th>
         <th>Duración del curso</th>
         <th>Fecha inicio</th>
@@ -23,9 +23,10 @@
         <th>Cancelado</th>
         <th>Correo electrónico</th>
         <th>Teléfono</th>
-        <th>División secretaría U</th>
         <th>Edad</th>
         <th>Rango de edades</th>
+        <th>Folio institucional de constancia</th>
+        <th>Folio pequeño de constancia de constancia</th>
     </tr>
     </thead>
     <tbody>
@@ -36,6 +37,7 @@
             <td>{{ $registro->rfc }}</td>
             <td>{{ $registro->nombre }}</td>
             <td>{{ $registro->categoria }}</td>
+            <td>{{ $registro->division }}</td>
             <td>{{ $registro->nombrec }}</td>
             <td>{{ $registro->duracion }}</td>
             <td>{{ $registro->fecha_inicio }}</td>
@@ -91,6 +93,8 @@
             @else
                 <td>ERROR</td>
             @endif
+            <td>{{ $registro->folio_inst }}</td>
+            <td>{{ $registro->folio_peque }}</td>
         </tr>
     @endforeach
     </tbody>

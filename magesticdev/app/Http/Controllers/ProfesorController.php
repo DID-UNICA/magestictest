@@ -420,9 +420,9 @@ class ProfesorController extends Controller
             $user->facultad_id = null;
         }
         $bandera = Profesor::where('rfc', $user->rfc)->exists();
-        $bandera = $bandera or Profesor::where('email', $user->email)->exists();
-        $bandera = $bandera or Profesor::where('numero_trabajador', $user->numero_trabajador)->exists();
-         if ($bandera) {
+        $bandera2 = Profesor::where('email', $user->email)->exists();
+        $bandera3 = Profesor::where('numero_trabajador', $user->numero_trabajador)->exists();
+         if ($bandera or $bandera2 or $bandera3) {
             return redirect()->back()->with('danger', 'Datos incorrectos. Alguno de los datos ingresados ya esta registrado en el sistema');
          }else{
             $user->save();

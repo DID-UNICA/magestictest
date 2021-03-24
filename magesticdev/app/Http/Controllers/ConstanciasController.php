@@ -22,13 +22,32 @@ use iio\libmergepdf\Pages;
 use File;
 use PdfMerger;
 use PdfManage;
-set_time_limit(300);
+
+
+function rrmdir($dir) { 
+    if (is_dir($dir)) { 
+        $objects = scandir($dir);
+        foreach ($objects as $object) { 
+            if ($object != "." && $object != "..") { 
+                if (is_dir($dir. "/" .$object) && !is_link($dir."/".$object))
+                    rrmdir($dir. "/" .$object);
+                else
+                    unlink($dir. "/" .$object); 
+            }
+        }
+        rmdir($dir); 
+    } 
+}
+
 class ConstanciasController extends Controller{
     public function selectType($id)
     {
         $curso = Curso::findOrFail($id);
         $tmp = ProfesoresCurso::where('curso_id', $id)->get();
         $cuenta = $tmp->count();
+        $folio_inst = "123";
+        $folio_peque = "123";
+
         return view("pages.constancias-elegirTipoConstancia")
                 ->with('curso',$curso)
                 ->with('count_profesores', $cuenta);
@@ -65,9 +84,9 @@ class ConstanciasController extends Controller{
         ->where('curso_id',$id)
         ->count();
         try{
-            $hash_aux = substr(Hash::make(url()->full(), [
-                            'rounds' => 4,
-                        ]),-5);
+            $hash_aux = str_replace(".", "0",substr(Hash::make(url()->full(), [
+                                        'rounds' => 4,
+                                    ]),-4));
         }catch(\ErrorException  $e){
             return redirect()->back()->with('danger', 'Problemas con la url');
         }
@@ -146,7 +165,7 @@ class ConstanciasController extends Controller{
         }
         if($count == null){
             $zip::close();
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with(
                 'warning', 'No hay profesores asignados para dicho curso'
             );
@@ -219,6 +238,11 @@ class ConstanciasController extends Controller{
                     $profesor = Profesor::findOrFail(
                         $participante->profesor_id
                     );
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView(
                         'pages.pdf.constanciaUnInstructor', 
                         array('curso' => $curso,
@@ -229,9 +253,10 @@ class ConstanciasController extends Controller{
                             'coordinacion'=>$coordinacion,
                             'instructor1'=>$profesores[0],
                             'folio_der'=>strval($folio_der), 
-                            'folio'=>$folio.$idTipo."C".$numLista
+                            'folio'=>$folio_inst
                         )
                     )->setPaper('letter', 'landscape');
+                    
                     $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
                     $pdf->save(
                         resource_path(
@@ -257,7 +282,7 @@ class ConstanciasController extends Controller{
                     )
                 );
                 $zip::close();
-                File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                rrmdir(resource_path('views/pages/tmp'.$hash_aux));
                 return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
             }elseif($count == 2){
                 $iter = 1;
@@ -265,6 +290,11 @@ class ConstanciasController extends Controller{
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
                     $profesor = Profesor::findOrFail($participante->profesor_id);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView('pages.pdf.constanciaDosInstructores', 
                     array('curso' => $curso,
                     'profesor'=>$profesor,
@@ -285,7 +315,7 @@ class ConstanciasController extends Controller{
                 }
                   $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
-                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                  rrmdir(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
                 }elseif($count == 3){
@@ -294,8 +324,16 @@ class ConstanciasController extends Controller{
                   
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
-
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $profesor = Profesor::findOrFail($participante->profesor_id);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView('pages.pdf.constanciaTresInstructores', 
                     array('curso' => $curso,
                     'profesor'=>$profesor,
@@ -318,7 +356,7 @@ class ConstanciasController extends Controller{
               }
                   $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
-                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                  rrmdir(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'));//->deleteFileAfterSend(public_path('constancias.zip'));
             }
         }elseif ($tipoDeConstancia == "B"){
@@ -331,6 +369,11 @@ class ConstanciasController extends Controller{
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
 
                     $profesor = Profesor::findOrFail($participante->profesor_id);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                 $pdf = PDF::loadView('pages.pdf.constanciaUnInstructorCoordinadorGeneral', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -350,7 +393,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
             }elseif($count == 2){
@@ -360,6 +403,11 @@ class ConstanciasController extends Controller{
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
 
                         $profesor = Profesor::findOrFail($participante->profesor_id);
+                        $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                         $pdf = PDF::loadView('pages.pdf.constanciaDosInstructoresCoordinadorGeneral', 
                         array('curso' => $curso,
                         'profesor'=>$profesor,
@@ -381,7 +429,7 @@ class ConstanciasController extends Controller{
                 }
                   $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
-                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                  rrmdir(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
                 }elseif($count == 3){
@@ -391,6 +439,11 @@ class ConstanciasController extends Controller{
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
 
                     $profesor = Profesor::findOrFail($participante->profesor_id);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView('pages.pdf.constanciaTresInstructoresCoordinadorGeneral', 
                     array('curso' => $curso,
                     'profesor'=>$profesor,
@@ -413,7 +466,7 @@ class ConstanciasController extends Controller{
                   
                   $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
-                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                  rrmdir(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
             }
         }elseif ($tipoDeConstancia == "AA"){
@@ -425,6 +478,11 @@ class ConstanciasController extends Controller{
                 $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
 
                 $profesor = Profesor::findOrFail($participante->profesor_id);
+                $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                 $pdf = PDF::loadView('pages.pdf.constanciaSoloCoordinacion', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -443,7 +501,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
 
@@ -458,6 +516,11 @@ class ConstanciasController extends Controller{
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
 
                     $profesor = Profesor::findOrFail($participante->profesor_id);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                 $pdf = PDF::loadView('pages.pdf.constanciaUnInstructorSAD', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -476,7 +539,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
             }elseif($count == 2){
@@ -486,6 +549,11 @@ class ConstanciasController extends Controller{
                         $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
 
                         $profesor = Profesor::findOrFail($participante->profesor_id);
+                        $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                         $pdf = PDF::loadView('pages.pdf.constanciaDosInstructoresSAD', 
                         array('curso' => $curso,
                         'profesor'=>$profesor,
@@ -505,7 +573,7 @@ class ConstanciasController extends Controller{
                 }
                   $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
-                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                  rrmdir(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
             }elseif($count == 3){
@@ -514,6 +582,11 @@ class ConstanciasController extends Controller{
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
                     $profesor = Profesor::findOrFail($participante->profesor_id);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView('pages.pdf.constanciaTresInstructoresSAD', 
                     array('curso' => $curso,
                     'profesor'=>$profesor,
@@ -534,7 +607,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
                 }
         }elseif ($tipoDeConstancia == "D"){
@@ -545,6 +618,11 @@ class ConstanciasController extends Controller{
                 $profesor = Profesor::findOrFail($participante->profesor_id);
                 $folio = "F04".$anio.$tipo;
                 $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                 $pdf = PDF::loadView('pages.pdf.constanciaCoordinadorGeneral', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -563,7 +641,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "E"){
             //Director
@@ -573,6 +651,11 @@ class ConstanciasController extends Controller{
                 $profesor = Profesor::findOrFail($participante->profesor_id);
                 $folio = "F04".$anio.$tipo;
                 $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                 $pdf = PDF::loadView('pages.pdf.constanciaDirector', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -590,7 +673,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "F"){
             //Coord. Gral. y SAD
@@ -599,6 +682,11 @@ class ConstanciasController extends Controller{
                 $folio = "F04".$anio.$tipo;
                 $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
                 $profesor = Profesor::findOrFail($participante->profesor_id);
+                $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                 $pdf = PDF::loadView('pages.pdf.constanciaCoordinadorGeneralYSAD', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -618,7 +706,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }
 
@@ -629,6 +717,11 @@ class ConstanciasController extends Controller{
                 $profesor = Profesor::findOrFail($participante->profesor_id);
                 $folio = "F04".$anio.$tipo;
                 $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                 $pdf = PDF::loadView('pages.pdf.constanciaSADYDirector', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -648,7 +741,7 @@ class ConstanciasController extends Controller{
             }
             $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
             $zip::close();
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "H"){
             //UNICA
@@ -659,6 +752,11 @@ class ConstanciasController extends Controller{
                 $profesor = Profesor::findOrFail($participante->profesor_id);
                 $folio = "F04".$anio.$tipo;
                 $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                 $pdf = PDF::loadView('pages.pdf.constanciaUnicaUnInstructor', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -679,7 +777,7 @@ class ConstanciasController extends Controller{
             }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
             }elseif($count == 2){
@@ -688,6 +786,11 @@ class ConstanciasController extends Controller{
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
                     $profesor = Profesor::findOrFail($participante->profesor_id);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView('pages.pdf.constanciaUnicaDosInstructores', 
                     array('curso' => $curso,
                     'profesor'=>$profesor,
@@ -708,7 +811,7 @@ class ConstanciasController extends Controller{
                 }
                   $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
                   $zip::close();
-                  File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+                  rrmdir(resource_path('views/pages/tmp'.$hash_aux));
                   return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
 
                 }elseif($count == 3){
@@ -717,6 +820,11 @@ class ConstanciasController extends Controller{
                     $profesor = Profesor::findOrFail($participante->profesor_id);
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView('pages.pdf.constanciaUnicaTresInstructores', 
                     array('curso' => $curso,
                     'profesor'=>$profesor,
@@ -739,7 +847,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
             }
         }elseif ($tipoDeConstancia == "I"){
@@ -749,6 +857,11 @@ class ConstanciasController extends Controller{
                     $profesor = Profesor::findOrFail($participante->profesor_id);
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView('pages.pdf.constanciaCoordinacionYCoordinadorGeneral',
                     array('curso' => $curso,
                     'profesor'=>$profesor,
@@ -768,7 +881,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         } elseif ($tipoDeConstancia == "f1"){
             //Un Firmante
@@ -783,6 +896,11 @@ class ConstanciasController extends Controller{
                     $profesor = Profesor::findOrFail($participante->profesor_id);
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView(
                         'pages.pdf.constanciaUnFirmante',
                         array('curso' => $curso,
@@ -803,7 +921,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "f2"){
             //Dos Firmantes
@@ -817,6 +935,11 @@ class ConstanciasController extends Controller{
                     $profesor = Profesor::findOrFail($participante->profesor_id);
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView(
                         'pages.pdf.constanciaDosFirmantes',
                         array('curso' => $curso,
@@ -840,7 +963,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }elseif ($tipoDeConstancia == "f3"){
             //Tres Firmantes
@@ -854,6 +977,11 @@ class ConstanciasController extends Controller{
                     $profesor = Profesor::findOrFail($participante->profesor_id);
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView(
                         'pages.pdf.constanciaTresFirmantes',
                         array('curso' => $curso,
@@ -880,7 +1008,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
     }elseif ($tipoDeConstancia == "f4"){
             //Cuatro Firmantes
@@ -894,6 +1022,11 @@ class ConstanciasController extends Controller{
                     $profesor = Profesor::findOrFail($participante->profesor_id);
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView(
                         'pages.pdf.constanciaCuatroFirmantes',
                         array('fechaimp'=>$fechaimp,
@@ -922,7 +1055,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
     } elseif ($tipoDeConstancia == "f5"){
             //Cinco Firmantes
@@ -936,6 +1069,11 @@ class ConstanciasController extends Controller{
                     $profesor = Profesor::findOrFail($participante->profesor_id);
                     $folio = "F04".$anio.$tipo;
                     $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                    $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                     $pdf = PDF::loadView(
                         'pages.pdf.constanciaCincoFirmantes',
                         array('fechaimp'=>$fechaimp,
@@ -966,7 +1104,7 @@ class ConstanciasController extends Controller{
               }
               $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
               $zip::close();
-              File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+              rrmdir(resource_path('views/pages/tmp'.$hash_aux));
               return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }
             elseif ($tipoDeConstancia == "J"){ ////////////////////////////////
@@ -976,6 +1114,11 @@ class ConstanciasController extends Controller{
                 $profesor = Profesor::findOrFail($participante->profesor_id);
                 $folio = "F04".$anio.$tipo;
                 $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
+                $folio_inst = $folio.$idTipo."C".$numLista;
+                    $participante->folio_inst = $folio_inst;
+                    if($folio_der > 0)
+                      $participante->folio_peque = strval($folio_der);
+                    $participante->save();
                 $pdf = PDF::loadView('pages.pdf.constanciaCDDYSAD', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -993,7 +1136,7 @@ class ConstanciasController extends Controller{
             }
             $zip::addString('Constancias_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Constancias_'.$curso->id.'.pdf')));
             $zip::close();
-            File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+            rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return response()->download(public_path('constancias.zip'))->deleteFileAfterSend(public_path('constancias.zip'));
         }
 
@@ -1001,10 +1144,10 @@ class ConstanciasController extends Controller{
 
 
     }catch(\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException  $e){
-        File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+        rrmdir(resource_path('views/pages/tmp'.$hash_aux));
         return redirect()->back()->with('warning', 'El curso no tiene alumnos que ameriten constancia');
     }catch(Exception $e){
-        File::deleteDirectory(resource_path('views/pages/tmp'.$hash_aux));
+        rrmdir(resource_path('views/pages/tmp'.$hash_aux));
     }
 
     }//End Funcion
