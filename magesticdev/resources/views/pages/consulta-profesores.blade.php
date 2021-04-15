@@ -15,8 +15,8 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
           <div class="panel-heading">
               <h3>Lista de profesores</h3>
               {!! Form::open(["route" => "profesor.consulta", "method" => "GET"]) !!}
@@ -34,7 +34,7 @@
                    </span>
               </div>
           </div>
-          <div class="panel-body">
+          <div class="panel-body tablaFija">
               <table class="col-md-12">
                   <tr>
                       <th>Nombre</th>

@@ -15,9 +15,9 @@
         </div>
         <section class="content-inner">
             <br>
+            @include ('partials.messages')
             <div class="panel panel-default">
                 <div class="panel-heading">
-                @include ('partials.messages')
                     <h3>Alta Carrera</h3>
                     
                 </div>
@@ -53,49 +53,7 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('clave') ? ' has-error' : '' }}">
-                            <label for="clave" class="col-md-4 control-label">Facultad: </label>
-
-                            <div class="col-md-6">
-                                <select name="id_facultad" form="cursoform" required class="form-control">
-                                    @foreach($facultades as $facultad)
-                                        <option value="{{ $facultad->id }} "> {{ $facultad->nombre }} </option>
-                                    @endforeach
-                                </select>
-
-                                @if ($errors->has('clave'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('clave') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('id_division') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">División</label>
-
-                            <div class="col-md-6">
-                                <select name="id_division" form="cursoform" class="form-control">
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }} "> {{ $user->nombre }} </option>
-                                    @endforeach
-                                </select>
-
-
-
-
-
-                                @if ($errors->has('coordinacion_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('coordinacion_id') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-
-
+                        </div>  
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

@@ -16,8 +16,8 @@
     </div>
     <section class="content-inner">
         <br>
-        <div class="panel panel-default">
         @include ('partials.messages')
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>Alta Catálogo de cursos</h3>
                 <h4>Coordinación de Gestión y Vinculación</h4>
@@ -122,7 +122,7 @@
                         <div class="col-md-6">
                                 <select id="institucion" class="form-control" name="institucion" value="{{ old('institucion')}}">
                                     <option value="DGAPA">DGAPA</option>
-                                    <option value="CD">Centro de Docencia</option>
+                                    <option value="CDD">Centro de Docencia</option>
                                 </select>
                                 @if ($errors->has('tipo'))
                                     <span class="help-block">

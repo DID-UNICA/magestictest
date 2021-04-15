@@ -15,17 +15,15 @@
     </div>
     <section class="content-inner">
         <br>
+        @include ('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
-            @include ('partials.messages')
                 <h3>Alta Coordinador General</h3>
                 
             </div>
             <div class="panel-body">
                 <form id="cursoform" class="form-horizontal" method="POST" action="{{ route('coordinador-general.store') }}">
                     {{ csrf_field() }}
-
-
                     <div class="form-group{{ $errors->has('coordinador') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Coordinador:</label>
 
@@ -43,7 +41,7 @@
                         <label for="name" class="col-md-4 control-label">Comentarios:</label>
 
                         <div class="col-md-6">
-                            <input id="comentarios" type="text" class="form-control" name="comentarios" value="{{ old('comentarios') }}" required>
+                            <input id="comentarios" type="text" class="form-control" name="comentarios" value="{{ old('comentarios') }}">
 
                             @if ($errors->has('comentarios'))
                                 <span class="help-block">

@@ -13,11 +13,12 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
                 <div class="panel-heading">
                     <div class="container">
-                  <h3>Diplomado: {{ $diplomado->nombre_diplomado }}</h3>
+                  <h1>Diplomado</h1>
+                  <h2>{{ $diplomado->nombre_diplomado }}</h2>
 
                   </div>
                 </div>
@@ -89,8 +90,10 @@
                     </div>      
     @endforeach
 </table>
+@else
+<p>Aún no hay módulos en este diplomado</p>
 @endif
-  <a href="{{ URL::to('diplomado/añadir-cursos',$diplomado->id) }}" class="btn btn-primary">Añadir Cursos a Diplomado</a>
+  <a href="{{ URL::to('diplomado/añadir-cursos',$diplomado->id) }}" class="btn btn-primary">Añadir Módulos al Diplomado</a>
   <a href="{{ route('diplomado.consulta') }}" class="btn btn-info">Regresar</a>
 </div>
 <script type="text/javascript">     

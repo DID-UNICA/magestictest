@@ -113,7 +113,7 @@ class CatalogoCursosController extends Controller
                 $tema->delete();
             }
         }
-        return view("pages.ver-catalogo-cursos")
+        return redirect('catalogo-cursos/'.$catalogoCurso->id)
             ->with("user",$catalogoCurso)
             ->with('success','Se han actualizado los cambios');
     }
@@ -180,7 +180,7 @@ class CatalogoCursosController extends Controller
          try{
             $catalogoCurso = CatalogoCurso::findOrFail($id);
             $catalogoCurso -> delete();
-            return redirect('/catalogo-cursos')->with('success', 
+            return redirect('catalogo-cursos')->with('success', 
               'Se ha dado de baja el curso del catálogo'
             );
         }catch (\Illuminate\Database\QueryException $e){
@@ -191,16 +191,13 @@ class CatalogoCursosController extends Controller
 
     public function create(Request $request)
     {
-        $catalogos = CatalogoCurso::all();
+        //$catalogos = CatalogoCurso::all();
+        $exists1 = CatalogoCurso::where('nombre_curso', $request->nombre_curso)->exists();
+        $exists2 = CatalogoCurso::where('clave_curso', $request->clave_curso)->exists(); 
+        if($exists1 or $exists2)
+          return redirect()->back()->with('danger', 'Error al crear el curso.'.$request->nombre_curso.' El nombre o la clave ya están en uso');
         $catalogoCurso = new CatalogoCurso;
         $catalogoCurso->nombre_curso = $request->nombre_curso;
-
-        foreach($catalogos as $catalogo){
-            if($catalogo->nombre_curso == $catalogoCurso->nombre_curso){
-                return back()->withError('El nombre '.$request->nombre_curso.' ya está en uso')->withInput();
-            }
-        }
-
         $catalogoCurso->duracion_curso = $request->duracion_curso;
         $catalogoCurso->coordinacion_id = $request->coordinacion_id;
         $catalogoCurso->tipo = $request->tipo;
@@ -216,7 +213,7 @@ class CatalogoCursosController extends Controller
         try{
             $catalogoCurso->save();
         } catch(\Illuminate\Database\QueryException $e){
-            return back()->withError('La clave '.$request->clave_curso.' ya está en uso')->withInput();
+            return redirect()->back()->with('danger', 'Error al almacenar en la base de datos');
         }
         if($request->antescedente_id){
             foreach($request->antescedente_id as $antescedente_id){
@@ -233,7 +230,7 @@ class CatalogoCursosController extends Controller
                 ->with('num_temas', $request->temas)
                 ->with('catalogo_id', $catalogoCurso->id);
         }
-        return redirect()->back()->with('success','Se ha dado de alta al catalogo de curso '.$catalogoCurso->nombre_curso.' exitosamente.');
+        return redirect('catalogo-cursos')->with('success','Se ha dado de alta el curso: '.$catalogoCurso->nombre_curso.' exitosamente.');
     }
 
     public function verAntescedentes($id){
@@ -252,7 +249,7 @@ class CatalogoCursosController extends Controller
 
     public function descartarAntescedente($catalogoCurso_id, $antescedente_id){
         Consecuente::where('siguiente_catalogo_id', $catalogoCurso_id)->where('catalogo_id', $antescedente_id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','Se ha borrado el antecedente exitosamente.');
     }
 
 

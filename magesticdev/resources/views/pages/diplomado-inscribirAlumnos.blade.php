@@ -15,8 +15,8 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
       <div class="panel-heading">
             <h1>Diplomado: {{ $diplomado->nombre_diplomado }}</h1>
             <h2>Inscripción de Alumnos</h2>
@@ -40,7 +40,7 @@
 
 
       </div>
-      <div class="panel-body">
+      <div class="panel-body tablaFija">
       <table class="col-md-12">
           <tr>
               <th>Nombre</th>
@@ -53,7 +53,7 @@
                   <td>{{ $profesor->nombres }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}</td>
                   <td>{{ $profesor->email}}</td>
                   <td>{{ $profesor->rfc}}</td>
-                  <td><button class="btn btn-success" type="submit">Dar de Alta</button></td>
+                  <td><button class="btn btn-success" style="margin-bottom: 15px;" type="submit">Dar de Alta</button></td>
               </tr>
               {!! Form::close() !!}
           @endforeach

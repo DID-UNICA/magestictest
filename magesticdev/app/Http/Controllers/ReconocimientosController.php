@@ -177,6 +177,14 @@ class ReconocimientosController extends Controller{
 
         foreach($profesores as $profesor){
             if($iter > 9 ){ $ceros = "00";}
+            $folio_inst = $folio.$idTipo."R".$ceros.$iter;
+            $instructor_curso = ProfesoresCurso::where('curso_id',$curso->id)
+              ->where('profesor_id',$profesor->id)->get();
+            $instructor_curso = $instructor_curso[0];
+            $instructor_curso->folio_inst = $folio_inst;
+            if($folio_der > 0)
+              $instructor_curso->folio_peque = strval($folio_der);
+            $instructor_curso->save();
             $pdf = PDF::loadView('pages.pdf.reconocimientoD', 
                 array('curso' => $curso,
                     'profesor'=>$profesor,
@@ -187,7 +195,7 @@ class ReconocimientosController extends Controller{
                     'fechaimp'=>$fechaimp,
                     'coordinacion'=>$coordinacion,
                     'secretarioApoyo' =>$secretarioApoyo,
-                    'folio'=>$folio.$idTipo."R".$ceros.$iter,
+                    'folio'=>$folio_inst,
                     'folio_der'=>strval($folio_der),
                     "tema" => $request->texto_personalizado))
                 ->setPaper('letter', 'landscape');
@@ -323,6 +331,15 @@ class ReconocimientosController extends Controller{
                   if($iter>9){
                       $ceros = "00";
                   }
+                  $folio_inst = $folio.$idTipo."R".$ceros.$iter;
+                  $instructor_curso = ProfesoresCurso::where('curso_id',$curso->id)
+                    ->where('profesor_id',$profesor->id)->get();
+                  $instructor_curso = $instructor_curso[0];
+                  $instructor_curso->folio_inst = $folio_inst;
+                  $instructor_curso->fecha_envio = $request->envio;
+                  if($folio_der > 0)
+                    $instructor_curso->folio_peque = strval($folio_der);
+                  $instructor_curso->save();
                     $pdf = PDF::loadView(
                         'pages.pdf.reconocimientoCTTC', 
                         array('curso' => $curso,
@@ -332,7 +349,7 @@ class ReconocimientosController extends Controller{
                             'coordinadorGeneral'=>$coordinadorGeneral, 
                             'fechaimp'=>$fechaimp,
                             'coordinacion'=>$coordinacion,
-                            'folio'=>$folio.$idTipo."R".$ceros.$iter,
+                            'folio'=>$folio_inst,
                             'folio_der'=>strval($folio_der)))
                         ->setPaper('letter', 'landscape');
 
@@ -352,6 +369,14 @@ class ReconocimientosController extends Controller{
             $ceros = "000";
             foreach($profesores as $profesor){
                 if($iter >9 ){ $ceros = "00";}
+                $folio_inst = $folio.$idTipo."R".$ceros.$iter;
+                $instructor_curso = ProfesoresCurso::where('curso_id',$curso->id)
+                  ->where('profesor_id',$profesor->id)->get();
+                $instructor_curso = $instructor_curso[0];
+                $instructor_curso->folio_inst = $folio_inst;
+                if($folio_der > 0)
+                  $instructor_curso->folio_peque = strval($folio_der);
+                $instructor_curso->save();
                 $pdf = PDF::loadView('pages.pdf.reconocimientoE', 
                     array('curso' => $curso,
                         'profesor'=>$profesor,
@@ -361,7 +386,7 @@ class ReconocimientosController extends Controller{
                         'fechaimp'=>$fechaimp,
                         'coordinacion'=>$coordinacion,
                         'secretarioApoyo' =>$secretarioApoyo,
-                        'folio'=>$folio.$idTipo."R".$ceros.$iter,
+                        'folio'=>$folio_inst,
                         'folio_der'=>strval($folio_der),
                         "tema" => $request->texto_personalizado))
                     ->setPaper('letter', 'landscape');
@@ -379,9 +404,20 @@ class ReconocimientosController extends Controller{
         }elseif($tipo == "S"){
           $tsprofes = TemaSeminarioProfesor::where('curso_id', $curso->id)
             ->get();
+            $ceros = "000";
+            $iter = 1;
           foreach($tsprofes as $tsp){
+            if($iter >9 ){ $ceros = "00";}
             $profesor=$tsp->getProfesor();
             $tema=$tsp->getTema();
+            $folio_inst = $folio.$idTipo."R".$ceros.$iter;
+            $instructor_curso = ProfesoresCurso::where('curso_id',$curso->id)
+              ->where('profesor_id',$profesor->id)->get();
+            $instructor_curso = $instructor_curso[0];
+            $instructor_curso->folio_inst = $folio_inst;
+            if($folio_der > 0)
+              $instructor_curso->folio_peque = strval($folio_der);
+            $instructor_curso->save();
             $pdf = PDF::loadView('pages.pdf.reconocimientoS', 
               array('curso' => $curso,
               'profesor'=>$profesor,
@@ -391,12 +427,16 @@ class ReconocimientosController extends Controller{
               'fechaimp'=>$fechaimp,
               'coordinacion'=>$coordinacion,
               'duracion'=>$tema->duracion,
+              'folio' => $folio_inst,
+              'folio_der' => strval($folio_der),
               'tema' => $tema->nombre))
                   ->setPaper('letter', 'landscape');
               $nombreArchivo = 'a' . $profesor->nombres.$tema->id . '.pdf';
               $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
               $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
               $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
+              $iter++;
+              $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
           }
           $zip::addString('Reconocimientos_'.$curso->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Reconocimientos_'.$curso->id.'.pdf')));
           $zip::close();

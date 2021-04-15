@@ -41,8 +41,8 @@ class CategoriaNivelController extends Controller
         $user->categoria = $request->categoria;
         $user->abreviatura = $request->abreviatura;
         $user->save();
-        Session::flash('update', 'Se han actualizado los datos correctamente');
-        return redirect('/categoria-nivel');
+        return redirect('/categoria-nivel')
+          ->with('success', 'Se han actualizado los datos correctamente');
 
     }
 
@@ -50,9 +50,14 @@ class CategoriaNivelController extends Controller
     public function delete($id)
     {
         $user = CategoriaNivel::findOrFail($id);
-        $user -> delete();
-        Session::flash('delete', 'Se ha borrado el registro exitosamente');
-        return redirect('/categoria-nivel');
+        try{
+          $user -> delete();
+          return redirect()->back()->with('success', 'Se ha borrado el registro exitosamente');
+        } catch(\Illuminate\Database\QueryException $e){
+          return redirect()->back()->with('danger',
+          'La categoría no puede eliminarse debido a que existen profesores asignados a ella');
+        }
+        
     }
 
 
@@ -68,8 +73,8 @@ class CategoriaNivelController extends Controller
         $user->categoria = $request->categoria;
         $user->abreviatura = $request->abreviatura;
         $user->save();
-        Session::flash('create', 'Se ha creado el registro correctamente');
-        return redirect()->back();
+        return redirect('/categoria-nivel')
+          ->with('success', 'Se ha creado el registro correctamente');
     }
 
     /**

@@ -13,6 +13,7 @@
     </div>
     <section class="content-inner">
         <br>
+        @include('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>Secretario de Apoyo</h3>
@@ -20,7 +21,7 @@
             </div>
         </div>
         <div class="panel-body">
-        @include('partials.messages')
+        
             <table class="col-md-12">
                 <tr>
                     <th>Coordinador</th>

@@ -109,6 +109,14 @@ class ProfesorController extends Controller
         $user->apellido_materno = $request->apellido_materno;
         $user->rfc = $request->rfc;
         $user->numero_trabajador=$request->numero_trabajador;
+        $bandera = FALSE;
+        $bandera2 = FALSE;
+        if($user->rfc != "")
+          $bandera = Profesor::where('rfc', $user->rfc)->where('id','<>',$user->id)->exists();
+        if($user->numero_trabajador != "")
+          $bandera2 = Profesor::where('numero_trabajador', $user->numero_trabajador)->where('id','<>',$user->id)->exists();
+         if ($bandera or $bandera2)
+            return redirect()->back()->with('danger', 'Datos incorrectos. Alguno de los datos ingresados ya esta registrado en el sistema');
         $user->telefono = $request->telefono;
         $user->categoria_nivel_id = $request->categoria_nivel_id;
         $user->fecha_nacimiento = $request->fecha_nacimiento;
@@ -177,8 +185,9 @@ class ProfesorController extends Controller
               }
             }
         }
-        return view("pages.ver-profesor")
-            ->with("user",$user);
+        return redirect()->route('profesor.show', $user->id)
+            ->with("user",$user)
+            ->with('success', 'Se han actualizado los cambios');
     }
 
 
@@ -419,10 +428,14 @@ class ProfesorController extends Controller
             $user->procedencia = $request->procedencia;
             $user->facultad_id = null;
         }
-        $bandera = Profesor::where('rfc', $user->rfc)->exists();
-        $bandera2 = Profesor::where('email', $user->email)->exists();
-        $bandera3 = Profesor::where('numero_trabajador', $user->numero_trabajador)->exists();
-         if ($bandera or $bandera2 or $bandera3) {
+        $bandera = FALSE;
+        $bandera2 = FALSE;
+        if($user->rfc != "")
+          $bandera = Profesor::where('rfc', $user->rfc)->exists();
+        if($user->numero_trabajador != "")
+          $bandera2 = Profesor::where('numero_trabajador', $user->numero_trabajador)->exists();
+
+         if ($bandera or $bandera2) {
             return redirect()->back()->with('danger', 'Datos incorrectos. Alguno de los datos ingresados ya esta registrado en el sistema');
          }else{
             $user->save();
@@ -449,7 +462,7 @@ class ProfesorController extends Controller
                   }
                 }
             }
-            return redirect()->back()->with('success', 'Se ha dado de alta al profesor');
+            return redirect('profesor')->with('success', 'Se ha dado de alta al profesor');
         }
     }
 

@@ -81,7 +81,7 @@ function procedencia_carrera() {
         facultad_n.style.display = "none";
         procedencia_n.style.display = "block";
 
-        $('#procedencia').prop("required", true);
+        //$('#procedencia').prop("required", true);
       //  $('#carrera').removeAttr("required");
         $('#facultad').removeAttr("required");
     } 
@@ -96,7 +96,7 @@ function procedencia_carrera() {
 
   //   $('#carrera').prop("required", true);
       $('#facultad').prop("required", true);
-      $('#procedencia').removeAttr("required");
+      //$('#procedencia').removeAttr("required");
       changeFunc();
       changeGrado();
     }
@@ -115,8 +115,8 @@ function procedencia_carrera() {
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
           <div class="panel-heading">
               <h1>{{ $user->nombres }} {{ $user->apellido_paterno }} {{ $user->apellido_materno }}</h1>
           </div>
@@ -304,7 +304,7 @@ function procedencia_carrera() {
       </div>
         <div class="form-group col-md-8 ">
             {!!Form::label("procedencia", "Procedencia:", ["id" =>"procedencia_n"])!!}
-            {!!Form::text("procedencia", $user->procedencia, [ "id" => "procedencia", "class" => "form-control", "placeholder" => "Procedencia", "required"])!!}
+            {!!Form::text("procedencia", $user->procedencia, [ "id" => "procedencia", "class" => "form-control", "placeholder" => "Procedencia"])!!}
         </div>
       <div class="col-md-6">
         <a href="{{ URL::to('profesor', $user->id) }}" class="btn btn-info btn-block">Cancelar</a>

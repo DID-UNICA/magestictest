@@ -90,37 +90,36 @@ class SalonController extends Controller
         $user->capacidad= $request->capacidad;
         $user->ubicacion= $request->ubicacion;
         $user->save();
-        Session::flash('update', 'Se han actualizado los datos correctamente');
-        return view("pages.update-salon")
-            ->with("user",$user);
+        return redirect('salon')
+            ->with('success','Se han actualizado los datos correctamente');
     }
     public function delete($id)
     {
 
         try{$user = Salon::findOrFail($id);
             $user -> delete();
-            return redirect('/salon');
+            return redirect('/salon')
+            ->with('success', 'Se ha borrado el registro correctamente');
         }catch (\Illuminate\Database\QueryException $e){
-                return redirect()->back()->with('warning', 'El salon no puede ser eliminado porque tiene cursos asignados.');
+                return redirect()->back()
+                  ->with('danger',
+                    'El salon no puede ser eliminado porque tiene cursos asignados.'
+                  );
             }
     }
     public function create(Request $request)
     {
         $user = new Salon;
         $salones = Salon::all();
-
+        $exists = Salon::where('sede', $request->sede)->exists();
+        if($exists)
+          return redirect()->back()
+            ->with('danger', 'Ya existe una sede con ese nombre');
         $user->sede = $request->sede;
-        foreach($salones as $salon){
-            if($salon->sede == $user->sede){
-                Session::flash('error_salon', '¡ERROR! El salón ya está asignado');
-                return redirect()->back();
-            }
-        }
         $user->capacidad= $request->capacidad;
         $user->ubicacion= $request->ubicacion;
         $user->save();
-        Session::flash('create', 'Se ha creado el registro correctamente');
-        return redirect()->back();
+        return redirect('salon')->with('success','Se ha creado el registro correctamente');
     }
     /**
      * Store a newly created resource in storage.

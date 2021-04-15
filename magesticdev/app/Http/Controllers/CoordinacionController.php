@@ -63,9 +63,9 @@ class CoordinacionController extends Controller
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
         $user->save();
-        Session::flash('update', 'Se han actualizado los datos correctamente');
-        return view("pages.update-coordinacion")
-            ->with("user",$user);
+        return redirect('/coordinacion')
+            ->with("user",$user)
+            ->with("success",'Se han actualizado los datos correctamente');
     }
 
     public function updatepass(Request $request, $id)
@@ -73,9 +73,9 @@ class CoordinacionController extends Controller
         $user = Coordinacion::find($id);
         $user->password= bcrypt($request->password);
         $user->save();
-        Session::flash('update', 'Se han actualizado los datos correctamente');
-        return view("pages.update-coordinacion")
-            ->with("user",$user);
+        return redirect('/coordinacion')
+            ->with("user",$user)
+            ->with("success",'Se han actualizado los datos correctamente');;
     }
 
 
@@ -84,11 +84,12 @@ class CoordinacionController extends Controller
         try{
             $user = Coordinacion::findOrFail($id);
             $user -> delete();
-            Session::flash('delete', 'Se ha borrado el registro exitosamente');
-            return redirect('/coordinacion');
+            return redirect('/coordinacion')
+              ->with("success",'Se ha eliminado la coordinación correctamente');;
         }catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()->with('danger', 'No se puede dar de baja ya que hay cursos asignados a dicha coordinacion');    
-
+            return redirect()->back()
+              ->with('danger', 
+                'No se puede dar de baja ya que hay cursos asignados a dicha coordinacion');    
         }
 
     }
@@ -111,8 +112,8 @@ class CoordinacionController extends Controller
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
         $user->save();
-        Session::flash('create', 'Se ha creado el registro correctamente');
-        return redirect()->back();
+        return redirect('/coordinacion')
+          ->with("success",'Se ha creado el registro correctamente');
     }
 
     /**

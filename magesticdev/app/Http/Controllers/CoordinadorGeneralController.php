@@ -46,8 +46,8 @@ class CoordinadorGeneralController extends Controller
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
         $user->save();
-        Session::flash('update', 'Se han actualizado los datos correctamente');
-        return redirect('/coordinador-general');
+        return redirect('/coordinador-general')
+          ->with('success','Se han actualizado los datos correctamente');
 
     }
 
@@ -55,8 +55,8 @@ class CoordinadorGeneralController extends Controller
     {
         $user = CoordinadorGeneral::findOrFail($id);
         $user -> delete();
-        Session::flash('delete', 'Se ha borrado el registro exitosamente');
-        return redirect('/coordinador-general');
+        return redirect('/coordinador-general')
+          ->with('success','Se ha borrado el registro exitosamente');
     }
 
 
@@ -72,15 +72,13 @@ class CoordinadorGeneralController extends Controller
         if(!$user){
             $user=new CoordinadorGeneral();
         }
-            $user->coordinador = $request->coordinador;
-            $user->comentarios = $request->comentarios;
-            $user->grado = $request->grado;
-            $user->save();
-
-        /*Session::flash('flash_message', 'Usuario agregado!');*/
-        Session::flash('create', 'Se ha creado el registro correctamente');
-        return view("pages.consulta-coordinador-general")
-            ->with("user",$user);
+        $user->coordinador = $request->coordinador;
+        $user->comentarios = $request->comentarios;
+        $user->grado = $request->grado;
+        $user->save();
+        return redirect('coordinador-general')
+            ->with("user",$user)
+            ->with('success','Se ha creado el registro correctamente');
     }
 
 

@@ -13,9 +13,9 @@
     </div>
     <section class="content-inner">
         <br>
+        @include ('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
-            @include ('partials.messages')
                 <h3>Coordinador general</h3>
 
             </div>

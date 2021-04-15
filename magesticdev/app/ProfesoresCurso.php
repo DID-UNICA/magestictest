@@ -14,5 +14,5 @@ class ProfesoresCurso extends Model
      * @var array
      */
     protected $fillable = [
-        'curso_id','profesor_id'];
+        'curso_id','profesor_id', 'folio_inst','folio_peque','fecha_envio'];
 }

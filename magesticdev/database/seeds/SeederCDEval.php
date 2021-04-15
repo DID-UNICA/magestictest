@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class StartSeeder extends Seeder
+class SeederCDEval extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,10 +18,6 @@ class StartSeeder extends Seeder
             'nombres'=> 'Mauricio',
             'apellido_paterno' => 'Ramos',
             'apellido_materno' => 'Villaseñor',
-            'rfc' => 'RAVC971212',
-            'fecha_nacimiento' => '1997-12-12',
-            'telefono' => '5656978610',
-            'grado' => 'Doctor',
             'email' => 'mauri334455@gmail.com',
             'usuario' => 'mauri334455',
             'password' => Hash::make('amores334455')
@@ -46,37 +42,50 @@ class StartSeeder extends Seeder
             'capacidad' => 50,
             'ubicacion' => 'FI',
         ]);
-        DB::table('coordinacions')->insert([
-            'nombre_coordinacion' => 'Formación de Desarrollo Humano',
-            'abreviatura' => 'CA',
-            'coordinador' => 'Diego Alberto Gomez',
-            'grado' => 'M.E.M.',
-            'usuario' => 'd1eg1nEZ',
-            'password' => Hash::make('1234'),
-            'comentarios' => 'Esta coordinacion está encargada en la parte administrativa de la FI'
+
+        DB::table('divisions')->insert([
+            'nombre' => 'División de Ciencias Básicas'
+        ]);
+        
+        DB::table('divisions')->insert([
+          'nombre' => 'División de Ingeniería Civil y Geomática'
         ]);
 
-        DB::table('coordinacions')->insert([
-            'nombre_coordinacion' => 'Formación Educativa',
-            'abreviatura' => 'CE',
-            'coordinador' => 'Alan Rodriguez Ramirez',
-            'grado' => 'M.E.',
-            'usuario' => 'A1an1nEZ',
-            'password' => Hash::make('1234'),
-            'comentarios' => 'Esta coordinación se encarga de la parte educativa de la FI'
-        ]);
         DB::table('divisions')->insert([
-            'nombre' => 'Ciencias Básicas',
+            'nombre' => 'División de Ingeniería Eléctrica'
         ]);
+
         DB::table('divisions')->insert([
-            'nombre' => 'Geomática',
+          'nombre' => 'División de Ingeniería en Ciencias de la Tierra'
         ]);
+
         DB::table('divisions')->insert([
-            'nombre' => 'Ingeniería Eléctrica',
+          'nombre' => 'División de Ingeniería Mecánica e Industrial'
         ]);
+
         DB::table('divisions')->insert([
-            'nombre' => 'Ciencias Sociales',
+            'nombre' => 'División de Ciencias Sociales y Humanidades'
         ]);
+
+        DB::table('divisions')->insert([
+          'nombre' => 'División de Educación Continua y a Distancia'
+        ]);
+
+        DB::table('divisions')->insert([
+          'nombre' => 'Becarios de UNICA'
+        ]);
+
+        DB::table('divisions')->insert([
+          'nombre' => 'Servicio social'
+        ]);
+
+        DB::table('divisions')->insert([
+          'nombre' => 'Externos'
+        ]);
+
+        DB::table('divisions')->insert([
+            'nombre' => 'Secretarias'
+          ]);
 
         DB:: table('facultads')->insert([
             'id' => 1,
@@ -216,868 +225,79 @@ class StartSeeder extends Seeder
         ]);
 
         DB::table('carreras')->insert([
-            'nombre' => 'Actuaría',
-            'clave' => 101,
-            'id_division' => 1,
-            'id_facultad' => 3,
+          'nombre' => 'Ingeniería Aeroespacial',
+          'clave' => 107
         ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Arquitectura',
-            'clave' => 102,
-            'id_division' => 1,
-            'id_facultad' => 1,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Arquitectura del paisaje',
-            'clave' => 103,
-            'id_division' => 1,
-            'id_facultad' => 1,
 
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencias de la Computación',
-            'clave' => 104,
-            'id_division' => 1,
-            'id_facultad' => 3,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Diseño Industrial',
-            'clave' => 105,
-            'id_division' => 1,
-            'id_facultad' => 1,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Física',
-            'clave' => 106,
-            'id_division' => 1,
-            'id_facultad' => 3,
-        ]);
         DB::table('carreras')->insert([
             'nombre' => 'Ingeniería Civil',
-            'clave' => 107,
-            'id_division' => 1,
-            'id_facultad' => 14,
-
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería de Minas y Metalurgía',
-            'clave' => 108,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Eléctrica y Eletrónica',
-            'clave' => 109,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería en Computación',
-            'clave' => 110,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería en Telecomunicaciones',
-            'clave' => 111,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Geofísica',
-            'clave' => 112,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Geológica',
-            'clave' => 113,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Industrial',
-            'clave' => 114,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Mecánica',
-            'clave' => 115,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Mecánica Eléctrica',
-            'clave' => 116,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Petrolera',
-            'clave' => 117,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Química',
-            'clave' => 118,
-            'id_division' => 1,
-            'id_facultad' => 20,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Química Metalurgia',
-            'clave' => 119,
-            'id_division' => 1,
-            'id_facultad' => 20,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Topográfica y Geodesica',
-            'clave' => 120,
-            'id_division' => 1,
-            'id_facultad' => 14,
-
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingenieria electrica',
-            'clave' => 1231,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Matemáticas Aplicadas y Computación',
-            'clave' => 121,
-            'id_division' => 1,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Matemáticas',
-            'clave' => 122,
-            'id_division' => 1,
-            'id_facultad' => 3,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Urbanismo',
-            'clave' => 123,
-            'id_division' => 1,
-            'id_facultad' =>  1,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Mecatrónica',
-            'clave' => 124,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Geomática',
-            'clave' => 125,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Tecnología',
-            'clave' => 126,
-            'id_division' => 1,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencias de la Tierra',
-            'clave' => 127,
-            'id_division' => 1,
-            'id_facultad' => 3,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería en Energías Renovables',
-            'clave' => 128,
-            'id_division' => 1,
-            'id_facultad' => 22,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Nanotecnología',
-            'clave' => 129,
-            'id_division' => 1,
-            'id_facultad' => 23,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería en Telecomunicaciones, Sistemas y Electrónica',
-            'clave' => 130,
-            'id_division' => 1,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Geociencias',
-            'clave' => 131,
-            'id_division' => 1,
-            'id_facultad' => 25,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Tecnologías para la información en ciencias',
-            'clave' => 132,
-            'id_division' => 1,
-            'id_facultad' => 25,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencia de Materiales Sustentables',
-            'clave' => 133,
-            'id_division' => 1,
-            'id_facultad' => 25,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Física Biomédica',
-            'clave' => 134,
-            'id_division' => 1,
-            'id_facultad' => 3,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería en Sistemas Biomédicos',
-            'clave' => 135,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Matemáticas Aplicadas',
-            'clave' => 136,
-            'id_division' => 1,
-            'id_facultad' => 3,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Ambiental',
-            'clave' => 137,
-            'id_division' => 1,
-            'id_facultad' => 14,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencia de Datos',
-            'clave' => 138,
-            'id_division' => 1,
-            'id_facultad' => 26,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Biología',
-            'clave' => 201,
-            'id_division' => 2,
-            'id_facultad' => 11,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Biología',
-            'clave' => 201,
-            'id_division' => 2,
-            'id_facultad' => 3,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Cirujano Dentista',
-            'clave' => 202,
-            'id_division' => 2,
-            'id_facultad' => 11,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Enfermería y Obstetricia',
-            'clave' => 203,
-            'id_division' => 2,
-            'id_facultad' => 27,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería Agrícola',
-            'clave' => 204,
-            'id_division' => 2,
-            'id_facultad' => 10,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ingeniería en Alimentos',
-            'clave' => 205,
-            'id_division' => 2,
-            'id_facultad' => 10,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Investigación Biomédica Básica',
-            'clave' => 206,
-            'id_division' => 2,
-            'id_facultad' => 15,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Medicina Veterinaria y Zootecnia',
-            'clave' => 207,
-            'id_division' => 2,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Médico Cirujano',
-            'clave' => 208,
-            'id_division' => 2,
-            'id_facultad' => 11,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Optometría',
-            'clave' => 209,
-            'id_division' => 2,
-            'id_facultad' => 11,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Psicología',
-            'clave' => 210,
-            'id_division' => 2,
-            'id_facultad' => 11,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Psicología',
-            'clave' => 441,
-            'id_division' => 2,
-            'id_facultad' => 19,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Economía',
-            'clave' => 442,
-            'id_division' => 2,
-            'id_facultad' => 7
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Economía',
-            'clave' => 443,
-            'id_division' => 2,
-            'id_facultad' => 7
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Veterinario Zootecnista',
-            'clave' => 444,
-            'id_division' => 2,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Química de Alimentos',
-            'clave' => 212,
-            'id_division' => 2,
-            'id_facultad' => 20,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Química Farmacéutico Biológica',
-            'clave' => 213,
-            'id_division' => 2,
-            'id_facultad' => 20,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Química Industrial',
-            'clave' => 214,
-            'id_division' => 2,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencias Genómicas',
-            'clave' => 215,
-            'id_division' => 2,
-            'id_facultad' => 29,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencias Ambientales',
-            'clave' => 216,
-            'id_division' => 2,
-            'id_facultad' => 24,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Manejo Sustentable de Zonas Costeras',
-            'clave' => 217,
-            'id_division' => 2,
-            'id_facultad' => 24,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Bioquímica Diagnóstica',
-            'clave' => 218,
-            'id_division' => 2,
-            'id_facultad' => 10,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Farmacia',
-            'clave' => 219,
-            'id_division' => 2,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Enfermería',
-            'clave' => 220,
-            'id_division' => 2,
-            'id_facultad' => 11,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Fisioterapia',
-            'clave' => 221,
-            'id_division' => 2,
-            'id_facultad' => 28,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Odontología',
-            'clave' => 222,
-            'id_division' => 2,
-            'id_facultad' => 18,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencias Agrogenómicas',
-            'clave' => 223,
-            'id_division' => 2,
-            'id_facultad' => 28,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencia Forense',
-            'clave' => 224,
-            'id_division' => 2,
-            'id_facultad' => 15,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ecología',
-            'clave' => 225,
-            'id_division' => 2,
-            'id_facultad' => 25,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Neurociencias',
-            'clave' => 226,
-            'id_division' => 2,
-            'id_facultad' => 30,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Nutriología',
-            'clave' => 227,
-            'id_division' => 2,
-            'id_facultad' => 12,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ortesis y Prótesis',
-            'clave' => 228,
-            'id_division' => 2,
-            'id_facultad' => 30,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Química e Ingeniería en Materiales',
-            'clave' => 229,
-            'id_division' => 2,
-            'id_facultad' => 20,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Administración',
-            'clave' => 301,
-            'id_division' => 3,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencias de la Comunicación (Periodismo)',
-            'clave' => 302,
-            'id_division' => 3,
-            'id_facultad' => 4,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Ciencias Políticas y Administración Pública',
-            'clave' => 303,
-            'id_division' => 3,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Contaduría',
-            'clave' => 304,
-            'id_division' => 3,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Derecho',
-            'clave' => 305,
-            'id_division' => 3,
-            'id_facultad' => 6,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Economía',
-            'clave' => 306,
-            'id_division' => 3,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Geografía',
-            'clave' => 307,
-            'id_division' => 3,
-            'id_facultad' => 13,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Informática',
-            'clave' => 308,
-            'id_division' => 3,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Planificación para el Desarrollo AGR',
-            'clave' => 309,
-            'id_division' => 3,
-            'id_facultad' => 9,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Relaciones Internacionales',
-            'clave' => 310,
-            'id_division' => 3,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Sociología',
-            'clave' => 311,
-            'id_division' => 3,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Trabajo Social',
-            'clave' => 312,
-            'id_division' => 3,
-            'id_facultad' => 31,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Economía Industrial',
-            'clave' => 313,
-            'id_division' => 3,
-            'id_facultad' => 28,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Administración Agropecuaria',
-            'clave' => 314,
-            'id_division' => 3,
-            'id_facultad' => 28,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Comunicación',
-            'clave' => 315,
-            'id_division' => 3,
-            'id_facultad' => 28,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Comunicación y Periodismo',
-            'clave' => 316,
-            'id_division' => 3,
-            'id_facultad' => 9,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Estudios Sociales y Gestión Local',
-            'clave' => 317,
-            'id_division' => 3,
-            'id_facultad' => 25,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Desarrollo Comunitario para el Envejecimiento',
-            'clave' => 318,
-            'id_division' => 3,
-            'id_facultad' => 12,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Antropología',
-            'clave' => 319,
-            'id_division' => 3,
-            'id_facultad' => 4,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Desarrollo Territorial',
-            'clave' => 320,
-            'id_division' => 3,
-            'id_facultad' => 28,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Negocios Internacionales',
-            'clave' => 321,
-            'id_division' => 3,
-            'id_facultad' => 30,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Geografía Aplicada',
-            'clave' => 322,
-            'id_division' => 3,
-            'id_facultad' => 24,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Artes Visuales',
-            'clave' => 401,
-            'id_division' => 4,
-            'id_facultad' => 2,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Bibliotecnología',
-            'clave' => 402,
-            'id_division' => 4,
-            'id_facultad' => 13,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Canto',
-            'clave' => 403,
-            'id_division' => 4,
-            'id_facultad' => 17,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Composición',
-            'clave' => 404,
-            'id_division' => 4,
-            'id_facultad' => 17,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Diseño y Comunicación Visual',
-            'clave' => 405,
-            'id_division' => 4,
-            'id_facultad' => 10,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Diseño Gráfico',
-            'clave' => 406,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Educación Musical',
-            'clave' => 407,
-            'id_division' => 4,
-            'id_facultad' => 17,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Enseñanza de Inglés',
-            'clave' => 408,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Estudios Latinoamericanos',
-            'clave' => 409,
-            'id_division' => 4,
-            'id_facultad' => 13,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Etnomusicología',
-            'clave' => 410,
-            'id_division' => 4,
-            'id_facultad' => 17,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Filosofía',
-            'clave' => 411,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Historia',
-            'clave' => 412,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Instrumentista',
-            'clave' => 413,
-            'id_division' => 4,
-            'id_facultad' => 17,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Lengua y Literaturas Hispánicas',
-            'clave' => 414,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Lengua y Lit. Modernas Alemanas',
-            'clave' => 415,
-            'id_division' => 1,
-            'id_facultad' => 13,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Lengua y Lit. Modernas Francesas',
-            'clave' => 416,
-            'id_division' => 4,
-            'id_facultad' => 13,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Lengua y Lit. Modernas Inglesas',
-            'clave' => 417,
-            'id_division' => 4,
-            'id_facultad' => 13,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Lengua y Lit. Modernas Italianas',
-            'clave' => 418,
-            'id_division' => 4,
-            'id_facultad' => 13,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Letras Clásicas',
-            'clave' => 419,
-            'id_division' => 4,
-            'id_facultad' => 13,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Literatura Dramática y Teatro',
-            'clave' => 420,
-            'id_division' => 4,
-            'id_facultad' => 13,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Pedagogía',
-            'clave' => 421,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Piano',
-            'clave' => 422,
-            'id_division' => 4,
-            'id_facultad' => 17,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Enseñanza de Alemán como Lengua Extranjera',
-            'clave' => 424,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Enseñanza de Español como Lengua Extranjera',
-            'clave' => 425,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Enseñanza de Francés como Lengua Extranjera',
-            'clave' => 426,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Enseñanza de Inglés como Lengua Extranjera',
-            'clave' => 427,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Enseñanza de Italiano como Lengua Extranjera',
-            'clave' => 428,
-            'id_division' => 4,
-            'id_facultad' => 8,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Desarrollo y Gestión Interculturales',
-            'clave' => 429,
-            'id_division' => 4,
-            'id_facultad' => 13,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Lengua y Lit. Modernas Portuguesas',
-            'clave' => 430,
-            'id_division' => 4,
-            'id_facultad' => 13,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Geohistoria',
-            'clave' => 431,
-            'id_division' => 4,
-            'id_facultad' => 25,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Literatura Intercultural',
-            'clave' => 432,
-            'id_division' => 4,
-            'id_facultad' => 25,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Historia del Arte',
-            'clave' => 433,
-            'id_division' => 4,
-            'id_facultad' => 25,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Arte y Diseño',
-            'clave' => 434,
-            'id_division' => 4,
-            'id_facultad' => 25,
-        ]);
-
-        DB::table('carreras')->insert([
-            'nombre' => 'Cinematografía',
-            'clave' => 435,
-            'id_division' => 4,
-            'id_facultad' => 32,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Teatro y Actuación',
-            'clave' => 436,
-            'id_division' => 4,
-            'id_facultad' => 33,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Administración de Archivos y Gestión Documental',
-            'clave' => 437,
-            'id_division' => 4,
-            'id_facultad' => 25,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Música y Tecnología Artística',
-            'clave' => 438,
-            'id_division' => 4,
-            'id_facultad' => 25,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Lingüística Aplicada',
-            'clave' => 439,
-            'id_division' => 4,
-            'id_facultad' => 34,
-        ]);
-        DB::table('carreras')->insert([
-            'nombre' => 'Traducción',
-            'clave' => 440,
-            'id_division' => 4,
-            'id_facultad' => 1,
-        ]);
+            'clave' => 107
+        ]);
+
+        DB::table('carreras')->insert([
+          'nombre' => 'Ingeniería Geomática',
+          'clave' => 107
+        ]);
+
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería Ambiental',
+        'clave' => 107
+      ]);
+
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería Eléctrica y Eletrónica',
+        'clave' => 109
+      ]);
+
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería de Minas y Metalurgía',
+        'clave' => 108
+      ]);
+
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería en Computación',
+        'clave' => 110
+      ]);
+      
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería en Telecomunicaciones',
+        'clave' => 111
+      ]);
+      
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería Geofísica',
+        'clave' => 112
+      ]);
+      
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería Geológica',
+        'clave' => 113
+      ]);
+      
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería Industrial',
+        'clave' => 114
+      ]);
+      
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería Mecánica',
+        'clave' => 115
+      ]);
+    
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería Mecatrónica',
+        'clave' => 116
+      ]);
+      
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingeniería Petrolera',
+        'clave' => 117
+      ]);
+
+      DB::table('carreras')->insert([
+        'nombre' => 'Ingenieria en Sistemas Biomédicos',
+        'clave' => 1231
+      ]);
 
         DB::table('categoria_nivel')->insert(['categoria' => 'Administrativo', 'abreviatura' => 'Adm']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Ayudante de profesor A', 'abreviatura' => 'AYTE PROF A']);
@@ -1090,6 +310,8 @@ class StartSeeder extends Seeder
         DB::table('categoria_nivel')->insert(['categoria' => 'Investigador titular C MT', 'abreviatura' => 'INV TIT C M  T']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Investigador titular C TC', 'abreviatura' => 'INV TIT C T  C']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Profesor Emérito', 'abreviatura' => 'PROF EMERITO']);
+        DB::table('categoria_nivel')->insert(['categoria' => 'Profesor de Asignatura A', 'abreviatura' => 'PROF ASG A']);
+        DB::table('categoria_nivel')->insert(['categoria' => 'Profesor de Asignatura B', 'abreviatura' => 'PROF ASG B']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Profesor Titular A TC', 'abreviatura' => 'PROF TIT A T C']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Profesor Titular B TC', 'abreviatura' => 'PROF TIT B T C']);
         DB::table('categoria_nivel')->insert(['categoria' => 'Profesor Titular C TC', 'abreviatura' => 'PROF TIT C T C']);
@@ -1114,6 +336,7 @@ class StartSeeder extends Seeder
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '55664487',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
             'email' => 'carosiim.sdco@gmail.com',
             'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
                              su carrera es respaldada por 25 años de 
@@ -1136,6 +359,7 @@ class StartSeeder extends Seeder
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '557458963',
             'grado' => 'Licenciatura',
+            'abreviatura_grado' => 'Lic.',
             'email' => 'MSP@gmail.com',
             'semblanza_corta' => 'Profesora de la facultad de ingeniería,
                              fundó la asociación de mujeres programadoras
@@ -1147,8 +371,7 @@ class StartSeeder extends Seeder
             'comentarios' => 'Mujer delgada, de tez morena, cabello negro y ojos cafes.',
             'facebook' => 'Martha Suarez',
             'unam' => true,
-            'facultad_id' =>1,
-            'carrera_id' =>1,
+            'facultad_id' =>1
 
         ]);
         DB::table('profesors')->insert([
@@ -1161,14 +384,14 @@ class StartSeeder extends Seeder
             'fecha_nacimiento' => '1972-05-17',
             'telefono' => '55664487',
             'grado' => 'Ingeniería',
+            'abreviatura_grado' => 'Ing.',
             'email' => 'prof2@gmail.com',
             'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
             'genero' => 'masculino',
             'comentarios' => 'Señor alto, edad avanzada, pelo y barba canosas y usa lentes',
             'facebook' => 'face',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>12,
+            'facultad_id' =>14
 
         ]);
         DB::table('profesors')->insert([
@@ -1177,18 +400,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Prados',
             'rfc' => 'PEPM720517IW2',
             'numero_trabajador' => '12143234',
+            
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1972-05-017',
             'telefono' => '557458963',
             'grado' => 'Licenciatura',
+            'abreviatura_grado' => 'Lic.',
             'email' => 'MSP2@gmail.com',
             'semblanza_corta' => 'Licenciada en administracion egresada de la FCyA de la UNAM con honores.',
             'genero' => 'femenino',
             'comentarios' => 'Mujer bajita, tez obscura, cabello negro.',
             'facebook' => 'MyFace',
             'unam' => true,
-            'facultad_id' =>5,
-            'carrera_id' =>1,
+            'facultad_id' =>5
 
         ]);
         DB::table('profesors')->insert([
@@ -1197,18 +421,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Fernández',
             'rfc' => 'JUFM720101M74',
             'numero_trabajador' => '12143235',
+            
             'categoria_nivel_id'=>5,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '55664487',
-            'grado' => 'Carrera Tecnica',
+            'grado' => 'Licenciatura',
+            'abreviatura_grado' => 'Lic.',
             'email' => 'prof3@gmail.com',
             'semblanza_corta' => 'Ingeniero mecanico con especialidad en diseño mecanico egresado de la unam y con maestria en Alemania.',
             'genero' => 'masculino',
             'comentarios' => 'Hombre alto, calvo y con barba muy grande',
             'facebook' => 'Mateo Juarez',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>7,
+            'facultad_id' =>14
 
         ]);
         DB::table('profesors')->insert([
@@ -1217,18 +442,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Velázquez',
             'rfc' => 'GOVG720101FZ6',
             'numero_trabajador' => '12143236',
+            
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '557458963',
             'grado' => 'Doctorado',
+            'abreviatura_grado' => 'Dra.',
             'email' => 'MSP3@gmail.com',
             'semblanza_corta' => 'Ingeniera industrial, con un MBA en inglaterra y tambien trabaja en Coca Cola.',
             'genero' => 'femenino',
             'comentarios' => 'Mujer de edad avanzada, cabello negro y orejas grandes',
             'facebook' => 'Gaby Gonzalez',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>13,
+            'facultad_id' =>14
         ]);
         DB::table('profesors')->insert([
             'nombres' => 'Luis Daniel',
@@ -1236,18 +462,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Velázquez',
             'rfc' => 'VEVL720101T65',
             'numero_trabajador' => '12143237',
+            
             'categoria_nivel_id'=>7,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '55664487',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
             'email' => 'prof4@gmail.com',
             'semblanza_corta' => 'Ingeniero en telecomunicaciones y estudia actualmente su segunda carrera, en economia.',
             'genero' => 'masculino',
             'comentarios' => 'Hombre de mucho peso, estatura promedio y larga cabellera rubia',
             'facebook' => 'Dani Velásquez',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>9,
+            'facultad_id' =>14
         ]);
         DB::table('profesors')->insert([
             'nombres' => 'Fernanda',
@@ -1255,18 +482,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Sandoval',
             'rfc' => 'NUSF720101I63',
             'numero_trabajador' => '12143238',
+            
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '557458963',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP4@gmail.com',
             'semblanza_corta' => 'Ingeniera civil, maestria en puentes y con especialidad en puentes muy grandes.',
             'genero' => 'femenino',
             'comentarios' => 'Mujer joven, alta, cabello negro y tez blanca',
             'facebook' => 'Fer Sandoval',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>11,
+            'facultad_id' =>14
 
         ]);
         DB::table('profesors')->insert([
@@ -1275,18 +503,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Casares',
             'rfc' => 'GACA720101EL4',
             'numero_trabajador' => '12143239',
+            
             'categoria_nivel_id'=>11,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '55664487',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
             'email' => 'prof5@gmail.com',
             'semblanza_corta' => 'Ingeniero petrolero, actualmente se desempeña tambien en cargos altos en PEMEX',
             'genero' => 'masculino',
             'comentarios' => 'Hombre de mediana edad, cabello negro y barba de candado',
             'facebook' => 'Angel García Caseres',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>10,
+            'facultad_id' =>14
         ]);
         DB::table('profesors')->insert([
             'nombres' => 'Vivian',
@@ -1294,18 +523,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Víquez',
             'rfc' => 'SAVV720101RV2',
             'numero_trabajador' => '12143240',
+            
             'categoria_nivel_id'=>4,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '557458963',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP5@gmail.com',
             'semblanza_corta' => 'Licenciada en contaduria, con maestria en impuestos empresariales y doctorado en contaduria para Macroempresas.',
             'genero' => 'femenino',
             'comentarios' => 'Mujer de baja estatura, delgada y con ojos cafes.',
             'facebook' => 'Vivi Salcedo',
             'unam' => true,
-            'facultad_id' =>5,
-            'carrera_id' =>10,
+            'facultad_id' =>5
         ]);
 
 
@@ -1315,18 +545,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Argote',
             'rfc' => 'GAAA720101HY0',
             'numero_trabajador' => '12143241',
+            
             'categoria_nivel_id'=>5,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '55664487',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
             'email' => 'prof6@gmail.com',
             'semblanza_corta' => 'Arquitecto con especialidad en paisajismo. Actualmente está creando su propia consultura',
             'genero' => 'masculino',
             'comentarios' => 'Hombre con rascos asiaticos, tez blanca y ojos rasgados.',
             'facebook' => 'Arturo Galvan',
             'unam' => true,
-            'facultad_id' =>1,
-            'carrera_id' =>11,
+            'facultad_id' =>1
 
         ]);
         DB::table('profesors')->insert([
@@ -1335,18 +566,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Hernández',
             'rfc' => 'VAHM720101Q41',
             'numero_trabajador' => '12143242',
+            
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '557458963',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP6@gmail.com',
             'semblanza_corta' => 'Licenciada en arquitectura con maestria en diseño de interiores ',
             'genero' => 'femenino',
             'comentarios' => 'Mujer afroamericana de alta estatura y cabello cafe.',
             'facebook' => 'Melissaa Valles',
             'unam' => true,
-            'facultad_id' =>1,
-            'carrera_id' =>1,
+            'facultad_id' =>1
 
         ]);
         DB::table('profesors')->insert([
@@ -1355,18 +587,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Gonzales',
             'rfc' => 'SAGR720101JR0',
             'numero_trabajador' => '12143243',
+            
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '55664487',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
             'email' => 'prof7@gmail.com',
             'semblanza_corta' => 'Ingeniero en Minas, con especialidad en minas de carbon y diamante.',
             'genero' => 'masculino',
             'comentarios' => 'Hombre alto, afroamericano con cabello negro.',
             'facebook' => 'Roberto Sanchez',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>12,
+            'facultad_id' =>14
 
         ]);
         DB::table('profesors')->insert([
@@ -1375,18 +608,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Valle',
             'rfc' => 'AOVD720101DQ6',
             'numero_trabajador' => '12143244',
+            
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1972-05-017',
             'telefono' => '557458963',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP7@gmail.com',
             'semblanza_corta' => 'Ingeniera en Sistemas Biómedicos, egresada del ITAM',
             'genero' => 'femenino',
             'comentarios' => 'Mujer de corta estatura, ojos azules y cabello color cafe',
             'facebook' => 'Dani Arjona',
             'unam' => true,
-            'facultad_id' =>5,
-            'carrera_id' =>1,
+            'facultad_id' =>5
 
         ]);
         DB::table('profesors')->insert([
@@ -1395,18 +629,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Mateos',
             'rfc' => 'LOMA720101EU3',
             'numero_trabajador' => '12143245',
+            
             'categoria_nivel_id'=>5,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '55664487',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
             'email' => 'prof8@gmail.com',
             'semblanza_corta' => 'Ingeniero mecanico con especialidad en termofluidos actualmente trabaja para Ferrari.',
             'genero' => 'masculino',
             'comentarios' => 'Hombre de baja estatura, sin cabello y utiliza lentes',
             'facebook' => 'Alex López Mateos',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>7,
+            'facultad_id' =>14
 
         ]);
         DB::table('profesors')->insert([
@@ -1415,18 +650,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Méndez',
             'rfc' => 'DOMJ7201011Q9',
             'numero_trabajador' => '12143246',
+            
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '557458963',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP8@gmail.com',
             'semblanza_corta' => 'Ingeniera insdustrial enfocada al area de logistica con maestry en cadena de suministros en Canada.',
             'genero' => 'femenino',
             'comentarios' => 'Mujer de edad avanzada con pelo rubio y orejas grandes.',
             'facebook' => 'Julia Dominguez',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>13,
+            'facultad_id' =>14
         ]);
         DB::table('profesors')->insert([
             'nombres' => 'Luis Fernando',
@@ -1434,18 +670,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Vallesteros',
             'rfc' => 'MEVL720101GV4',
             'numero_trabajador' => '12143247',
+            
             'categoria_nivel_id'=>7,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '55664487',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
             'email' => 'prof9@gmail.com',
             'semblanza_corta' => 'Ingeniero en telecomunicaciones que trabaja con la super computadora de la UNAM',
             'genero' => 'masculino',
             'comentarios' => 'Hombre con enanismo, de tez blanca y pelo negro.',
             'facebook' => 'Luis Méndez',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>9,
+            'facultad_id' =>14
         ]);
         DB::table('profesors')->insert([
             'nombres' => 'Hilda',
@@ -1453,18 +690,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Ramírez',
             'rfc' => 'RARH720101DMA',
             'numero_trabajador' => '12143248',
+            
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '557458963',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP9@gmail.com',
             'semblanza_corta' => 'Ingeniera civil, socia de Carlos Slim y con maestria en carreteras',
             'genero' => 'femenino',
             'comentarios' => 'Mujer alta, delgada, con el pelo pintado de azul.',
             'facebook' => 'Hilda Ramirez',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>11,
+            'facultad_id' =>14
 
         ]);
         DB::table('profesors')->insert([
@@ -1473,18 +711,19 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Jiménez',
             'rfc' => 'MAJJ720101GF7',
             'numero_trabajador' => '12143249',
+            
             'categoria_nivel_id'=>11,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '55664487',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
             'email' => 'prof10@gmail.com',
             'semblanza_corta' => 'Ingeniero petrolero, trabaja en paises arabes y es de los hombres más ricos del mundo',
             'genero' => 'masculino',
             'comentarios' => 'Hombre alto, con mucha musculatura, pelo y barba de color castaño claro.',
             'facebook' => 'Juan Macedo',
             'unam' => true,
-            'facultad_id' =>14,
-            'carrera_id' =>10,
+            'facultad_id' =>14
         ]);
         DB::table('profesors')->insert([
             'nombres' => 'Viridiana',
@@ -1492,26 +731,64 @@ class StartSeeder extends Seeder
             'apellido_materno' => 'Manso',
             'rfc' => 'VAMV720101HZA',
             'numero_trabajador' => '12143250',
+            
             'categoria_nivel_id'=>4,
             'fecha_nacimiento' => '1972-01-01',
             'telefono' => '557458963',
             'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP10@gmail.com',
             'semblanza_corta' => 'Licencidad en contaduria, ella calcula los imppuestos de la unam y tiene maestria en impuestos universitarios.',
             'genero' => 'femenino',
             'comentarios' => 'Mujer de estatura promedio, de tez morena con nariz grande y pelo negro',
             'facebook' => 'Viridiana Valencia',
             'unam' => true,
-            'facultad_id' =>5,
-            'carrera_id' =>10,
+            'facultad_id' =>5
         ]);
 
+        DB::table('coordinacions')->insert([
+          'abreviatura'=>'CO',
+          'nombre_coordinacion'=>'Área de Cómputo',
+          'coordinador'=>'Gerardo Lopez Gomez',
+          'grado'=>'M.C.C',
+          'usuario'=>'G3rardo1nEZ',
+          'password'=>'$10$Sli0p2.SdjP7JTbyze.RIucCUJA5MOG6AEB40sJG3Ok3Kb33ltibl'
+        ]);
+    
+        DB::table('coordinacions')->insert([
+          'abreviatura'=>'DI',
+          'nombre_coordinacion'=>'Área Disciplinar e Investigación Educativa',
+          'coordinador'=>'Roman Dominguez Perez',
+          'grado'=>'M.E.M.',
+          'usuario'=>'R0m4n1nEZ',
+          'password'=>'$10$Sli0p2.SdjP7JTbyze.RIucCUJA5MOG6AEB40sJG3Ok3Kb33ltibn'
+        ]);
+        
+        DB::table('coordinacions')->insert([
+          'nombre_coordinacion' => 'Área Didáctico Pedagógica',
+          'abreviatura' => 'DP',
+          'coordinador' => 'Daniel Morales',
+          'grado' => 'M.E.M.',
+          'usuario' => 'daniel',
+          'password' => Hash::make('1234'),
+          'comentarios' => '-'
+        ]);
+    
+        DB::table('coordinacions')->insert([
+          'nombre_coordinacion' => 'Área de Desarrollo Humano',
+          'abreviatura' => 'DH',
+          'coordinador' => 'Jacob Hernandez',
+          'grado' => 'M.E.M.',
+          'usuario' => 'jacob',
+          'password' => Hash::make('1234'),
+          'comentarios' => '-'
+      ]);
         DB::table('catalogo_cursos')->insert([
             'nombre_curso' =>'Programacion Estructurada',
             'duracion_curso' => '10',
             'coordinacion_id' => 1,
             'tipo' => 'CT',
-            'institucion' => 'CD',
+            'institucion' => 'CDD',
             'presentacion' => 'Presentacion',
             'dirigido' => 'Personas interesadas en el área 
                             de la programación, desarrollo de software 
@@ -1526,7 +803,6 @@ class StartSeeder extends Seeder
                             -Temas avanzados',
             'sintesis' => 'Sintesis',
             'metodologia' => 'Metodologia',
-            90% Examen',
             'previo' => 'Conocimientos básicos de informática y tecnologías de información: Qué es una computadora y cómo funciona',
             'bibliografia' => 'www.paginasobreprogramacion.com
             A.J. Tyson, Programacion para dummys. Pearson, 2008.',
@@ -1546,8 +822,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Que es la administracion y sus derivados',
             'sintesis' => 'Se aprendera sobre la administracion',
             'metodologia' => 'Presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'El libro sobre administracion',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'FJHCZC'
@@ -1565,8 +839,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Bases de administracion',
             'sintesis' => 'Se aprendera lo basico de administracion',
             'metodologia' => 'online',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'El libro administratico',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'FJHCZB'
@@ -1583,8 +855,6 @@ class StartSeeder extends Seeder
             'contenido' => 'Lo basico de ecuaciones diferenciales',
             'sintesis' => 'Aqui se aprenderan las bases para resolver ecuaciones diferenciales',
             'metodologia' => 'presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Zill',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ED1HCZ12'
@@ -1595,15 +865,13 @@ class StartSeeder extends Seeder
             'duracion_curso' => '20',
             'coordinacion_id' => 1,
             'tipo' => 'D',
-            'institucion' => 'CD',
+            'institucion' => 'CDD',
             'presentacion' => 'Presentacion',
             'dirigido' => 'Alumnos de ingenieria',
             'objetivo' => 'Aprender a integrar',
             'contenido' => 'Metodos de integracion',
             'sintesis' => 'Se aprendera a integrar mub bien en este curso',
             'metodologia' => 'Presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de Integrales',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'CI2HCZA'
@@ -1614,15 +882,13 @@ class StartSeeder extends Seeder
             'duracion_curso' => '20',
             'coordinacion_id' => 1,
             'tipo' => 'C',
-            'institucion' => 'CD',
+            'institucion' => 'CDD',
             'presentacion' => 'Presentacion',
             'dirigido' => 'Alumno que ya acabaron Algebra',
             'objetivo' => 'Que la gente aprenda algebra lineal',
             'contenido' => 'Transformaciones lineales y espacios vectoriales',
             'sintesis' => 'Aqui se aprendera algebra vectorial',
             'metodologia' => 'presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de Algebra Lineal',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ALA3HCZ'
@@ -1633,15 +899,13 @@ class StartSeeder extends Seeder
             'duracion_curso' => '20',
             'coordinacion_id' => 1,
             'tipo' => 'C',
-            'institucion' => 'CD',
+            'institucion' => 'CDD',
             'presentacion' => 'Presentacion',
             'dirigido' => 'Todo el publico',
             'objetivo' => 'Que los que tomen el curso aprendan lo basico de Algebra',
             'contenido' => 'Matrices y polinomios',
             'sintesis' => 'Aquí se aprenderá sobre Álgebra',
             'metodologia' => 'Presencia',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de Álgebra',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'A1A27HCZ'
@@ -1652,15 +916,13 @@ class StartSeeder extends Seeder
             'duracion_curso' => '20',
             'coordinacion_id' => 1,
             'tipo' => 'C',
-            'institucion' => 'CD',
+            'institucion' => 'CDD',
             'presentacion' => 'Presentacion',
             'dirigido' => 'Alumno que ya cursaron ecuaciones diferenciales',
             'objetivo' => 'Aprender sobre analisis numerico',
             'contenido' => 'Temas de Análisis Numérico',
             'sintesis' => 'Aqui se aprenderan los temas básicos de Ánalisis numérico',
             'metodologia' => 'Online',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de Analisis Numerico',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'AN412HCZ'
@@ -1671,15 +933,13 @@ class StartSeeder extends Seeder
             'duracion_curso' => '10',
             'coordinacion_id' => 1,
             'tipo' => 'CT',
-            'institucion' => 'CD',
+            'institucion' => 'CDD',
             'presentacion' => 'Presentacion',
             'dirigido' => 'Alumnos de la carrera de ingenieria en computación',
             'objetivo' => 'Aprender temas avanzados de programacion ',
             'contenido' => 'Temas Avanzados de programacion',
             'sintesis' => 'En este curso los alumnos seran capaces al finalizar de programar cualquier cosa',
             'metodologia' => 'Online',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
             'bibliografia' => 'Libro de super programación',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ADFVJ080578451'
@@ -1696,9 +956,7 @@ class StartSeeder extends Seeder
             'objetivo' => 'Aprender todo sobre administracion',
             'contenido' => 'Temas avanzados de aministracion',
             'sintesis' => 'En este curso se aprenderan los temas más avanzados de administracion',
-            'metodologia' => 'Presencial',
-            'acreditacion' => 'Diploma de la FI',
-            'evaluacion' => 'Examen',
+            'metodologia' => 'Presencial', 
             'bibliografia' => 'Libro super avanzado de Administracion',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'FJHCZA'
@@ -1961,25 +1219,15 @@ class StartSeeder extends Seeder
 		
 		//1_RespuestasEvalCursosTodasAreas_2020-1s_4.pdf
 
-		DB::table('coordinacions')->insert([
-			'id'=>50,
-			'abreviatura'=>'AC',
-			'nombre_coordinacion'=>'Área de cómputo',
-			'coordinador'=>'Gerardo Lopez Gomez',
-			'grado'=>'M.C.C',
-			'usuario'=>'G3rardo1nEZ',
-			'password'=>'$10$Sli0p2.SdjP7JTbyze.RIucCUJA5MOG6AEB40sJG3Ok3Kb33ltibl'
-		]);
-		
+
 		DB::table('catalogo_cursos')->insert([
 			'id'=> 50,
 			'nombre_curso'=>'Tecnologías de la Información y la Comunicación (TIC). Parte 1',
 			'duracion_curso' => '20',
-            'coordinacion_id' => 50,
+            'coordinacion_id' => 1,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
 			'fecha_disenio'=>'2012-12-12',
-			'coordinacion_id'=>50,
 			'clave_curso'=>'TICDGAPA'
 		]);
 		
@@ -2230,7 +1478,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["1","null"]',
 			'mejor'=>'El conocimiento de nuevas herramientas',
-			'sug'=>'Ninguna',
+			'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -2253,7 +1501,7 @@ class StartSeeder extends Seeder
 			'p5_9'=>'80',
 			'p5_10'=>'100',
             'p5_11'=>'80',
-            'otros'=>'Otros',
+            'otros'=>'programacion',
 			'conocimiento'=>'["2"]',
 			'tematica'=>'tematica',
 			'horarios'=>'9:00-13:00',
@@ -2320,7 +1568,7 @@ class StartSeeder extends Seeder
 			'p5_9'=>'100',
 			'p5_10'=>'100',
             'p5_11'=>'100',
-            'otros'=>'Otros',
+            'otros'=>'administración',
 			'conocimiento'=>'["2"]',
 			'tematica'=>'tematica',
 			'horarios'=>'9:00-13:00',
@@ -2922,7 +2170,9 @@ class StartSeeder extends Seeder
 			'apellido_materno'=>'Valdez',
 			'rfc'=>'ALVA720112ALVA',
 			'numero_trabajador' => '121432460',
-			'fecha_nacimiento'=>'1972-01-13'
+            'fecha_nacimiento'=>'1972-01-13',
+            'email' => 'anayatzin123@gmail.com',
+            'telefono' => '5566778899'
 		]);
 		
 		DB::table('participante_curso')->insert([
@@ -3018,7 +2268,7 @@ class StartSeeder extends Seeder
 			'p4_9'=>'100',
 			'p4_10'=>'100',
 			'p4_11'=>'100',
-            'otros'=>'Otros',
+            'otros'=>'matematicas',
 			'conocimiento'=>'["1"]',
 			'tematica'=>'tematica',
 			'horarios'=>'9:00-13:00',
@@ -3063,7 +2313,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["1","null"]',
 			'mejor'=>'La forma en que la instructora presentó los temas aterrizados a la realidad',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -3075,7 +2325,7 @@ class StartSeeder extends Seeder
 			'p4_9'=>'100',
 			'p4_10'=>'100',
 			'p4_11'=>'100',
-            'otros'=>'Otros',
+            'otros'=>'Programacion Estructurada',
 			'conocimiento'=>'["3"]',
 			'tematica'=>'Otro',
 			'horarios'=>'9:00-13:00',
@@ -3119,7 +2369,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'La estrategia de enseñanza-aprendizaje denominado aula invertida',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -3131,7 +2381,7 @@ class StartSeeder extends Seeder
 			'p4_9'=>'100',
 			'p4_10'=>'100',
 			'p4_11'=>'100',
-            'otros'=>'Otros',
+            'otros'=>'Programacion Estructurada',
 			'conocimiento'=>'["4"]',
 			'tematica'=>'Varias',
 			'horarios'=>'9:00-13:00',
@@ -3175,7 +2425,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["4","Diplomado"]',
 			'mejor'=>'La forma en como se desarrollaron los contenidos',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -3231,7 +2481,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'Aula invertida',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -3287,7 +2537,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'5mentarios',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -3567,7 +2817,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["4","Póster en FCA"]',
 			'mejor'=>'El conocimiento de algunas hailidades que he desarrollado en la práctica docente',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'95',
 			'p4_3'=>'100',
@@ -3623,7 +2873,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'Trabajo y comunicación de trabajo en equipo',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'95',
 			'p4_2'=>'95',
 			'p4_3'=>'80',
@@ -3715,8 +2965,8 @@ class StartSeeder extends Seeder
 			'p3_4'=>'100',
 			'p7'=>true,
 			'p8'=>'["4","Profesor"]',
-			'mejor'=>'Respuesta en Blanco',
-            'sug'=>'Respuesta en Blanco',
+			'mejor'=>'Todo bien',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -3762,7 +3012,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["1","null"]',
 			'mejor'=>'La relfexion sobre la inteligencia emocional en nuestros alumnos y en forma personal',
-            'sug'=>'Ninguna, gracias',
+            'sug'=>', gracias',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -3854,7 +3104,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'El conocer como se maneja la inteligencia emocional y que puede ser aplicada en el aula. Identificar cada una de las emociones que rige el docente en el aula',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -3946,7 +3196,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'El conocer la utilidad de la inteligencia emocional dentro y fuera del aula',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -3992,7 +3242,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["null","null"]',
 			'mejor'=>'Todo lo que aportó el instructor y mis compañeros en el tema de Inteligencia emocional',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -4084,7 +3334,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'El conocer la utilidad de la inteligencia emocional dentro y fuera del aula',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -4222,7 +3472,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["4","Póster en FCA"]',
 			'mejor'=>'Conocer mi estilo de pensamiento y las evaluaciones del tipo de pensamiento',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -4267,8 +3517,8 @@ class StartSeeder extends Seeder
 			'p3_4'=>'95',
 			'p7'=>true,
 			'p8'=>'["2","null"]',
-			'mejor'=>'En blanco',
-            'sug'=>'En blanco',
+			'mejor'=>'Todo bien',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'95',
 			'p4_3'=>'95',
@@ -4453,7 +3703,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["1","null"]',
 			'mejor'=>'Todos los temas de los módulos, y las herramientas de aplicación inmediata',
-            'sug'=>'En blanco',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -4499,7 +3749,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'Las diferentes estrategias didácticas implementadas',
-            'sug'=>'En blanco',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -4591,7 +3841,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'Todo, cada sesión fue interesante y productiva',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -4637,7 +3887,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["4","Otros"]',
 			'mejor'=>'Las clases muy dinámicas',
-            'sug'=>'En blanco',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -4683,7 +3933,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["4","Por la Coordinación"]',
 			'mejor'=>'Las exposiciones y los trabajos aplicativos durante la clase que permitieron la aplicación de la teoría',
-            'sug'=>'En blanco',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -4868,7 +4118,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["4","Póster en FCA"]',
 			'mejor'=>'El modo de poder, querer y romper cambiar paradigmas',
-            'sug'=>'En blanco',
+            'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -4914,7 +4164,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'Experiencias profesionales del instructor',
-            'sug'=>'En blanco',
+            'sug'=>'Todo bien',
 			'p4_1'=>'95',
 			'p4_2'=>'80',
 			'p4_3'=>'95',
@@ -4935,25 +4185,14 @@ class StartSeeder extends Seeder
             'participante_curso_id'=>98
         ]);
 
-		DB::table('coordinacions')->insert([
-			'id'=>51,
-			'abreviatura'=>'ADIE',
-			'nombre_coordinacion'=>'Área Disciplinar e Investigación educativa',
-			'coordinador'=>'Gonzalo Lopez Juarez',
-			'grado'=>'M.E.M.',
-			'usuario'=>'G0nz4l0o1nEZ',
-			'password'=>'$10$Sli0p2.SdjP7JTbyze.RIucCUJA5MOG6AEB40sJG3Ok3Kb33ltibm'
-		]);
-
         DB::table('catalogo_cursos')->insert([
 			'id'=> 54,
 			'nombre_curso'=>'Programación de máquinas de control numérico (CNC)',
 			'duracion_curso' => '20',
-            'coordinacion_id' => 51,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
 			'fecha_disenio'=>'2012-12-12',
-			'coordinacion_id'=>51,
+			'coordinacion_id'=>1,
 			'clave_curso'=>'PMCCNC'
 		]);
 		
@@ -5087,6 +4326,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Arconada',
             'apellido_materno'=>'Rey',
             'rfc'=>'AORG0101012R1',
+            
             'numero_trabajador' => '12345703',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -5247,7 +4487,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["1","2","null"]',
 			'mejor'=>'Programación',
-			'sug'=>'Ninguna',
+			'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -5303,7 +4543,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'La capacidad del instructor',
-			'sug'=>'Ninguna',
+			'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -5435,26 +4675,15 @@ class StartSeeder extends Seeder
 			'curso_id'=>54,
 			'participante_curso_id'=>105
         ]);
-		
-		DB::table('coordinacions')->insert([
-			'id'=>52,
-			'abreviatura'=>'ADEE',
-			'nombre_coordinacion'=>'Área Disciplinar y evaluación educativa',
-			'coordinador'=>'Roman Dominguez Perez',
-			'grado'=>'M.E.M.',
-			'usuario'=>'R0m4n1nEZ',
-			'password'=>'$10$Sli0p2.SdjP7JTbyze.RIucCUJA5MOG6AEB40sJG3Ok3Kb33ltibn'
-		]);
 
         DB::table('catalogo_cursos')->insert([
 			'id'=> 55,
 			'nombre_curso'=>'Redescubriendo a la vida de Michael Faraday',
 			'duracion_curso' => '20',
-            'coordinacion_id' => 52,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
 			'fecha_disenio'=>'2012-12-12',
-			'coordinacion_id'=>52,
+			'coordinacion_id'=>2,
 			'clave_curso'=>'RVMFEYMEE'
 		]);
 		
@@ -5615,7 +4844,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'INTERES SOBRE LA VIDA DE ESTE CIENTIFICO',
-			'sug'=>'NINGUNA',
+			'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -6083,7 +5312,7 @@ class StartSeeder extends Seeder
 			'p7'=>true,
 			'p8'=>'["2","null"]',
 			'mejor'=>'Aprendizaje y curiosidad por seguir preparandome, en temas actuales',
-			'sug'=>'En blanco',
+			'sug'=>'Todo bien',
 			'p4_1'=>'100',
 			'p4_2'=>'100',
 			'p4_3'=>'100',
@@ -6521,21 +5750,10 @@ class StartSeeder extends Seeder
 
         // Primer archivo: 1_RespuestasEvalCursosTodasAreas_2020-1s_1
         //Insertando coordinacion
-        DB::table('coordinacions')->insert([
-            'id' => 201,
-            'nombre_coordinacion' => 'Área Didáctico pedagógica',
-            'abreviatura' => 'DA',
-            'coordinador' => 'Daniel Morales',
-            'grado' => 'M.E.M.',
-            'usuario' => 'daniel',
-            'password' => Hash::make('1234'),
-            'comentarios' => '-'
-        ]);
         DB::table('catalogo_cursos')->insert([
             'id'=> 201,
             'nombre_curso'=>'Aprendizaje a través de dispositivos móviles',
             'duracion_curso' => '20',
-            'coordinacion_id' => 201,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
             'fecha_disenio'=>'2012-12-12',
@@ -6570,6 +5788,7 @@ class StartSeeder extends Seeder
             'apellido_paterno' => 'Camacho',
             'apellido_materno' => 'Villaseñor',
             'rfc' => 'CAVG010101KDA',
+            
             'numero_trabajador' => '12345670',
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1901-01-01',
@@ -6584,8 +5803,7 @@ class StartSeeder extends Seeder
             'comentarios' => 'Comentarios',
             'facebook' => 'Gabriela C. V.',
             'unam' => true,
-            'facultad_id' =>1,
-            'carrera_id' =>1,
+            'facultad_id' =>1
         ]);
         DB::table('profesors')->insert([
             'id'=>202,
@@ -6593,6 +5811,7 @@ class StartSeeder extends Seeder
             'apellido_paterno' => 'Hernández',
             'apellido_materno' => 'Valverde',
             'rfc' => 'HEVA010101AK6',
+            
             'numero_trabajador' => '12345671',
             'categoria_nivel_id'=>1,
             'fecha_nacimiento' => '1901-01-01',
@@ -6607,8 +5826,7 @@ class StartSeeder extends Seeder
             'comentarios' => 'Comentarios',
             'facebook' => 'Arely H. V.',
             'unam' => true,
-            'facultad_id' =>1,
-            'carrera_id' =>1,
+            'facultad_id' =>1
         ]);
 
         DB::table('profesor_curso')->insert([
@@ -6630,6 +5848,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Cano',
             'apellido_materno'=>'Salazar',
             'rfc'=>'CASE0101015J8',
+            
             'numero_trabajador' => '12345672',
             'fecha_nacimiento'=>'1901-02-01'
         ]);
@@ -6800,6 +6019,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Cortes',
             'apellido_materno'=>'Ochoa',
             'rfc'=>'COOA010101114',
+            
             'numero_trabajador' => '12345675',
             'fecha_nacimiento'=>'1901-02-01'
         ]);
@@ -6875,6 +6095,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Chavez',
             'apellido_materno'=>'Mercado',
             'rfc'=>'CAMC010101A58',
+            
             'numero_trabajador' => '12345677',
             'fecha_nacimiento'=>'1901-02-01'
         ]);
@@ -6942,6 +6163,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Duran',
             'apellido_materno'=>'Campos',
             'rfc'=>'DUCV010101613',
+            
             'numero_trabajador' => '12345678',
             'fecha_nacimiento'=>'1901-02-01'
         ]);
@@ -6998,6 +6220,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Figueroa',
             'apellido_materno'=>'Bustos',
             'rfc'=>'FIBM0101011I5',
+            
             'numero_trabajador' => '12345679',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7027,7 +6250,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Las apps revisadas',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -7065,6 +6288,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Garcia',
             'apellido_materno'=>'Martinez',
             'rfc'=>'GAME010101NX4',
+            
             'numero_trabajador' => '12345680',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7132,6 +6356,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Gomez',
             'apellido_materno'=>'Rodriguez',
             'rfc'=>'GORJ010101PJ4',
+            
             'numero_trabajador' => '12345681',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7157,6 +6382,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Gutierrez ',
             'apellido_materno'=>'Lopez',
             'rfc'=>'GULE010101DX2',
+            
             'numero_trabajador' => '12345683',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7175,6 +6401,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Meza ',
             'apellido_materno'=>'Medina',
             'rfc'=>'MEME010101SN3',
+            
             'numero_trabajador' => '12345684',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7193,7 +6420,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Nakagaki ',
             'apellido_materno'=>'Aoki',
             'rfc'=>'NAAC010101AD3',
-
+            
             'numero_trabajador' => '12345685',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7212,7 +6439,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Perez',
             'apellido_materno'=>'Ramirez',
             'rfc'=>'RAPF0101011F8',
-            'curp' =>'RAPF010101MDFMRR09',
+            
             'numero_trabajador' => '123456217',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7280,7 +6507,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Rangel',
             'apellido_materno'=>'Gutierrez',
             'rfc'=>'RAGR010101B42',
-            'curp' =>'	RAGR010101HDFNTY00',
+            
             'numero_trabajador' => '123456218',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7299,7 +6526,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Sanchez',
             'apellido_materno'=>'Vaca',
             'rfc'=>'RASV010101GJ5',
-            'curp' =>'RASV010101HDFNNC09',
+            
             'numero_trabajador' => '123456219',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7329,7 +6556,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Las nuevas aplicaciones',
-            'sug'=>'',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -7368,7 +6595,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Tello',
             'apellido_materno'=>'Paleta',
             'rfc'=>'TEPE0101017L2',
-            'curp' =>'TEPE010101HDFLLD08',
+            
             'numero_trabajador' => '123456220',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7437,7 +6664,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Torres',
             'apellido_materno'=>'Dominguez',
             'rfc'=>'TODH010101PZ6',
-            'curp' =>'TODH010101HDFRMC08',
+            
             'numero_trabajador' => '12345688',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7456,7 +6683,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Hernandez',
             'apellido_materno'=>'Torres',
             'rfc'=>'HETM0101018V0',
-            'curp' =>'HETM010101MDFRRR00',
+            
             'numero_trabajador' => '12345689',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7524,7 +6751,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Tovar',
             'apellido_materno'=>'Perez',
             'rfc'=>'TOPV010101N11',
-            'curp' =>'TOPV010101HDFVRC01',
+            
             'numero_trabajador' => '12345690',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7592,7 +6819,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Vidal',
             'apellido_materno'=>'Garcia',
             'rfc'=>'VIGM010101255',
-            'curp' =>'VIGM010101HDFDRR01',
+            
             'numero_trabajador' => '12345691',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7611,7 +6838,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Zapata',
             'apellido_materno'=>'Y Rosales',
             'rfc'=>'ZARA010101QU9',
-            'curp' =>'ZARA010101HDFPSR04',
+            
             'numero_trabajador' => '12345692',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7678,7 +6905,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Zuñiga',
             'apellido_materno'=>'Barragan',
             'rfc'=>'ZUBH010101HMA',
-            'curp' =>'ZUBH010101HDF&RG04',
+            
             'numero_trabajador' => '12345693',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7693,21 +6920,11 @@ class StartSeeder extends Seeder
         
         //Segundo curso
 
-        DB::table('coordinacions')->insert([
-            'id' => 202,
-            'nombre_coordinacion' => 'Área de Desarrollo Humano',
-            'abreviatura' => 'DH',
-            'coordinador' => 'Jacob Hernandez',
-            'grado' => 'M.E.M.',
-            'usuario' => 'jacob',
-            'password' => Hash::make('1234'),
-            'comentarios' => '-'
-        ]);
         DB::table('catalogo_cursos')->insert([
             'id'=> 202,
             'nombre_curso'=>'Comunicación asertiva en el aula. Parte 2',
             'duracion_curso' => '20',
-            'coordinacion_id' => 202,
+            'coordinacion_id' => 3,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
             'fecha_disenio'=>'2012-12-12',
@@ -7747,7 +6964,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Alvarado',
             'apellido_materno'=>'Beatriz',
             'rfc'=>'AABI0101018NA',
-            'curp' =>'ABI010101HDFLTV03',
+            
             'numero_trabajador' => '12345695',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7804,7 +7021,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Briseño',
             'apellido_materno'=>'Aguirre',
             'rfc'=>'BIAN010101LL3',
-            'curp' =>'BIAN010101HDFRGD08',
+            
             'numero_trabajador' => '12345696',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7882,7 +7099,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Los ejercicios realizados',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -7909,7 +7126,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Avila',
             'apellido_materno'=>'Hernandez',
             'rfc'=>'AIHS010101TM4',
-            'curp' =>'AIHS010101MDFVRY00',
+            
             'numero_trabajador' => '12345698',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7966,7 +7183,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Contreras',
             'apellido_materno'=>'Ordaz',
             'rfc'=>'COOG010101BG5',
-            'curp' =>'COOG010101MDFNRD03',
+            
             'numero_trabajador' => '12345699',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -7996,7 +7213,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Que me permitió reflexionar a tiempo en mi grupo, debido a los intenso del trabajo, había ddejado de lado el grupo, pero afortunaddamente pude retormarlo',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8023,7 +7240,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Espinosa',
             'apellido_materno'=>'Villagran',
             'rfc'=>'EIVC0101012G9',
-            'curp' =>'EIVC010101MDFSLL08',
+            
             'numero_trabajador' => '12345600',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8053,7 +7270,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Las dinámicas grupales',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8080,7 +7297,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Garcia',
             'apellido_materno'=>'Arroyo',
             'rfc'=>'GAAN010101JH4',
-            'curp' =>'GAAN010101MDFRRD06',
+            
             'numero_trabajador' => '12345601',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8137,7 +7354,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Gonzalez',
             'apellido_materno'=>'Anaya',
             'rfc'=>'GOAD010101FX1',
-            'curp' =>'GOAD010101MDFNN04',
+            
             'numero_trabajador' => '12345602',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8156,7 +7373,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Mena',
             'apellido_materno'=>'Trigueros',
             'rfc'=>'METD010101GV1',
-            'curp' =>'METD010101MDFNR03',
+            
             'numero_trabajador' => '12345603',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8175,7 +7392,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Peña',
             'apellido_materno'=>'Maciel',
             'rfc'=>'PEMD0101011A5',
-            'curp' =>'PEMD010101HDF&CN00',
+            
             'numero_trabajador' => '12345604',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8205,7 +7422,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["4","Correo electrónico"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'La interacción del grupo y el instructor',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8232,7 +7449,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Plata',
             'apellido_materno'=>'Martinez',
             'rfc'=>'PAMJ010101JA5',
-            'curp' =>'PAMJ010101HDFLRS01',
+            
             'numero_trabajador' => '12345605',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8289,7 +7506,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Tejada',
             'apellido_materno'=>'Malpica',
             'rfc'=>'TEME0101015S3',
-            'curp' =>'TEME010101HDFJLR07',
+            
             'numero_trabajador' => '12345606',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8319,7 +7536,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Las técnicas planteadas para el manejo de las conductas disruptivas',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8346,7 +7563,7 @@ class StartSeeder extends Seeder
             'id'=> 203,
             'nombre_curso'=>'La gimnasia cerebral para el fortalecimiento ddel aprendizaje',
             'duracion_curso' => '20',
-            'coordinacion_id' => 201,
+            'coordinacion_id' => 3,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
             'fecha_disenio'=>'2012-12-12',
@@ -8378,7 +7595,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Romero',
             'apellido_materno'=>'Garcia',
             'rfc'=>'ROGE010101BG4',
-            'curp' =>'ROGE010101MDFMRS06',
+            
             'numero_trabajador' => '12345607',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8397,7 +7614,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Barrera',
             'apellido_materno'=>'Hernandez',
             'rfc'=>'BAHB010101RT4',
-            'curp' =>'BAHB010101MDFRRT03',
+            
             'numero_trabajador' => '12345608',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8416,7 +7633,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Cervantes',
             'apellido_materno'=>'Garcia',
             'rfc'=>'CEGB0101017J6',
-            'curp' =>'CEGB010101MDFRRT03',
+            
             'numero_trabajador' => '12345609',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8446,7 +7663,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["4","Correo"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Todas las dinámicas y convivencia del grupo',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8473,7 +7690,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Chavira',
             'apellido_materno'=>'Diaz',
             'rfc'=>'CADA010101991',
-            'curp' =>'CADA010101MDFHZD08',
+            
             'numero_trabajador' => '12345610',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8503,7 +7720,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["4","Correo"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Todas las dinámicas y convivencia del grupo',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'95',
             'p4_2'=>'95',
             'p4_3'=>'95',
@@ -8529,7 +7746,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Del Valle',
             'apellido_materno'=>'Hernandez',
             'rfc'=>'VAHS010101178',
-            'curp' =>'VAHS010101MDFLRL07',
+            
             'numero_trabajador' => '12345611',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8586,7 +7803,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Garcia',
             'apellido_materno'=>'Naranjo',
             'rfc'=>'GANP010101J67',
-            'curp' =>'GANP010101MDFRRT02',
+            
             'numero_trabajador' => '12345612',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8616,7 +7833,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'La participación grupal amena y divertida propiciada por las dinámicas indicadas por la instructora',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8643,7 +7860,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Guevara',
             'apellido_materno'=>'Salazar',
             'rfc'=>'GUSM010101HW0',
-            'curp' =>'GUSM010101HDFVLR03',
+            
             'numero_trabajador' => '12345613',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8672,8 +7889,8 @@ class StartSeeder extends Seeder
             'p3_4'=>'100',
             'p7'=>1,
             'p8'=>'[""]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
-            'mejor'=>'-',
-            'sug'=>'-',
+            'mejor'=>'Todo bien',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8700,7 +7917,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Hernandez',
             'apellido_materno'=>'Lopez',
             'rfc'=>'HELM010101RG5',
-            'curp' =>'HELM010101MDFRPR02',
+            
             'numero_trabajador' => '12345614',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8729,8 +7946,8 @@ class StartSeeder extends Seeder
             'p3_4'=>'100',
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
-            'mejor'=>'-',
-            'sug'=>'-',
+            'mejor'=>'Todo bien',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8757,7 +7974,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Isicahua',
             'apellido_materno'=>'Becerril',
             'rfc'=>'IIBA010101EW6',
-            'curp' =>'IIBA010101MDFSCR07',
+            
             'numero_trabajador' => '12345615',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8787,7 +8004,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["4","Gaceta"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Aprendi nuevas formas de trabajar con mis alumnos',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8860,7 +8077,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Miranda',
             'apellido_materno'=>'Trejo',
             'rfc'=>'MITC010101ID6',
-            'curp' =>'MITC010101MDFRRY01',
+            
             'numero_trabajador' => '12345617',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8890,7 +8107,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Conceptos nuevos adquiridos para fortalecer mis prácticas docentes',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -8917,7 +8134,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Perez',
             'apellido_materno'=>'Palacios',
             'rfc'=>'PEPD010101CK7',
-            'curp' =>'PEPD010101MDFRLN00',
+            
             'numero_trabajador' => '12345618',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8936,7 +8153,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Reyes',
             'apellido_materno'=>'Pizano',
             'rfc'=>'REPA010101NL9',
-            'curp' =>'REPA010101HDFYZD04',
+            
             'numero_trabajador' => '12345619',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -8993,7 +8210,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Rosique',
             'apellido_materno'=>'Naranjo',
             'rfc'=>'RONF010101EF9',
-            'curp' =>'RONF010101HDFSRR07',
+            
             'numero_trabajador' => '12345620',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9050,7 +8267,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Salas',
             'apellido_materno'=>'Alvarado',
             'rfc'=>'SAAA010101GP0',
-            'curp' =>'SAAA010101MDFLLN00',
+            
             'numero_trabajador' => '12345621',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9080,7 +8297,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["1","2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Las dinámicas',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -9107,7 +8324,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Sanchez',
             'apellido_materno'=>'Perez',
             'rfc'=>'SAPA010101RF8',
-            'curp' =>'SAPA010101HDFNRL02',
+            
             'numero_trabajador' => '12345622',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9172,7 +8389,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Velazquez',
             'apellido_materno'=>'Camacho',
             'rfc'=>'VECB0101015E4',
-            'curp' =>'VECB010101MDFLMR02',
+            
             'numero_trabajador' => '123456256',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9227,7 +8444,7 @@ class StartSeeder extends Seeder
             'id'=> 204,
             'nombre_curso'=>'La violencia no visible en el aula: Detección e intervención',
             'duracion_curso' => '20',
-            'coordinacion_id' => 202,
+            'coordinacion_id' => 3,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
             'fecha_disenio'=>'2012-12-12',
@@ -9259,7 +8476,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Garcia',
             'apellido_materno'=>'Lopez',
             'rfc'=>'GALA0101019A2',
-            'curp' =>'GALA010101MDFRPL09',
+            
             'numero_trabajador' => '12345624',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9277,7 +8494,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Balmori',
             'apellido_materno'=>'Negrete',
             'rfc'=>'BANG010101SRA',
-            'curp' =>'BANG010101HDFLGS08',
+            
             'numero_trabajador' => '12345625',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9307,7 +8524,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["4","Centro de Docencia"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Las diversas definiciones de violencia',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -9353,7 +8570,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["1"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'El material y los comentarios sobre el tema por parte de todos los asistentes',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -9380,7 +8597,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Garcia',
             'apellido_materno'=>'Y Colome',
             'rfc'=>'GACA010101S49',
-            'curp' =>'GACA010101MDFRLN07',
+            
             'numero_trabajador' => '12345627',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9410,7 +8627,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'[""]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Todo',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -9437,7 +8654,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Juarez',
             'apellido_materno'=>'Cisneros',
             'rfc'=>'JUCR010101MU0',
-            'curp' =>'JUCR010101MDFRSS06',
+            
             'numero_trabajador' => '12345628',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9494,7 +8711,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Lopez',
             'apellido_materno'=>'Aburto',
             'rfc'=>'LOAV010101L21',
-            'curp' =>'LOAV010101HDFPBC07',
+            
             'numero_trabajador' => '12345629',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9551,7 +8768,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Mancilla',
             'apellido_materno'=>'Urrea',
             'rfc'=>'MAUM0101018U7',
-            'curp' =>'MAUM010101MDFNRR07',
+            
             'numero_trabajador' => '12345630',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9627,7 +8844,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["4","Coordinacion del Centro"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Las presentaciones en el aula y la exposición del tema. La secuencia del conocimiento y los conceptos.',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -9654,7 +8871,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Martinez',
             'apellido_materno'=>'Lopez',
             'rfc'=>'MALE0101016I9',
-            'curp' =>'MALE010101MDFRPR00',
+            
             'numero_trabajador' => '12345632',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9757,7 +8974,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Nieves',
             'apellido_materno'=>'Saavedra',
             'rfc'=>'NISA010101ID2',
-            'curp' =>'NISA010101MDFVVG00',
+            
             'numero_trabajador' => '12345634',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9814,7 +9031,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Osorio',
             'apellido_materno'=>'Tai',
             'rfc'=>'OOTE010101I18',
-            'curp' =>'OOTE010101MDFSL06',
+            
             'numero_trabajador' => '12345635',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9871,7 +9088,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Sanchez',
             'apellido_materno'=>'Ezquivel',
             'rfc'=>'SAEV010101I18',
-            'curp' =>'SAEV010101HDFSL06',
+            
             'numero_trabajador' => '123456605',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9928,7 +9145,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Torres',
             'apellido_materno'=>'Rojas',
             'rfc'=>'TORE010101I18',
-            'curp' =>'TORE010101MDFSL06',
+            
             'numero_trabajador' => '123456606',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -9985,7 +9202,7 @@ class StartSeeder extends Seeder
             'id'=> 205,
             'nombre_curso'=>'Las rubricas como instrumento de evaluación',
             'duracion_curso' => '20',
-            'coordinacion_id' => 201,
+            'coordinacion_id' => 3,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
             'fecha_disenio'=>'2012-12-12',
@@ -10029,7 +9246,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Angeles',
             'apellido_materno'=>'Cervantes',
             'rfc'=>'AECJ010101N24',
-            'curp' =>'AECJ010101HDFNRN09',
+            
             'numero_trabajador' => '12345638',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10154,7 +9371,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Cuellar',
             'apellido_materno'=>'Gonzalez',
             'rfc'=>'CUGJ010101SJ8',
-            'curp' =>'CUGJ010101HDFLNV03',
+            
             'numero_trabajador' => '12345640',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10230,7 +9447,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Flores',
             'apellido_materno'=>'Soto',
             'rfc'=>'FOSX010101KRA',
-            'curp' =>'FOSX010101MDFLTC00',
+            
             'numero_trabajador' => '12345642',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10306,7 +9523,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Guerrero',
             'apellido_materno'=>'Diaz',
             'rfc'=>'GUDP010101ER1',
-            'curp' =>'GUDP010101MDFRZT03',
+            
             'numero_trabajador' => '12345644',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10336,7 +9553,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["3"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Que me llevo las rúbricas como un nuevo mecanismo de evaluación. No tenía una iddea definida de cómo se utilizaban, sin embargo ahora ya me queda claro.',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -10431,7 +9648,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Marin',
             'apellido_materno'=>'Acosta',
             'rfc'=>'MAAR010101R8A',
-            'curp' =>'MAAR010101HDFRCF01',
+            
             'numero_trabajador' => '12345646',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10460,8 +9677,8 @@ class StartSeeder extends Seeder
             'p3_4'=>'100',
             'p7'=>1,
             'p8'=>'[""]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
-            'mejor'=>'-',
-            'sug'=>'-',
+            'mejor'=>'Todo bien',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -10498,7 +9715,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Mata',
             'apellido_materno'=>'Hernandedz',
             'rfc'=>'MAHG010101HA5',
-            'curp' =>'MAHG010101MDFTRL07',
+            
             'numero_trabajador' => '12345647',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10566,7 +9783,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Montoya',
             'apellido_materno'=>'Cervantes',
             'rfc'=>'MOCF0101013A9',
-            'curp' =>'MOCF010101HDFNRR01',
+            
             'numero_trabajador' => '12345648',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10642,7 +9859,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Ramirez',
             'apellido_materno'=>'Galindo',
             'rfc'=>'RAGM010101KP2',
-            'curp' =>'RAGM010101MDFMLR02',
+            
             'numero_trabajador' => '12345649',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10710,7 +9927,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Rodriguez',
             'apellido_materno'=>'Gomez',
             'rfc'=>'ROGJ010101QM4',
-            'curp' =>'ROGJ010101HDFDMN08',
+            
             'numero_trabajador' => '12345650',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10778,7 +9995,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Salinas',
             'apellido_materno'=>'Calleros',
             'rfc'=>'SACG010101CG5',
-            'curp' =>'SACG010101HDFLLB04',
+            
             'numero_trabajador' => '12345651',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10845,7 +10062,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Talavera',
             'apellido_materno'=>'Moctezuma',
             'rfc'=>'TAME010101IW4',
-            'curp' =>'TAME010101HDFLCD06',
+            
             'numero_trabajador' => '12345652',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10865,7 +10082,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Vacio',
             'apellido_materno'=>'Gonzalez',
             'rfc'=>'VAGM010101J72',
-            'curp' =>'VAGM010101HDFCNN07',
+            
             'numero_trabajador' => '12345653',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -10895,7 +10112,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'El desarrollo de una rúbrica',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -10933,7 +10150,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Villalobos',
             'apellido_materno'=>'Perez',
             'rfc'=>'VIPS0101014W5',
-            'curp' =>'VIPS010101HDFLRL07',
+            
             'numero_trabajador' => '12345654',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11108,24 +10325,12 @@ class StartSeeder extends Seeder
             'curso_id'=>205,
             'participante_curso_id'=>285
         ]);
-        //Segundo curso
-        //insertar coordinacion y continuar editando los datos
-        DB::table('coordinacions')->insert([
-                'id' => 203,
-                'nombre_coordinacion' => 'Área de Cómputo',
-                'abreviatura' => 'AC',
-                'coordinador' => 'Daniela Galvan',
-                'grado' => 'M.E.M.',
-                'usuario' => 'daniela',
-                'password' => Hash::make('1234'),
-                'comentarios' => '-'
-            ]);
         
         DB::table('catalogo_cursos')->insert([
             'id'=> 206,
             'nombre_curso'=>'Manejo básico de R aplicado a la enseñanza de las matemáticas',
             'duracion_curso' => '20',
-            'coordinacion_id' => 203,
+            'coordinacion_id' => 1,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
             'fecha_disenio'=>'2012-12-12',
@@ -11157,7 +10362,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Vargas',
             'apellido_materno'=>'Espinoza de los Monteros',
             'rfc'=>'VAEA010101MX4',
-            'curp' =>'VAEA010101HDFRSL01',
+            
             'numero_trabajador' => '12345657',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11222,7 +10427,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Cueva',
             'apellido_materno'=>'Guitron',
             'rfc'=>'CUGI010101345',
-            'curp' =>'CUGI010101HDFVTG03',
+            
             'numero_trabajador' => '12345658',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11279,7 +10484,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Diaz',
             'apellido_materno'=>'Trueba',
             'rfc'=>'DITL010101GK3',
-            'curp' =>'DITL010101HDFZRS06',
+            
             'numero_trabajador' => '12345659',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11336,7 +10541,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Gomez',
             'apellido_materno'=>'Gallardo',
             'rfc'=>'GOGW0101014Y8',
-            'curp' =>'GOGW010101HDFMLL09',
+            
             'numero_trabajador' => '12345660',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11439,7 +10644,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Lizarraga',
             'apellido_materno'=>'Ramirez',
             'rfc'=>'LIRG0101014H2',
-            'curp' =>'LIRG010101MDFZMB07',
+            
             'numero_trabajador' => '12345662',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11542,7 +10747,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Morales',
             'apellido_materno'=>'Acosta',
             'rfc'=>'MOAL0101017NA',
-            'curp' =>'MOAL010101HDFRCZ08',
+            
             'numero_trabajador' => '12345664',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11599,7 +10804,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Muñoz',
             'apellido_materno'=>'Hernandez',
             'rfc'=>'MUHG0101018F1',
-            'curp' =>'MUHG010101HDF&RN04',
+            
             'numero_trabajador' => '12345665',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11656,7 +10861,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Ocampo',
             'apellido_materno'=>'Guerrero',
             'rfc'=>'OAGN0101017NA',
-            'curp' =>'OAGN010101MDFCRK07',
+            
             'numero_trabajador' => '12345666',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11686,7 +10891,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'El abordaje de los temas paso a paso',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -11713,7 +10918,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Palomino',
             'apellido_materno'=>'Merino',
             'rfc'=>'PAMD010101LE7',
-            'curp' =>'PAMD010101HDFLRV02',
+            
             'numero_trabajador' => '12345667',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11732,7 +10937,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Reyes',
             'apellido_materno'=>'Zarate',
             'rfc'=>'REZF0101011U5',
-            'curp' =>'REZF010101HDFYRR06',
+            
             'numero_trabajador' => '12345668',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11751,7 +10956,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Segura',
             'apellido_materno'=>'Perez',
             'rfc'=>'SEPE010101L55',
-            'curp' =>'	SEPE010101MDFGRS05',
+            
             'numero_trabajador' => '12345669',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11901,11 +11106,10 @@ class StartSeeder extends Seeder
             'id'=> 207,
             'nombre_curso'=>'Módulo 1. La educación como fundamento del desarrollo humano',
             'duracion_curso' => '20',
-            'coordinacion_id' => 202,
+            'coordinacion_id' => 4,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
             'fecha_disenio'=>'2012-12-12',
-            'coordinacion_id'=>2,
             'clave_curso'=>'MLEFDHDGAPA'
         ]);
         
@@ -11935,7 +11139,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Verdejo',
             'apellido_materno'=>'Manzano',
             'rfc'=>'VEMM010101135',
-            'curp' =>'VEMM010101HDFRNR08',
+            
             'numero_trabajador' => '12345700',
             'fecha_nacimiento'=>'1901-01-01'
         ]);
@@ -11972,7 +11176,7 @@ class StartSeeder extends Seeder
                     'p7'=>1,
                     'p8'=>'["4","Otro profesor"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
                     'mejor'=>'Aprendí cosas nuevas que aunque en un principio me costaban trabajo, perserveré y con la práctica en la siguiente sesión, comentándolo con los [...]',
-                    'sug'=>'-',
+                    'sug'=>'Todo bien',
                     'p4_1'=>'95',
                     'p4_2'=>'95',
                     'p4_3'=>'95',
@@ -12019,7 +11223,7 @@ class StartSeeder extends Seeder
                             'p7'=>1,
                             'p8'=>'["4","Gaceta UNAM"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
                             'mejor'=>'La experiencia que me llevo sobre los temas abordados',
-                            'sug'=>'-',
+                            'sug'=>'Todo bien',
                             'p4_1'=>'100',
                             'p4_2'=>'100',
                             'p4_3'=>'100',
@@ -12053,7 +11257,7 @@ class StartSeeder extends Seeder
                             'apellido_paterno'=>'Elorza',
                             'apellido_materno'=>'Lopez',
                             'rfc'=>'EOLN010101RRA',
-                            'curp' =>'EOLN010101HDFLPF08',
+                            
                             'numero_trabajador' => '12345704',
                             'fecha_nacimiento'=>'1901-01-01'
                         ]);
@@ -12127,7 +11331,7 @@ class StartSeeder extends Seeder
                                             'p7'=>1,
                                             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
                                             'mejor'=>'Le puse nombre y apellido a mi forma de enseñar',
-                                            'sug'=>'-',
+                                            'sug'=>'Todo bien',
                                             'p4_1'=>'100',
                                             'p4_2'=>'80',
                                             'p4_3'=>'80',
@@ -12153,7 +11357,7 @@ class StartSeeder extends Seeder
     'apellido_paterno'=>'Galvan',
     'apellido_materno'=>'Tapia',
     'rfc'=>'GATM010101GH1',
-    'curp' =>'GATM010101HDFLPR09',
+    
     'numero_trabajador' => '12345706',
     'fecha_nacimiento'=>'1901-01-01'
     ]);
@@ -12189,7 +11393,7 @@ class StartSeeder extends Seeder
         'p7'=>1,
         'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
         'mejor'=>'Conocer e identificar las deferentes teorías del desarrollo humano',
-        'sug'=>'-',
+        'sug'=>'Todo bien',
         'p4_1'=>'95',
         'p4_2'=>'95',
         'p4_3'=>'95',
@@ -12235,7 +11439,7 @@ class StartSeeder extends Seeder
     'p7'=>1,
     'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
     'mejor'=>'El marco conceptual del humanismo',
-    'sug'=>'-',
+    'sug'=>'Todo bien',
     'p4_1'=>'95',
     'p4_2'=>'95',
     'p4_3'=>'100',
@@ -12281,7 +11485,7 @@ class StartSeeder extends Seeder
         'p7'=>1,
         'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
         'mejor'=>'La aplicación dde las Teorías de Psicología del Aprendizaje',
-        'sug'=>'-',
+        'sug'=>'Todo bien',
         'p4_1'=>'100',
         'p4_2'=>'100',
         'p4_3'=>'100',
@@ -12326,8 +11530,8 @@ class StartSeeder extends Seeder
         'p3_4'=>'100',
         'p7'=>1,
         'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
-        'mejor'=>'-',
-        'sug'=>'-',
+        'mejor'=>'Todo bien',
+        'sug'=>'Todo bien',
         'p4_1'=>'100',
         'p4_2'=>'100',
         'p4_3'=>'100',
@@ -12373,7 +11577,7 @@ class StartSeeder extends Seeder
         'p7'=>1,
         'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
         'mejor'=>'La presencia del proceso de enseñanza aprendizaje',
-        'sug'=>'-',
+        'sug'=>'Todo bien',
         'p4_1'=>'100',
         'p4_2'=>'100',
         'p4_3'=>'100',
@@ -12399,7 +11603,7 @@ class StartSeeder extends Seeder
             'apellido_paterno'=>'Mendoza',
             'apellido_materno'=>'Cano',
             'rfc'=>'MECM010101DJ1',
-            'curp' =>'MECM010101MDFNNR03',
+            
             'numero_trabajador' => '12345709',
             'fecha_nacimiento'=>'1901-01-01'
             ]);
@@ -12428,7 +11632,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["3"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Conocer qué es la edducación y el ddesarrollo humano en la formación universitaria',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -12520,7 +11724,7 @@ class StartSeeder extends Seeder
                     'p7'=>1,
                     'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
                     'mejor'=>'Actualizarme en el desarrollo humano desde la perspectiva educativa. Me gustó mucho, conocer las experiencias docentes de maestros dde otras [...]',
-                    'sug'=>'Ninguna',
+                    'sug'=>'Todo bien',
                     'p4_1'=>'100',
                     'p4_2'=>'100',
                     'p4_3'=>'100',
@@ -12612,7 +11816,7 @@ class StartSeeder extends Seeder
                             'p7'=>1,
                             'p8'=>'["4","Publicidad en la FCA"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
                             'mejor'=>'La seguridad de que el trabajo docente ha estado por buen camino',
-                            'sug'=>'-',
+                            'sug'=>'Todo bien',
                             'p4_1'=>'100',
                             'p4_2'=>'95',
                             'p4_3'=>'100',
@@ -12639,7 +11843,7 @@ class StartSeeder extends Seeder
                                 'apellido_paterno'=>'Rodriguez',
                                 'apellido_materno'=>'Tellez',
                                 'rfc'=>'ROTL010101UI2',
-                                'curp' =>'ROTL010101HDFDLS00',
+                                
                                 'numero_trabajador' => '12345713',
                                 'fecha_nacimiento'=>'1901-01-01'
                                 ]);
@@ -12721,7 +11925,7 @@ class StartSeeder extends Seeder
                                     'p7'=>1,
                                     'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
                                     'mejor'=>'El trabajo',
-                                    'sug'=>'-',
+                                    'sug'=>'Todo bien',
                                     'p4_1'=>'95',
                                     'p4_2'=>'95',
                                     'p4_3'=>'80',
@@ -12746,7 +11950,7 @@ class StartSeeder extends Seeder
                                         'id'=> 208,
                                         'nombre_curso'=>'Módulo 2. La personaliddad e imagen del profesor como piedra angular en la formación del estudiante',
                                         'duracion_curso' => '20',
-                                        'coordinacion_id' => 202,
+                                        'coordinacion_id' => 3,
                                         'tipo' => 'C',
                                         'institucion' => 'DGAPA',
                                         'fecha_disenio'=>'2012-12-12',
@@ -12778,7 +11982,7 @@ class StartSeeder extends Seeder
                                         'apellido_paterno'=>'Zavala',
                                         'apellido_materno'=>'Ojeda',
                                         'rfc'=>'ZAOA010101F91',
-                                        'curp' =>'ZAOA010101MDFVJL03',
+                                        
                                         'numero_trabajador' => '12345715',
                                         'fecha_nacimiento'=>'1901-01-01'
                                         ]);
@@ -12816,7 +12020,7 @@ class StartSeeder extends Seeder
                     'p7'=>1,
                     'p8'=>'["4","Por otro profesor"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
                     'mejor'=>'Interacción entre el grupo, el aprendizaje de conceptos nuevos y experiencia en lo vivido por los demás profesores',
-                    'sug'=>'Ninguna',
+                    'sug'=>'Todo bien',
                     'p4_1'=>'95',
                     'p4_2'=>'95',
                     'p4_3'=>'95',
@@ -12953,7 +12157,7 @@ class StartSeeder extends Seeder
                                             'p7'=>1,
                                             'p8'=>'["4","Recomendación"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
                                             'mejor'=>'Ambiente',
-                                            'sug'=>'Ninguna',
+                                            'sug'=>'Todo bien',
                                             'p4_1'=>'100',
                                             'p4_2'=>'100',
                                             'p4_3'=>'100',
@@ -13418,7 +12622,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'El compartir experiencias docentes relacionadas con el conocimiento, control y desarrollo de las diferentes personalidaddes, incluida la propia.',
-            'sug'=>'-',
+            'sug'=>'Todo bien',
             'p4_1'=>'95',
             'p4_2'=>'80',
             'p4_3'=>'80',
@@ -13443,7 +12647,7 @@ class StartSeeder extends Seeder
             'id'=> 209,
             'nombre_curso'=>'Módulo 3. Habiliddades para la comunicación interpersonal en el proceso docente',
             'duracion_curso' => '20',
-            'coordinacion_id' => 202,
+            'coordinacion_id' => 3,
             'tipo' => 'C',
             'institucion' => 'DGAPA',
             'fecha_disenio'=>'2012-12-12',
@@ -13522,7 +12726,7 @@ class StartSeeder extends Seeder
             'p4_9'=>'100',
             'p4_10'=>'100',
             'p4_11'=>'100',
-            'otros'=>'Otros',
+            'otros'=>'Programacion estructurada, administracion',
             'conocimiento'=>'["1"]',
             'tematica'=>'tematica',
             'horarios'=>'9:00-13:00',
@@ -13735,7 +12939,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Saber acerca de más redes sociales educativas',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
             'p4_1'=>'95',
             'p4_2'=>'95',
             'p4_3'=>'100',
@@ -13911,7 +13115,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'La discusión en clase',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'100',
             'p4_3'=>'100',
@@ -14043,7 +13247,7 @@ class StartSeeder extends Seeder
             'p7'=>1,
             'p8'=>'["2"]', //Internet 1, Publicidad 2, Jefes 3, Otros 4
             'mejor'=>'Intercambio de experiencias sobre los tópicos tratados',
-            'sug'=>'Ninguna',
+            'sug'=>'Todo bien',
             'p4_1'=>'100',
             'p4_2'=>'80',
             'p4_3'=>'95',

@@ -58,8 +58,8 @@ td{
     </div>
     <section class="content-inner">
         <br>
-        <div class="panel panel-default">
         @include ('partials.messages')
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>Lista de instructores de {{$curso->getNombreCurso()}}</h3>
                 <h4>Instructores(es): {{ $curso->getProfesores()}}</h4>

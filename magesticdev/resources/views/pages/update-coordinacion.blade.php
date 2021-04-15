@@ -15,8 +15,8 @@
     </div>
     <section class="content-inner">
         <br>
-        <div class="panel panel-default">
         @include ('partials.messages')
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h1>{{ $user->nombre_coordinacion }}</h1>
             </div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group col-md-8">
                             {!!Form::label("comentarios", "Comentario")!!}
-                            {!!Form::text("comentarios", $user->comentarios, [ "class" => "form-control", "placeholder" => "Comentario", "required",""])!!}
+                            {!!Form::text("comentarios", $user->comentarios, [ "class" => "form-control", "placeholder" => "Comentario", ""])!!}
                         </div>
                         <div class="form-group col-md-8">
                             {!!Form::label("grado", "Abreviatura de grado del Coordinador")!!}

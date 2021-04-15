@@ -15,8 +15,8 @@
     </div>
     <section class="content-inner">
         <br>
-        <div class="panel panel-default">
         @include ('partials.messages')
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h2>{{ $curso->getNombreCurso()}}</h2>
                 <h3>Lista de profesores</h3>
@@ -43,7 +43,7 @@
                     </span>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body tablaFija">
 
                 <table class="col-md-12">
                     <tr>
@@ -58,9 +58,9 @@
                             <td>{{ $user->apellido_paterno }} {{ $user->apellido_materno }} {{ $user->nombres }}</td>
                             <td>{{ $user->email}}</td>
                             <td>{{ $user->rfc}}</td>
-                            <td align="center">{{ $user->numero_trabajador}}</td>
+                            <td>{{ $user->numero_trabajador}}</td>
                             <td>
-                                <button class="btn btn-success" type="submit">Dar de Alta</button>
+                                <button class="btn btn-success" style="margin-bottom: 15px;" type="submit">Dar de Alta</button>
                             </td>
                         </tr>
                     {!! Form::close() !!}

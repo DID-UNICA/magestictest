@@ -25,31 +25,27 @@
 
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
                 <div class="panel-heading">
                     <h3>Coordinación de Gestión y Vinculación</h3>
                 </div>
                 <div class="panel-body">
                 @include('flash::message')
-                <div class="logos col-md-12 col-center">
-                	<img class="img-escudo" src="{{ asset('img/cdd.png') }}">
-                	Manejo y Gestión de información del Centro de Docencia.</h3>
-                </div>
-
-                <hr>
-                <h2>Constancias <span class="fa fa-file-pdf-o"</span></h2>
-
-
-                    <table class="table table-hover">
-                       <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-                            <div class="collapse navbar-collapse" id="menuCurso">
-                
-              <form id="form" class="form-horizontal" method="GET" action="{{ route('constancias.generar.b', $curso->id)}}">
-                {{ csrf_field() }}
-
-
-                <div class="form-group {{ $errors->has('type') ? ' has-error' : '' }}">
+                  <div class="logos col-md-12 col-center">
+                    <h3>
+                      <img class="img-escudo" src="{{ asset('img/cdd.png') }}">
+                      Manejo y Gestión de información del Centro de Docencia.
+                    </h3>
+                  </div>
+                  <hr>
+                  <h2>Constancias <span class="fa fa-file-pdf-o"</span></h2>
+                  <table class="table table-hover">
+                    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+                      <div class="collapse navbar-collapse" id="menuCurso">
+                        <form id="form" class="form-horizontal" method="GET" action="{{ route('constancias.generar.b', $curso->id)}}">
+                        {{ csrf_field() }}
+                        <div class="form-group {{ $errors->has('type') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Tipo de constancia: </label>
                             <div class="col-md-6">
                                 <input type="hidden" name="id" id="auxiliar">
@@ -68,12 +64,12 @@
                                     <option value="f4">Cuatro firmantes</option>
                                     <option value="f5">Cinco firmantes</option>
                                 @else
-                                    <option value="A">Instructores y Coordinador</option>
+                                    <option value="A">Instructores y Coordinación</option>
                                     <option value="B">Instructores y Coordinación General</option>
                                     <option value="C">Instructores y Secretaría de Apoyo a la Docencia</option>
                                     <option value="AA">Coordinación</option>
                                     <option value="D">Coordinación General</option>
-                                    <option value="I">Coordinación y Coordinador general</option>
+                                    <option value="I">Coordinación y Coordinación General</option>
                                     <option value="E">Director</option>
                                     <option value="F">Coordinación General  y Secretaría de Apoyo a la Docencia</option>
                                     <option value="G">Secretaría de Apoyo a la Docencia y Director</option>
@@ -83,8 +79,6 @@
                                     <option value="f3">Tres firmantes</option>
                                     <option value="f4">Cuatro firmantes</option>
                                     <option value="f5">Cinco firmantes</option>
-                                    <option value="J"> Centro de Docencia y Secretaria de Apoyo a la Docencia</option>
-
                                 @endif
                                 </select>
                                 @if ($errors->has('type'))
@@ -93,180 +87,179 @@
                                     </span>
                                 @endif
                             </div>
-                </div>
-                <br>
-                <br>
-                <div class="form-group col-md-4">
-                    {!!Form::label("typeId_label", "Folio institucional (Número consecutivo):")!!}
-                </div>
-                <div class="form-group col-md-6">
-                    {!!Form::text("typeid", null, [ "class" => "form-control", "placeholder" => "Dígitos nueve, diez y once del folio"])!!}
-                </div>
-                <div class="form-group col-md-4">
-                    {!!Form::label("numero", "Folio pequeño:")!!}
-                </div>
-                <div class="form-group col-md-6">
-                    {!!Form::text("numero", null, [ "class" => "form-control", "placeholder" => "Número inicial"])!!}
-                </div>
-                
+                        </div>
+                      <br>
+                      <br>
+                      <div class="form-group col-md-4">
+                          {!!Form::label("typeId_label", "Folio institucional (Número consecutivo):")!!}
+                      </div>
+                      <div class="form-group col-md-6">
+                          {!!Form::text("typeid", null, [ "class" => "form-control", "placeholder" => "Dígitos nueve, diez y once del folio"])!!}
+                      </div>
+                      <div class="form-group col-md-4">
+                          {!!Form::label("numero", "Folio pequeño:")!!}
+                      </div>
+                      <div class="form-group col-md-6">
+                          {!!Form::text("numero", null, [ "class" => "form-control", "placeholder" => "Número inicial"])!!}
+                      </div>
+                      <div class="form-group col-md-4">
+                          {!!Form::label("envio", "Fecha de envío:")!!}
+                      </div>
+                      <div class="form-group col-md-6">
+                          {!!Form::date("envio", null, [ "class" => "form-control", "placeholder" => "Fecha de emisión"])!!}
+                      </div>
+                      <br>
+                      <div id = "generacion" style="display:none">
+                          <div class="col-md-4 form-group{{ $errors->has('generacion') ? ' has-error' : '' }}">
+                              <label for="generacion" class="col-md-4 control-label">Generación: </label>
+                          </div>
+                          <div class="col-md-6 form-group{{ $errors->has('generacion') ? ' has-error' : '' }}">
+                              <input id="numgen" type="number" class="form-control" name="generacion" value="{{ old('generacion') }}" >
+                          </div>
+                      </div>
+                      <div id="nombre" style="display:none" class="form-group{{ $errors->has('name1A') ? ' has-error' : '' }}">
+                          <label for="name1A" class="col-md-4 control-label">Nombre: </label>
+                          <div class="col-md-6">
+                              <input id="name1A" type="text" class="form-control" name="name1A" value="{{ old('name1A') }}" >
+                              @if ($errors->has('name1A'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('name1A') }}</strong>
+                                  </span>
+                              @endif
+                          </div>
+                      </div>
+                      <div id="cargo" style="display:none" class="form-group{{ $errors->has('posicion1A') ? ' has-error' : '' }}">
+                          <label for="posicion1A" class="col-md-4 control-label">Cargo: </label>
+                          <div class="col-md-6">
+                              <input id="posicion1A" type="text" class="form-control" name="posicion1A" value="{{ old('posicion1A') }}" >
+                              @if ($errors->has('posicion1A'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('posicion1A') }}</strong>
+                                  </span>
+                              @endif
+                          </div>
+                      </div>
+                      <div id = "unFirmante" style="display:none">
+                          <div class="form-group{{ $errors->has('texto1') ? ' has-error' : '' }}">
+                              <label for="text1" class="col-md-4 control-label">Texto Intermedio: </label>
+                              <div class="col-md-6">
+                                          <select id="texto1" class="form-control" name="texto1" value="{{ old('texto1')}}" onchange="determinarTexto()">
+                                              <option value="por haber acreditado el ">por haber acreditado el <<i>tipo de curso</i>></option>
+                                              <option value="por haber asistido al ">por haber asistido al <<i>tipo de curso</i>></option>
+                                              <option value="por haber sido parte del ">por haber sido parte del <<i>tipo de curso</i>></option>
+                                              <option value="D">Personalizado</option>
 
-            <br>
-            <div id = "generacion" style="display:none">
-                <div class="col-md-4 form-group{{ $errors->has('generacion') ? ' has-error' : '' }}">
-                    <label for="generacion" class="col-md-4 control-label">Generación: </label>
-                </div>
-                <div class="col-md-6 form-group{{ $errors->has('generacion') ? ' has-error' : '' }}">
-                    <input id="numgen" type="number" class="form-control" name="generacion" value="{{ old('generacion') }}" >
-                </div>
-            </div>
+                                          </select>
+                                          @if ($errors->has('text1'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('text1') }}</strong>
+                                      </span>
+                                  @endif
+                                  <div id="textoPersonalizado1" style="display:none">
+                                      <div class="form-group{{ $errors->has('texto1') ? ' has-error' : '' }}">
+                                          <input id="texto1P" type="text" class="form-control" name="texto1P" value="{{ old('texto1P') }}" >
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
 
-                <div id="nombre" style="display:none" class="form-group{{ $errors->has('name1A') ? ' has-error' : '' }}">
-                    <label for="name1A" class="col-md-4 control-label">Nombre: </label>
-                    <div class="col-md-6">
-                        <input id="name1A" type="text" class="form-control" name="name1A" value="{{ old('name1A') }}" >
-                        @if ($errors->has('name1A'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('name1A') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                <div id="cargo" style="display:none" class="form-group{{ $errors->has('posicion1A') ? ' has-error' : '' }}">
-                    <label for="posicion1A" class="col-md-4 control-label">Cargo: </label>
-                    <div class="col-md-6">
-                        <input id="posicion1A" type="text" class="form-control" name="posicion1A" value="{{ old('posicion1A') }}" >
-                        @if ($errors->has('posicion1A'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('posicion1A') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            
-            <div id = "unFirmante" style="display:none">
-                <div class="form-group{{ $errors->has('texto1') ? ' has-error' : '' }}">
-                    <label for="text1" class="col-md-4 control-label">Texto Intermedio: </label>
-                    <div class="col-md-6">
-                                <select id="texto1" class="form-control" name="texto1" value="{{ old('texto1')}}" onchange="determinarTexto()">
-                                    <option value="por haber acreditado el ">por haber acreditado el <<i>tipo de curso</i>></option>
-                                    <option value="por haber asistido al ">por haber asistido al <<i>tipo de curso</i>></option>
-                                    <option value="por haber sido parte del ">por haber sido parte del <<i>tipo de curso</i>></option>
-                                    <option value="D">Personalizado</option>
+                          <div class="form-group{{ $errors->has('name1A') ? ' has-error' : '' }}">
+                              <label for="name1A" class="col-md-4 control-label">Nombre: </label>
+                              <div class="col-md-6">
+                                  <input id="name1A" type="text" class="form-control" name="name1A" value="{{ old('name1A') }}" >
+                                  @if ($errors->has('name1A'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('name1A') }}</strong>
+                                      </span>
+                                  @endif
+                              </div>
+                          </div>
+                          <div class="form-group{{ $errors->has('posicion1A') ? ' has-error' : '' }}">
+                              <label for="posicion1A" class="col-md-4 control-label">Cargo: </label>
+                              <div class="col-md-6">
+                                  <input id="posicion1A" type="text" class="form-control" name="posicion1A" value="{{ old('posicion1A') }}" >
+                                  @if ($errors->has('posicion1A'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('posicion1A') }}</strong>
+                                      </span>
+                                  @endif
+                              </div>
+                          </div>
+                      </div>
 
-                                </select>
-                                @if ($errors->has('text1'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('text1') }}</strong>
-                            </span>
-                        @endif
+                      <div id = "dosFirmantes" style="display:none">
+                          <div class="form-group{{ $errors->has('texto2') ? ' has-error' : '' }}">
+                              <label for="text2" class="col-md-4 control-label">Texto Intermedio: </label>
+                              <div class="col-md-6">
+                                          <select id="texto2" class="form-control" name="texto2" value="{{ old('texto2')}}" onchange="determinarTexto()">
+                                              <option value="por haber acreditado el ">por haber acreditado el <<i>tipo de curso</i>></option>
+                                              <option value="por haber asistido al ">por haber asistido al <<i>tipo de curso</i>></option>
+                                              <option value="por haber sido parte del ">por haber sido parte del <<i>tipo de curso</i>></option>
+                                              <option value="D">Personalizado</option>
 
-                        <div id="textoPersonalizado1" style="display:none">
+                                          </select>
+                                          @if ($errors->has('text2'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('text2') }}</strong>
+                                      </span>
+                                  @endif
 
-                            <div class="form-group{{ $errors->has('texto1') ? ' has-error' : '' }}">
-                                <input id="texto1P" type="text" class="form-control" name="texto1P" value="{{ old('texto1P') }}" >
+                                  <div id="textoPersonalizado2" style="display:none">
+
+                                      <div class="form-group{{ $errors->has('texto2P') ? ' has-error' : '' }}">
+                                          <input id="texto2P" type="text" class="form-control" name="texto2P" value="{{ old('texto2P') }}" >
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                        <div class="form-group{{ $errors->has('name1B') ? ' has-error' : '' }}">
+                            <label for="name1B" class="col-md-4 control-label">Nombre: </label>
+                            <div class="col-md-6">
+                                <input id="name1B" type="text" class="form-control" name="name1B" value="{{ old('name1B') }}" >
+                                @if ($errors->has('name1B'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name1B') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="form-group{{ $errors->has('name1A') ? ' has-error' : '' }}">
-                    <label for="name1A" class="col-md-4 control-label">Nombre: </label>
-                    <div class="col-md-6">
-                        <input id="name1A" type="text" class="form-control" name="name1A" value="{{ old('name1A') }}" >
-                        @if ($errors->has('name1A'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('name1A') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                <div class="form-group{{ $errors->has('posicion1A') ? ' has-error' : '' }}">
-                    <label for="posicion1A" class="col-md-4 control-label">Cargo: </label>
-                    <div class="col-md-6">
-                        <input id="posicion1A" type="text" class="form-control" name="posicion1A" value="{{ old('posicion1A') }}" >
-                        @if ($errors->has('posicion1A'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('posicion1A') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <div id = "dosFirmantes" style="display:none">
-
-                <div class="form-group{{ $errors->has('texto2') ? ' has-error' : '' }}">
-                    <label for="text2" class="col-md-4 control-label">Texto Intermedio: </label>
-                    <div class="col-md-6">
-                                <select id="texto2" class="form-control" name="texto2" value="{{ old('texto2')}}" onchange="determinarTexto()">
-                                    <option value="por haber acreditado el ">por haber acreditado el <<i>tipo de curso</i>></option>
-                                    <option value="por haber asistido al ">por haber asistido al <<i>tipo de curso</i>></option>
-                                    <option value="por haber sido parte del ">por haber sido parte del <<i>tipo de curso</i>></option>
-                                    <option value="D">Personalizado</option>
-
-                                </select>
-                                @if ($errors->has('text2'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('text2') }}</strong>
-                            </span>
-                        @endif
-
-                        <div id="textoPersonalizado2" style="display:none">
-
-                            <div class="form-group{{ $errors->has('texto2P') ? ' has-error' : '' }}">
-                                <input id="texto2P" type="text" class="form-control" name="texto2P" value="{{ old('texto2P') }}" >
+                        <div class="form-group{{ $errors->has('posicion1B') ? ' has-error' : '' }}">
+                            <label for="posicion1B" class="col-md-4 control-label">Cargo: </label>
+                            <div class="col-md-6">
+                                <input id="posicion1B" type="text" class="form-control" name="posicion1B" value="{{ old('posicion1B') }}" >
+                                @if ($errors->has('posicion1B'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('posicion1B') }}</strong>
+                                    </span>
+                                @endif
+                                <br>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="form-group{{ $errors->has('name1B') ? ' has-error' : '' }}">
-                    <label for="name1B" class="col-md-4 control-label">Nombre: </label>
-                    <div class="col-md-6">
-                        <input id="name1B" type="text" class="form-control" name="name1B" value="{{ old('name1B') }}" >
-                        @if ($errors->has('name1B'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('name1B') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                <div class="form-group{{ $errors->has('posicion1B') ? ' has-error' : '' }}">
-                    <label for="posicion1B" class="col-md-4 control-label">Cargo: </label>
-                    <div class="col-md-6">
-                        <input id="posicion1B" type="text" class="form-control" name="posicion1B" value="{{ old('posicion1B') }}" >
-                        @if ($errors->has('posicion1B'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('posicion1B') }}</strong>
-                            </span>
-                        @endif
-                        <br>
-                    </div>
-                </div>
-
-                <div class="form-group{{ $errors->has('name2B') ? ' has-error' : '' }}">
-                    <label for="name2B" class="col-md-4 control-label">Nombre: </label>
-                    <div class="col-md-6">
-                        <input id="name2B" type="text" class="form-control" name="name2B" value="{{ old('name2B') }}" >
-                        @if ($errors->has('name2B'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('name2B') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                <div class="form-group{{ $errors->has('posicion2B') ? ' has-error' : '' }}">
-                    <label for="posicion2B" class="col-md-4 control-label">Cargo: </label>
-                    <div class="col-md-6">
-                        <input id="posicion2B" type="text" class="form-control" name="posicion2B" value="{{ old('posicion2B') }}" >
-                        @if ($errors->has('posicion2B'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('posicion2B') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            </div>
+                      <div class="form-group{{ $errors->has('name2B') ? ' has-error' : '' }}">
+                          <label for="name2B" class="col-md-4 control-label">Nombre: </label>
+                          <div class="col-md-6">
+                              <input id="name2B" type="text" class="form-control" name="name2B" value="{{ old('name2B') }}" >
+                              @if ($errors->has('name2B'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('name2B') }}</strong>
+                                  </span>
+                              @endif
+                          </div>
+                      </div>
+                      <div class="form-group{{ $errors->has('posicion2B') ? ' has-error' : '' }}">
+                          <label for="posicion2B" class="col-md-4 control-label">Cargo: </label>
+                          <div class="col-md-6">
+                              <input id="posicion2B" type="text" class="form-control" name="posicion2B" value="{{ old('posicion2B') }}" >
+                              @if ($errors->has('posicion2B'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('posicion2B') }}</strong>
+                                  </span>
+                              @endif
+                          </div>
+                      </div>
+                  </div>
 
             <div id = "tresFirmantes" style="display:none">
             <div class="form-group{{ $errors->has('texto3') ? ' has-error' : '' }}">
@@ -636,12 +629,9 @@
         <button type="submit" class="btn btn-primary btn-block">Generar</button>
     </div>
 </form>
-
-      </div>
-
-     </section>
-
-
+</table>
+</div>
+</section>
     <script type="text/javascript">
 
         function determinarTexto(){
@@ -740,6 +730,4 @@
 
 
     </script>
-
-
 @endsection

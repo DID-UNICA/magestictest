@@ -15,8 +15,8 @@
         </div>
         <section class="content-inner">
             <br>
-            <div class="panel panel-default">
             @include ('partials.messages')
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3>Divisiones</h3>
 
@@ -25,7 +25,7 @@
                     </span>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body tablaFija">
 
                 <table class="col-md-12">
                     <tr>

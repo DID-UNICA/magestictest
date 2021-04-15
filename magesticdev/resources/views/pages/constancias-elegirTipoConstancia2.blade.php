@@ -15,26 +15,23 @@
         <span class='burger_inside' id='bgrTwo'></span>
         <span class='burger_inside' id='bgrThree'></span>
       </a>      
-    </div>
+  </div>
     
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
                 <div class="panel-heading">
                     <h3>Coordinación de Gestión y Vinculación</h3>
                 </div>
                 <div class="panel-body">
                 @include('flash::message')
-                <div class="logos col-md-12 col-center">
-                	<img class="img-escudo" src="{{ asset('img/cdd.png') }}">
-                	Manejo y Gestión de información del Centro de Docencia.</h3>
-                </div>
-
+                  <div class="logos col-md-12 col-center">
+                    <img class="img-escudo" src="{{ asset('img/cdd.png') }}">
+                    Manejo y Gestión de información del Centro de Docencia.</h3>
+                  </div>
                 <hr>
-                <h2>Constancias en un Solo Archivo <span class="fa fa-file-pdf-o"</span></h2>
-
-
+                <h2>Constancias en un Solo Archivo <span class="fa fa-file-pdf-o"></span></h2>
                     <table class="table table-hover">
                        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
                             <div class="collapse navbar-collapse" id="menuCurso">

@@ -13,6 +13,8 @@ use App\Coordinacion;
 use Carbon\Carbon;
 use App\Salon;
 use App\Exports\AllCursosExport;
+use App\Exports\AllCursosPartialExport;
+
 class FormatosController extends Controller
 {
     public function generarreporte(Request $request){
@@ -22,9 +24,10 @@ class FormatosController extends Controller
         $periodo = $anio.'-'.$pi.$si;
 
         if ($request->type2 == 'excel'){
-            return (new AllCursosExport)->download('cursos.xlsx');
-        }
-        elseif ($request->type2 == 'sugerencia'){
+            return (new AllCursosExport)->download('reporte_completo.xlsx');
+        }elseif($request->type2 == 'excel2'){
+            return (new AllCursosPartialExport)->download('reporte_parcial.xlsx');
+        }elseif ($request->type2 == 'sugerencia'){
             $coordinaciones = Coordinacion::all();
             $cursos = Curso::all()
                 ->where('semestre_anio', $anio)

@@ -21,10 +21,7 @@
                 
             </div>
             <div class="panel-body">
-
-
-
-                <form id="catalogoform" class="form-horizontal" method="POST" action="{{ route('division.store') }}">
+                <form id="catalogoform" class="form-horizontal" method="POST" action="{{ route('categoria.store') }}">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('categoria') ? ' has-error' : '' }}">
@@ -32,9 +29,9 @@
                         <div class="col-md-6">
                             <input id="categoria" type="text" class="form-control" name="categoria" value="{{ old('categoria') }}"  required>
 
-                            @if ($errors->has('nombre'))
+                            @if ($errors->has('categoria'))
                                 <span class="help-block">
-                                        <strong>{{ $errors->first('nombre') }}</strong>
+                                        <strong>{{ $errors->first('categoria') }}</strong>
                                     </span>
                             @endif
                         </div>

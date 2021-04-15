@@ -182,7 +182,7 @@ class DiplomasController extends Controller{
                 array_push($cursos,$curso);
                 array_push($calificaciones,$participante->calificacion);
                 $promedio += intval($participante->calificacion);
-              }else if($curso->getInstitucion() == 'CD' && $participante->calificacion >= 8){
+              }else if($curso->getInstitucion() == 'CDD' && $participante->calificacion >= 8){
                 array_push($cursos,$curso);
                 array_push($calificaciones,$participante->calificacion);
                 $promedio += intval($participante->calificacion);

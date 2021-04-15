@@ -26,10 +26,7 @@ class CarreraController extends Controller
 
     public function nuevo()
     {
-        $users = Division::all();
-        $facultades = Facultad::all();
-
-        return view("pages.alta-carrera")->with("users",$users)->with("facultades",$facultades);
+        return view("pages.alta-carrera");
 ;
     }
 
@@ -52,11 +49,10 @@ class CarreraController extends Controller
         $user = Carrera::find($id);
         $user->nombre = $request->nombre;
         $user->clave = $request->clave;
-        $user->id_division= $request->id_division;
         $user->save();
-        Session::flash('update', 'Se han actualizado los datos correctamente');
-        return view("pages.update-carrera")
-            ->with("user",$user);
+        return redirect('/carrera')
+          ->with('success', 'Los cambios han sido actualizados correctamente')
+          ->with("user",$user);
     }
 
 
@@ -64,8 +60,8 @@ class CarreraController extends Controller
     {
         $user = Carrera::findOrFail($id);
         $user -> delete();
-        Session::flash('delete', 'Se ha borrado el registro exitosamente');
-        return redirect('/carrera');
+        return redirect()->back()
+          ->with('success', 'Se ha borrado la carrera correctamente');
     }
 
 
@@ -77,25 +73,17 @@ class CarreraController extends Controller
      */
     public function create(Request $request)
     {
+        $bandera = Carrera::where('clave',$request->clave)->exists();
+        if($bandera)
+            return redirect()->back()
+              ->with('danger', 'La clave ya fue asignada a otra carrera');
         $user = new Carrera;
-        $carreras = Carrera::all();
         $user->nombre = $request->nombre;
         $user->clave = $request->clave;
-        foreach($carreras as $carrera){
-            if($carrera->clave == $user->clave){
-                Session::flash('error_carrera', '¡ERROR! La clave ya está asignada');
-                return redirect()->back();
-            }
-        }
-        $user->id_division= $request->id_division;
-        $user->id_facultad = $request->id_facultad;
-
         $user->save();
-        Session::flash('create', 'Se ha creado el registro correctamente');
-        return redirect()->back();
+        return redirect('/carrera')
+          ->with('success', 'La carrera se ha creado exitosamente');
     }
-
-
     public function destroy(Carrera $carrera)
     {
         //

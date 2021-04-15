@@ -15,8 +15,8 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
                 <div class="panel-heading">
                       <h1>{{ $user->sede }}</h1>
                 </div>
@@ -42,12 +42,6 @@
       {!!Form::text("ubicacion", $user->ubicacion, [ "class" => "form-control", "placeholder" => "Ubicación", "required",""])!!}
     </div>
   </div>
-
-  <div class="form-group col-md-6">
-    {!!Form::label("sigla", "Sigla")!!}
-    {!!Form::text("sigla", $user->sigla, [ "class" => "form-control", "placeholder" => "Sigla", "required",""])!!}
-  </div>
-
   
  <div>
     <button type="submit" class="btn btn-primary col-md-offset-1">Actualizar</button>

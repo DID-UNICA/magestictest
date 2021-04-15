@@ -48,8 +48,8 @@ class SecretarioApoyoController extends Controller
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
         $user->save();
-        Session::flash('update', 'Se han actualizado los datos correctamente');
-        return redirect('/secretario-apoyo');
+        return redirect('/secretario-apoyo')
+          ->with('success','Se han actualizado los datos correctamente');
 
     }
 
@@ -57,8 +57,8 @@ class SecretarioApoyoController extends Controller
     {
         $user = SecretarioApoyo::findOrFail($id);
         $user -> delete();
-        Session::flash('delete', 'Se ha borrado el registro exitosamente');
-        return redirect('/secretario-apoyo');
+        return redirect('/secretario-apoyo')
+          ->with('success', 'Se ha borrado al secretario exitosamente');
     }
 
 
@@ -78,11 +78,8 @@ class SecretarioApoyoController extends Controller
             $user->comentarios = $request->comentarios;
             $user->grado = $request->grado;
             $user->save();
-
-        /*Session::flash('flash_message', 'Usuario agregado!');*/
-        Session::flash('create', 'Se ha creado el registro correctamente');
-        return view("pages.consulta-secretario-apoyo")
-            ->with("user",$user);
+        return redirect('/secretario-apoyo')
+          ->with('success', 'Se ha creado el registro correctamente');
     }
 
 }

@@ -142,7 +142,7 @@ th{
     <tr>
         <th width="80%" class="col-th-cursos">Cursos Acreditados</th>
         <th width="14%" class="col-th">Periodo</th>
-        <th width="6%" class="col-th">Duración(hrs)</th>
+        <th width="6%" class="col-th">Duración(h)</th>
     </tr>
     </thead>
     <tbody>

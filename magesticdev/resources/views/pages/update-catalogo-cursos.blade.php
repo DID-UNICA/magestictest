@@ -17,13 +17,10 @@
     <br>
       <div class="panel panel-default">
                 <div class="panel-heading">
-                      <h1>{{ $user->nombre_curso}}</h1>
+                      <h1>Actualizar</h1>
+                      <h2>{{ $user->nombre_curso}}</h2>
                 </div>
                 <div class="panel-body">
-
-
-
- 
 <div class="row">
 <div class="row">
   <div class="row col-md-12 ">{!! Form::open(['route' => array('catalogo-cursos.actualizar', $user->id), "method" => "PUT"]) !!}
@@ -58,7 +55,7 @@
     </div>
     <div class="form-group col-md-4">
         {!!Form::label("institucion", "Institución:")!!}
-        {!!Form::select('institucion', array('DGAPA' => 'DGAPA','CD' => 'Centro de Docencia'),$user->institucion,['class'=>'form-control']) !!}
+        {!!Form::select('institucion', array('DGAPA' => 'DGAPA','CDD' => 'Centro de Docencia'),$user->institucion,['class'=>'form-control']) !!}
     </div>
   </div>
 

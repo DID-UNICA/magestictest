@@ -56,7 +56,6 @@ class UserController extends Controller
             $user->apellido_paterno = request('apellido_paterno');
             $user->apellido_materno = request('apellido_materno');
             $user->nombres = request('nombres');
-            $user->fecha_nacimiento = request('fecha_nacimiento');
             $user->email = request('email');
             $user->password = strlen(request('password')) > 0 ? bcrypt(request('password')) : $user->password;
             $user->save();

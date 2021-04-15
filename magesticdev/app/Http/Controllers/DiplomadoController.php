@@ -55,7 +55,8 @@ class DiplomadoController extends Controller
         $diplomado->nombre_diplomado = $request->nombre;
         $diplomado->cupo_maximo = $request->cupo_max;
         $diplomado->save();
-        return redirect()->back()->with('success', 'El diplomado: '.$diplomado->nombre_diplomado.' ha sido dado de alta exitosamente');
+        return redirect('diplomado')
+          ->with('success', 'El diplomado: '.$diplomado->nombre_diplomado.' ha sido dado de alta exitosamente');
     }
     public function verDiplomado($id)
     {
@@ -123,7 +124,8 @@ class DiplomadoController extends Controller
 
 
                 $diplomado -> delete();
-                return redirect('/diplomado');
+                return redirect('diplomado')
+                  ->with('success', 'El diplomado ha sido eliminado exitosamente');
 
             }catch (\Illuminate\Database\QueryException $e){
                 return redirect()->back()->with('danger', 'El curso no puede ser eliminado porque tiene alumnos inscritos.');
@@ -178,7 +180,7 @@ class DiplomadoController extends Controller
             ->where('curso_id',$curso->id)
             ->delete();
         }
-        return redirect()->back()->with('success', 'El profesor ha sido descartado del diplomado '.$diplomado->nombre_diplomado.' exitosamente y de todos los cursos que lo conforman.');
+        return redirect()->back()->with('success', 'El profesor ha sido descartado del diplomado '.$diplomado->nombre_diplomado.' exitosamente y de todos los módulos que lo conforman.');
     }
 
     public function añadirCursos($id){
@@ -350,7 +352,7 @@ public function registrarParticipante(Request $request){
             //return $inscripciones;
 
 
-            return redirect()->route("diplomado.inscribirAlumnos",$request->diplomado_id)->with('success', 'El alumno ha sido dado de alta en el diplomado y todos los cursos que le conforman exitosamente');
+            return redirect()->route("diplomado.inscribirAlumnos",$request->diplomado_id)->with('success', 'El alumno ha sido dado de alta en el diplomado y todos los módulos que le conforman exitosamente');
         }else{
             return redirect()->route("diplomado.inscribirAlumnos",$request->diplomado_id)->with('danger', 'El alumno no puede darse de alta debido a que el cupo ha sido llenado');
         }

@@ -13,19 +13,19 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
                 <div class="panel-heading">
                     <div class="container">
-                  <h3>Diplomado: {{ $diplomado->nombre_diplomado }}</h3>
+                  <h1>Diplomado</h1>
+                  <h2>{{ $diplomado->nombre_diplomado }}</h2>
 
                   </div>
                 </div>
       </div>
-      <div class="panel-body">
-
+      <div class="panel-body  tablaFija">
       @if( count($profesores) == 0)
-        No hay profesores inscritos en este diplomado
+        <p>Aún no hay profesores inscritos en este diplomado</p>
       @else
           <table class="col-md-12">
          <tr>
@@ -37,7 +37,7 @@
             <td>{{ $profesor->getNombres() }} </td>
 
             <td>
-              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModalDesc{{$profesor->id}}">Descartar de Diplomado</button>
+              <button type="button" style="margin-bottom: 15px;" class="btn btn-warning" data-toggle="modal" data-target="#myModalDesc{{$profesor->id}}">Descartar de Diplomado</button>
             </td>
           </tr>
                       <!-- Modal Descartar diplomado-->
@@ -62,18 +62,9 @@
               @endforeach
           </table>
     @endif
-
       <a href="{{ route('diplomado.consulta') }}" class="btn btn-info">Regresar</a>
-
-
-
-
-
       </div>
-      <script type="text/javascript">
-        
-      </script>
-
+      <script type="text/javascript"></script>
      </section>
 
 @endsection

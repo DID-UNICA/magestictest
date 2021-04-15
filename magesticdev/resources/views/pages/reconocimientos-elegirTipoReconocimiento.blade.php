@@ -80,6 +80,10 @@
                 <td> {!!Form::label("numeroinicial", "Folio pequeño:")!!}</td>
                 <td> {!!Form::text("folio_der", null, [ "class" => "form-control", "placeholder" => "Número inicial"])!!}</td>
                 </tr>
+                <tr>
+                <td> {!!Form::label("envio", "Fecha de envío:")!!}</td>
+                <td> {!!Form::date("envio", null, [ "class" => "form-control", "placeholder" => "Fecha de envío"])!!}</td>
+                </tr>
                 
 
             </table>

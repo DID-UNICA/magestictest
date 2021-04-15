@@ -37,6 +37,9 @@ class Profesor extends Authenticatable
     public function getNombres(){
         return $this->apellido_paterno." ".$this->apellido_materno." ".$this->nombres;
     }
+    public function getFirmanteConstancia(){
+      return $this->abreviatura_grado." ".$this->nombres." ".$this->apellido_paterno." ".$this->apellido_materno;
+    }
     public function getNombreSinApellidos(){
         return $this->nombres;
     }

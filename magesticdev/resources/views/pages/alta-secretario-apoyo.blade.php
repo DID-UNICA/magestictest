@@ -14,6 +14,7 @@
     </div>
     <section class="content-inner">
         <br>
+        @include('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>Alta Secretario de Apoyo</h3>

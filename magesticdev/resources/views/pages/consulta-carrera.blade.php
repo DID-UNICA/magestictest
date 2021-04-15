@@ -13,8 +13,8 @@
         </div>
         <section class="content-inner">
             <br>
-            <div class="panel panel-default">
             @include ('partials.messages')
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3>Carreras</h3>
                     </span>

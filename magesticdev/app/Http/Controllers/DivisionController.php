@@ -45,8 +45,8 @@ class DivisionController extends Controller
         $user = Division::find($id);
         $user->nombre = $request->nombre;
         $user->save();
-        Session::flash('update', 'Se han actualizado los datos correctamente');
-        return redirect('/division');
+        return redirect('/division')
+          ->with('success','Se han actualizado los datos correctamente');
 
     }
 
@@ -55,8 +55,8 @@ class DivisionController extends Controller
     {
         $user = Division::findOrFail($id);
         $user -> delete();
-        Session::flash('delete', 'Se ha borrado el registro exitosamente');
-        return redirect('/division');
+        return redirect('/division')
+          ->with('success','Se ha borrado el registro exitosamente');
     }
 
 
@@ -71,8 +71,8 @@ class DivisionController extends Controller
         $user = new Division;
         $user->nombre= $request->nombre;
         $user->save();
-        Session::flash('create', 'Se ha creado el registro correctamente');
-        return redirect()->back();
+        return redirect('/division')
+          ->with('success','Se ha creado el registro correctamente');
     }
 
     /**

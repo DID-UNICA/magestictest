@@ -17,13 +17,10 @@
         <br>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1>{{ $user->nombre }}</h1>
+                <h1>Actualizar Categoría</h1>
+                <h2>{{ $user->categoria }}</h2>
             </div>
             <div class="panel-body">
-
-
-
-
                 <div class="row">
                     <div class="row col-md-12 ">{!! Form::open(['route' => array('categoria.actualizar', $user->id), "method" => "PUT"]) !!}
 

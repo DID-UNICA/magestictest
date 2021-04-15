@@ -13,12 +13,12 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
                 <div class="panel-heading">
                     <div class="container">
-                      <h1>Diplomado: {{ $diplomado->nombre_diplomado}} </h1>
-
+                      <h1>Diplomado</h1>
+                      <h2>{{ $diplomado->nombre_diplomado}} </h2>
                   </div>
                 </div>
       </div>

@@ -13,17 +13,17 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
                 <div class="panel-heading">
                     <div class="container">
-                  <h3>Diplomados programados</h3>
+                  <h1>Diplomados programados</h1>
                   </div>
                 </div>
       </div>
-      <div class="panel-body">
+      <div class="panel-body tablaFija">
       @if( count($diplomados)==0 )
-              Aún no hay diplomados
+              <p>Aún no hay diplomados<p>
       @else
 
       <table class="col-md-12">
@@ -38,12 +38,12 @@
               <td>{{ $diplomado->nombre_diplomado }} </td>
 
               <td>
-                  <a href="{{ URL::to('diplomado/ver-diplomado',$diplomado->id) }}" class="btn btn-primary">Ver Diplomado</a>
-                  <a href="{{ URL::to('diplomado/ver-participantes',$diplomado->id) }}" class="btn btn-info">Ver Participantes</a>
-                  <a href=" {{ URL::to('diplomado/inscribirAlumnos',$diplomado->id) }}" class="btn btn-success">Inscribir</a>
-                  <a href="{{ URL::to('diplomado', $diplomado->id) }}" class="btn btn-warning">Detalles</a>
-                  <a href=" {{ URL::to('diplomas', $diplomado->id)}}" class="btn btn-info">Diplomas</a>
-                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Dar de baja</button>
+                  <a href="{{ URL::to('diplomado/ver-diplomado',$diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-primary">Ver Módulos</a>
+                  <a href="{{ URL::to('diplomado/ver-participantes',$diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-info">Ver Participantes</a>
+                  <a href=" {{ URL::to('diplomado/inscribirAlumnos',$diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-success">Inscribir Participantes</a>
+                  <a href="{{ URL::to('diplomado', $diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-warning">Detalles</a>
+                  <a href=" {{ URL::to('diplomas', $diplomado->id)}}" style="margin-bottom: 15px;" class="btn btn-info">Diplomas</a>
+                  <button type="button" class="btn btn-danger" data-toggle="modal" style="margin-bottom: 15px;" data-target="#myModal">Dar de baja</button>
               </td>
             </tr>
 
@@ -70,7 +70,7 @@
 
 </table>
 @endif
-
+<a class= "btn btn-primary" href="{{ route('diplomado.nuevo') }}">Alta de diplomado</a>
                 
       
 

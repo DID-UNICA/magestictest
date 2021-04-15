@@ -18,8 +18,8 @@
       <div class="alert alert-danger" role='alert'>No hay resultados</div>
     @endif
       <br>
-      <div class="panel panel-default">
       @include ('partials.messages')
+      <div class="panel panel-default">
         <div class="panel-heading">
           <div class="container">
             <h3>Cursos Programados</h3>
@@ -122,9 +122,10 @@
                   </div>
                   <div style="padding-top: 10px" class="col-md-12">
                     <select name="type2" class = 'btn dropdown-toggle pull-left' id='myselect2' onchange="deter2()">
-                      <option value="excel"> Reporte en Excel</option>
-                      <option value="periodo" >Reporte de Cursos</option>
-                      <option value="sugerencia" >Reporte de Sugerencias</option>
+                      <option value="excel">Reporte en Excel</option>
+                      <option value="excel2">Libro de Folios</option>
+                      <option value="periodo">Reporte de Cursos</option>
+                      <option value="sugerencia">Reporte de Sugerencias</option>
                     </select>
                     <span class="input-group-btn col-md-2">
                       <button class="btn btn-secondary" type="submit">Generar</button>
@@ -136,7 +137,7 @@
           </div>
         </div>
       </div>
-      <div class="panel-body">
+      <div class="panel-body tablaFija">
         <table class="col-md-12">
      <tr>
         <th>Nombre</th>
@@ -208,7 +209,7 @@
         function deter2(){
           var e = document.getElementById("myselect2");
           var strE = e.options[e.selectedIndex].text;
-          if(strE =="Reporte en Excel"){
+          if(strE =="Reporte en Excel" || strE =="Libro de Folios"){
             document.getElementById('F1').style.display = 'none';
             document.getElementById('Anio3').removeAttribute("required");
           }else{

@@ -161,12 +161,16 @@ class CursoController extends Controller
                 ->route('profesorts.update', $user->id);
         }
         else{
-        Session::flash('update', 'Se han actualizado los datos correctamente');
-        return view("pages.update-curso")
+          return redirect('curso')
+            ->with('success', 'Se han actualizado los datos correctamente');
+        }
+        /*return view("pages.ver-curso")
             ->with("user",$user)
             ->with("cursos", Curso::all())
             ->with("profesores",Profesor::all())
-            ->with("repetidos", $auxArray);}
+            ->with("repetidos", $auxArray)
+            ->with('success','Se han actualizado los cambios');}
+        */
     }
 
     /**
@@ -283,7 +287,7 @@ class CursoController extends Controller
         }
         $user = Curso::findOrFail($id);
         $user -> delete(); 
-        return redirect('/curso')->with('success', "El curso se eliminó exitosamente");
+        return redirect('curso')->with('success', "El curso se eliminó exitosamente");
     }
     public function deleteModulo($id)
     {
@@ -297,7 +301,7 @@ class CursoController extends Controller
         }
         $user = Curso::findOrFail($id);
         $user -> delete(); 
-        return redirect('/diplomado')->with('success', "El curso se eliminó exitosamente");
+        return redirect('diplomado')->with('success', "El curso se eliminó exitosamente");
     }
     public function bajaParticipante($id,$curso,$espera)
     {
@@ -311,7 +315,7 @@ class CursoController extends Controller
                 ParticipantesCurso::where('espera',$x)->update(['espera'=>$x-1]);
             }
         }
-        return redirect()->back();
+        return redirect()->back()->with('success', 'El profesor ha sido desinscrito del curso');
     }
 
 
@@ -406,8 +410,8 @@ class CursoController extends Controller
                 ->route('profesorts.store', $newCurso[0]->id);
         }
         else{
-        Session::flash('create', 'Se ha creado el registro correctamente');
-        return redirect()->back();}
+        return redirect('curso')
+        ->with('success', 'El curso se creó exitosamente');}
     }
     public function inscripcionParticipante($id)
     {
@@ -667,11 +671,10 @@ class CursoController extends Controller
             $participante->save();
         }
             $users = Curso::all();
-            Session::flash('verRespuesta', 'Cambios ejecutados correctamente');
             //return view("pages.consulta-cursos")
             //    ->with("users",$users);
             //return $participantes;
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Cambios realizados correctamente');
     }
 
     public function registrarParticipante(Request $request){
@@ -696,8 +699,8 @@ class CursoController extends Controller
             $user->espera = 0;
             $user->estuvo_en_lista = false;
             $user->save();
-            Session::flash('inscripcion', 'Se ha dado de alta correctamente.');
-            return redirect()->route("curso.inscripcion",$request->curso_id);
+            return redirect()->route("curso.inscripcion",$request->curso_id)
+              ->with('success', 'Se ha dado de alta correctamente');
 
         }else{
             $user = new ParticipantesCurso;
@@ -706,8 +709,8 @@ class CursoController extends Controller
             $user->espera = $enLista+1;
             $user->estuvo_en_lista = true;
             $user->save();
-            Session::flash('inscripcion', 'Inscripción en lista de espera.');
-            return redirect()->route("curso.inscripcion",$request->curso_id);
+            return redirect()->route("curso.inscripcion",$request->curso_id)
+              ->with('success', 'Inscripción en lista de espera');
         }
 
     }

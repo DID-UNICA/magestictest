@@ -15,9 +15,11 @@
     </div>
     <section class="content-inner">
         <br>
+        @include ('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1>{{ $user->nombre_curso }} </h1>
+                <h1>Curso</h1>
+                <h2>{{ $user->nombre_curso }} </h2>
             </div>
             <div class="panel-body">
 
@@ -55,7 +57,7 @@
 
                         <div class="form-group col-md-6">
                             {!!Form::label("institucion", "Institución:")!!}
-                            {!!Form::select('institucion', array('DGAPA' => 'DGAPA','CD' => 'Centro de Docencia'),$user->institucion, ["disabled", 'class'=>'form-control']) !!}
+                            {!!Form::select('institucion', array('DGAPA' => 'DGAPA','CDD' => 'Centro de Docencia'),$user->institucion, ["disabled", 'class'=>'form-control']) !!}
                         </div>
 
                         <div class="form-group col-md-6">
