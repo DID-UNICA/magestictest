@@ -161,12 +161,11 @@
 
                     <div class="form-group{{ $errors->has('objetivo') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Objetivo:</label>
-
                         <div class="col-md-6">
                             <textarea rows="4" cols="50" id="objetivo" type="text" class="form-control" name="objetivo" value="{{ old('objetivo') }}">@if ($errors->has('objetivo'))
                                 <span class="help-block">
-                                        <strong>{{ $errors->first('objetivo') }}</strong>
-                                    </span>
+                                  <strong>{{ $errors->first('objetivo') }}</strong>
+                                </span>
                             @endif</textarea>
                         </div>
                     </div>

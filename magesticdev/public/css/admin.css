@@ -286,8 +286,13 @@
 .tablaFija{
   overflow-y:scroll;
   height:500px;
+  text-align: left;
 }
 
+.tablaFija td{
+  padding-right: 3%;
+}
+.tablaFija tr:hover {background-color: #ddd;}
 
 
 

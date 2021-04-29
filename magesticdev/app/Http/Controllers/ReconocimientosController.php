@@ -43,6 +43,23 @@ function rrmdir($dir) {
 
 class ReconocimientosController extends Controller{
 
+  public function fechaEnvio($id)
+  {
+      $curso = Curso::findOrFail($id);
+      return view("pages.reconocimientos-fechaEnvio")
+              ->with('curso',$curso);
+  }
+  
+  public function fechaEnvioActualizar(Request $request, $id)
+  {
+      $curso = Curso::findOrFail($id);
+      $curso->fecha_envio_reconocimiento = $request->envio;
+      $curso->save();
+      return redirect('reconocimientos/'.$id)
+              ->with('curso', $curso)
+              ->with('success', 'Fecha actualizada correctamente');
+  }
+
     public function convertirACadena($iter){
         if($iter>999){
             return (string)$iter;
@@ -76,6 +93,10 @@ class ReconocimientosController extends Controller{
         $count = ProfesoresCurso::select('id')
             ->where('curso_id', $curso->id)
             ->count();
+            if($count == null){
+              $zip::close();
+              return redirect()->back()->with('warning', 'No hay instructores asignados para dicho curso');
+          }
         try{
             $hash_aux = str_replace(".", "0",substr(Hash::make(url()->full(), [
                                         'rounds' => 4,
@@ -166,10 +187,6 @@ class ReconocimientosController extends Controller{
           }
         $fecha = $dia_a . " de " .$mes_a . " de " . $anio;
         $folio = "F04".$anio.$tipo;
-        if($count == null){
-            $zip::close();
-            return redirect()->back()->with('warning', 'No hay profesores asignados para dicho curso');
-        }
         $iter = 1;
         $ceros = "000";
 
@@ -212,11 +229,16 @@ class ReconocimientosController extends Controller{
         return response()->download(public_path('reconocimientos.zip'))->deleteFileAfterSend(public_path('reconocimientos.zip'));
     }
     public function generar(Request $request){
+        $pdfMerger = new PdfManage;
         $zip = new Zipper();
         $zip::make(public_path('reconocimientos.zip'));
         $count = ProfesoresCurso::select('id')
         ->where('curso_id',$request->id)
         ->count();
+        if($count == null){
+          $zip::close();
+          return redirect()->back()->with('warning', 'No hay instructores asignados para dicho curso');
+      }
         try{
             $hash_aux = str_replace(".", "0",substr(Hash::make(url()->full(), [
                                         'rounds' => 4,
@@ -224,7 +246,6 @@ class ReconocimientosController extends Controller{
         }catch(\ErrorException  $e){
             return redirect()->back()->with('danger', 'Problemas con la url');
         }
-        File::makeDirectory(resource_path('views/pages/tmp'.$hash_aux),0777,true);
         try{
             $coordinadorGeneral = CoordinadorGeneral::all();
             $coordinadorGeneral = $coordinadorGeneral[0];
@@ -247,8 +268,6 @@ class ReconocimientosController extends Controller{
             return redirect()->back()->with('info', 'Primero hay que dar de alta al Director');    
         } 
         $curso = Curso::findOrFail($request->id);
-        
-        
         $idTipo = (strlen($request->typeid) != 0 and is_numeric($request->typeid)) ? intval($request->typeid) : $curso->getTypeId();
         if($idTipo>99){
             $idTipo = (string)$idTipo;
@@ -265,7 +284,7 @@ class ReconocimientosController extends Controller{
         foreach($profesoresCurso as $profesorCurso){
             $tmp = Profesor::find($profesorCurso->profesor_id);
             array_push($profesores,$tmp);
-        } 
+        }
         $fechaimp = $curso->getFecha();
         $fecha = Carbon::parse($curso->getFechaFin());
         $fecha = $fecha->format('d/m/Y');
@@ -316,14 +335,14 @@ class ReconocimientosController extends Controller{
             $auxiliar = 'T';
         }
         $folio = "F04".$anio.$auxiliar;
-        if($count == null){
-            $zip::close();
-            return redirect()->back()->with('warning', 'No hay profesores asignados para dicho curso');
-        }
     try{
-
-        $pdfMerger = new PdfManage;
-
+      try{
+        File::makeDirectory(resource_path('views/pages/tmp'.$hash_aux),0777,true);
+    }catch(\ErrorException  $e){
+        return redirect()->back()->with(
+            'warning', 'Problemas con el directorio "tmp"'
+        );    
+    }
         if ($tipo == "T" || $tipo == "C" || $tipo == "CT" || $tipo == "F"){
               $iter = 1;
               $ceros = "000";
@@ -353,7 +372,7 @@ class ReconocimientosController extends Controller{
                             'folio_der'=>strval($folio_der)))
                         ->setPaper('letter', 'landscape');
 
-                $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $nombreArchivo = strval($iter).'_'.$profesor->getNombresArchivo().'_R.pdf';
                 $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
                 $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
@@ -390,7 +409,7 @@ class ReconocimientosController extends Controller{
                         'folio_der'=>strval($folio_der),
                         "tema" => $request->texto_personalizado))
                     ->setPaper('letter', 'landscape');
-                $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $nombreArchivo = strval($iter).'_'.$profesor->getNombresArchivo().'_R.pdf';
                 $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
                 $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
@@ -402,7 +421,7 @@ class ReconocimientosController extends Controller{
             rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return response()->download(public_path('reconocimientos.zip'))->deleteFileAfterSend(public_path('reconocimientos.zip'));
         }elseif($tipo == "S"){
-          $tsprofes = TemaSeminarioProfesor::where('curso_id', $curso->id)
+            $tsprofes = TemaSeminarioProfesor::where('curso_id', $curso->id)
             ->get();
             $ceros = "000";
             $iter = 1;
@@ -431,7 +450,7 @@ class ReconocimientosController extends Controller{
               'folio_der' => strval($folio_der),
               'tema' => $tema->nombre))
                   ->setPaper('letter', 'landscape');
-              $nombreArchivo = 'a' . $profesor->nombres.$tema->id . '.pdf';
+              $nombreArchivo = strval($iter).'_'.$profesor->getNombresArchivo().'_R.pdf';
               $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
               $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
               $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));

@@ -19,7 +19,7 @@ class ParticipantesCurso extends Model
         'monto_pago','cancelación','evaluacion_mobilirario','evaluacion_limpiea',
         'espera', 'estuvo_en_lista','contesto_hoja_evaluacion','acreditacion',
         'causa_no_acreditacion','calificacion','inscrito','comentario','adicional',
-        'folio_inst','folio_peque','fecha_envio'
+        'folio_inst','folio_peque'
     ];
     public function getProfesor(){
         $profesor = Profesor::find($this->profesor_id);

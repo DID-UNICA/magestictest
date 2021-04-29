@@ -139,7 +139,6 @@ class ProfesorController extends Controller
           $user->abreviatura_grado="Dra.";
         else
           $user->abreviatura_grado="";
-        $user->comentarios = $request->comentarios;
         $user->genero = $request->genero;
         $user->semblanza_corta = $request->semblanza_corta;
         $user->facebook = $request->facebook;
@@ -255,6 +254,67 @@ class ProfesorController extends Controller
             ->with("users",$users->unique());
 
     }
+    /*Busqueda de profesores para su inscripción como instructores*/
+    public function search2(Request $request, $id)
+    {
+      $curso = Curso::findOrFail($id);
+      $instructores = Profesor::whereIn('id',
+        ProfesoresCurso::select('profesor_id')->where('curso_id',$id)->get())
+      ->get();
+      $words = explode(" ", $request->pattern);
+      $arreglo_aux = array();
+      $profesores = collect();
+      foreach($words as $word){
+        if($request->type == "nombre")
+        {
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
+          ->get()->sortBy("apellido_paterno"));
+
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+            ->whereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
+          ->get()->sortBy("apellido_paterno"));
+
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
+          ->get()->sortBy("apellido_paterno"));
+
+        }elseif($request->type == "correo"){
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
+          ->get()->sortBy("apellido_paterno"));
+
+        }elseif($request->type == "rfc"){
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
+          ->get()->sortBy("apellido_paterno"));
+        }elseif($request->type == "num"){
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(numero_trabajador)) ILIKE lower(unaccent('%".$word."%'))")
+          ->get()->sortBy("apellido_paterno"));
+        }
+      }
+      foreach ($arreglo_aux as $profesoresword) {
+        $profesores = $profesores->concat($profesoresword);
+      }
+      $profesores = $profesores->unique()->sortBy("apellido_paterno");
+      return view('pages.curso-inscribir-instructores')
+        ->with('curso', $curso)
+        ->with('profesores', $profesores)
+        ->with('instructores', $instructores);
+    }
     /* Consulta-Alta */
     public function search1(Request $request)
     {
@@ -332,7 +392,6 @@ class ProfesorController extends Controller
         return view("pages.curso-inscripcion")
             ->with("users",$users->whereNotIn('id',$instructores))->with("count", $request->count)->with("cupo", $request->cupo)->with("curso_id", $request->curso_id)
             ->with("nombre_curso", $request->nombre_curso)->with("curso",$curso)->with("lista",$enLista);
-
     }
 
     public function delete($id)
@@ -415,7 +474,6 @@ class ProfesorController extends Controller
         else
           $user->abreviatura_grado="";
         $user->email = $request->email;
-        $user->comentarios = $request->comentarios;
         $user->genero = $request->genero;
         $user->semblanza_corta = $request->semblanza_corta;
         $user->facebook = $request->facebook;

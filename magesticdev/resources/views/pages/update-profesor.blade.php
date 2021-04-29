@@ -213,11 +213,6 @@ function procedencia_carrera() {
       </div>
 
        <div class="form-group col-md-6">
-            {!!Form::label("comentarios", "Comentarios:")!!}
-            {!!Form::textarea("comentarios", $user->comentarios, [ "class" => "form-control", "placeholder" => "Comentarios", ""])!!}
-        </div>
-
-       <div class="form-group col-md-6">
         {!!Form::label("semblanza_corta", "Semblanza corta:")!!}
         {!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "class" => "form-control", "placeholder" => "Semblanza", ""])!!}
       </div>

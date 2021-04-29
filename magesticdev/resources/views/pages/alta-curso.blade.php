@@ -194,23 +194,6 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('profesor_id') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Instructor:</label>
-
-                            <div class="col-md-6">
-                                <select id='profesor_id' multiple="multiple" name="profesor_id[]" form="cursoform" required class="form-control">
-                                    @foreach($profesores->sortBy('apellido_paterno') as $profesor)
-                                        <option value="{{ $profesor->id }} "> {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }} {{ $profesor->nombres }}</option>
-                                        $profesor_id = $request->input('profesor_id');
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('profesor_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('profesor_id') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                         <div class="form-group{{ $errors->has('costo') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Costo</label>
                             <div class="col-md-6">

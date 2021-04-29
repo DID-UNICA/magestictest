@@ -61,13 +61,13 @@ td{
         @include ('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>Lista de instructores de {{$curso->getNombreCurso()}}</h3>
+                <h3>Lista de participantes de {{$curso->getNombreCurso()}}</h3>
                 <h4>Instructores(es): {{ $curso->getProfesores()}}</h4>
                 <h4>Cupo maximo: {{$curso->cupo_maximo}}</h4>
 
             </div>
         </div>
-            <div class="panel-body" style="overflow-x:auto;">
+            <div class="panel-body tablaFija" style="overflow-x:auto;">
               @if( empty($users) )
 
               Aún no hay alumnos inscritos en este curso

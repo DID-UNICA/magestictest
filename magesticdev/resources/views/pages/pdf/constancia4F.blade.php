@@ -28,12 +28,12 @@ body {
   text-align: left;
   bottom: 2px;
   left: 19px;
-  color: #8D8D8D;
+  color: black;
 }
 #folio{
   font-size: 10pt;
   text-align: right;
-  color: #8D8D8D;
+  color: black;
   margin-right: 2%;
   margin-left: 82%;
 }
@@ -118,6 +118,7 @@ body {
   align:center;
   padding-top: 0.5cm;
   line-height: 10%;
+  
 }
 .tabla-centro{
   width: 100%;
@@ -135,18 +136,18 @@ body {
     <div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
     <br>
     <div class="centro">
-      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1.5cm;">Otorgan la presente constancia a:</h2>
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan la presente constancia a:</h2>
       <br>
       <h2 class='nombre_profesor'>{{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      <h3 style="font-size: 14pt;line-height: 30%;">{{$texto}}</h3>
-      <div class='nombre_curso'>{{$cursoCatalogo->nombre_curso}}</div>
+      <h3 style="font-size: 14pt;padding-top: 0.5cm;">{{$texto}}</h3>
+      <div class='nombre_curso' style="padding-top: 0.2cm;">{{$cursoCatalogo->nombre_curso}}</div>
       @if($generacion != "")
         <h3 style="font-size: 12px;">Dentro del plan de becarios de UNICA, generación {{$generacion}}°</h3>
       @endif
-      <p style="padding-top: 0.3cm; font-size: 12pt;">{{$fechaimp}}</h5>
-      <p style="padding-top: 0.4cm; padding-bottom: 0.4cm; font-size: 12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
-      <p style="line-height: 20%; font-size: 12pt; font-weight: bold;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 1.25cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="padding-top: 1cm; font-size: 12pt;">{{$fechaimp}}</h5>
+      <p style="padding-top: 0.3cm; padding-bottom: 0.3cm; font-size: 12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
+      <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
+      <p style="font-size: 8pt; padding-bottom: 0.7cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
 
 
@@ -160,16 +161,16 @@ body {
         <td  class="firma1" style="padding-top: 1cm;">___________________</td>
       </tr>
       <tr>
-        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.2cm;">{{$firmante1}}</td>
-        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.2cm;">{{$firmante2}}</td>
-        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.2cm;">{{$firmante3}}</td>
-        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.2cm;">{{$firmante4}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmante1}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmante2}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmante3}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmante4}}</td>
       </tr>
       <tr>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion2}}</td>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion3}}</td>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion4}}</td>
+        <td class="firma" style="font-size: 7pt;">{{$descripcion1}}</td>
+        <td class="firma" style="font-size: 7pt;">{{$descripcion2}}</td>
+        <td class="firma" style="font-size: 7pt;">{{$descripcion3}}</td>
+        <td class="firma" style="font-size: 7pt;">{{$descripcion4}}</td>
       </tr>
     </table>
     </div>
@@ -177,7 +178,7 @@ body {
 
 
   </div>
-      <table width=auto style="vertical-align: top; padding-top: 1.5cm;">
+      <table width=auto style="vertical-align: top; padding-top: 1.5cm; margin: 0px;">
       <tr width=auto>
         <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
         <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>

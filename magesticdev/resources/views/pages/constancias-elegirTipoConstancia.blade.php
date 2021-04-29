@@ -41,7 +41,6 @@
                   <hr>
                   <h2>Constancias <span class="fa fa-file-pdf-o"</span></h2>
                   <table class="table table-hover">
-                    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
                       <div class="collapse navbar-collapse" id="menuCurso">
                         <form id="form" class="form-horizontal" method="GET" action="{{ route('constancias.generar.b', $curso->id)}}">
                         {{ csrf_field() }}
@@ -101,12 +100,6 @@
                       </div>
                       <div class="form-group col-md-6">
                           {!!Form::text("numero", null, [ "class" => "form-control", "placeholder" => "Número inicial"])!!}
-                      </div>
-                      <div class="form-group col-md-4">
-                          {!!Form::label("envio", "Fecha de envío:")!!}
-                      </div>
-                      <div class="form-group col-md-6">
-                          {!!Form::date("envio", null, [ "class" => "form-control", "placeholder" => "Fecha de emisión"])!!}
                       </div>
                       <br>
                       <div id = "generacion" style="display:none">
@@ -625,8 +618,13 @@
             </div>
 
     <br>
+    <div class="form-group col-md-12">
     <div class="col-md-2">
         <button type="submit" class="btn btn-primary btn-block">Generar</button>
+    </div>
+    <div class="col-md-2">
+      <a href="{{ route('constancias.fecha',[$curso->id]) }}" class="btn btn-warning">Fecha de envío</a></td>
+    </div>
     </div>
 </form>
 </table>

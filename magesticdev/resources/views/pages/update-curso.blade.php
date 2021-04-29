@@ -151,30 +151,14 @@
         {!!Form::label("salon_id", "Sede:")!!}
         {!!Form::select("salon_id", $user->allSalon()->pluck('sede','id'),$user->getIdSalon(),['class'=>'form-control'])!!}
     </div>
-    <div class="form-group col-md-8">
-        {!!Form::label("profesor_id", "Instructor(es):")!!}
-        <select name="profesores[]" class="form-control" size="7" required multiple>
-        @foreach($profesores as $profesor)
-            @if(!in_array($profesor->id,$repetidos))
-            <option value="{{$profesor->id}}">{{$profesor->getNombres()}}</option>
-            @else
-            <option value="{{$profesor->id}}" selected>{{$profesor->getNombres()}}</option>
-            @endif
-        @endforeach
-      </select>
-    </div>
     <div class="col-md-4">
     <hr>
-    <button type="submit" class="btn btn-primary btn-lg col-md-offset-1">Actualizar</button>
+    <button type="submit" class="btn btn-primary btn-md col-md-offset-1">Actualizar</button>
+    <a href="{{ URL::to('curso', $user->id) }}" class="btn btn-danger">Cancelar</a>
   </div>
   {!! Form::close() !!}
 </div>
-
-
-
       </div>
-
      </section>
-     
 @endsection
   

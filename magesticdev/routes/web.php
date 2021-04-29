@@ -43,6 +43,7 @@ Route::get('cursos/busquedapalabras/{id}', "CursoController@searchWords")->name(
 Route::get('curso/actualizar/{id}', "CursoController@edit")->name('curso.update');
 Route::get('curso/inscripcion/{id}', "CursoController@inscripcionParticipante")->name('curso.inscripcion');
 Route::post('curso/inscripcion/{curso_id}/busqueda', "ProfesorController@search1")->name('profesor.consulta1');
+Route::post('curso/inscripcion/{curso_id}/search2', "ProfesorController@search2")->name('profesor.consulta2');
 Route::get('curso/generar-formatos/{curso}', "CursoController@GenerarFormatos")->name('curso.generar-formatos');
 Route::get('curso/ver-profesores/{curso}', "CursoController@verParticipante")->name('curso.ver-participante');
 Route::get('curso/nuevo/{curso_id}/asignartemas', "TemaSeminarioProfesorController@index")->name('profesorts.store');
@@ -58,6 +59,9 @@ Route::post('curso/registrar/{id}/{curso_id}', "CursoController@registrarPartici
 Route::put('curso/actualizar/{id}', "CursoController@update")->name('curso.actualizar');
 Route::get('curso/baja/{id}', "CursoController@delete");
 Route::get('curso/bajad/{id}', "CursoController@deleteModulo");
+Route::get('curso/instructores/{id}', "CursoController@vistaInstructores")->name('curso.modificarInstructores');
+Route::post('curso/instructores/alta/{curso_id}/{profesor_id}', "CursoController@altaInstructores")->name('curso.altaInstructores');
+Route::post('curso/instructores/baja/{curso_id}/{profesor_id}', "CursoController@bajaInstructores")->name('curso.bajaInstructores');
 
 /*Rutas de Catalogo-Curso*/
 Route::get('catalogo-cursos/nuevo', "CatalogoCursosController@nuevo")->name("catalogo-cursos.nuevo");
@@ -183,6 +187,8 @@ Route::get('direccion/baja/{id}', "DirectorController@delete");
 /* Rutas PDF */
 Route::get('constancias/{id}','ConstanciasController@selectType')->name('constancias.elegirTipoConstancia');
 Route::get('constancias/b/{id}','ConstanciasController@generar')->name('constancias.generar.b');
+Route::get('constancias/fecha/{id}','ConstanciasController@fechaEnvio')->name('constancias.fecha');
+Route::post('constancias/actualizar_fecha/{id}','ConstanciasController@fechaEnvioActualizar')->name('constancias.actualizarFecha');
 
 Route::get('diplomas/{id}/','DiplomasController@selectType')->name('diplomas.elegirTipoDiploma');
 Route::get('diplomas/{id}/generar','DiplomasController@generar')->name('diplomas.generar');
@@ -191,6 +197,8 @@ Route::get('reconocimientos/{id}','ReconocimientosController@selectType')->name(
 Route::get('reconocimientosDiploma/{diplomaid}/{cursoid}','ReconocimientosController@selectTypeD')->name('reco.elegir2');
 Route::get('reconocimientos/{id}/generar','ReconocimientosController@generar')->name('reconocimientos.generar');
 Route::get('reconocimientos/{diplomadoid}/{cursoid}/generar','ReconocimientosController@generard')->name('reconocimientos.generard');
+Route::get('reconocimientos/fecha/{id}','ReconocimientosController@fechaEnvio')->name('reconocimientos.fecha');
+Route::post('reconocimientos/actualizar_fecha/{id}','ReconocimientosController@fechaEnvioActualizar')->name('reconocimientos.actualizarFecha');
 
 /**Rutas de Formatos */
 Route::get('formatos/generar/{id}/{formato}','FormatosController@sendPDF')->name('formatos.generar');

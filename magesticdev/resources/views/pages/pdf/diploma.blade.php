@@ -8,6 +8,10 @@ html{
       height: 100%;
       margin: 0px;
     }
+
+@page{
+  margin-bottom: 0px;
+}
 body {
   font-family:Arial, Helvetica, Sans-serif,cursive;
 }
@@ -17,16 +21,17 @@ body {
   background-repeat: no-repeat;
 }
 #numero_inferior{
-  text-align: right;
-  bottom: 3px;
-  right: 19px;
-  color: #8D8D8D;
+  text-align: left;
+  bottom: 2px;
+  left: 19px;
+  color: black;
 }
 #folio{
-  text-align: left;
-  bottom: 3px;
-  left: 19px;
-  color: #8D8D8D;
+  font-size: 10pt;
+  text-align: right;
+  color: black;
+  
+  margin-left: 82%;
 }
 .encabezado{
   font-size: 16px;
@@ -62,7 +67,7 @@ body {
 }
 .datos_diplomado{
   font-size: 14px;
-  padding-bottom: 2px;
+
   text-align: center;
 }
 .page-break {
@@ -75,20 +80,22 @@ body {
   text-align:center;
   vertical-align:top;
   align:center;
-  padding-bottom: 1%;
+  margin-bottom: 0cm;
+  font-weight: bold;
 }
 .firma3{
   text-align:center;
   vertical-align:top;
   align:center;
+  margin-bottom: 0cm;
 }
 .firma1{
   text-align:center;
   vertical-align:top;
   align:center;
-  padding-bottom: 1%;
-  
+  margin-bottom: 0cm;
 }
+
 .tabla-centro{
   width: 80%;
   margin-left: 10%;
@@ -96,9 +103,9 @@ body {
 .firmas{
   width: 100%;
   margin-left: 0%;
-  margin-bottom: 3%;
-  
+  margin-bottom: 0cm;
 }
+
 .calificaciones {
   border:solid;
   margin:auto;
@@ -156,8 +163,8 @@ body {
   font-weight: bold;
 }
 </style>
-  <body>
-  <div id=fondo style>
+  <body id=fondo>
+  <div>
     <div class=encabezado id=encabezado_1>Universidad Nacional Autónoma de México</div>
     <div class=encabezado id=encabezado_2>Facultad de Ingeniería</div>
     <div class=encabezado id=encabezado_3>Secretaría de Apoyo a la Docencia</div>
@@ -165,22 +172,22 @@ body {
     <br>
     <div class="centro">
       <p class='nombre_profesor'>{{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</p>
-      <p class='por'>por haber concluido satisfactoriamente los estudios del:</p>
-      <p class='nombre_diplomado'>Diplomado "{{$diplomado->nombre_diplomado}}"</p>
+      <p class='por' style="padding-top: 4.3cm;">por haber concluido satisfactoriamente los estudios del:</p>
+      <p class='nombre_diplomado' style="padding-top: 0.3cm; margin-bottom: 0cm;">Diplomado "{{$diplomado->nombre_diplomado}}"</p>
     </div>
     <div>
-      <p class="datos_diplomado">{{$fechaimp}}</h5>
-      <p class="datos_diplomado">Duración: {{$duracion}} h</h5>
-      <p class="datos_diplomado">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p class="datos_diplomado">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p class="datos_diplomado" style="margin-bottom: 0cm; padding-top: 0.2cm;">Del {{$fechaimp}} </h5>
+      <p class="datos_diplomado" style="margin-bottom: 0cm;">Duración: {{$duracion}} h</h5>
+      <p class="datos_diplomado" style="margin-bottom: 0cm; font-weight: bold;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
+      <p class="datos_diplomado" style="margin-bottom: 0cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
-    <div class = "tabla-centro">
-    <br>
+    <div class = "tabla-centro" style="padding-top: 1.6cm;">
+    
     <table class = "firmas" >
       <tr>
-        <td  class="firma1">___________________</td>
-        <td  class="firma1">___________________</td>
-        <td  class="firma1">___________________</td>
+        <td  class="firma1">______________________</td>
+        <td  class="firma1">______________________</td>
+        <td  class="firma1">______________________</td>
       </tr>
       <tr>
         <td  class="firma2" style="font-size: 15px;">{{$coordinadorGeneral->grado}} {{ $coordinadorGeneral->coordinador }}</td>
@@ -188,13 +195,23 @@ body {
         <td  class="firma2" style="font-size: 15px;">{{$direccion->grado}} {{$direccion->director }}</td>
       </tr>
       <tr>
-        <td class="firma3" style="font-size: 15px;">Coordinadora del Centro de Docencia</td>
-        <td class="firma3" style="font-size: 15px;">Secretaría de Apoyo a la Docencia</td>
-        <td class="firma3" style="font-size: 15px;">Director de la Facultad de Ingeniería</td>
+        <td class="firma3" style="font-size: 8pt;">Coordinadora del Centro de Docencia</td>
+        <td class="firma3" style="font-size: 8pt;">Secretaría de Apoyo a la Docencia</td>
+        <td class="firma3" style="font-size: 8pt;">Director de la Facultad de Ingeniería</td>
       </tr>
     </table>
     </div>
   </div>
+
+    <table width=auto style="vertical-align: top; padding-top: 1cm; margin: 0px;">
+    <tr width=auto>
+      <td id="folio" style=" padding-left: 22.5cm; right:1.2cm;"> {{ $folio }}</td>
+    </tr>
+    </table>
+
+</body>
+
+<body style="background-color: white;">
   <div width = 100%>
   <br>
   <br>

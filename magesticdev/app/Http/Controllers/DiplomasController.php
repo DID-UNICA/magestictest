@@ -214,7 +214,7 @@ class DiplomasController extends Controller{
               'secretarioApoyo' => $secretarioApoyo,
               'diplomado'=>$diplomado))
               ->setPaper('letter', 'landscape');
-            $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+            $nombreArchivo = strval($iterprof).'_'.$profesor->getNombresArchivo().'_D.pdf';
             $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
             $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
             $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));

@@ -28,12 +28,12 @@ body {
   text-align: left;
   bottom: 2px;
   left: 19px;
-  color: #8D8D8D;
+  color: black;
 }
 #folio{
   font-size: 10pt;
   text-align: right;
-  color: #8D8D8D;
+  color: black;
   margin-right: 2%;
   margin-left: 82%;
 }
@@ -118,6 +118,7 @@ body {
   align:center;
   padding-top: 0.5cm;
   line-height: 10%;
+  
 }
 .tabla-centro{
   width: 100%;
@@ -157,7 +158,7 @@ body {
         <td  class="firma1" style="padding-top: 1cm;">___________________</td>
       </tr>
       <tr>
-        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.2cm;">{{$firmante1}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$firmante1}}</td>
       </tr>
       <tr>
         <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>

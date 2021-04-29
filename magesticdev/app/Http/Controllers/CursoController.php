@@ -30,7 +30,38 @@ class CursoController extends Controller
 
      * @return vista para consultar los Cursos Programados
      */
-    public function index()
+    public function vistaInstructores($id)
+    {
+        $curso = Curso::findOrFail($id);
+        $profesores = Profesor::whereNotIn('id',
+          ProfesoresCurso::select('profesor_id')->where('curso_id',$id)->get())->get();
+        $instructores = Profesor::whereIn('id',
+          ProfesoresCurso::select('profesor_id')->where('curso_id',$id)->get())->get();
+        return view('pages.curso-inscribir-instructores')
+          ->with('curso', $curso)
+          ->with('profesores', $profesores)
+          ->with('instructores', $instructores);
+    }
+
+    public function altaInstructores($curso_id, $profesor_id)
+    {
+        $instructor = new ProfesoresCurso;
+        $instructor->curso_id = $curso_id;
+        $instructor->profesor_id = $profesor_id;
+        $instructor->save();
+        return redirect()->route('curso.modificarInstructores', $curso_id)
+          ->with('success', "El profesor ahora es instructor del curso");
+    }
+
+    public function bajaInstructores($curso_id, $profesor_id)
+    {
+        $instructor = ProfesoresCurso::where('curso_id', $curso_id)->where('profesor_id',$profesor_id);
+        $instructor->delete();
+        return redirect()->route('curso.modificarInstructores', $curso_id)
+          ->with('warning', "El profesor ya no es más un instructor del curso");
+    }
+    
+     public function index()
     {
         /*$enDiplomadoObj = DiplomadosCurso::select('curso_id')->get();
         $enDiplomadoArray = array();
@@ -131,29 +162,6 @@ class CursoController extends Controller
         $user->cupo_maximo = $request->cupo_maximo;
         $user->cupo_minimo = $request->cupo_minimo;
         $user->salon_id = $request->salon_id;
-
-        $repetidos = ProfesoresCurso::select('profesor_id')->where('curso_id',$id)->get();
-        $repeArray = array();
-        $auxArray = array();
-        foreach ($repetidos as $value) {
-            array_push($repeArray, $value->profesor_id);
-        }
-        foreach ($request->profesores as $profesor) {
-            array_push($auxArray, $profesor);
-            if (!in_array($profesor, $repeArray)) {
-                $profesorCurso = new ProfesoresCurso;
-                $profesorCurso->curso_id = $id;
-                $profesorCurso->profesor_id = $profesor;
-                $profesorCurso->save();
-            }else{
-                unset($repetidos[array_search($profesor, $repeArray)]);
-            }
-        }
-        foreach ($repetidos as $repe) {
-            $profesorCurso = ProfesoresCurso::where('curso_id',$id)->where('profesor_id',$repe->profesor_id)->delete();
-        }
-
-
         $user->save();
         $catalogo = CatalogoCurso::find($user->catalogo_id);
         if($catalogo->tipo == 'S'){
@@ -396,22 +404,14 @@ class CursoController extends Controller
         ->where('semestre_pi', (string)$request->semestreTemporada)
         ->where('semestre_si',$request->semestreInter)
         ->get();
-
-
-        foreach($request->profesor_id as $profesor_id){
-            $profesorCurso = new ProfesoresCurso;
-            $profesorCurso->curso_id = $newCurso[0]["id"];
-            $profesorCurso->profesor_id = $profesor_id;
-            $profesorCurso->save();
-        }
         $catalogo = CatalogoCurso::find($request->catalogo_id);
         if($catalogo->tipo == 'S'){
             return redirect()
                 ->route('profesorts.store', $newCurso[0]->id);
         }
         else{
-        return redirect('curso')
-        ->with('success', 'El curso se creó exitosamente');}
+        return redirect()->route('curso.modificarInstructores', $curso->id)
+        ->with('warning', 'Asigne instructores ahora o posteriormente');}
     }
     public function inscripcionParticipante($id)
     {

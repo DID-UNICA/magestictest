@@ -31,7 +31,6 @@ class CreateParticipanteCurso extends Migration
             $table->boolean('adicional')->nullable();
             $table->string('folio_inst')->nullable();
             $table->string('folio_peque')->nullable();
-            $table->date('fecha_envio')->nullable();
             $table->Integer('curso_id')->unsigned();
             $table->Integer('profesor_id')->unsigned();
             $table->foreign('curso_id')->references('id')->on('cursos');

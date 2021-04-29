@@ -349,6 +349,8 @@ class SeederCDEval extends Seeder
             'procedencia'=> 'Universidad Miskatonic'
 
         ]);
+        
+
         DB::table('profesors')->insert([
             'nombres' => 'Marta',
             'apellido_paterno' => 'Suarez',
@@ -745,6 +747,180 @@ class SeederCDEval extends Seeder
             'unam' => true,
             'facultad_id' =>5
         ]);
+
+
+        DB::table('profesors')->insert([
+            'nombres' => 'Sebastian',
+            'apellido_paterno' => 'Arjona',
+            'apellido_materno' => 'Mendez Albarran',
+            'rfc' => 'AOMS901010B52',
+            'numero_trabajador' => '76568654',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'masculino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+
+        DB::table('profesors')->insert([
+            'nombres' => 'Francisca',
+            'apellido_paterno' => 'Bonilla',
+            'apellido_materno' => 'Bonilla',
+            'rfc' => 'BOMF900101NQ7',
+            'numero_trabajador' => '1727727272712',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'femenino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+
+        DB::table('profesors')->insert([
+            'nombres' => 'Aurelia',
+            'apellido_paterno' => 'Casas',
+            'apellido_materno' => '',
+            'rfc' => 'CADA900101L5A',
+            'numero_trabajador' => '265244161',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'femenino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+        DB::table('profesors')->insert([
+            'nombres' => 'Mirian',
+            'apellido_paterno' => 'Ceballos',
+            'apellido_materno' => '',
+            'rfc' => 'CEDM900101D40',
+            'numero_trabajador' => '62525267383',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'femenino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+
+        DB::table('profesors')->insert([
+            'nombres' => 'Mauricio',
+            'apellido_paterno' => 'Cercle',
+            'apellido_materno' => '',
+            'rfc' => 'CEUM830101JK1',
+            'numero_trabajador' => '87654321',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'masculino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+
+        DB::table('profesors')->insert([
+            'nombres' => 'Eva',
+            'apellido_paterno' => 'Cerezo',
+            'apellido_materno' => '',
+            'rfc' => 'CEDE9001016J5',
+            'numero_trabajador' => '727628235',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'femenino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+        DB::table('profesors')->insert([
+            'nombres' => 'Eva',
+            'apellido_paterno' => 'Cerezo',
+            'apellido_materno' => '',
+            'rfc' => 'CEDE9001016J5',
+            'numero_trabajador' => '727628235',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'femenino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+        DB::table('profesors')->insert([
+            'nombres' => 'Valentina',
+            'apellido_paterno' => 'Cubero',
+            'apellido_materno' => '',
+            'rfc' => 'CUDV900101QK7',
+            'numero_trabajador' => '727265252',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'femenino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+        DB::table('profesors')->insert([
+            'nombres' => 'Ana Diana Guadalupe',
+            'apellido_paterno' => 'Domínguez',
+            'apellido_materno' => 'Domínguez',
+            'rfc' => 'DODA901201PB8',
+            'numero_trabajador' => '36657567432',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'femenino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+        DB::table('profesors')->insert([
+            'nombres' => 'Nailea',
+            'apellido_paterno' => 'Duque',
+            'apellido_materno' => '',
+            'rfc' => 'DUMN900101422',
+            'numero_trabajador' => '1725715128',
+            'grado' => 'Maestría',
+            'abreviatura_grado' => 'Mtro.',
+            'semblanza_corta'=> 'Doctorado en Inteligencia Artificial,
+                             su carrera es respaldada por 25 años de 
+                             ejercer la doctrina de profesor. Ganó el premio
+                             S@T por el código más pequeño del mundo',
+            'genero' => 'femenino',
+            'unam' => true,
+            'facultad_id' =>5
+        ]);
+
+        
+
+
+
+
+
+
 
         DB::table('coordinacions')->insert([
           'abreviatura'=>'CO',

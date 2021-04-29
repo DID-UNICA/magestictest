@@ -31,12 +31,10 @@
     }
     #tabla_lista{
         border-collapse: collapse;
-        border: 1px solid black;
-        height: 5%;
-        width:100%;
-        text-align:left;
+        
         font-family:Arial, Helvetica, Sans-serif,cursive; 
         font-size: 11px;
+        page-break-inside:auto;
     }
     #encabezado{
         font-family:Arial, Helvetica, Sans-serif,cursive; 
@@ -76,9 +74,24 @@
         text-transform: uppercase;
     }
 
+
+#header{
+	z-index:-1;
+    margin-top: -310px;
+	position: fixed;
+}
+
+
+@page {
+	margin-top:340px;
+    margin-bottom:80px;
+
+}
+
 </style>
 <body>
-	<div>
+
+	<div id="header">
 		<table  id="tabla_encabezado">
 				<td width= 9% class="margen">
                     <img id="imagen_izquierda"  src="img/asistencia2.png">
@@ -112,7 +125,7 @@
 					1
 				</td>
 				<td width="20%" class="margen">
-					Página 1 de 1
+					
 				</td>
 		</table>
         <table style="width: 100%"> <!--width = 85% originalmente-->
@@ -121,18 +134,17 @@
                 <td class="valores">{{$coordinacion->nombre_coordinacion}}</td>
             </td>
 			<tr >
-				<td class="titulos" width="10%">Instructor</td>
-				<td class="valores mayus" width="30%">{{ $curso->getProfesores() }}</td>
+				<td class="titulos" width="10%" style="vertical-align: top;">Instructor</td>
+				<td class="valores mayus" width="30%" height=55px style="vertical-align: top;">{{ $curso->getProfesores() }}</td>
 				@if ($tipo == 'Módulo Diplomado')
         <td width=10% class="tipo mayus"></td> <!-- class="tipo mayus" width al 12% originalmente-->
         @else
-        <td width=10% class="tipo mayus">{{ $tipo }}</td> <!-- class="tipo mayus" width al 12% originalmente-->
+        <td width=10% class="tipo mayus" style="vertical-align: top;">{{ $tipo }}</td> <!-- class="tipo mayus" width al 12% originalmente-->
         @endif
-                <td width=28% class="tipo">{{ $cursoCatalogo->nombre_curso}}</td> <!-- Corregir el Espacio ;width al 36% originalmente -->
+                <td width=28% class="tipo" style="vertical-align: top;">{{ $cursoCatalogo->nombre_curso}}</td> <!-- Corregir el Espacio ;width al 36% originalmente -->
 			</tr>
 		</table> 
-		<br>
-		<br>
+		
         <table>
         <tr>
             <td class="titulos">Fechas</td>
@@ -154,9 +166,10 @@
 				<td class="titulos" width=17%>Fechas de impartición</td>
 			</tr>
 		</table>
+        
 <table id="tabla_lista" align="center" style="width: 100%">
 	<tr align="center" class="margen">
-		<td class="margen2" width="25%"><b>Nombre del participante</b></td>
+		<th class="margen2" width="25%"><b>Nombre del participante</b></td>
 		<td class="margen2" width="5%"><b></b></td>
 		<td class="margen2" width="5%"><b></b></td>
 		<td class="margen2" width="5%"><b></b></td>
@@ -169,9 +182,12 @@
 		<td class="margen2" width="5%"><b></b></td>
 		<td class="margen2" width="5%"><b></b></td>
         <td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="10%"><b>Calificacion</b></td>
+		<th class="margen2" width="10%"><b>Calificacion</b></td>
 	</tr>
-	
+    </table>
+    </div> <!--Cierra div del header-->	
+
+    <table id="tabla_lista" align="center" style="width: 100%">
     <?php 
     $num_lista = 0;
         foreach($participantes as $alumno){  
@@ -199,5 +215,16 @@
 			}}
 		
     ?>
-    </table>
-</div>
+    </table>  
+    
+
+
+<script type="text/php">
+    if ( isset($pdf) ) {
+        $pdf->page_script('
+            $font = $fontMetrics->get_font("Arial", "normal");
+            $pdf->text(709, 100, "Página $PAGE_NUM de $PAGE_COUNT", $font, 8);
+            $pdf->text(720, 550, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
+        ');
+    }
+</script>

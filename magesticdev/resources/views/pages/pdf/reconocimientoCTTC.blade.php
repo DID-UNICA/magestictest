@@ -25,12 +25,12 @@ body {
   text-align: left;
   bottom: 2px;
   left: 19px;
-  color: #8D8D8D;
+  color: black;
 }
 #folio{
   font-size: 10pt;
   text-align: right;
-  color: #8D8D8D;
+  color: black;
   margin-right: 2%;
   margin-left: 82%;
 }
@@ -113,6 +113,7 @@ body {
   align:center;
   padding-top: 0.5cm;
   line-height: 10%;
+  color:#8D8D8D;
 }
 .tabla-centro{
   width: 65%;
@@ -132,37 +133,37 @@ body {
     <br>
     <div class="centro">
     @if($profesor->genero=="masculino")
-      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1.5cm;">Otorgan el presente reconocimiento al:</h2>
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento al:</h2>
     @elseif($profesor->genero=="femenino")
-    <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1.5cm;">Otorgan el presente reconocimiento a la:</h2>
+    <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento a la:</h2>
     @endif
       <br>
       <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      <h3 style="font-size: 14pt;line-height: 30%;">por impartir el {{$curso->getTipoCadena()}}</h3>
-      <h2 class='nombre_curso'>{{$cursoCatalogo->nombre_curso}}</h2>
-      <p style="padding-top: 0.3cm; font-size:12pt;">{{$fechaimp}}</h5>
+      <h3 style="font-size: 14pt;padding-top: 0.5cm;">por impartir el {{$curso->getTipoCadena()}}</h3>
+      <h2 class='nombre_curso' style="padding-top: 0.2cm;">{{$cursoCatalogo->nombre_curso}}</h2>
+      <p style="padding-top: 0.4cm; font-size:12pt;">{{$fechaimp}}</h5>
       <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
-      <p style="line-height: 20%; font-size: 12pt; font-weight: bold;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 1.5cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
+      <p style="font-size: 8pt; padding-bottom: 0.7cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
-    <div class = "tabla-centro">
+    <div class = "tabla-centro" style="margin-bottom: 0px;">
     <table>
       <tr>
-        <td width=260 class="firma1" style="padding-top: 1cm;">___________________</td>
-        <td width=260 class="firma1" style="padding-top: 1cm;">___________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
       </tr>
       <tr>
-        <td width=260 class="firma" style="font-weight: bold; padding-top: 0.2cm;">{{$coordinacion->grado}} {{$coordinacion->coordinador}}</td>
-        <td width=260 class="firma" style="font-weight: bold; padding-top: 0.2cm;">{{$coordinadorGeneral->grado}} {{ $coordinadorGeneral->coordinador }}</td>
+        <td width=260 class="firma" style="font-weight: bold; padding-top: 0.3cm;">{{$coordinacion->grado}} {{$coordinacion->coordinador}}</td>
+        <td width=260 class="firma" style="font-weight: bold; padding-top: 0.3cm;">{{$coordinadorGeneral->grado}} {{ $coordinadorGeneral->coordinador }}</td>
       </tr>
       <tr>
-        <td class="firma" style="font-size: 8pt;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
-        <td class="firma" style="font-size: 8pt;">Coordinador General del Centro de Docencia</td>
+        <td width=260 class="firma" style="font-size: 8pt;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
+        <td width=260 class="firma" style="font-size: 8pt;">Coordinador General del Centro de Docencia</td>
       </tr>
     </table>
     </div>
   </div>
-  <table width=100% style="padding-bottom: 0.1cm; padding-top: 1.5cm;">
+  <table width=100% style="vertical-align: top; padding-top: 1.5cm; margin: 0px;">
     <tr width=100% >
 @if($folio_der > 0)
 <td id="numero_inferior">{{ $folio_der }}</td>

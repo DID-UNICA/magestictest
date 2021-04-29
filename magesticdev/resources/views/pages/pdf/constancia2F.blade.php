@@ -28,12 +28,12 @@ body {
   text-align: left;
   bottom: 2px;
   left: 19px;
-  color: #8D8D8D;
+  color: black;
 }
 #folio{
   font-size: 10pt;
   text-align: right;
-  color: #8D8D8D;
+  color: black;
   margin-right: 2%;
   margin-left: 82%;
 }
@@ -78,7 +78,7 @@ body {
   font-size: 18pt;
   font-style: italic;
   font-family:'Tangerine', serif;
-  line-height: 120%;
+  
   text-align: center;
   font-weight: bold;
 }
@@ -118,6 +118,7 @@ body {
   align:center;
   padding-top: 0.5cm;
   line-height: 10%;
+  
 }
 .tabla-centro{
   width: 65%;
@@ -136,42 +137,53 @@ body {
     <div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
     <br>
     <div class="centro">
-      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1.5cm;">Otorgan la presente constancia a:</h2>
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan la presente constancia a:</h2>
       <br>
       <h2 class='nombre_profesor'>{{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      <h3 style="font-size: 14pt;line-height: 30%;">{{$texto}}</h3>
-      <div class='nombre_curso'>{{$cursoCatalogo->nombre_curso}}</div>
+      <h3 style="font-size: 14pt; padding-top: 0.5cm;">{{$texto}}</h3>
+      <div class='nombre_curso' style="padding-top: 0.2cm;">{{$cursoCatalogo->nombre_curso}}</div>
       @if($generacion != "")
         <h3 style="font-size: 12px;">Dentro del plan de becarios de UNICA, generación {{$generacion}}°</h3>
       @endif
-      <p style="padding-top: 0.3cm; font-size: 12pt;">{{$fechaimp}}</h5>
-      <p style="padding-top: 0.4cm; padding-bottom: 0.4cm; font-size: 12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
-      <p style="line-height: 20%; font-size: 12pt; font-weight: bold;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 1.5cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="padding-top: 1cm; font-size: 12pt;">{{$fechaimp}}</h5>
+      <p style="padding-top: 0.3cm; padding-bottom: 0.3cm; font-size: 12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
+      <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
+      <p style="font-size: 8pt; padding-bottom: 0.7cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
 
 
+    <!--Opcion que utiliza "tabla-centro"-->
+    <div class = "tabla-centro" style="margin-bottom: 0px;">
+    <table>
+      <tr>
+        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
+      </tr>
+      <tr>
+        <td width=260 class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;"> {{$firmante1}} </td>
+        <td width=260 class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;"> {{$firmante2}} </td>
+      </tr>
+      <tr>
+        <td width=260 class="firma" style="font-size: 8pt;"> {{$descripcion1}} </td>
+        <td width=260 class="firma" style="font-size: 8pt;"> {{$descripcion2}} </td>
+      </tr>
+    </table>
+    </div>
 
-    <!--<div class = "tabla-centro" style="padding-bottom: 0.2cm;">
 
-
-
-
-    </div> -->
-
-
+    <!--
     <table width=auto style="padding-left: 2.5cm;">
       <tr width=auto>
         <td width=260 class="firma1" style="padding-top: 1cm;">_____________________</td>
-        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 1.2cm;">__________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 1.2cm;">_____________________</td>
       </tr>
     </table>
 
     <table width=auto style=" padding-left: 4cm;">
       <tr width=auto>
-        <td class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.2cm;"> {{$firmante1}}</td> <!-- originalmente basado en la ConstanciaSADYDirector-->
-        <td width=260 class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.2cm; padding-left: 2.7cm;">{{$firmante2}}</td>
-        <!-- originalmente  basado en la ConstanciaSADYDirector-->
+        <td class="firma" style="font-weight: bold; font-size: 11pt;"> {{$firmante1}}</td> 
+        <td width=260 class="firma" style="font-weight: bold; font-size: 11pt;padding-left: 2.7cm;">{{$firmante2}}</td>
+
       </tr>
 
 
@@ -179,21 +191,16 @@ body {
         <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
         <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">{{$descripcion2}}</td>
       </tr>
-    </table>
+    </table> -->
 
-
-
-<!--Version con tabla separada -->
-
-
-
-<!---->
   </div>
-      <table width=auto style="vertical-align: top; padding-top: 1.5cm;">
-      <tr width=auto>
-        <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
-        <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>
-      </tr>
+
+
+    <table width=auto style="vertical-align: top; padding-top: 1.5cm; margin: 0px;">
+    <tr width=auto>
+      <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
+      <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>
+    </tr>
     </table>
 
 

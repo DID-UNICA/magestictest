@@ -20,8 +20,8 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
                 <div class="panel-heading">
                     <h3>Coordinación de Gestión y Vinculación</h3>
                 </div>
@@ -81,8 +81,7 @@
                 <td> {!!Form::text("folio_der", null, [ "class" => "form-control", "placeholder" => "Número inicial"])!!}</td>
                 </tr>
                 <tr>
-                <td> {!!Form::label("envio", "Fecha de envío:")!!}</td>
-                <td> {!!Form::date("envio", null, [ "class" => "form-control", "placeholder" => "Fecha de envío"])!!}</td>
+                <td><a href="{{ route('reconocimientos.fecha',[$curso->id]) }}" class="btn btn-warning">Fecha de envío</a></td></td>
                 </tr>
                 
 

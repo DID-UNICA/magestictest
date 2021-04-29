@@ -40,7 +40,24 @@ function rrmdir($dir) {
 }
 
 class ConstanciasController extends Controller{
-    public function selectType($id)
+  public function fechaEnvio($id)
+  {
+      $curso = Curso::findOrFail($id);
+      return view("pages.constancias-fechaEnvio")
+              ->with('curso',$curso);
+  }
+  
+  public function fechaEnvioActualizar(Request $request, $id)
+  {
+      $curso = Curso::findOrFail($id);
+      $curso->fecha_envio_constancia = $request->envio;
+      $curso->save();
+      return redirect('constancias/'.$id)
+              ->with('curso', $curso)
+              ->with('success', 'Fecha actualizada correctamente');
+  }
+
+  public function selectType($id)
     {
         $curso = Curso::findOrFail($id);
         $tmp = ProfesoresCurso::where('curso_id', $id)->get();
@@ -368,7 +385,6 @@ class ConstanciasController extends Controller{
                 $profesor = Profesor::findOrFail($participante->profesor_id);
                 $folio_inst = $folio.$idTipo."C".$numLista;
                 $participante->folio_inst = $folio_inst;
-                $participante->fecha_envio = $request->envio;
                 if($folio_der > 0)
                     $participante->folio_peque = strval($folio_der);
                 $participante->save();
@@ -417,7 +433,7 @@ class ConstanciasController extends Controller{
                         'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>strval($folio_der), )
                     )->setPaper('letter', 'landscape');
                 }
-                $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
+                $nombreArchivo = strval($iter).'_'.$profesor->getNombresArchivo().'_C.pdf';
                 $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
                 $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
                 $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));

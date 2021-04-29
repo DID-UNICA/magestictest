@@ -104,6 +104,7 @@
  
 
  <td><a href="{{ URL::to('curso/actualizar', $user->id) }}" class="btn btn-info">Actualizar información</a>
+ <a href="{{ URL::to('curso/instructores', $user->id) }}" class="btn btn-warning">Modificar Instructores</a>
             <a href="{{ URL::to('curso/baja', $user->id) }}" class="btn btn-danger">Dar de baja</a></td>
     
 </div>

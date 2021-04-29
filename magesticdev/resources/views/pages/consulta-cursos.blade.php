@@ -154,6 +154,7 @@
             <a href="{{ URL::to('curso/generar-formatos',$curso->id) }}" class="btn btn-primary" style="margin-bottom: 15px;">Generar formatos</a>
             <a href="{{ URL::to('curso/ver-profesores',$curso->id) }}" class="btn btn-warning" style="margin-bottom: 15px;">Ver Curso</a>
             <a href="{{ URL::to('curso/inscripcion',$curso->id)}}" class="btn btn-success" style="margin-bottom: 15px;">Inscribir</a>
+            <a href="{{ URL::to('curso/instructores', $curso->id) }}" class="btn btn-primary" style="margin-bottom: 15px;">Instructores</a>
             <a href="{{ URL::to('curso', $curso->id) }}" class="btn btn-info" style="margin-bottom: 15px;">Detalles</a>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$curso->id}}" style="margin-bottom: 15px;">Dar de baja</button>
         </td>

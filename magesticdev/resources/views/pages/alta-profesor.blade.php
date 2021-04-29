@@ -305,12 +305,11 @@
                 <div class="form-group{{ $errors->has('semblanza_corta') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Semblanza Corta</label>
                     <div class="col-md-6">
-                        <input id="semblanza_corta" type="text" class="form-control" name="semblanza_corta" value="{{ old('semblanza_corta') }}" >
-                        @if ($errors->has('semblanza_corta'))
+                        <textarea id="semblanza_corta" type="text" rows="4" cols="50" class="form-control" name="semblanza_corta" value="{{ old('semblanza_corta') }}" >@if ($errors->has('semblanza_corta'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('semblanza_corta') }}</strong>
                             </span>
-                        @endif
+                        @endif</textarea>
                     </div>
                 </div>
 
@@ -321,18 +320,6 @@
                         @if ($errors->has('facebook'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('facebook') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group{{ $errors->has('comentarios') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">Comentarios</label>
-                    <div class="col-md-6">
-                        <input id="comentarios" type="text" class="form-control" name="comentarios" value="{{ old('comentarios') }}" >
-                        @if ($errors->has('comentarios'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('comentarios') }}</strong>
                             </span>
                         @endif
                     </div>

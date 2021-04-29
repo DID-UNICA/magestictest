@@ -21,7 +21,7 @@ class Profesor extends Authenticatable
     protected $table = "profesors";
     protected $fillable = [
         'nombres', 'apellido_paterno','apellido_materno','rfc','numero_trabajador', 'categoria_nivel_id',
-        'fecha_nacimiento','telefono','grado','abreviatura_grado','email','usuario', 'fecha_alta','grado','comentarios','genero',
+        'fecha_nacimiento','telefono','grado','abreviatura_grado','email','usuario', 'fecha_alta','grado','genero',
         'baja','causa_baja','semblanza_corta','facebook','unam','procedencia','facultad_id'
     ];
 
@@ -36,6 +36,10 @@ class Profesor extends Authenticatable
 
     public function getNombres(){
         return $this->apellido_paterno." ".$this->apellido_materno." ".$this->nombres;
+    }
+
+    public function getNombresArchivo(){
+      return $this->apellido_paterno.$this->apellido_materno.str_replace(' ', '', $this->nombres);
     }
     public function getFirmanteConstancia(){
       return $this->abreviatura_grado." ".$this->nombres." ".$this->apellido_paterno." ".$this->apellido_materno;

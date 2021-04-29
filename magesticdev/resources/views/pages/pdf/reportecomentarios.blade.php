@@ -10,7 +10,7 @@ html{
 	width:100%;
 }
 body {
-  font-family: Arial, Helvetica, Sans-serif;
+  font-family:"Calibri, sans-serif";
 }
 .encabezado{
   text-align: center;
@@ -58,6 +58,10 @@ body {
   font-style: italic;
   padding-bottom: 6px;
 }
+#encabezado_8{
+  font-size: 15px;
+  font-weight: bold;
+}
 .img{
   padding-top: 3%;
 }
@@ -101,11 +105,48 @@ body {
   text-align: left;
   font-size:15px;
 }
+
+#header{
+	z-index:-1;
+	position: fixed;
+	margin-top: -76px;
+	font-size: 12pt;
+  font-weight: bold;
+  font-family:Calibri, Helvetica, Arial, serif;
+}
+
+
+@page :first{
+	margin-top:8px;
+}
+
+@page {
+	margin-top:120px;
+	content:element(header);
+}
+
 </style>
 
 <body>
+
+<div id="header">
+<div class=encabezado id=encabezado_8>{{$periodo}}</div>
+  <table class="table-titulos" width=100%>
+    <thead>
+      <tr>
+        <th width=40% class="col-th"></th>
+        <th width=40% class="col-th">
+        Sugerencia o recomendación</th>
+        <th width=20% class="col-th">Proceso<br/>
+        /Acuerdo o acción</th>
+      </tr>
+    </thead>
+  </table>
+  <hr>
+</div>
+
 <div class="content">
-	<div class="content-encabezado" height="10%">
+	<div class="content-encabezado" height="10%" style="background-color:white">
 	    <hr>
 		<div class=encabezado id=encabezado_1>UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
 		<div class=encabezado id=encabezado_2>
@@ -118,14 +159,15 @@ body {
 		<div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
         <div id=encabezado_6>Sugerencias o comentarios</div>
 		<div class=encabezado id=encabezado_7>{{$periodo}}</div>
-	</div>
+	</div> <!--end content encabezado-->
     <div>
         <table class="table-titulos" width=100%>
             <thead>
                 <tr>
                     <th width=40% class="col-th"></th>
                     <th width=40% class="col-th">Sugerencia o recomendación</th>
-                    <th width=20% class="col-th">Proceso/Acuerdo o acción</th>
+                    <th width=20% class="col-th">Proceso<br/>
+                    /Acuerdo o acción</th>
                 </tr>
             </thead>
         </table>
@@ -135,7 +177,7 @@ body {
             <p class="coordinacion-nombre">{{$coordinacion->nombre_coordinacion}}</p>
             @foreach($cursos as $curso)
             @if($curso->getCoordinacionId() == $coordinacion->id)
-            <p class="curso-nombre">{{$curso->getNombreCurso()}}</p>
+            <p class="curso-nombre">{{$curso->getNombreCursoSinClave()}}</p>
             @php
                 $participantes = $curso->getParticipantes();
             @endphp
@@ -170,3 +212,12 @@ body {
         @endforeach
     </div>
 </div>
+
+<script type="text/php">
+    if ( isset($pdf) ) {
+        $pdf->page_script('
+            $font = $fontMetrics->get_font("Calibri, sans-serif", "normal");
+            $pdf->text(490, 750, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
+        ');
+    }
+</script>

@@ -117,10 +117,6 @@
       {!!Form::text("procedencia", $user->procedencia, [ "class" => "form-control", "placeholder" => "Procedencia", "required","disabled"])!!}
     </div>
     @endif
-   <div class="form-group col-md-4 col-sm-6">
-    {!!Form::label("comentarios", "Comentarios:")!!}
-    {!!Form::textarea("comentarios", $user->comentarios, [ "class" => "form-control", "placeholder" => "Comentarios", "required","disabled"])!!}
-  </div>
 
    <div class="form-group col-md-4 col-sm-6">
     {!!Form::label("semblanza_corta", "Semblanza corta:")!!}

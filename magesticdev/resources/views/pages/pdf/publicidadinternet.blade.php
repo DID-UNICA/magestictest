@@ -9,11 +9,31 @@
 html{
 	width:100%;
 }
+
 body {
   font-family: Calibri, Helvetica, Arial, serif;
   align-items: center;
   font-size: 18pt;
 }
+#header{
+	z-index:-1;
+	position: fixed;
+	margin-top: -60px;
+	font-size: 12pt;
+	text-align:center;
+  	font-weight: bold;
+  	font-family:Calibri, Helvetica, Arial, serif;
+}
+
+@page :first{
+	margin-top:30px;
+}
+
+@page {
+	margin-top:95px;
+	content:element(header);
+}
+
 table{
 	table-layout: auto;
   width: 100%;
@@ -27,6 +47,7 @@ hr{
   background-size: 90%;
   background-repeat: no-repeat;
   background-position: 50% 80%;
+
 
 }
 #mayusculas{
@@ -83,10 +104,11 @@ hr{
 .rubros{
 	vertical-align: top;
 	padding-bottom: 8px;
-  font-size: 11pt;
-  font-weight: bold;
+  	font-size: 11pt;
+  	font-weight: bold;
 	font-style: italic;
-  text-align: left;
+  	text-align: left;
+	width:20%;
 }
 #rubro-temario{
 	vertical-align: top;
@@ -111,6 +133,7 @@ hr{
   font-family: Calibri, Helvetica, Arial, serif;
   text-align: left;
   font-style: italic;
+  string-set: header;
 }
 #contenidos-Ant{
 	vertical-align: top;
@@ -148,82 +171,107 @@ hr{
 </style>
 
 <body>
-<div id= fondo style="height: 90%">
-	<div height="10%">
-	<hr>
-		<div class=encabezado id=encabezado_1>UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
-		<img id= img2 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudos/escudounam_color.jpg" width="100" height="110" align=left>
-    <img id=img1 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudo_fi_color.png" width="100" height="114" align=right>
-		<div class=encabezado id=encabezado_2>FACULTAD DE INGENIERÍA</div>
-		<div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>
-		<div id=encabezado_4>CENTRO DE DOCENCIA</div>
-		<div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
-		<div class=encabezado id=encabezado_6>{{$tipo}}: {{$cursoCatalogo->nombre_curso}}</div>
-		<hr>
-	</div>
+<div id="header">{{$tipo}}: {{$cursoCatalogo->nombre_curso}}
+<br>
+<hr>
 
-	<!--Ffont family mayoría como"Calibri"-->
-	<!--Añadido "font-family: Calibri, Helvetica, Arial, serif;" A todos los encabezados a excepción del 5" -->
-	<!-- Clase contenidos originalmente tenía font-style: Italic;-->
-	<!--Clase comentarios modificado el font-size de 20px a 16px-->
-	<!--Clase contenidos modificado el font-size de 27px a 16px-->
-	<div id="cuerpo">
-		<table>
-			<tr>
-				<td class=rubros>Modalidad:</td>
-				<td class=contenidos>{{$tipo}}</td> <!--Originalmente con "id=tipolower"-->
-			</tr>
-			<tr>
-				<td class=rubros>Dirigido a:</td>
-				<td class=contenidos>{{$cursoCatalogo->dirigido}}</td>
-			</tr>
-			<tr>
-				<td class=rubros>Instructor(es):</td>
-				<td></td>
-			</tr>
-		</table>
-		
-		@foreach ($curso->getInstanciaProfesores() as $profesor)
-    	<p class=profesores> {{ $profesor->abreviatura_grado }} {{ $profesor->nombres }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}</p>
-		<p class=comentarios>{{ $profesor->semblanza_corta }}</p>
-		@endforeach
-		
-		<table>
-			<tr>
-				<td class=rubros>Objetivo:</td>
-				<td class=contenidos>{{$cursoCatalogo->objetivo}}</td>
-			</tr>
-			<?php
-				$contenidos=$curso->getContenido();
-				$aux=0;
-				print("
+</div>
+
+<div id="content">
+
+	<div id= fondo style="height: 90%">
+		<div height="10%" style="background-color:white">
+		<hr>
+			<div class=encabezado id=encabezado_1>UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
+			<img id= img2 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudos/escudounam_color.jpg" width="100" height="110" align=left>
+			<img id=img1 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudo_fi_color.png" width="100" height="114" align=right>
+			<div class=encabezado id=encabezado_2>FACULTAD DE INGENIERÍA</div>
+			<div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>
+			<div id=encabezado_4>CENTRO DE DOCENCIA</div>
+			<div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
+			<div class=encabezado id=encabezado_6>{{$tipo}}: {{$cursoCatalogo->nombre_curso}}</div>
+			<hr>
+		</div>
+
+		<!--Ffont family mayoría como"Calibri"-->
+		<!--Añadido "font-family: Calibri, Helvetica, Arial, serif;" A todos los encabezados a excepción del 5" -->
+		<!-- Clase contenidos originalmente tenía font-style: Italic;-->
+		<!--Clase comentarios modificado el font-size de 20px a 16px-->
+		<!--Clase contenidos modificado el font-size de 27px a 16px-->
+		<div id="cuerpo">
+			<table>
 				<tr>
-					<td id=rubro-temario>Contenido:</td>
-					 <td class=temario>{$contenidos[0]}</td>
-				</tr>");
-				foreach($contenidos as $contenido){
-					if ($aux == 0){
-						$aux=1;
-						continue;
-					}
-					print("
+					<td class=rubros>Modalidad:</td>
+					<td class=contenidos>{{$tipo}}</td> <!--Originalmente con "id=tipolower"-->
+				</tr>
 				<tr>
+					<td class=rubros>Dirigido a:</td>
+					<td class=contenidos>{{$cursoCatalogo->dirigido}}</td>
+				</tr>
+				<tr>
+					<td class=rubros>Instructor(es):</td>
 					<td></td>
-					 <td class=temario>{$contenido}</td>
-				</tr>");
-				}
-			?>
-			<tr>
-				<td id=rubro-Ant>Antecedentes:</td>
-				<td id=contenidos-Ant>{{$cursoCatalogo->previo}}</td>
-			</tr>
-			<tr>
-				<td class=rubros>Duración: </td>
-				<td class=contenidos>{{$cursoCatalogo->duracion_curso}} h</td>
-			</tr>
-		</table>
+				</tr>
+			</table>
+			
+			@foreach ($curso->getInstanciaProfesores() as $profesor)
+			<p class=profesores> {{ $profesor->abreviatura_grado }} {{ $profesor->nombres }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}</p>
+			<p class=comentarios>{{ $profesor->semblanza_corta }}</p>
+			@endforeach
+			
+			<table style="margin-top:10px">
+				<tr>
+					<td class=rubros>Objetivo:</td>
+					<td class=contenidos>{{$cursoCatalogo->objetivo}}</td>
+				</tr>
+				<?php
+					$contenidos=$curso->getContenido();
+					$aux=0;
+					print("
+					<tr>
+						<td id=rubro-temario>Contenido:</td>
+						<td class=temario>{$contenidos[0]}</td>
+					</tr>");
+					foreach($contenidos as $contenido){
+						if ($aux == 0){
+							$aux=1;
+							continue;
+						}
+						print("
+					<tr>
+						<td></td>
+						<td class=temario>{$contenido}</td>
+					</tr>");
+					}
+				?>
+				<tr>
+					<td id=rubro-Ant>Antecedentes:</td>
+					<td id=contenidos-Ant>{{$cursoCatalogo->previo}}</td>
+				</tr>
+				<tr>
+					<td class=rubros>Duración: </td>
+					<td class=contenidos>{{$cursoCatalogo->duracion_curso}} h</td>
+				</tr>
+			</table>
+
+		</div>	
+			
+		
+			
+		
+
+
 	</div>
 </body>
 </html>
 
 <!--Sustituidos todos los px por pt en textos-->
+<script type="text/php">
+    if ( isset($pdf) ) {
+        $pdf->page_script('
+            if ($PAGE_NUM >= 2){
+
+			}
+        ');
+    }
+</script>

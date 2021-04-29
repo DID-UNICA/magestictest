@@ -28,7 +28,7 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
         $instructores = ProfesoresCurso::where('curso_id',$curso->id)->get();
         foreach($instructores as $instructor){
           $profesor = Profesor::find($instructor->profesor_id);
-          $fecha_envio = $instructor->fecha_envio;
+          $fecha_envio = $curso->fecha_envio_reconocimiento;
           if($fecha_envio == "" or !$fecha_envio)
             $fecha_envio = $catalogo_curso->institucion;
           $tmp = array(
@@ -45,7 +45,7 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
         $participantes = ParticipantesCurso::where('curso_id',$curso->id)->get();
         foreach($participantes as $participante){
           $profesor = Profesor::find($participante->profesor_id);
-          $fecha_envio = $participante->fecha_envio;
+          $fecha_envio = $curso->fecha_envio_constancia;
           if($fecha_envio == "" or !$fecha_envio)
             $fecha_envio = $catalogo_curso->institucion;
           $tmp = array(
