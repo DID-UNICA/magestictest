@@ -17,7 +17,7 @@ class Division extends Authenticatable
 
     protected $table = "divisions";
     protected $fillable = [
-        'nombre',
+        'nombre', 'abreviatura'
     ];
 
     /**

@@ -25,13 +25,12 @@ body {
   	font-family:Calibri, Helvetica, Arial, serif;
 }
 
-@page :first{
+@page :first {
 	margin-top:30px;
 }
 
 @page {
 	margin-top:95px;
-	content:element(header);
 }
 
 table{
@@ -138,7 +137,7 @@ hr{
 #contenidos-Ant{
 	vertical-align: top;
 	padding-bottom: 8px;
-	padding-top: 8px;
+	padding-top: 1px;
   font-size: 11pt;
   font-style: italic;
 	text-align: left;
@@ -171,6 +170,7 @@ hr{
 </style>
 
 <body>
+
 <div id="header">{{$tipo}}: {{$cursoCatalogo->nombre_curso}}
 <br>
 <hr>
@@ -216,7 +216,7 @@ hr{
 			
 			@foreach ($curso->getInstanciaProfesores() as $profesor)
 			<p class=profesores> {{ $profesor->abreviatura_grado }} {{ $profesor->nombres }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}</p>
-			<p class=comentarios>{{ $profesor->semblanza_corta }}</p>
+			<p class=comentarios>{!! nl2br(str_replace(' ', '&nbsp;', $profesor->semblanza_corta)) !!}</p>
 			@endforeach
 			
 			<table style="margin-top:10px">
@@ -224,54 +224,22 @@ hr{
 					<td class=rubros>Objetivo:</td>
 					<td class=contenidos>{{$cursoCatalogo->objetivo}}</td>
 				</tr>
-				<?php
-					$contenidos=$curso->getContenido();
-					$aux=0;
-					print("
-					<tr>
-						<td id=rubro-temario>Contenido:</td>
-						<td class=temario>{$contenidos[0]}</td>
-					</tr>");
-					foreach($contenidos as $contenido){
-						if ($aux == 0){
-							$aux=1;
-							continue;
-						}
-						print("
-					<tr>
-						<td></td>
-						<td class=temario>{$contenido}</td>
-					</tr>");
-					}
-				?>
+				<tr>
+					<td id=rubro-temario>Contenido:</td>
+					<td class=temario>{!! nl2br(str_replace(' ', '&nbsp;', $cursoCatalogo->contenido)) !!}</td>
+				</tr>
 				<tr>
 					<td id=rubro-Ant>Antecedentes:</td>
-					<td id=contenidos-Ant>{{$cursoCatalogo->previo}}</td>
+					<td id=contenidos-Ant>{!! nl2br(str_replace(' ', '&nbsp;', $cursoCatalogo->getAntecedentes())) !!}</td>
 				</tr>
 				<tr>
 					<td class=rubros>Duración: </td>
 					<td class=contenidos>{{$cursoCatalogo->duracion_curso}} h</td>
 				</tr>
 			</table>
-
-		</div>	
-			
-		
-			
-		
-
-
+		</div>
 	</div>
 </body>
 </html>
 
 <!--Sustituidos todos los px por pt en textos-->
-<script type="text/php">
-    if ( isset($pdf) ) {
-        $pdf->page_script('
-            if ($PAGE_NUM >= 2){
-
-			}
-        ');
-    }
-</script>

@@ -69,10 +69,11 @@ Route::post('catalogo-cursos/save',"CatalogoCursosController@create")->name('cat
 Route::post('catalogo-cursos/temascreate/{id}/{temas}',"TemaSeminarioController@create")->name('temas.store');
 Route::post('catalogo-cursos/temasupdate/{id}/{temas}',"TemaSeminarioController@update")->name('temas.update');
 Route::get('catalogo-cursos/{id}', "CatalogoCursosController@show")->name('catalogo-cursos.show');
-Route::get('catalogo-cursos/descartarAntescedente/{catalogoCurso_id}/{antescedente_id}', "CatalogoCursosController@descartarAntescedente")->name('catalogo-cursos.descartarAntescedente');
+Route::get('catalogo-cursos/descartarAntecedente/{catalogoCurso_id}/{antecedente_id}', "CatalogoCursosController@descartarAntecedente")->name('catalogo-cursos.descartarAntecedente');
 Route::get('catalogo-cursos','CatalogoCursosController@search')->name("catalogo-cursos.consulta");
 Route::get('catalogo-cursos/actualizar/{id}', "CatalogoCursosController@edit")->name('catalogo-cursos.update');
-Route::get('catalogo-cursos/ver-antescedentes/{id}', "CatalogoCursosController@verAntescedentes")->name('catalogo-cursos.ver-antescedentes');
+Route::get('catalogo-cursos/ver-antecedentes/{id}', "CatalogoCursosController@verAntecedentes")->name('catalogo-cursos.ver-antecedentes');
+Route::get('catalogo-cursos/alta-antecedente/{catalogoCurso_id}/{antecedente_id}', "CatalogoCursosController@altaAntecedente")->name('catalogo-cursos.alta-antecedente');
 Route::put('catalogo-cursos/actualizar/{id}', "CatalogoCursosController@update")->name('catalogo-cursos.actualizar');
 Route::get('catalogo-cursos/baja/{id}', "CatalogoCursosController@delete");
 

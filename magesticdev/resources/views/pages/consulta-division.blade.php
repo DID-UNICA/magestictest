@@ -30,11 +30,13 @@
                 <table class="col-md-12">
                     <tr>
                         <th>Nombre</th>
+                        <th>Abreviatura</th>
                         <th></th>
                     </tr>
                     @foreach($users as $user)
                         <tr>
                             <td>{{ $user->nombre }} </td>
+                            <td>{{ $user->abreviatura }} </td>
 
                             <td><a href="{{ URL::to('division/actualizar', $user->id) }}" style="margin: 10px;" class="btn btn-info">Modificar</a>
                                 <button type="button" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#myModal{{$user->id}}">Dar de baja</button></td>

@@ -14,6 +14,7 @@
     .margen2{
         border: 1px solid black;
     }
+    
     #tabla_encabezado{
         border-collapse: collapse;
         border: 1px solid #ddd;
@@ -43,10 +44,14 @@
         line-height:130%;
     }
     #imagen_izquierda{
-        margin-left: 15%;
+        margin-left: 10%;
+        width: 85px; 
+        height: auto;
     }
     #imagen_derecha{
-        margin-left: 14%;
+        margin-left: 5.5%;
+        width: 88px; 
+        height: auto;
     }
     .titulos{
         font-family:Arial, Helvetica, Sans-serif,cursive; 
@@ -77,24 +82,35 @@
 
 #header{
 	z-index:-1;
-    margin-top: -310px;
+    margin-top: -317px;
 	position: fixed;
 }
 
+.margen3{
+        border: 1px solid black;
+        
+}
+
+@page :first{
+	margin-top:360px;
+    margin-bottom:75px;
+}
 
 @page {
-	margin-top:340px;
+	margin-top:202px;
     margin-bottom:80px;
 
 }
-
+body{
+    margin: 0px;
+}
 </style>
 <body>
 
 	<div id="header">
 		<table  id="tabla_encabezado">
 				<td width= 9% class="margen">
-                    <img id="imagen_izquierda"  src="img/asistencia2.png">
+                    <img id="imagen_izquierda"  src="img/asistencia.jpeg">
 				</td>
 				<td width= 70% id="encabezado" class="margen">
 			        FACULTAD DE INGENIERÍA, UNAM<br/>
@@ -105,7 +121,7 @@
 			        Formato
 				</td>
 				<td width= 9% class="margen">
-          <img id="imagen_derecha" src="img/asistencia1.png">
+          <img id="imagen_derecha" src="img/cdd.png">
 				</td>
 		</table>
         <table id="tabla_encabezado_debajo">
@@ -128,6 +144,7 @@
 					
 				</td>
 		</table>
+        
         <table style="width: 100%"> <!--width = 85% originalmente-->
             <tr>
                 <td class="titulos">Coordinación</td>
@@ -135,7 +152,7 @@
             </td>
 			<tr >
 				<td class="titulos" width="10%" style="vertical-align: top;">Instructor</td>
-				<td class="valores mayus" width="30%" height=55px style="vertical-align: top;">{{ $curso->getProfesores() }}</td>
+				<td class="valores mayus" width="30%" height=56px style="vertical-align: top;">{!! nl2br($curso->getProfesoresInst()) !!}</td>
 				@if ($tipo == 'Módulo Diplomado')
         <td width=10% class="tipo mayus"></td> <!-- class="tipo mayus" width al 12% originalmente-->
         @else
@@ -166,26 +183,26 @@
 				<td class="titulos" width=17%>Fechas de impartición</td>
 			</tr>
 		</table>
-        
+            
 <table id="tabla_lista" align="center" style="width: 100%">
 	<tr align="center" class="margen">
-		<th class="margen2" width="25%"><b>Nombre del participante</b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-		<td class="margen2" width="5%"><b></b></td>
-        <td class="margen2" width="5%"><b></b></td>
-		<th class="margen2" width="10%"><b>Calificacion</b></td>
+		<th class="margen3" width="25%"><b>Nombre del participante</b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+		<td class="margen3" width="5%"><b></b></td>
+        <td class="margen3" width="5%"><b></b></td>
+		<th class="margen3" width="10%"><b>Calificación</b></td>
 	</tr>
     </table>
-    </div> <!--Cierra div del header-->	
+</div> <!--Cierra div del header-->	    
 
     <table id="tabla_lista" align="center" style="width: 100%">
     <?php 
@@ -219,12 +236,17 @@
     
 
 
-<script type="text/php">
+    <script type="text/php">
     if ( isset($pdf) ) {
         $pdf->page_script('
             $font = $fontMetrics->get_font("Arial", "normal");
-            $pdf->text(709, 100, "Página $PAGE_NUM de $PAGE_COUNT", $font, 8);
-            $pdf->text(720, 550, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
+            if ($PAGE_NUM == 1){
+                $pdf->text(709, 109, "Página $PAGE_NUM de $PAGE_COUNT", $font, 8);
+                $pdf->text(720, 550, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
+            }else{
+                $pdf->text(720, 550, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
+            }
+
         ');
     }
 </script>

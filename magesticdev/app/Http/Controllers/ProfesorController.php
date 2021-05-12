@@ -119,6 +119,7 @@ class ProfesorController extends Controller
             return redirect()->back()->with('danger', 'Datos incorrectos. Alguno de los datos ingresados ya esta registrado en el sistema');
         $user->telefono = $request->telefono;
         $user->categoria_nivel_id = $request->categoria_nivel_id;
+        $user->categoria_nivel_2_id = $request->categoria_nivel_2_id;
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->telefono = $request->telefono;
         $user->grado = $request->grado;
@@ -454,6 +455,7 @@ class ProfesorController extends Controller
 */
         $user->telefono = $request->telefono;
         $user->categoria_nivel_id = $request->categoria_nivel_id;
+        $user->categoria_nivel_2_id = $request->categoria_nivel_2_id;
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->telefono = $request->telefono;
         $user->grado = $request->grado;

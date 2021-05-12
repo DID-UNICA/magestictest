@@ -94,14 +94,30 @@ class DiplomadoController extends Controller
     public function verParticipantesDiplomado($id)
     {
         $diplomado = Diplomado::findOrFail($id);
-        $displomadosParticipantes = DiplomadosProfesor::join('profesors', 'profesors.id', 'profesor_id')->where('diplomado_id',$id)->orderBy('apellido_paterno')->orderBy('apellido_materno')->get();
+        $diplomadosParticipantes = DiplomadosProfesor::join('profesors', 'profesors.id', 'profesor_id')->where('diplomado_id',$id)->orderBy('apellido_paterno')->orderBy('apellido_materno')->get();
+        $diplomadosCurso = DiplomadosCurso::where('diplomado_id',$diplomado->id)->get();
         $profesores = array();
-        foreach($displomadosParticipantes as $displomadosParticipante){
-            array_push($profesores,Profesor::find($displomadosParticipante->profesor_id));
+        $bajas = array();
+        foreach($diplomadosParticipantes as $diplomadosParticipante){
+          foreach($diplomadosCurso as $diplomadoCurso){
+            $curso = Curso::find($diplomadoCurso->curso_id);
+            $participante = ParticipantesCurso::where('curso_id',$curso->id)
+              ->where('profesor_id',$diplomadosParticipante->profesor_id)->get();
+            //Un participante no está inscrito en un módulo
+            if($participante == "[]"){
+              array_push($bajas,
+              array(
+                'modulo' => CatalogoCurso::find($curso->id)->nombre_curso,
+                'nombres' => Profesor::find($diplomadosParticipante->profesor_id)->getNombres2()
+              ));
+            }
+          }
+          array_push($profesores,Profesor::find($diplomadosParticipante->profesor_id));
         }
-        return view("pages.ver-profesores-diplomado")
-            ->with("diplomado",$diplomado)
-            ->with("profesores",$profesores);
+          return view("pages.ver-profesores-diplomado")
+              ->with("diplomado",$diplomado)
+              ->with("profesores",$profesores)
+              ->with('bajas', $bajas);
     }
     public function delete($id)
     {   

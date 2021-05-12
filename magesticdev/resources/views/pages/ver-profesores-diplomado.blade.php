@@ -14,6 +14,11 @@
     <section class="content-inner">
     <br>
     @include ('partials.messages')
+    @foreach ($bajas as $baja)
+    <div class="alert alert-danger" role=alert>
+        <strong>El profesor {{$baja['nombres']}} fue dado de baja del módulo {{$baja['modulo']}}, debe considerarse descartarlo del diplomado</strong>
+    </div>
+    @endforeach
       <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="container">

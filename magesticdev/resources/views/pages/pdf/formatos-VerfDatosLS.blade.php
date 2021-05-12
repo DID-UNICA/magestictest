@@ -117,9 +117,9 @@ body {
 	        print("
 	        <table width=100%>
 	        	<tr>
-	        	<td class=small width=45%>{$alumno->nombres} {$alumno->apellido_paterno} {$alumno->apellido_materno}</td>
-	        	<td class=small width=30%>{$alumno->email}</td>
-	        	<td class=small width=20%>{$alumno->telefono}</td>
+	        	<td class=datos width=45%>{$alumno->nombres} {$alumno->apellido_paterno} {$alumno->apellido_materno}</td>
+	        	<td class=datos width=30%>{$alumno->email}</td>
+	        	<td class=datos width=20%>{$alumno->telefono}</td>
 	    		</tr>
 			</table>
 			<hr class=line-renglon>

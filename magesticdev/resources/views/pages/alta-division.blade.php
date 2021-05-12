@@ -42,6 +42,16 @@
                                     </span>
                                 @endif
                             </div>
+
+                            <div class="col-md-6">
+                                <input id="abreviatura" type="text" class="form-control" name="abreviatura" value="{{ old('abreviatura') }}">
+
+                                @if ($errors->has('abreviatura'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('abreviatura') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
 
 

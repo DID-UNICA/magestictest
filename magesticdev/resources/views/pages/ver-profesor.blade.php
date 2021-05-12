@@ -59,8 +59,13 @@
     </div>
 
     <div class="form-group col-md-3 col-sm-6">
-      {!!Form::label("categoria_nivel_id", "Categoría y Nivel:")!!}
-      {!!Form::text("categoria_nivel_id", $user->getCategoria(), [ "class" => "form-control", "placeholder" => "Categoría y nivel", "required","disabled"])!!}
+      {!!Form::label("categoria_nivel_id", "Primer Categoría y Nivel:")!!}
+      {!!Form::text("categoria_nivel_id", $user->getCategoria_1(), [ "class" => "form-control", "placeholder" => "Primer Categoría y nivel", "required","disabled"])!!}
+    </div>
+
+    <div class="form-group col-md-3 col-sm-6">
+      {!!Form::label("categoria_nivel_2_id", "Segunda Categoría y Nivel:")!!}
+      {!!Form::text("categoria_nivel_2_id", $user->getCategoria_2(), [ "class" => "form-control", "placeholder" => "Segunda Categoría y nivel", "required","disabled"])!!}
     </div>
 
     <div class="form-group col-md-3 col-sm-6">
@@ -118,9 +123,9 @@
     </div>
     @endif
 
-   <div class="form-group col-md-4 col-sm-6">
+   <div class="form-group col-md-6 col-sm-6">
     {!!Form::label("semblanza_corta", "Semblanza corta:")!!}
-    {!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "class" => "form-control", "placeholder" => "Semblanza", "required","disabled"])!!}
+    {!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "cols"=>"90", "wrap"=>"hard", "class" => "form-control", "placeholder" => "Semblanza", "required","disabled"])!!}
   </div>
 <div class="row col-md-3 "> 
   <a href="{{ URL::to('profesor/actualizar', $user->id) }}" class="btn btn-info btn-block">Actualiza información</a>

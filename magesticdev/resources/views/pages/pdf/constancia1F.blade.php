@@ -131,7 +131,7 @@ body {
     <img id=img1 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudo_fi_color.png" width="166" height="198">
     <img id= img2 src='img/escudounam-color.png' width="174" height="221">
     <div class=encabezado id=encabezado_2>FACULTAD DE INGENIERÍA</div>
-    <div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>
+    <div id=encabezado_3 style="padding-top: 0.1cm;">SECRETARÍA DE APOYO A LA DOCENCIA</div>
     <div id=encabezado_4>CENTRO DE DOCENCIA</div>
     <div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
     <br>

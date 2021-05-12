@@ -134,24 +134,22 @@
                     
 
                     <div class="form-group{{ $errors->has('presentacion') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Semblanza: </label>
+                        <label for="name" class="col-md-4 control-label">Presentación: </label>
 
-                        <div class="col-md-6">
-                            <input id="presentacion" type="text"  class="form-control" name="presentacion" value="{{ old('presentacion') }}">
-
-                            @if ($errors->has('presentacion'))
+                        <div class="col-md-5">
+													<textarea cols="90" wrap="hard" id="presentacion" type="text" class="form-control" name="presentacion" value="{{ old('presentacion') }}">@if ($errors->has('presentacion'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('presentacion') }}</strong>
                                     </span>
-                            @endif
+                            @endif</textarea>
                         </div>
                     </div>
 
                     <div class="form-group{{ $errors->has('dirigido') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Dirigido:</label>
 
-                        <div class="col-md-6">
-                            <textarea rows="4" cols="50" id="dirigido" type="text" class="form-control" name="dirigido" value="{{ old('dirigido') }}">@if ($errors->has('dirigido'))
+                        <div class="col-md-5">
+                            <textarea cols="90" wrap="hard" id="dirigido" type="text" class="form-control" name="dirigido" value="{{ old('dirigido') }}">@if ($errors->has('dirigido'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('dirigido') }}</strong>
                                     </span>
@@ -161,8 +159,8 @@
 
                     <div class="form-group{{ $errors->has('objetivo') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Objetivo:</label>
-                        <div class="col-md-6">
-                            <textarea rows="4" cols="50" id="objetivo" type="text" class="form-control" name="objetivo" value="{{ old('objetivo') }}">@if ($errors->has('objetivo'))
+                        <div class="col-md-5">
+                            <textarea cols="90" wrap="hard" id="objetivo" type="text" class="form-control" name="objetivo" value="{{ old('objetivo') }}">@if ($errors->has('objetivo'))
                                 <span class="help-block">
                                   <strong>{{ $errors->first('objetivo') }}</strong>
                                 </span>
@@ -170,9 +168,9 @@
                         </div>
                     </div>
                     <div class="form-group{{ $errors->has('contenido') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Contenidos (Iniciando y separando por guiones):</label>
-                        <div class="col-md-6">
-                                <textarea rows="4" cols="50" id="contenido" type="text" placeholder="-Contenido1-Contenido2-Contenido3" class="form-control" name="contenido" value="{{ old('contenido') }}">@if ($errors->has('contenido'))
+                        <label for="name" class="col-md-4 control-label">Contenidos:</label>
+                        <div class="col-md-5">
+                                <textarea cols="90" wrap="hard" id="contenido" type="text" class="form-control" name="contenido" value="{{ old('contenido') }}">@if ($errors->has('contenido'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('contenido') }}</strong>
                                 </span>
@@ -183,7 +181,7 @@
                     <div class="form-group{{ $errors->has('fecha_disenio') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Fecha de diseño:</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <input id="fecha_disenio" type="date"  class="form-control" name="fecha_disenio" value="{{ old('fecha_disenio') }}" required oninvalid="this.setCustomValidity('Ingrese una fecha de diseño por favor entre 01/01/2010 y 30/12/2030')" oninput="this.setCustomValidity('')" min="2010-01-01" max="2030-12-30">
 
                             @if ($errors->has('fecha_disenio'))
@@ -194,27 +192,27 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('antescedente_id') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('antecedente_id') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Antecedentes:</label>
                         <div class="col-md-6">
-                            <select onchange="deter()" id='antescedente_id' class="form-control" multiple="multiple" name="antescedente_id[]" value="{{ old('antescedente_id')}}>
+                            <select onchange="deter()" id='antecedente_id' class="form-control" multiple="multiple" name="antecedente_id[]" value="{{ old('antecedente_id')}}>
                             @foreach($catalogo_cursos as $catalogo_curso)
                                 <option value="{{ $catalogo_curso->id }} ">{{ $catalogo_curso->nombre_curso }} ({{ $catalogo_curso->clave_curso }})</option>
-                                    $antescedente_id = $request->input('antescedente_id');
+                                    $antecedente_id = $request->input('antecedente_id');
                             @endforeach
                                 <option id="Otros" value="Otros">Otros</option>
                             </select>
-                            @if ($errors->has('antescedente_id'))
+                            @if ($errors->has('antecedente_id'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('antescedente_id') }}</strong>
+                                    <strong>{{ $errors->first('antecedente_id') }}</strong>
                                 </span>
                             @endif
                         </div>
                     </div>
                     <div id="E1" class="form-group{{ $errors->has('antesE') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Otros Antecedentes:</label>
-                        <div class="col-md-6">
-                            <textarea rows="4" cols="50" type="text" class="form-control" name="antesc"></textarea>
+                        <div class="col-md-5">
+                            <textarea cols="90" wrap="hard" type="text" class="form-control" name="antesc"></textarea>
                         </div>
                     </div>
 

@@ -171,12 +171,17 @@ class DiplomasController extends Controller{
             $curso = Curso::find($diplomadoCurso->curso_id);
             $participante = ParticipantesCurso::where('curso_id',$curso->id)
               ->where('profesor_id',$profesor->id)->get();
-            //Un participante no aprobó un módulo
+            //Un participante no está inscrito en un módulo
             if($participante == "[]"){
               $acredito = false;
               break;
             }
             $participante = $participante[0];
+            //El participante canceló su inscripción
+            if($participante->cancelación){
+              $acredito = false;
+              break;
+            }
             if($participante->asistencia and $participante->acreditacion){
               if($curso->getInstitucion() == 'DGAPA' && $participante->calificacion >= 6){
                 array_push($cursos,$curso);

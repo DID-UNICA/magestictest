@@ -44,6 +44,7 @@ class DivisionController extends Controller
     {
         $user = Division::find($id);
         $user->nombre = $request->nombre;
+        $user->abreviatura = $request->abreviatura;
         $user->save();
         return redirect('/division')
           ->with('success','Se han actualizado los datos correctamente');
@@ -70,6 +71,7 @@ class DivisionController extends Controller
     {
         $user = new Division;
         $user->nombre= $request->nombre;
+        $user->abreviatura= $request->abreviatura;
         $user->save();
         return redirect('/division')
           ->with('success','Se ha creado el registro correctamente');

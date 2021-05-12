@@ -66,6 +66,10 @@ class Curso extends Model
 
         }
     }
+    public function getCatalogoCurso(){
+      $catalogo = CatalogoCurso::find($this->catalogo_id);
+      return $catalogo;
+  }
     public function getCupoMax(){
         return $this->cupo_maximo;
     }
@@ -363,6 +367,29 @@ class Curso extends Model
         $cadena= substr($cadena, 0, -1);
         return $cadena;
     }
+
+    public function getProfesoresInst(){
+        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->get();
+
+        $cadena="";
+
+        if ( count($profesoresCurso) == 1 ){
+            $profesor=Profesor::find($profesoresCurso[0]->profesor_id);
+            $cadena.=$profesor->nombres." ";
+            $cadena.=$profesor->apellido_paterno." ";
+            $cadena.=$profesor->apellido_materno;
+            return $cadena;
+        }
+        foreach($profesoresCurso as $profesorCurso){
+            $profesor=Profesor::find($profesorCurso->profesor_id);
+            $cadena.=$profesor->nombres." ";
+            $cadena.=$profesor->apellido_paterno." ";
+            $cadena.=$profesor->apellido_materno."\n";
+        }
+        $cadena= substr($cadena, 0, -1);
+        return $cadena;
+    }
+
     public function getProfesoresArray(){
         $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->get();
         $cadena = "";

@@ -210,9 +210,27 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('categoria_nivel_id') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">Categoría y nivel:</label>
+                    <label for="name" class="col-md-4 control-label">Primer Categoría y Nivel:</label>
                     <div class="col-md-6">
                         <select name="categoria_nivel_id" class="btn dropdown-toggle pull-left">
+                            @foreach($categorias as $categoria)
+                                @if($categoria->categoria != 'Ninguna')
+                                <option value="{{ $categoria->id }} ">{{ $categoria->categoria }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        @if ($errors->has('coordinacion_id'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('coordinacion_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('categoria_nivel_2_id') ? ' has-error' : '' }}">
+                    <label for="name" class="col-md-4 control-label">Segunda Categoría y Nivel:</label>
+                    <div class="col-md-6">
+                        <select name="categoria_nivel_2_id" class="btn dropdown-toggle pull-left">
                             @foreach($categorias as $categoria)
                                 <option value="{{ $categoria->id }} ">{{ $categoria->categoria }}</option>
                             @endforeach
@@ -305,7 +323,7 @@
                 <div class="form-group{{ $errors->has('semblanza_corta') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Semblanza Corta</label>
                     <div class="col-md-6">
-                        <textarea id="semblanza_corta" type="text" rows="4" cols="50" class="form-control" name="semblanza_corta" value="{{ old('semblanza_corta') }}" >@if ($errors->has('semblanza_corta'))
+                        <textarea cols="90" wrap="hard" id="semblanza_corta" type="text" rows="4" cols="50" class="form-control" name="semblanza_corta" value="{{ old('semblanza_corta') }}" >@if ($errors->has('semblanza_corta'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('semblanza_corta') }}</strong>
                             </span>

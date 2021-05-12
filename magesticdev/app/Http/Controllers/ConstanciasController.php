@@ -234,7 +234,12 @@ class ConstanciasController extends Controller{
         }
         $fecha = $dia_a . " de " .$mes_a . " de " . $anio;
         $folio = "F04".$anio.$tipo;
-        $texto = "por acreditar el ".$curso->getTipoCadena();
+        //$texto = "por acreditar el ".$curso->getTipoCadena();
+				if($request->texto1 == "D"){
+					$texto = $request->texto_per;
+				}else{
+					$texto = $request->texto1." ".$curso->getTipoCadena();
+				}
         try{
             try{
                 File::makeDirectory(resource_path('views/pages/tmp'.$hash_aux),0777,true);
@@ -307,73 +312,48 @@ class ConstanciasController extends Controller{
             //SE ELIGIÓ LA OPCIÓN MANUAL
             }if ($tipoDeConstancia == "f1"){
                 //Un Firmante
-                if($request->texto1 == "D"){
-                    $texto = $request->texto1P;
-                }else{
-                    $texto = $request->texto1." ".$curso->getTipoCadena();
-                }
-                $firmante1 = $request->name1A;
-                $descripcion1 = $request->posicion1A;
+                $firmante1 = $request->name1;
+                $descripcion1 = $request->posicion1;
                 $formatoConstancia = 1;
             }elseif ($tipoDeConstancia == "f2"){
                 //Dos Firmantes
-                if($request->texto2 == "D"){
-                    $texto = $request->texto2P;
-                }else{
-                    $texto = $request->texto2." ".$curso->getTipoCadena();
-                }
-                $firmante1 = $request->name1B;
-                $descripcion1 = $request->posicion1B;
-                $firmante2 = $request->name2B;
-                $descripcion2 = $request->posicion2B;
+                $firmante1 = $request->name1;
+                $descripcion1 = $request->posicion1;
+                $firmante2 = $request->name2;
+                $descripcion2 = $request->posicion2;
                 $formatoConstancia = 2;
             }elseif ($tipoDeConstancia == "f3"){
                 //Tres Firmantes
-                if($request->texto3 == "D"){
-                    $texto = $request->texto3P;
-                }else{
-                    $texto = $request->texto3." ".$curso->getTipoCadena();
-                }
-                $firmante1 = $request->name1C;
-                $descripcion1 = $request->posicion1C;
-                $firmante2 = $request->name2C;
-                $descripcion2 = $request->posicion2C;
-                $firmante3 = $request->name3C;
-                $descripcion3 = $request->posicion3C;
+                $firmante1 = $request->name1;
+                $descripcion1 = $request->posicion1;
+                $firmante2 = $request->name2;
+                $descripcion2 = $request->posicion2;
+                $firmante3 = $request->name3;
+                $descripcion3 = $request->posicion3;
                 $formatoConstancia = 3;
             }elseif ($tipoDeConstancia == "f4"){
                 //Cuatro Firmantes
-                if($request->texto4 == "D"){
-                    $texto = $request->texto4P;
-                }else{
-                    $texto = $request->texto4." ".$curso->getTipoCadena();
-                }
-                $firmante1 = $request->name1D;
-                $descripcion1 = $request->posicion1D;
-                $firmante2 = $request->name2D;
-                $descripcion2 = $request->posicion2D;
-                $firmante3 = $request->name3D;
-                $descripcion3 = $request->posicion3D;
-                $firmante4 = $request->name4D;
-                $descripcion4 = $request->posicion4D;
+                $firmante1 = $request->name1;
+                $descripcion1 = $request->posicion1;
+                $firmante2 = $request->name2;
+                $descripcion2 = $request->posicion2;
+                $firmante3 = $request->name3;
+                $descripcion3 = $request->posicion3;
+                $firmante4 = $request->name4;
+                $descripcion4 = $request->posicion4;
                 $formatoConstancia = 4;
             }elseif ($tipoDeConstancia == "f5"){
                 //Cinco Firmantes
-                if($request->texto5 == "D"){
-                    $texto = $request->texto5P;
-                }else{
-                    $texto = $request->texto5." ".$curso->getTipoCadena();
-                }
-                $firmante1 = $request->name1E;
-                $descripcion1 = $request->posicion1E;
-                $firmante2 = $request->name2E;
-                $descripcion2 = $request->posicion2E;
-                $firmante3 = $request->name3E;
-                $descripcion3 = $request->posicion3E;
-                $firmante4 = $request->name4E;
-                $descripcion4 = $request->posicion4E;
-                $firmante5 = $request->name5E;
-                $descripcion5 = $request->posicion5E;
+                $firmante1 = $request->name1;
+                $descripcion1 = $request->posicion1;
+                $firmante2 = $request->name2;
+                $descripcion2 = $request->posicion2;
+                $firmante3 = $request->name3;
+                $descripcion3 = $request->posicion3;
+                $firmante4 = $request->name4;
+                $descripcion4 = $request->posicion4;
+                $firmante5 = $request->name5;
+                $descripcion5 = $request->posicion5;
                 $formatoConstancia = 5;
             }
             

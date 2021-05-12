@@ -11,6 +11,7 @@ use App\ProfesoresCurso;
 use App\EvaluacionFinalCurso;
 use App\EvaluacionFinalSeminario;
 use App\EvaluacionXSeminario;
+use App\Coordinacion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -143,6 +144,10 @@ class EvaluacionController extends Controller{
 	 * evaluación del curso realizado, $lugar: nombre de la vista a pasar a pdf, $salon: salon donde se toma el curso, $numero_horas: horas totales del curso
 	 */
 	public function enviarCorreo($profesor_id, $curso_id, $catalogoCurso_id, $eval_curso, $lugar, $salon, $numero_horas){
+		//Si el formulario no fue rellenado por un profesor, no hace falta enviar el correo
+		if (Session::has('coordinador_id') or Session::has('superadmin'))
+			return
+
 		$profesor = Profesor::find($profesor_id);
 		$curso = CatalogoCurso::find($curso_id);
 		$semestre=Curso::find($curso_id);
@@ -185,7 +190,7 @@ class EvaluacionController extends Controller{
 	 * $coutn: número de profesores que tiene el curso
 	 * @return La vista donde se realizará la evaluación
 	 */
-	public function evaluacionPorSesion($profesor_id, $curso_id, $catalogoCurso_id,$count){
+	public function evaluacionPorSesion($profesor_id, $curso_id, $catalogoCurso_id, $count){
 		 
 		$profesor = Profesor::find($profesor_id);
 		$curso = Curso::find($curso_id);
@@ -216,14 +221,18 @@ class EvaluacionController extends Controller{
 				->with("profesor",$profesor)
 				->with("curso",$curso)
                 ->with('catalogoCurso',$catalogoCurso)
-                ->with('infoCursos',$infoCursos);
+                ->with('infoCursos',$infoCursos)
+                ->with('layout',Session::has('coordinador_id') ? 'layouts.coordinadores' : (Session::has('superadmin') ? 'layouts.app' : 'layouts.principal'))
+                ->with(Session::has('coordinador_id') ? 'encargado' : (Session::has('superadmin') ? 'coordinaciones' : 'a_') ,Session::has('coordinador_id') ? Coordinacion::findorFail(Session::get('coordinador_id')) : (Session::has('superadmin') ? Coordinacion::all() : '.'));
                    
         }else{
             return view("pages.xsesion")
                 ->with("profesor",$profesor)
                 ->with("curso",$curso)
                 ->with('catalogoCurso',$catalogoCurso)
-                ->with('infoCursos',$infoCursos);
+                ->with('infoCursos',$infoCursos)
+                ->with('layout',Session::has('coordinador_id') ? 'layouts.coordinadores' : (Session::has('superadmin') ? 'layouts.app' : 'layouts.principal'))
+                ->with(Session::has('coordinador_id') ? 'encargado' : (Session::has('superadmin') ? 'coordinaciones' : 'a_') ,Session::has('coordinador_id') ? Coordinacion::findorFail(Session::get('coordinador_id')) : (Session::has('superadmin') ? Coordinacion::all() : '.'));
         }
                
     }
@@ -234,7 +243,7 @@ class EvaluacionController extends Controller{
 	 * $coutn: número de profesores que tiene el curso
 	 * @return La vista donde se realizará la evaluación
 	 */
-    public function evaluacionPorCurso($profesor_id, $curso_id, $catalogoCurso_id,$count){
+    public function evaluacionPorCurso($profesor_id, $curso_id, $catalogoCurso_id, $count){
 		$profesor = Profesor::find($profesor_id);
 		$curso = Curso::find($curso_id);
 		$catalogoCurso = CatalogoCurso::find($catalogoCurso_id);
@@ -261,19 +270,25 @@ class EvaluacionController extends Controller{
 					->with("profesor",$profesor)
                     ->with("curso",$curso)
                     ->with('catalogoCurso',$catalogoCurso)
-                    ->with('infoCursos',$infoCursos);
+                    ->with('infoCursos',$infoCursos)
+                    ->with('layout',Session::has('coordinador_id') ? 'layouts.coordinadores' : (Session::has('superadmin') ? 'layouts.app' : 'layouts.principal'))
+                    ->with(Session::has('coordinador_id') ? 'encargado' : (Session::has('superadmin') ? 'coordinaciones' : 'a_') ,Session::has('coordinador_id') ? Coordinacion::findorFail(Session::get('coordinador_id')) : (Session::has('superadmin') ? Coordinacion::all() : '.'));
 			}elseif($count==2){
                 return view("pages.final_seminario_2")
 					->with("profesor",$profesor)
                     ->with("curso",$curso)
                     ->with('catalogoCurso',$catalogoCurso)
-                    ->with('infoCursos',$infoCursos);
+                    ->with('infoCursos',$infoCursos)
+                    ->with('layout',Session::has('coordinador_id') ? 'layouts.coordinadores' : (Session::has('superadmin') ? 'layouts.app' : 'layouts.principal'))
+                    ->with(Session::has('coordinador_id') ? 'encargado' : (Session::has('superadmin') ? 'coordinaciones' : 'a_') ,Session::has('coordinador_id') ? Coordinacion::findorFail(Session::get('coordinador_id')) : (Session::has('superadmin') ? Coordinacion::all() : '.'));
 			}elseif($count==3){
                 return view("pages.final_seminario_3")
                     ->with("profesor",$profesor)
                     ->with("curso",$curso)
                     ->with('catalogoCurso',$catalogoCurso)
-                    ->with('infoCursos',$infoCursos);
+                    ->with('infoCursos',$infoCursos)
+                    ->with('layout',Session::has('coordinador_id') ? 'layouts.coordinadores' : (Session::has('superadmin') ? 'layouts.app' : 'layouts.principal'))
+                    ->with(Session::has('coordinador_id') ? 'encargado' : (Session::has('superadmin') ? 'coordinaciones' : 'a_') ,Session::has('coordinador_id') ? Coordinacion::findorFail(Session::get('coordinador_id')) : (Session::has('superadmin') ? Coordinacion::all() : '.'));
 			}      
 		}else{
 			if($count==1){
@@ -281,19 +296,25 @@ class EvaluacionController extends Controller{
 					->with("profesor",$profesor)
 					->with("curso",$curso)
 					->with('catalogoCurso',$catalogoCurso)
-					->with('infoCursos',$infoCursos);
+					->with('infoCursos',$infoCursos)
+					->with('layout',Session::has('coordinador_id') ? 'layouts.coordinadores' : (Session::has('superadmin') ? 'layouts.app' : 'layouts.principal'))
+					->with(Session::has('coordinador_id') ? 'encargado' : (Session::has('superadmin') ? 'coordinaciones' : 'a_') ,Session::has('coordinador_id') ? Coordinacion::findorFail(Session::get('coordinador_id')) : (Session::has('superadmin') ? Coordinacion::all() : '.'));
 			}elseif($count==2){
 				return view("pages.final_curso_2")
 					->with("profesor",$profesor)
 					->with("curso",$curso)
 					->with('catalogoCurso',$catalogoCurso)
-					->with('infoCursos',$infoCursos);
+					->with('infoCursos',$infoCursos)
+					->with('layout',Session::has('coordinador_id') ? 'layouts.coordinadores' : (Session::has('superadmin') ? 'layouts.app' : 'layouts.principal'))
+					->with(Session::has('coordinador_id') ? 'encargado' : (Session::has('superadmin') ? 'coordinaciones' : 'a_') ,Session::has('coordinador_id') ? Coordinacion::findorFail(Session::get('coordinador_id')) : (Session::has('superadmin') ? Coordinacion::all() : '.'));
 			}elseif($count==3){
 				return view("pages.final_curso_3")
 					->with("profesor",$profesor)
 					->with("curso",$curso)
 					->with('catalogoCurso',$catalogoCurso)
-					->with('infoCursos',$infoCursos);
+					->with('infoCursos',$infoCursos)
+					->with('layout',Session::has('coordinador_id') ? 'layouts.coordinadores' : (Session::has('superadmin') ? 'layouts.app' : 'layouts.principal'))
+					->with(Session::has('coordinador_id') ? 'encargado' : (Session::has('superadmin') ? 'coordinaciones' : 'a_') ,Session::has('coordinador_id') ? Coordinacion::findorFail(Session::get('coordinador_id')) : (Session::has('superadmin') ? Coordinacion::all() : '.'));
 			}          
 		}         
 	}
@@ -553,6 +574,13 @@ class EvaluacionController extends Controller{
 		$curso = Curso::find($curso_id);
 	 
 		//Retornamos la vista pages.evaluacionIndex con los datos necesarios para su funcionamiento
+		if (Session::has('coordinador_id') or Session::has('superadmin')){
+			if(Session::has('coordinador_id'))
+				return view("pages.superadminCoordinadores")
+                    ->with("encargado",Coordinacion::findorFail(Session::get('coordinador_id')));
+            return view('pages.superadmin')
+               	->with("coordinaciones",Coordinacion::all());
+		}
 		return view("pages.evaluacionIndex")
 			->with("profesor",$profesor)
 			->with("curso",$curso)
@@ -807,6 +835,13 @@ $promedio_p4=[
 		$curso = Curso::find($curso_id);
 
 		//Retornamos la vista pages.evaluacionIndex con los datos necesarios para su funcionamiento
+		if (Session::has('coordinador_id') or Session::has('superadmin')){
+			if(Session::has('coordinador_id'))
+				return view("pages.superadminCoordinadores")
+                    ->with("encargado",Coordinacion::findorFail(Session::get('coordinador_id')));
+            return view('pages.superadmin')
+               	->with("coordinaciones",Coordinacion::all());
+		}
 		return view("pages.evaluacionIndex")
 			->with("profesor",$profesor)
 			->with("curso",$curso)
@@ -937,6 +972,13 @@ $promedio_p4=[
 		$curso = Curso::find($curso_id);
 			
 		//Retornamos la vista pages.evaluacionIndex con los datos necesarios para su correcto funcionamiento
+		if (Session::has('coordinador_id') or Session::has('superadmin')){
+			if(Session::has('coordinador_id'))
+				return view("pages.superadminCoordinadores")
+                    ->with("encargado",Coordinacion::findorFail(Session::get('coordinador_id')));
+            return view('pages.superadmin')
+               	->with("coordinaciones",Coordinacion::all());
+		}
 		return view("pages.evaluacionIndex")
 			->with("profesor",$profesor)
 			->with("curso",$curso)
@@ -1038,6 +1080,13 @@ $promedio_p4=[
 
 		$curso = Curso::find($curso_id);
 		//Retornamos la vista pages.evaluacionIndex con los datos necesarios para su correcto funcionamiento
+		if (Session::has('coordinador_id') or Session::has('superadmin')){
+			if(Session::has('coordinador_id'))
+				return view("pages.superadminCoordinadores")
+                    ->with("encargado",Coordinacion::findorFail(Session::get('coordinador_id')));
+            return view('pages.superadmin')
+               	->with("coordinaciones",Coordinacion::all());
+		}
 		return view("pages.evaluacionIndex")
 			->with("profesor",$profesor)
 			->with("curso",$curso)
@@ -1057,7 +1106,11 @@ $promedio_p4=[
 	 * @return la vista pages.admin
 	 */
 	public function enviarClaveCrusoHistorico(Request $request, $profesor_id){
-		
+		//Si el formulario no fue rellenado por un profesor, no hace falta enviar el correo
+		if (Session::has('coordinador_id') or Session::has('superadmin'))
+			return
+
+
 		//Obtenemos todos los cursos en los que ha participado el profesor
 		$cursosParticipante=DB::table('participante_curso')
 			->select('curso_id')
@@ -1180,6 +1233,11 @@ $promedio_p4=[
 	 * @return La vista pages.admin
 	 */
 	public function enviarClaveFecha(Request $request, $profesor_id){
+		//Si el formulario no fue rellenado por un profesor, no hace falta enviar el correo
+		if (Session::has('coordinador_id') or Session::has('superadmin'))
+			return
+
+
 		//Obtenemos el semestre aceptado por el usuario y lo dividimos entre -
 		$semestre = $request->get('semestre');
 		$fecha_semestre = explode('-',$semestre);
@@ -1256,6 +1314,10 @@ $promedio_p4=[
 	 * $catalogoCurso_id: id del catalogo del curso evaludo, $eval_id: id de la evaluación realizada
 	 */
 	public function reporteFinalInstructor($profesor_id,$curso_id,$catalogoCurso_id,$eval_id){
+		//Si el formulario no fue rellenado por un profesor, no hace falta enviar el correo
+		if (Session::has('coordinador_id') or Session::has('superadmin'))
+			return
+
 		//Obtenemos el curso evaluado
 		$curso = DB::table('cursos')
 			->where('id',$curso_id)
@@ -1414,6 +1476,10 @@ $promedio_p4=[
 	}
 
 	public function reporteFinalInstructorSeminario($profesor_id,$curso_id,$catalogoCurso_id,$eval_id){
+		//Si el formulario no fue rellenado por un profesor, no hace falta enviar el correo
+		if (Session::has('coordinador_id') or Session::has('superadmin'))
+			return
+
 		//Obtenemos el curso evaluado
 		$curso = DB::table('cursos')
 			->where('id',$curso_id)

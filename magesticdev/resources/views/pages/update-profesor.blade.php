@@ -150,8 +150,13 @@ function procedencia_carrera() {
          </div>
 
          <div class="form-group col-md-3">
-            {!!Form::label("categoria_nivel_id", "Categoría y Nivel:")!!}
-            {!!Form::select("categoria_nivel_id", $user->allCategoria()->pluck('categoria','id'),$user->getIdCategoria(),['class'=>'form-control'])!!}
+            {!!Form::label("categoria_nivel_id", "Primer Categoría y Nivel:")!!}
+            {!!Form::select("categoria_nivel_id", $user->allCategoria()->pluck('categoria','id'),$user->getIdCategoria_1(),['class'=>'form-control'])!!}
+         </div>
+
+         <div class="form-group col-md-3">
+            {!!Form::label("categoria_nivel_2_id", "Segunda Categoría y Nivel:")!!}
+            {!!Form::select("categoria_nivel_2_id", $user->allCategoria()->pluck('categoria','id'),$user->getIdCategoria_2(),['class'=>'form-control'])!!}
          </div>
 
           <div class="form-group col-md-4">
@@ -214,7 +219,7 @@ function procedencia_carrera() {
 
        <div class="form-group col-md-6">
         {!!Form::label("semblanza_corta", "Semblanza corta:")!!}
-        {!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "class" => "form-control", "placeholder" => "Semblanza", ""])!!}
+        {!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "cols"=>"90", "wrap"=>"hard","class" => "form-control", "placeholder" => "Semblanza", ""])!!}
       </div>
 
       <div class="form-group col-md-4">

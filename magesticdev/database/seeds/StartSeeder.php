@@ -44,50 +44,71 @@ class StartSeeder extends Seeder
             'capacidad' => 50,
             'ubicacion' => 'FI',
         ]);
+        
+        DB::table('salons')->insert([
+          'sede'=> 'Zoom',
+          'capacidad' => 50,
+          'ubicacion' => 'www.zoom.com/invite/7uYvhdf',
+        ]);
 
+        DB::table('salons')->insert([
+          'sede'=> 'Google Meet',
+          'capacidad' => 50
+        ]);
         //TABLA DE DIVISIONES DE LA FACULTAD DE INGENIERÍA
         DB::table('divisions')->insert([
-            'nombre' => 'División de Ciencias Básicas'
+            'nombre' => 'División de Ciencias Básicas',
+            'abreviatura' => 'DCB'
         ]);
         
         DB::table('divisions')->insert([
-          'nombre' => 'División de Ingeniería Civil y Geomática'
+          'nombre' => 'División de Ingeniería Civil y Geomática',
+          'abreviatura' => 'DICyG'
         ]);
 
         DB::table('divisions')->insert([
-            'nombre' => 'División de Ingeniería Eléctrica'
+            'nombre' => 'División de Ingeniería Eléctrica',
+            'abreviatura' => 'DIE'
         ]);
 
         DB::table('divisions')->insert([
-          'nombre' => 'División de Ingeniería en Ciencias de la Tierra'
+          'nombre' => 'División de Ingeniería en Ciencias de la Tierra',
+          'abreviatura' => 'DICT'
         ]);
 
         DB::table('divisions')->insert([
-          'nombre' => 'División de Ingeniería Mecánica e Industrial'
+          'nombre' => 'División de Ingeniería Mecánica e Industrial',
+          'abreviatura' => 'DIMEI'
         ]);
 
         DB::table('divisions')->insert([
-            'nombre' => 'División de Ciencias Sociales y Humanidades'
+            'nombre' => 'División de Ciencias Sociales y Humanidades',
+            'abreviatura' => 'DCSyH'
         ]);
 
         DB::table('divisions')->insert([
-          'nombre' => 'División de Educación Continua y a Distancia'
+          'nombre' => 'División de Educación Continua y a Distancia',
+          'abreviatura' => 'DECD'
         ]);
 
         DB::table('divisions')->insert([
-          'nombre' => 'Becarios de UNICA'
+          'nombre' => 'Becarios',
+          'abreviatura' => 'Becarios'
         ]);
 
         DB::table('divisions')->insert([
-          'nombre' => 'Servicio social'
+          'nombre' => 'Servicio social',
+          'abreviatura' => 'Servicio social'
         ]);
 
         DB::table('divisions')->insert([
-          'nombre' => 'Externos'
+          'nombre' => 'Externo',
+          'abreviatura' => 'Externo',
         ]);
 
         DB::table('divisions')->insert([
-            'nombre' => 'Secretarias'
+            'nombre' => 'Secretarías',
+            'abreviatura' => 'Secretarías'
           ]);
 
         //TABLA DE FACULTADES DE LA UNAM
@@ -272,6 +293,10 @@ class StartSeeder extends Seeder
 
         //TABLA DE CATEGORÍAS Y NIVELES DEL PROFESOR
         DB::table('categoria_nivel')->insert([
+          'categoria' => 'Ninguna', 'abreviatura' => ''
+        ]);
+        
+        DB::table('categoria_nivel')->insert([
           'categoria' => 'Administrativo', 'abreviatura' => 'Adm'
         ]);
         DB::table('categoria_nivel')->insert([
@@ -349,6 +374,7 @@ class StartSeeder extends Seeder
         DB::table('categoria_nivel')->insert([
           'categoria' => 'Técnico Titular C TC', 'abreviatura' => 'TEC TIT C T C'
         ]);
+        
 
         //TABLA DE PROFESORES DE PRUEBA
         DB::table('profesors')->insert([
@@ -363,36 +389,46 @@ class StartSeeder extends Seeder
             'grado' => 'Maestría',
             'abreviatura_grado' => 'Mtro.',
             'email' => 'carosiim.sdco@gmail.com',
-            'semblanza_corta'=> 'Arquitecto con especialidad en paisajismo. Actualmente está creando su propia consultura Sus
-            grados profesionales son: -Doctora en Ciencias de la Educación por el Colegio de Posgrado de la
-            Ciudad de México. - Maestra en Educación Superior por la Facultad de Filosofía y Letras de la
-            UNAM. - Licenciada en Pedagogía por la Universidad Pedagógica Nacional. Está Diplomada en: -
-            Aplicaciones de las TIC para la Enseñanza por la Facultad de Ingeniería y la Dirección General de
-            Cómputo y Tecnologías de la Información y la Comunicación de la UNAM. Docencia por la
-            División de Educación Continua de la Facultad de Filosofía y Letras de la UNAM. - Producción y
-            Comprensión Lingüística por la Casa de las Humanidades de la UNAM. Está Certificada en - La
-            Impartición de Cursos Presenciales por el Organismo Gubernamental CONOCER de SEP. -
-            Como Auditora Interna Nivel 2 en los Sistemas de Gestión de la Calidad, sobre la base de la
-            NORMA ISO 9001;2000 y bajo las directrices de ISO 9011;2002 por el Organismo de Enlace
-            Liasion INLAC a ISOITC176. – Como Auditora Interna por la Coordinación de la Investigación
-            Científica de la UNAM. A cursado: 68 cursos, talleres y seminarios en temas de formación
-            docente, didáctica, evaluación y comunicación. A impartido 102 cursos, talleres y seminarios para
-            profesores. En temas de formación docente y área didáctico pedagógica. Es profesora de
-            asignatura desde 1994 en las asignaturas de "Técnicas para el estudio" en el semestre
-            propedéutico y en "Cultura y comunicación" de primer semestre. Es asesora psicopedagógica en
-            COPAD/ Tutora y sinodal del Posgrado de MADEMS-UNAM. A participado como ponente en
-            Congresos Nacionales e Internacionales de Educación, Enseñanza de la Ingeniería, Formación
-            Docente y pedagogía desde el nivel educativo inicial. medio superior y superior. Publicaciones en
-            Colaboración: Programas y Manuales Psicopedagógicos para la atención de niños de O a 6 años
-            en los Centros de Desarrollo Infantil Derechos Reservados. SEP. Registro Derechos de Autor
-            14091981 222/81 Agosto 1981. Está Diplomada en: -Aplicaciones de las TIC para la Enseñanza
-            por la Facultad de Ingeniería y la Dirección General de Cómputo y Tecnologías de la Información
-            y la Comunicación de la UNAM. Docencia por la División de Educación Continua de la Facultad
-            de Filosofía y Letras de la UNAM. - Producción y Comprensión Lingüística por la Casa de las
-            Humanidades de la UNAM. Está Certificada en - La Impartición de Cursos Presenciales por el
-            Organismo Gubernamental CONOCER de SEP. - Como Auditora Interna Nivel 2 en los Sistemas
-            de Gestión de la Calidad, sobre la base de la NORMA ISO 9001;2000 y bajo las directrices de
-            ISO 9011;2002 por el Organismo de Enlace Liasion INLAC a ISOITC176. –',
+            'semblanza_corta'=> 'Arquitecto con especialidad en paisajismo. Actualmente está creando su propia consultura.
+Sus grados profesionales son:
+  - Doctora en Ciencias de la Educación por el Colegio de Posgrado de la Ciudad de México.
+  - Maestra en Educación Superior por la Facultad de Filosofía y Letras de la UNAM.
+  - Licenciada en Pedagogía por la Universidad Pedagógica Nacional.
+Está Diplomada en: 
+  - Aplicaciones de las TIC para la Enseñanza por la Facultad de Ingeniería y la 
+  Dirección General de Cómputo y Tecnologías de la Información y la Comunicació
+  de la UNAM. Docencia por la División de Educación Continua de la Facultad de 
+  Filosofía y Letras de la UNAM.
+  - Producción y Comprensión Lingüística por la Casa de las Humanidades de la UNAM.
+Está Certificada en:
+  - La Impartición de Cursos Presenciales por el Organismo Gubernamental CONOCER de SEP.
+    - Como Auditora Interna Nivel 2 en los Sistemas de Gestión de la Calidad, sobre la
+    base de la NORMA ISO 9001;2000 y bajo las directrices de ISO 9011;2002 por el
+  Organismo de Enlace Liasion INLAC a ISOITC176.
+    - Como Auditora Interna por la Coordinación de la Investigación Científica de la UNAM.
+    Ha cursado: 68 cursos, talleres y seminarios en temas de formación docente, didáctica,
+    evaluación y comunicación.
+    Ha impartido 102 cursos, talleres y seminarios para profesores. En temas de formación
+    docente y área didáctico pedagógica. Es profesora de asignatura desde 1994 en las
+    asignaturas de "Técnicas para el estudio" en el semestre propedéutico y en "Cultura
+    y comunicación" de primer semestre. Es asesora psicopedagógica en COPADI Tutora y 
+    sinodal del Posgrado de MADEMS-UNAM. A participado como ponente en Congresos 
+    Nacionales e Internacionales de Educación, Enseñanza de la Ingeniería, Formación 
+    Docente y pedagogía desde el nivel educativo inicial. Medio superior y superior. 
+    Publicaciones en Colaboración: Programas y Manuales Psicopedagógicos para la atención
+    de niños de O a 6 años en los Centros de Desarrollo Infantil Derechos Reservados. 
+    SEP. Registro Derechos de Autor 14091981 222/81 Agosto 1981. 
+Está Diplomada en: 
+  - Aplicaciones de las TIC para la Enseñanza por la Facultad de Ingeniería y la 
+  Dirección General de Cómputo y Tecnologías de la Información y la Comunicación de la 
+  UNAM. Docencia por la División de Educación Continua de la Facultad de Filosofía y 
+  Letras de la UNAM.
+  - Producción y Comprensión Lingüística por la Casa de las Humanidades de la UNAM. 
+Está Certificada en:
+  - La Impartición de Cursos Presenciales por el Organismo Gubernamental CONOCER de SEP. 
+    - Como Auditora Interna Nivel 2 en los Sistemas de Gestión de la Calidad, sobre la
+    base de la NORMA ISO 9001;2000 y bajo las directrices de ISO 9011;2002 por el 
+    Organismo de Enlace Liasion INLAC a ISOITC176.',
             'genero' => 'masculino',
             'facebook' => 'Juan Ramirez',
             'unam' => false,
@@ -411,12 +447,10 @@ class StartSeeder extends Seeder
             'grado' => 'Licenciatura',
             'abreviatura_grado' => 'Lic.',
             'email' => 'MSP@gmail.com',
-            'semblanza_corta' => 'Profesora de la facultad de ingeniería,
-                             fundó la asociación de mujeres programadoras
-                             con el fin de impulsar los derechos y la presencia
-                             de la mujer en el ámbito profesional de las Tecnologías
-                             de la Información. Es egresada de la Facultad de Ciencias.
-                             Doctora en análisis de datos.',
+            'semblanza_corta' => 'Profesora de la facultad de ingeniería, fundó la asociación de mujeres programadoras con
+el fin de impulsar los derechos y la presencia de la mujer en el ámbito profesional de
+las Tecnologías de la Información. Es egresada de la Facultad de Ciencias. Doctora en
+análisis de datos.',
             'genero' => 'femenino',
             'facebook' => 'Martha Suarez',
             'unam' => true,
@@ -435,8 +469,7 @@ class StartSeeder extends Seeder
             'grado' => 'Ingeniería',
             'abreviatura_grado' => 'Ing.',
             'email' => 'prof2@gmail.com',
-            'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes 
-                                  y terremotos y maestria en rocas.',
+            'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
             'genero' => 'masculino',
             'facebook' => 'face',
             'unam' => true,
@@ -455,8 +488,7 @@ class StartSeeder extends Seeder
             'grado' => 'Licenciatura',
             'abreviatura_grado' => 'Lic.',
             'email' => 'MSP2@gmail.com',
-            'semblanza_corta' => 'Licenciada en administracion egresada de la 
-                                  FCyA de la UNAM con honores.',
+            'semblanza_corta' => 'Licenciada en administracion egresada de la FCyA de la UNAM con honores.',
             'genero' => 'femenino',
             'facebook' => 'MyFace',
             'unam' => true,
@@ -475,7 +507,8 @@ class StartSeeder extends Seeder
             'grado' => 'Licenciatura',
             'abreviatura_grado' => 'Lic.',
             'email' => 'prof3@gmail.com',
-            'semblanza_corta' => 'Ingeniero mecanico con especialidad en diseño mecanico egresado de la unam y con maestria en Alemania.',
+            'semblanza_corta' => 'Ingeniero mecanico con especialidad en diseño mecanico egresado de la unam y con
+maestria en Alemania.',
             'genero' => 'masculino',
             'facebook' => 'Mateo Juarez',
             'unam' => true,
@@ -567,7 +600,8 @@ class StartSeeder extends Seeder
             'grado' => 'Maestría',
             'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP5@gmail.com',
-            'semblanza_corta' => 'Licenciada en contaduria, con maestria en impuestos empresariales y doctorado en contaduria para Macroempresas.',
+            'semblanza_corta' => 'Licenciada en contaduria, con maestria en impuestos empresariales y doctorado en 
+contaduria para Macroempresas.',
             'genero' => 'femenino',
             'facebook' => 'Vivi Salcedo',
             'unam' => true,
@@ -682,7 +716,8 @@ class StartSeeder extends Seeder
             'grado' => 'Maestría',
             'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP8@gmail.com',
-            'semblanza_corta' => 'Ingeniera insdustrial enfocada al area de logistica con maestry en cadena de suministros en Canada.',
+            'semblanza_corta' => 'Ingeniera insdustrial enfocada al area de logistica con maestry en cadena de suministros
+en Canada.',
             'genero' => 'femenino',
             'facebook' => 'Julia Dominguez',
             'unam' => true,
@@ -755,7 +790,8 @@ class StartSeeder extends Seeder
             'grado' => 'Maestría',
             'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP10@gmail.com',
-            'semblanza_corta' => 'Licencidad en contaduria, ella calcula los imppuestos de la unam y tiene maestria en impuestos universitarios.',
+            'semblanza_corta' => 'Licenciada en contaduria, ella calcula los imppuestos de la unam y tiene maestría
+en impuestos universitarios.',
             'genero' => 'femenino',
             'facebook' => 'Viridiana Valencia',
             'unam' => true,
@@ -1007,22 +1043,20 @@ class StartSeeder extends Seeder
             'tipo' => 'CT',
             'institucion' => 'CDD',
             'presentacion' => 'Presentacion',
-            'dirigido' => 'Personas interesadas en el área 
-                            de la programación, desarrollo de software 
-                            y tecnologías de la información',
-            'objetivo' => 'Enseñar las bases de todos los paradigmas de la programación
-                            y mostrar la ventana de oportunidades que libera',
-            'contenido' => '-¿Qué es la programación?
-                            -Paradigmas de programación
-                            -Lenguajes de programación
-                            -Ejercicios
-                            -Ejemplos en la vida diaria
-                            -Temas avanzados',
-            'sintesis' => 'Sintesis',
-            'metodologia' => 'Metodologia',
-            'previo' => 'Conocimientos básicos de informática y tecnologías de información: Qué es una computadora y cómo funciona',
-            'bibliografia' => 'www.paginasobreprogramacion.com
-            A.J. Tyson, Programacion para dummys. Pearson, 2008.',
+            'dirigido' => 'Personas interesadas en el área de la programación, desarrollo de software y tecnologías
+de la información',
+            'objetivo' => 'Enseñar las bases de todos los paradigmas de la programación y mostrar la ventana de
+oportunidades que libera',
+            'contenido' => '1. ¿Qué es la programación?
+2. Paradigmas de programación
+  2.1 ¿En qué consisten los paradigmas de programación?
+   2.11 Historia
+3. Lenguajes de programación
+4. Ejercicios
+5. Ejemplos en la vida diaria
+6. Temas avanzados',
+            'antecedentes' => 'Conocimientos básicos de informática y tecnologías de información: 
+Qué es una computadora y cómo funciona',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ADFVJ0911598'
 
@@ -1037,9 +1071,6 @@ class StartSeeder extends Seeder
             'dirigido' => 'Administradores',
             'objetivo' => 'Que los que tomen el curso refuerzen sus conocimientos administrativos',
             'contenido' => 'Que es la administracion y sus derivados',
-            'sintesis' => 'Se aprendera sobre la administracion',
-            'metodologia' => 'Presencial',
-            'bibliografia' => 'El libro sobre administracion',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'FJHCZC'
 
@@ -1054,9 +1085,6 @@ class StartSeeder extends Seeder
             'dirigido' => 'Ingenieros',
             'objetivo' => 'Aprender sobre ecuaciones diferenciales',
             'contenido' => 'Lo basico de ecuaciones diferenciales',
-            'sintesis' => 'Aqui se aprenderan las bases para resolver ecuaciones diferenciales',
-            'metodologia' => 'presencial',
-            'bibliografia' => 'Zill',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ED1HCZ12'
 
@@ -1071,9 +1099,6 @@ class StartSeeder extends Seeder
             'dirigido' => 'Alumnos de ingenieria',
             'objetivo' => 'Aprender a integrar',
             'contenido' => 'Metodos de integracion',
-            'sintesis' => 'Se aprendera a integrar mub bien en este curso',
-            'metodologia' => 'Presencial',
-            'bibliografia' => 'Libro de Integrales',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'CI2HCZA'
 
@@ -1088,9 +1113,6 @@ class StartSeeder extends Seeder
             'dirigido' => 'Alumno que ya acabaron Algebra',
             'objetivo' => 'Que la gente aprenda algebra lineal',
             'contenido' => 'Transformaciones lineales y espacios vectoriales',
-            'sintesis' => 'Aqui se aprendera algebra vectorial',
-            'metodologia' => 'presencial',
-            'bibliografia' => 'Libro de Algebra Lineal',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ALA3HCZ'
 
@@ -1105,10 +1127,7 @@ class StartSeeder extends Seeder
             'dirigido' => 'Todo el publico',
             'objetivo' => 'Que los que tomen el curso aprendan lo basico de Algebra',
             'contenido' => 'Matrices y polinomios',
-            'sintesis' => 'Aquí se aprenderá sobre Álgebra',
-            'metodologia' => 'Presencia',
-            'bibliografia' => 'Libro de Álgebra',
-            'fecha_disenio' => '2018-05-18',
+						'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'A1A27HCZ'
 
         ]);
@@ -1122,9 +1141,6 @@ class StartSeeder extends Seeder
             'dirigido' => 'Alumno que ya cursaron ecuaciones diferenciales',
             'objetivo' => 'Aprender sobre analisis numerico',
             'contenido' => 'Temas de Análisis Numérico',
-            'sintesis' => 'Aqui se aprenderan los temas básicos de Ánalisis numérico',
-            'metodologia' => 'Online',
-            'bibliografia' => 'Libro de Analisis Numerico',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'AN412HCZ'
 
@@ -1139,9 +1155,6 @@ class StartSeeder extends Seeder
             'dirigido' => 'Alumnos de la carrera de ingenieria en computación',
             'objetivo' => 'Aprender temas avanzados de programacion ',
             'contenido' => 'Temas Avanzados de programacion',
-            'sintesis' => 'En este curso los alumnos seran capaces al finalizar de programar cualquier cosa',
-            'metodologia' => 'Online',
-            'bibliografia' => 'Libro de super programación',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'ADFVJ080578451'
 
@@ -1156,9 +1169,6 @@ class StartSeeder extends Seeder
             'dirigido' => 'Administradores expertos',
             'objetivo' => 'Aprender todo sobre administracion',
             'contenido' => 'Temas avanzados de aministracion',
-            'sintesis' => 'En este curso se aprenderan los temas más avanzados de administracion',
-            'metodologia' => 'Presencial', 
-            'bibliografia' => 'Libro super avanzado de Administracion',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'FJHCZA'
         ]);

@@ -34,12 +34,12 @@
 
     <div class="form-group col-md-4">
       {!!Form::label("capacidad", "Capacidad")!!}
-      {!!Form::text("capacidad", $user->capacidad, [ "class" => "form-control", "placeholder" => "Capacidad", "required",""])!!}
+      {!!Form::text("capacidad", $user->capacidad, [ "class" => "form-control", "placeholder" => "Capacidad", ""])!!}
     </div>
 
     <div class="form-group col-md-4">
       {!!Form::label("ubicacion", "Ubicacion")!!}
-      {!!Form::text("ubicacion", $user->ubicacion, [ "class" => "form-control", "placeholder" => "Ubicación", "required",""])!!}
+      {!!Form::text("ubicacion", $user->ubicacion, [ "class" => "form-control", "placeholder" => "Ubicación", ""])!!}
     </div>
   </div>
   

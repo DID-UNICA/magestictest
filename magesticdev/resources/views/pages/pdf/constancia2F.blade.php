@@ -121,8 +121,10 @@ body {
   
 }
 .tabla-centro{
-  width: 65%;
-  margin-left: 16%;
+  width: 100%;
+  
+  
+  
 }
 
 </style>
@@ -132,7 +134,7 @@ body {
     <img id=img1 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudo_fi_color.png" width="166" height="198">
     <img id= img2 src='img/escudounam-color.png' width="174" height="221">
     <div class=encabezado id=encabezado_2>FACULTAD DE INGENIERÍA</div>
-    <div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>
+    <div id=encabezado_3 style="padding-top: 0.1cm;">SECRETARÍA DE APOYO A LA DOCENCIA</div>
     <div id=encabezado_4>CENTRO DE DOCENCIA</div>
     <div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
     <br>
@@ -151,35 +153,53 @@ body {
       <p style="font-size: 8pt; padding-bottom: 0.7cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
 
+<!--
+    <div>
+      <p class="firma1" style="padding-top: 1cm;">___________________</p>
+      <p class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;"> {{$firmante1}} </p>
+      <p class="firma" style="font-size: 8pt;"> {{$descripcion1}} </p>
+    </div>
+
+-->
+
+
 
     <!--Opcion que utiliza "tabla-centro"-->
+   <!--
     <div class = "tabla-centro" style="margin-bottom: 0px;">
-    <table>
+    <table align="center">
       <tr>
-        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
-        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
+        
+
+        <td class="firma1" style="padding-top: 1cm;">___________________</td>
+        <td class="firma1" style="padding-top: 1cm;">___________________</td>
+
+        
       </tr>
       <tr>
-        <td width=260 class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;"> {{$firmante1}} </td>
-        <td width=260 class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;"> {{$firmante2}} </td>
+        <td class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;"> {{$firmante1}} </td>
+        <td class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;"> {{$firmante2}} </td>
       </tr>
       <tr>
-        <td width=260 class="firma" style="font-size: 8pt;"> {{$descripcion1}} </td>
-        <td width=260 class="firma" style="font-size: 8pt;"> {{$descripcion2}} </td>
+        <td class="firma" style="font-size: 8pt;"> {{$descripcion1}} </td>
+        <td class="firma" style="font-size: 8pt;"> {{$descripcion2}} </td>
       </tr>
     </table>
     </div>
+            -->
 
 
-    <!--
-    <table width=auto style="padding-left: 2.5cm;">
+
+
+    <div>
+    <table width=auto style="padding-left: 2.9cm;">
       <tr width=auto>
-        <td width=260 class="firma1" style="padding-top: 1cm;">_____________________</td>
-        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 1.2cm;">_____________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 1.2cm;">______________________</td>
       </tr>
     </table>
 
-    <table width=auto style=" padding-left: 4cm;">
+    <table width=auto style=" padding-left: 4.3cm;">
       <tr width=auto>
         <td class="firma" style="font-weight: bold; font-size: 11pt;"> {{$firmante1}}</td> 
         <td width=260 class="firma" style="font-weight: bold; font-size: 11pt;padding-left: 2.7cm;">{{$firmante2}}</td>
@@ -191,12 +211,12 @@ body {
         <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
         <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">{{$descripcion2}}</td>
       </tr>
-    </table> -->
+    </table>
 
   </div>
 
 
-    <table width=auto style="vertical-align: top; padding-top: 1.5cm; margin: 0px;">
+    <table width=auto style="vertical-align: top; padding-top: 1.4cm; margin: 0px;">
     <tr width=auto>
       <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
       <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>

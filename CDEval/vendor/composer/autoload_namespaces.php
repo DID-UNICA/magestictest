@@ -9,4 +9,6 @@ return array(
     'Sabberworm\\CSS' => array($vendorDir . '/sabberworm/php-css-parser/lib'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
+    'LynX39\\LaraPdfMerger' => array($vendorDir . '/daltcore/lara-pdf-merger/src'),
+    'Laracasts\\Flash' => array($vendorDir . '/laracasts/flash/src'),
 );

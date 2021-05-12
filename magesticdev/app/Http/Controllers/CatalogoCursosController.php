@@ -7,7 +7,7 @@ use App\Curso;
 use App\CatalogoCurso;
 use App\TemaSeminario;
 use App\Profesor;
-use App\Consecuente;
+use App\Antecedente;
 use App\Http\Controllers\DB;
 use Illuminate\Http\Request;
 
@@ -93,8 +93,7 @@ class CatalogoCursosController extends Controller
         $catalogoCurso->dirigido = $request->dirigido;
         $catalogoCurso->objetivo = $request->objetivo;
         $catalogoCurso->contenido = $request->contenido;
-        $catalogoCurso->previo = $request->antesc;
-        $catalogoCurso->bibliografia = $request->bibliografia;
+        $catalogoCurso->antecedentes = $request->antesc;
         $catalogoCurso->fecha_disenio = $request->fecha_disenio;
         $catalogoCurso->clave_curso = $request->clave_curso;
 
@@ -195,7 +194,7 @@ class CatalogoCursosController extends Controller
         $exists1 = CatalogoCurso::where('nombre_curso', $request->nombre_curso)->exists();
         $exists2 = CatalogoCurso::where('clave_curso', $request->clave_curso)->exists(); 
         if($exists1 or $exists2)
-          return redirect()->back()->with('danger', 'Error al crear el curso.'.$request->nombre_curso.' El nombre o la clave ya están en uso');
+          return redirect()->back()->with('danger', 'Error al crear el curso: '.$request->nombre_curso.' El nombre o la clave ya están en uso');
         $catalogoCurso = new CatalogoCurso;
         $catalogoCurso->nombre_curso = $request->nombre_curso;
         $catalogoCurso->duracion_curso = $request->duracion_curso;
@@ -206,8 +205,7 @@ class CatalogoCursosController extends Controller
         $catalogoCurso->dirigido = $request->dirigido;
         $catalogoCurso->objetivo = $request->objetivo;
         $catalogoCurso->contenido = $request->contenido;
-        $catalogoCurso->previo = $request->antesc;
-        $catalogoCurso->bibliografia = $request->bibliografia;
+        $catalogoCurso->antecedentes = $request->antesc;
         $catalogoCurso->fecha_disenio = $request->fecha_disenio;
         $catalogoCurso->clave_curso = $request->clave_curso;
         try{
@@ -215,13 +213,13 @@ class CatalogoCursosController extends Controller
         } catch(\Illuminate\Database\QueryException $e){
             return redirect()->back()->with('danger', 'Error al almacenar en la base de datos');
         }
-        if($request->antescedente_id){
-            foreach($request->antescedente_id as $antescedente_id){
-                if ($antescedente_id != 'Otros') {
-                    $consecuentes = new Consecuente;
-                    $consecuentes->catalogo_id = $antescedente_id;
-                    $consecuentes->siguiente_catalogo_id = $catalogoCurso->id;
-                    $consecuentes->save();
+        if($request->antecedente_id){
+            foreach($request->antecedente_id as $antecedente_id){
+                if ($antecedente_id != 'Otros') {
+                    $antecedente = new Antecedente;
+                    $antecedente->catalogo_id = $catalogoCurso->id;
+                    $antecedente->siguiente_catalogo_id = $antecedente_id;
+                    $antecedente->save();
                 }
             }
         }
@@ -233,24 +231,35 @@ class CatalogoCursosController extends Controller
         return redirect('catalogo-cursos')->with('success','Se ha dado de alta el curso: '.$catalogoCurso->nombre_curso.' exitosamente.');
     }
 
-    public function verAntescedentes($id){
+    public function verAntecedentes($id){
         $catalogoCurso = CatalogoCurso::find($id);
-        $consecuentes = Consecuente::where('siguiente_catalogo_id',$catalogoCurso->id)->get();
-        $antescedentes=array();
-        foreach($consecuentes as $consecuente){
-            $antescedente=CatalogoCurso::findOrFail($consecuente->catalogo_id);
-            array_push($antescedentes,$antescedente);
+        $antecedente = Antecedente::where('catalogo_id',$catalogoCurso->id)->get();
+        $antecedentes=array();
+        foreach($antecedente as $antecedente){
+            $antecedente_cc = CatalogoCurso::findOrFail($antecedente->siguiente_catalogo_id);
+            array_push($antecedentes,$antecedente_cc);
         }
-        return view("pages.catalogo-cursos-ver-antescedentes")
+				$catalogos = CatalogoCurso::whereNotIn('id',
+					Antecedente::select('siguiente_catalogo_id')
+					->where('catalogo_id',$id)
+					->get()
+				)->whereNotIn('id',[$id])->get();
+        return view("pages.catalogo-cursos-ver-antecedentes")
             ->with("catalogoCurso",$catalogoCurso)
-            ->with("antescedentes",$antescedentes);
-
+            ->with("antecedentes",$antecedentes)
+						->with("catalogos", $catalogos);
         }
 
-    public function descartarAntescedente($catalogoCurso_id, $antescedente_id){
-        Consecuente::where('siguiente_catalogo_id', $catalogoCurso_id)->where('catalogo_id', $antescedente_id)->delete();
+    public function descartarAntecedente($catalogoCurso_id, $antecedente_id){
+        Antecedente::where('catalogo_id', $catalogoCurso_id)->where('siguiente_catalogo_id', $antecedente_id)->delete();
         return redirect()->back()->with('success','Se ha borrado el antecedente exitosamente.');
     }
 
-
+		public function altaAntecedente($catalogoCurso_id, $antecedente_id){
+			$antecedente = new Antecedente();
+			$antecedente->catalogo_id = $catalogoCurso_id;
+			$antecedente->siguiente_catalogo_id = $antecedente_id;
+			$antecedente->save();
+			return redirect()->back()->with('success','Se ha generado el nuevo antecedente correctamente' );
+		}
 }

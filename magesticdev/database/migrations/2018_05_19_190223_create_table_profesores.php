@@ -35,7 +35,9 @@ class CreateTableProfesores extends Migration
             $table->integer('facultad_id')->unsigned()->nullable();
             $table->foreign('facultad_id')->references('id')->on('facultads');
             $table->integer('categoria_nivel_id')->unsigned()->nullable();
+            $table->integer('categoria_nivel_2_id')->unsigned()->nullable();
             $table->foreign('categoria_nivel_id')->references('id')->on('categoria_nivel');
+            $table->foreign('categoria_nivel_2_id')->references('id')->on('categoria_nivel');
             $table->timestamps();
             
 

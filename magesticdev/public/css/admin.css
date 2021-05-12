@@ -293,6 +293,8 @@
   padding-right: 3%;
 }
 .tablaFija tr:hover {background-color: #ddd;}
-
+textarea {
+  resize: none;
+}
 
 

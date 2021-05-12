@@ -30,8 +30,13 @@
                         <div class="row col-md-12 ">{!! Form::open(['route' => array('division.actualizar', $user->id), "method" => "PUT"]) !!}
 
                             <div class="form-group col-md-4">
-                                {!!Form::label("nombre", "Nombre")!!}
+                                {!!Form::label("nombre", "Nombre:")!!}
                                 {!!Form::text("nombre", $user->nombre, [ "class" => "form-control", "placeholder" => "Nombre", "required",""])!!}
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                {!!Form::label("abreviatura", "Abreviatura:")!!}
+                                {!!Form::text("abreviatura", $user->abreviatura, [ "class" => "form-control", "placeholder" => "Abreviatura", ""])!!}
                             </div>
 
 

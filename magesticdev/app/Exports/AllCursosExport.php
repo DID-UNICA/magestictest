@@ -7,6 +7,7 @@ use DB;
 use Carbon\Carbon;
 use App\Salon;
 use App\ProfesoresDivisiones;
+use App\ParticipantesCurso;
 use App\Exports\UsersExport;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -16,7 +17,48 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 class AllCursosExport implements FromView, ShouldAutosize
 {
     use Exportable;
-    public function view():View {   
+    public function view():View {
+      $registros = array();
+      $participantes = ParticipantesCurso::all();
+      foreach ($participantes as $participante){
+        //Instancias
+        $profesor = $participante->getProfesor();
+        $curso = $participante->getCurso();
+        $catalogo = $curso->getCatalogoCurso();
+        
+        //Datos
+        $registro = array(
+          'clave' => $catalogo->clave_curso,
+          'nombrec' => $catalogo->nombre_curso,
+          'duracion' => $catalogo->duracion_curso,
+          'semestre' => $curso->getSemestre(),
+          'fecha_inicio' => $curso->fecha_inicio,
+          'fecha_fin' => $curso->fecha_fin,
+          'rfc' => $profesor->rfc,
+          'nombre' => $profesor->getNombres2(),
+          'categoria' => $profesor->getCatAbr(),
+          'confirmacion' => $participante->confirmacion,
+          'asistencia' => $participante->asistencia,
+          'acreditacion' => $participante->acreditacion,
+          'causa' => $participante->causa_no_acreditacion,
+          'cancelacion' => $participante->cancelacion,
+          'lista' => $participante->estuvo_en_lista,
+          'num_lista' => $participante->espera,
+          'calificacion' => $participante->calificacion,
+          'folio_inst' => $participante->folio_inst,
+          'folio_peque' => $participante->folio_peque,
+          'division' => $profesor->getDivisionAbr(),
+          'email' => $profesor->email,
+          'telefono' => $profesor->telefono,
+          'edad' => $profesor->getEdad()
+        );
+        //Arreglo
+        array_push($registros, $registro);
+      }
+      return view('exports.todoscursos', ['registros'=>$registros]);
+    }
+}
+      /*
             $registros = DB::table('participante_curso AS pc')
             ->join('cursos AS c', 'pc.curso_id', '=', 'c.id')
             ->join('profesors AS p', 'p.id','=','pc.profesor_id')
@@ -48,7 +90,6 @@ class AllCursosExport implements FromView, ShouldAutosize
             'pc.folio_inst as folio_inst',
             'pc.folio_peque as folio_peque')->get();
 
-
             foreach($registros as $renglon){
                 $renglon->nombre = $renglon->nombres.' '.$renglon->apellido_paterno.' '.$renglon->apellido_materno;
                 $renglon->semestre = $renglon->semestre_anio.'-'.$renglon->semestre_pi.$renglon->semestre_si;
@@ -67,6 +108,5 @@ class AllCursosExport implements FromView, ShouldAutosize
                 }
                 $renglon->division = $div_nombre;
             }
-           return view('exports.todoscursos', ['registros'=>$registros]);
-    }
-}
+          */
+ 

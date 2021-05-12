@@ -9,6 +9,8 @@ use App\CatalogoCurso;
 use App\ParticipantesCurso;
 use App\Coordinacion;
 use App\Http\Controllers\Controller;
+use Session; 
+use Illuminate\Support\Facades\Hash;
 
 class AutentificarController extends Controller{
 # 2143246
@@ -28,6 +30,7 @@ class AutentificarController extends Controller{
         //Usuario general
         if ('admin' == $request->rfc && '1q2w3e4r' == $request->numTrabajador) {
             //return redirect()->route("superadmin",[$coordinaciones]);
+            Session::put('superadmin',1);
             return view('pages.superadmin')
                 ->with("coordinaciones",$coordinaciones); //Route -> coordinador
         }
@@ -41,12 +44,13 @@ class AutentificarController extends Controller{
             }
         }
         if($correcto){
-            if($coordinador->password == $request->numTrabajador){
+            if(Hash::check($request->numTrabajador,$coordinador->password)){
+            //if($coordinador->password == $request->numTrabajador){
                 //El coordinador está en la BD y las credenciales son correctas
                 $encargado = Coordinacion::findorFail($coordinador->id);
-                
+                Session::put('coordinador_id',$encargado->id);
                 return view("pages.superadminCoordinadores")
-                        ->with("encargado",$encargado);
+                    ->with("encargado",$encargado);
             }else return back()->with('error', 'Contraseña incorrecta');
         }
         

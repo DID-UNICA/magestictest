@@ -20,7 +20,7 @@ class Profesor extends Authenticatable
 
     protected $table = "profesors";
     protected $fillable = [
-        'nombres', 'apellido_paterno','apellido_materno','rfc','numero_trabajador', 'categoria_nivel_id',
+        'nombres', 'apellido_paterno','apellido_materno','rfc','numero_trabajador', 'categoria_nivel_id', 'categoria_nivel_2_id',
         'fecha_nacimiento','telefono','grado','abreviatura_grado','email','usuario', 'fecha_alta','grado','genero',
         'baja','causa_baja','semblanza_corta','facebook','unam','procedencia','facultad_id'
     ];
@@ -38,6 +38,10 @@ class Profesor extends Authenticatable
         return $this->apellido_paterno." ".$this->apellido_materno." ".$this->nombres;
     }
 
+    public function getNombres2(){
+      return $this->nombres." ".$this->apellido_paterno." ".$this->apellido_materno;
+  }
+
     public function getNombresArchivo(){
       return $this->apellido_paterno.$this->apellido_materno.str_replace(' ', '', $this->nombres);
     }
@@ -54,15 +58,56 @@ class Profesor extends Authenticatable
     public function fechaFormato(){
         $fecha = Carbon::parse($this->fecha_nacimiento)->format('d-m-Y');
         return $fecha;
-
     }
 
-    public function getCategoria(){
+    public function getEdad(){
+      return Carbon::parse($this->fecha_nacimiento)->age;
+    }
+
+    public function getCategoria_1(){
         if($this->categoria_nivel_id)
             return CategoriaNivel::findOrFail($this->categoria_nivel_id)->categoria;
         else
             return "";
     }
+
+    public function getCategoria_2(){
+      if($this->categoria_nivel_2_id)
+          return CategoriaNivel::findOrFail($this->categoria_nivel_2_id)->categoria;
+      else
+          return "";
+  }
+
+  public function getCatAbr_1(){
+    if($this->categoria_nivel_id)
+      return CategoriaNivel::findOrFail($this->categoria_nivel_id)->abreviatura;
+    else
+      return '';
+  }
+
+  public function getCatAbr_2(){
+    if($this->categoria_nivel_2_id)
+      return CategoriaNivel::findOrFail($this->categoria_nivel_2_id)->abreviatura;
+    else
+      return '';
+  }
+
+  public function getCatAbr(){
+    if ($this->categoria_nivel_id )
+      $cat1 = CategoriaNivel::findOrFail($this->categoria_nivel_id)->abreviatura;
+    else
+      $cat1 = '';
+    if ($this->categoria_nivel_2_id)
+      $cat2 = CategoriaNivel::findOrFail($this->categoria_nivel_2_id)->abreviatura;
+    else
+      $cat2 = '';
+    if($cat1 != '' and $cat2 != '')
+      return $cat1.', '.$cat2;
+    elseif($cat1 == '' )
+      return $cat2;
+    elseif($cat2 == '' )
+      return $cat1;
+  }
 
     public function allCategoria(){
         $categoria = CategoriaNivel::all();
@@ -80,18 +125,44 @@ class Profesor extends Authenticatable
         return $grado;
     }
 
-    public function getIdCategoria()
+    public function getIdCategoria_1()
     {
         return $this->categoria_nivel_id;
     }
 
+    public function getIdCategoria_2()
+    {
+        return $this->categoria_nivel_2_id;
+    }
+
     public function getDivision(){
-      $divisiones = DB::table('divisions')
-        ->join('carreras', 'carreras.id_division', '=', 'divisions.id')
-        ->join('profesores_carreras', 'profesores_carreras.id_carrera', '=','carreras.id')
-        ->join('profesors','profesors.id', '=', 'profesores_carreras.id_profesor')
-        ->where('profesors.id', '=', $this->id);
-      return $divisiones;
+      $div_nombre = '';
+      $divisiones = DB::table('profesores_divisiones AS pd')
+        ->join('divisions AS d', 'pd.id_division', '=', 'd.id')
+        ->select('d.nombre')
+        ->where('pd.id_profesor', '=', $this->id)->get();
+      foreach($divisiones as $index => $division){
+        if($index == 0)
+          $div_nombre = $division->nombre;
+        else
+          $div_nombre = $division->nombre.', '.$div_nombre;
+      }
+      return $div_nombre;
+    }
+
+    public function getDivisionAbr(){
+      $div_nombre = '';
+      $divisiones = DB::table('profesores_divisiones AS pd')
+        ->join('divisions AS d', 'pd.id_division', '=', 'd.id')
+        ->select('d.abreviatura')
+        ->where('pd.id_profesor', '=', $this->id)->get();
+      foreach($divisiones as $index => $division){
+        if($index == 0)
+          $div_nombre = $division->abreviatura;
+        else
+          $div_nombre = $division->abreviatura.', '.$div_nombre;
+      }
+      return $div_nombre;
     }
     public function getDivisionNombre()
     {

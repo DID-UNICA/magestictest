@@ -35,7 +35,7 @@
                             <label for="sede" class="col-md-4 control-label">Sede</label>
 
                             <div class="col-md-6">
-                                <input id="sede" type="text" class="form-control" name="sede" value="{{ old('sede') }}"  >
+                                <input id="sede" required type="text" class="form-control" name="sede" value="{{ old('sede') }}"  >
 
                                 @if ($errors->has('sede'))
                                     <span class="help-block">

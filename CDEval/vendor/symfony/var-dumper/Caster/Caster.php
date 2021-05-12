@@ -41,12 +41,19 @@ class Caster
      * Casts objects to arrays and adds the dynamic property prefix.
      *
      * @param object $obj          The object to cast
+     * @param string $class        The class of the object
      * @param bool   $hasDebugInfo Whether the __debugInfo method exists on $obj or not
      *
      * @return array The array-cast of the object, with prefixed dynamic properties
      */
-    public static function castObject($obj, string $class, bool $hasDebugInfo = false): array
+    public static function castObject($obj, $class, $hasDebugInfo = false, $debugClass = null)
     {
+        if ($class instanceof \ReflectionClass) {
+            @trigger_error(sprintf('Passing a ReflectionClass to "%s()" is deprecated since Symfony 3.3 and will be unsupported in 4.0. Pass the class name as string instead.', __METHOD__), \E_USER_DEPRECATED);
+            $hasDebugInfo = $class->hasMethod('__debugInfo');
+            $class = $class->name;
+        }
+
         if ($hasDebugInfo) {
             try {
                 $debugInfo = $obj->__debugInfo();
@@ -64,6 +71,17 @@ class Caster
 
         if ($a) {
             static $publicProperties = [];
+            if (null === $debugClass) {
+                if (\PHP_VERSION_ID >= 80000) {
+                    $debugClass = get_debug_type($obj);
+                } else {
+                    $debugClass = $class;
+
+                    if (isset($debugClass[15]) && "\0" === $debugClass[15]) {
+                        $debugClass = (get_parent_class($debugClass) ?: key(class_implements($debugClass)) ?: 'class').'@anonymous';
+                    }
+                }
+            }
 
             $i = 0;
             $prefixedKeys = [];
@@ -77,8 +95,8 @@ class Caster
                     if (!isset($publicProperties[$class][$k])) {
                         $prefixedKeys[$i] = self::PREFIX_DYNAMIC.$k;
                     }
-                } elseif (isset($k[16]) && "\0" === $k[16] && 0 === strpos($k, "\0class@anonymous\0")) {
-                    $prefixedKeys[$i] = "\0".get_parent_class($class).'@anonymous'.strrchr($k, "\0");
+                } elseif ($debugClass !== $class && 1 === strpos($k, $class)) {
+                    $prefixedKeys[$i] = "\0".$debugClass.strrchr($k, "\0");
                 }
                 ++$i;
             }
@@ -94,6 +112,9 @@ class Caster
         if ($hasDebugInfo && \is_array($debugInfo)) {
             foreach ($debugInfo as $k => $v) {
                 if (!isset($k[0]) || "\0" !== $k[0]) {
+                    if (\array_key_exists(self::PREFIX_DYNAMIC.$k, $a)) {
+                        continue;
+                    }
                     $k = self::PREFIX_VIRTUAL.$k;
                 }
 
@@ -118,7 +139,7 @@ class Caster
      *
      * @return array The filtered array
      */
-    public static function filter(array $a, int $filter, array $listedProperties = [], ?int &$count = 0): array
+    public static function filter(array $a, $filter, array $listedProperties = [], &$count = 0)
     {
         $count = 0;
 
@@ -159,7 +180,7 @@ class Caster
         return $a;
     }
 
-    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, Stub $stub, bool $isNested): array
+    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, Stub $stub, $isNested)
     {
         if (isset($a['__PHP_Incomplete_Class_Name'])) {
             $stub->class .= '('.$a['__PHP_Incomplete_Class_Name'].')';
