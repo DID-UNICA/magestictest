@@ -201,6 +201,8 @@ class ReconocimientosController extends Controller{
             $instructor_curso->folio_inst = $folio_inst;
             if($folio_der > 0)
               $instructor_curso->folio_peque = strval($folio_der);
+						else
+							$instructor_curso->folio_peque = "";
             $instructor_curso->save();
             $pdf = PDF::loadView('pages.pdf.reconocimientoD', 
                 array('curso' => $curso,
@@ -213,7 +215,7 @@ class ReconocimientosController extends Controller{
                     'coordinacion'=>$coordinacion,
                     'secretarioApoyo' =>$secretarioApoyo,
                     'folio'=>$folio_inst,
-                    'folio_der'=>strval($folio_der),
+                    'folio_der'=>$instructor_curso->folio_peque,
                     "tema" => $request->texto_personalizado))
                 ->setPaper('letter', 'landscape');
             $nombreArchivo = 'a' . $profesor->nombres . '.pdf';
@@ -358,6 +360,8 @@ class ReconocimientosController extends Controller{
                   $instructor_curso->fecha_envio = $request->envio;
                   if($folio_der > 0)
                     $instructor_curso->folio_peque = strval($folio_der);
+									else
+										$instructor_curso->folio_peque = "";
                   $instructor_curso->save();
                     $pdf = PDF::loadView(
                         'pages.pdf.reconocimientoCTTC', 
@@ -369,7 +373,7 @@ class ReconocimientosController extends Controller{
                             'fechaimp'=>$fechaimp,
                             'coordinacion'=>$coordinacion,
                             'folio'=>$folio_inst,
-                            'folio_der'=>strval($folio_der)))
+                            'folio_der'=>$instructor_curso->folio_peque))
                         ->setPaper('letter', 'landscape');
 
                 $nombreArchivo = strval($iter).'_'.$profesor->getNombresArchivo().'_R.pdf';
@@ -395,6 +399,8 @@ class ReconocimientosController extends Controller{
                 $instructor_curso->folio_inst = $folio_inst;
                 if($folio_der > 0)
                   $instructor_curso->folio_peque = strval($folio_der);
+								else
+									$instructor_curso->folio_peque = "";
                 $instructor_curso->save();
                 $pdf = PDF::loadView('pages.pdf.reconocimientoE', 
                     array('curso' => $curso,
@@ -406,7 +412,7 @@ class ReconocimientosController extends Controller{
                         'coordinacion'=>$coordinacion,
                         'secretarioApoyo' =>$secretarioApoyo,
                         'folio'=>$folio_inst,
-                        'folio_der'=>strval($folio_der),
+                        'folio_der'=>$instructor_curso->folio_peque,
                         "tema" => $request->texto_personalizado))
                     ->setPaper('letter', 'landscape');
                 $nombreArchivo = strval($iter).'_'.$profesor->getNombresArchivo().'_R.pdf';
@@ -436,6 +442,8 @@ class ReconocimientosController extends Controller{
             $instructor_curso->folio_inst = $folio_inst;
             if($folio_der > 0)
               $instructor_curso->folio_peque = strval($folio_der);
+						else
+							$instructor_curso->folio_peque = "";
             $instructor_curso->save();
             $pdf = PDF::loadView('pages.pdf.reconocimientoS', 
               array('curso' => $curso,
@@ -447,7 +455,7 @@ class ReconocimientosController extends Controller{
               'coordinacion'=>$coordinacion,
               'duracion'=>$tema->duracion,
               'folio' => $folio_inst,
-              'folio_der' => strval($folio_der),
+              'folio_der' => $instructor_curso->folio_peque,
               'tema' => $tema->nombre))
                   ->setPaper('letter', 'landscape');
               $nombreArchivo = strval($iter).'_'.$profesor->getNombresArchivo().'_R.pdf';

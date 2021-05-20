@@ -374,6 +374,15 @@ class StartSeeder extends Seeder
         DB::table('categoria_nivel')->insert([
           'categoria' => 'Técnico Titular C TC', 'abreviatura' => 'TEC TIT C T C'
         ]);
+				DB::table('categoria_nivel')->insert([
+          'categoria' => 'Secretarias', 'abreviatura' => 'Secretarias'
+        ]);
+				DB::table('categoria_nivel')->insert([
+          'categoria' => 'Becarios', 'abreviatura' => 'Becarios'
+        ]);
+				DB::table('categoria_nivel')->insert([
+          'categoria' => 'Externos', 'abreviatura' => 'Externos'
+        ]);
         
 
         //TABLA DE PROFESORES DE PRUEBA
@@ -1000,10 +1009,10 @@ en impuestos universitarios.',
         DB::table('coordinacions')->insert([
           'abreviatura'=>'CO',
           'nombre_coordinacion'=>'Área de Cómputo',
-          'coordinador'=>'Gerardo Lopez Gomez',
+          'coordinador'=>'Daniela Lopez Gomez',
           'grado'=>'M.C.C',
-          'usuario'=>'G3rardo1nEZ',
-          'password'=>'$10$Sli0p2.SdjP7JTbyze.RIucCUJA5MOG6AEB40sJG3Ok3Kb33ltibl'
+          'usuario'=>'daniela',
+          'password'=> Hash::make('1234')
         ]);
     
         DB::table('coordinacions')->insert([
@@ -1011,8 +1020,8 @@ en impuestos universitarios.',
           'nombre_coordinacion'=>'Área Disciplinar e Investigación Educativa',
           'coordinador'=>'Roman Dominguez Perez',
           'grado'=>'M.E.M.',
-          'usuario'=>'R0m4n1nEZ',
-          'password'=>'$10$Sli0p2.SdjP7JTbyze.RIucCUJA5MOG6AEB40sJG3Ok3Kb33ltibn'
+          'usuario'=>'roman',
+          'password'=> Hash::make('1234')
         ]);
         
         DB::table('coordinacions')->insert([
@@ -1022,7 +1031,6 @@ en impuestos universitarios.',
           'grado' => 'M.E.M.',
           'usuario' => 'daniel',
           'password' => Hash::make('1234'),
-          'comentarios' => '-'
         ]);
     
         DB::table('coordinacions')->insert([
@@ -1032,7 +1040,6 @@ en impuestos universitarios.',
           'grado' => 'M.E.M.',
           'usuario' => 'jacob',
           'password' => Hash::make('1234'),
-          'comentarios' => '-'
       ]);
 
       //CATÁLOGO DE CURSOS DE PRUEBA

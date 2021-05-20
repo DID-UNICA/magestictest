@@ -201,14 +201,14 @@ body {
 
 
     <div>
-    <table width=100% style="border: 1px solid black;">
+    <table width=100%>
       <tr width=100%>
         <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 2.5cm;">______________________</td>
         <td width=260 class="firma1" style="padding-top: 1cm; padding-right: 2.5cm;">______________________</td>
       </tr>
     </table>
 
-    <table width=100% style="text-align: center; border: 1px solid black;">
+    <table width=100%>
       <tr width=100%>
         <td width=260 align="center" class="firma" style="font-weight: bold; font-size: 11pt; padding-left: 2.5cm;"> {{$firmante2}}</td> 
         <td width=260 class="firma" align="center" style="font-weight: bold; font-size: 11pt; padding-right: 2.5cm;">{{$firmante1}}</td>
