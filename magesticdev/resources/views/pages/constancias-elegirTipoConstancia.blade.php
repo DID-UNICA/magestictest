@@ -69,7 +69,7 @@
 										<option value="D">Coordinación General</option>
 										<option value="I">Coordinación y Coordinación General</option>
 										<option value="E">Director</option>
-										<option value="F">Coordinación General  y Secretaría de Apoyo a la Docencia</option>
+										<option value="F">Coordinación General y Secretaría de Apoyo a la Docencia</option>
 										<option value="G">Secretaría de Apoyo a la Docencia y Director</option>
 										<option value="H">UNICA</option>
 										<option value="f1">Un firmante</option>

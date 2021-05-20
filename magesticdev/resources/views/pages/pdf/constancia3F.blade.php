@@ -160,14 +160,14 @@ body {
         <td  class="firma1" style="padding-top: 1cm;">______________________</td>
       </tr>
       <tr>
-        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$firmante1}}</td>
-        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$firmante2}}</td>
         <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$firmante3}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$firmante2}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$firmante1}}</td>
       </tr>
       <tr>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion2}}</td>
         <td class="firma" style="font-size: 8pt;">{{$descripcion3}}</td>
+        <td class="firma" style="font-size: 8pt;">{{$descripcion2}}</td>
+        <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
       </tr>
     </table>
     </div>

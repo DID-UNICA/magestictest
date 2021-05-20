@@ -230,7 +230,7 @@ hr{
 				</tr>
 				<tr>
 					<td id=rubro-Ant>Antecedentes:</td>
-					<td id=contenidos-Ant>{!! nl2br(str_replace(' ', '&nbsp;', $cursoCatalogo->getAntecedentes())) !!}</td>
+					<td id=contenidos-Ant>{!! nl2br(str_replace(' ', '&nbsp;', $cursoCatalogo->antecedentes)) !!}</td>
 				</tr>
 				<tr>
 					<td class=rubros>Duración: </td>

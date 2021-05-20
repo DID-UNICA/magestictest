@@ -94,7 +94,7 @@ class ConstanciasController extends Controller{
     public function generar($id, Request $request){
         $pdfMerger = new PdfManage;
         $generacion = $request->generacion;
-        $folio_der = (strlen($request->numero) != 0 and is_numeric($request->numero)) ?  intval($request->numero) : -1;
+        $folio_der = (strlen($request->numero) != 0 and is_numeric($request->numero)) ? intval($request->numero) : -1;
         $zip = new Zipper();
         $zip::make(public_path('constancias.zip'));
         $count = ProfesoresCurso::select('id')
@@ -248,40 +248,44 @@ class ConstanciasController extends Controller{
                     'warning', 'Problemas con el directorio "tmp"'
                 );    
             }
+
             //BUSCAMOS AL PRIMER FIRMANTE
-            // El tipo de constancia necesita al coordinador
-            if ($tipoDeConstancia == "A" or $tipoDeConstancia == "AA"
-                or $tipoDeConstancia == "I"){
+            // El tipo de constancia tiene al coordinador como mayor cargo
+            if ($tipoDeConstancia == "A" or $tipoDeConstancia == "AA"){
                 $firmante1 = $coordinacion->grado." ".$coordinacion->coordinador;
                 $descripcion1 = "Coordinador de ".$coordinacion->nombre_coordinacion;
                 $formatoConstancia = 1;
-            //El tipo de constancia necesita al coordinador general
+            //El tipo de constancia necesita al coordinador general como mayor cargo
             }elseif ($tipoDeConstancia == "B" or $tipoDeConstancia == "D" 
-                or $tipoDeConstancia == "F" or $tipoDeConstancia == "H"){
+                or $tipoDeConstancia == "I" or $tipoDeConstancia == "H"){
                 $firmante1 = $coordinadorGeneral->grado." ".$coordinadorGeneral->coordinador;
                 $descripcion1 = "Coordinador del Centro de Docencia";
                 $formatoConstancia = 1;
-            //El tipo de constancia necesita al director
+            //El tipo de constancia necesita al director como mayor cargo
             }elseif ($tipoDeConstancia == "E" OR $tipoDeConstancia == "G"){
                 $firmante1 = $director->grado." ".$director->director;
                 $descripcion1 = "Director de la Facultad de Ingeniería";
                 $formatoConstancia = 1;
-            //El tipo de constancia necesita al SAD
-            }elseif ($tipoDeConstancia == "C"){
+            //El tipo de constancia necesita al SAD como mayor cargo
+            }elseif ($tipoDeConstancia == "C" or $tipoDeConstancia == "F"){
                 $firmante1 = $secretarioApoyo->grado." ".$secretarioApoyo->secretario;
                 $descripcion1 = "Secretario de Apoyo a la Docencia";
                 $formatoConstancia = 1;
             }
             //BUSCAMOS AL SEGUNDO FIRMANTE
             if($tipoDeConstancia == "I"){
-                $firmante2 = $coordinadorGeneral->grado." ".$coordinadorGeneral->coordinador;
-                $descripcion2 = "Coordinador del Centro de Docencia";
+                $firmante2 = $coordinacion->grado." ".$coordinacion->coordinador;
+                $descripcion2 = "Coordinador de ".$coordinacion->nombre_coordinacion;
                 $formatoConstancia = 2;
-            }elseif($tipoDeConstancia == "F" or $tipoDeConstancia == "G"){
+            }elseif($tipoDeConstancia == "G"){
                 $firmante2 = $secretarioApoyo->grado." ".$secretarioApoyo->secretario;
                 $descripcion2 = "Secretario de Apoyo a la Docencia";
                 $formatoConstancia = 2;
-            }
+            }elseif($tipoDeConstancia == "F"){
+								$firmante2 = $coordinadorGeneral->grado." ".$coordinadorGeneral->coordinador;
+								$descripcion2 = "Coordinador del Centro de Docencia";
+								$formatoConstancia = 2;
+						}
             //BUSCAMOS A LOS INSTRUCTORES
             if ($tipoDeConstancia == "A" or $tipoDeConstancia == "B" 
                 or $tipoDeConstancia == "C" or $tipoDeConstancia == "H"){
@@ -367,6 +371,8 @@ class ConstanciasController extends Controller{
                 $participante->folio_inst = $folio_inst;
                 if($folio_der > 0)
                     $participante->folio_peque = strval($folio_der);
+								else
+										$participante->folio_peque = "";
                 $participante->save();
                 if($formatoConstancia == 1){
                     $pdf = PDF::loadView('pages.pdf.constancia1F',
@@ -374,7 +380,8 @@ class ConstanciasController extends Controller{
                         'fechaimp'=>$fechaimp,'fecha'=>$fecha, 'firmante1'=>$firmante1,
                         'descripcion1'=>$descripcion1, 'folio'=>$folio.$idTipo."C".$numLista,
                         'generacion'=>$generacion, 'texto'=>$texto,
-                        'folio_der'=>strval($folio_der),)
+                        'folio_der'=>$participante->folio_peque
+											)
                     )->setPaper('letter', 'landscape');
                 }elseif($formatoConstancia == 2){
                     $pdf = PDF::loadView('pages.pdf.constancia2F', 
@@ -382,7 +389,7 @@ class ConstanciasController extends Controller{
                         'fechaimp'=>$fechaimp,'fecha'=>$fecha, 'firmante1'=>$firmante1,
                         'descripcion1'=>$descripcion1,'firmante2'=>$firmante2,'descripcion2'=>$descripcion2,
                         'generacion'=>$generacion, 'texto'=>$texto,
-                        'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>strval($folio_der), )
+                        'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>$participante->folio_peque)
                     )->setPaper('letter', 'landscape');
                 }elseif($formatoConstancia == 3){
                     $pdf = PDF::loadView('pages.pdf.constancia3F',
@@ -391,7 +398,7 @@ class ConstanciasController extends Controller{
                         'descripcion1'=>$descripcion1,'firmante2'=>$firmante2,'descripcion2'=>$descripcion2,
                         'firmante3'=>$firmante3,'descripcion3'=>$descripcion3,
                         'generacion'=>$generacion, 'texto'=>$texto,
-                        'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>strval($folio_der), )
+                        'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>$participante->folio_peque )
                     )->setPaper('letter', 'landscape');
                 }elseif($formatoConstancia == 4){
                     $pdf = PDF::loadView('pages.pdf.constancia4F',
@@ -400,7 +407,7 @@ class ConstanciasController extends Controller{
                         'descripcion1'=>$descripcion1,'firmante2'=>$firmante2,'descripcion2'=>$descripcion2,
                         'firmante3'=>$firmante3,'descripcion3'=>$descripcion3, 'firmante4'=>$firmante4,'descripcion4'=>$descripcion4,
                         'generacion'=>$generacion, 'texto'=>$texto,
-                        'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>strval($folio_der), )
+                        'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>$participante->folio_peque )
                     )->setPaper('letter', 'landscape');
                 }elseif($formatoConstancia == 5){
                     $pdf = PDF::loadView('pages.pdf.constancia5F',
@@ -410,7 +417,7 @@ class ConstanciasController extends Controller{
                         'firmante3'=>$firmante3,'descripcion3'=>$descripcion3, 'firmante4'=>$firmante4,'descripcion4'=>$descripcion4,
                         'firmante5'=>$firmante5,'descripcion5'=>$descripcion5,
                         'generacion'=>$generacion, 'texto'=>$texto,
-                        'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>strval($folio_der), )
+                        'folio'=>$folio.$idTipo."C".$numLista,'folio_der'=>$participante->folio_peque )
                     )->setPaper('letter', 'landscape');
                 }
                 $nombreArchivo = strval($iter).'_'.$profesor->getNombresArchivo().'_C.pdf';

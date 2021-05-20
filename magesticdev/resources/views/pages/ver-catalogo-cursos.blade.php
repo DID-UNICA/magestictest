@@ -58,34 +58,31 @@
 						</div>
 						<div class="row col-md-12 ">
 							<div class="form-group col-md-5">
-									{!!Form::label("presentacion", "Presentación:")!!}
-									{!!Form::textarea("presentacion", $user->presentacion, [ "class" => "form-control", "required","disabled"])!!}
-							</div>
-							<div class="form-group col-md-6">
 								{!!Form::label("dirigido", "Dirigido a:")!!}
 								{!!Form::textarea("dirigido", $user->dirigido, [ "class" => "form-control", "required","disabled"])!!}
 							</div>
-						</div>
-						<div class="row col-md-12 ">
 							<div class="form-group col-md-5">
 									{!!Form::label("objetivo", "Objetivo:")!!}
 									{!!Form::textarea("objetivo", $user->objetivo, [ "class" => "form-control", "required","disabled"])!!}
 							</div>
+						</div>
+						<div class="row col-md-12 ">
 							<div class="form-group col-md-5">
 								{!!Form::label("contenido", "Contenido:")!!}
 								{!!Form::textarea("contenido", $user->contenido, [ "class" => "form-control", "required","disabled"])!!}
 							</div>
-						</div>
-						<div class="row col-md-12 ">
 							<div class="form-group col-md-5">
-									{!!Form::label("antecedentes", "Otros antecedentes:")!!}
+									{!!Form::label("antecedentes", "Antecedentes:")!!}
 									{!!Form::textarea("antesc", $user->antecedentes, [ "class" => "form-control", "required","disabled"])!!}
 							</div>
+						</div>
+						<div class="row col-md-12 ">
 							<div class="form-group col-md-3">
 								{!!Form::label("fecha_disenio", "Fecha de diseño:")!!}
 								{!!Form::date("fecha_disenio",$user->fecha_disenio , [ "class" => "form-control", "required","disabled"])!!}
+							</div>
+							<div class = "form-group col-md-5">
 								<a style='margin: 3px;' href="{{ URL::to('catalogo-cursos') }}" class="btn btn-warning">Regresar</a>
-								<a style='margin: 3px;' href="{{ URL::to('catalogo-cursos/ver-antecedentes',$user->id) }}" class="btn btn-success">Ver Antecedentes</a>
 								<a style='margin: 3px;' href="{{ URL::to('catalogo-cursos/actualizar', $user->id) }}" class="btn btn-info">Actualizar información</a>
 								<a style='margin: 3px;' href="{{ URL::to('catalogo-cursos/baja', $user->id) }}" class="btn btn-danger">Dar de baja</a>
 							</div>

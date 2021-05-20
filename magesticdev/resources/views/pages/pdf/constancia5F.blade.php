@@ -162,18 +162,18 @@ body {
         <td  class="firma1" style="padding-top: 1cm;">___________________</td>
       </tr>
       <tr>
-        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.2cm;">{{$firmante1}}</td>
-        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.2cm;">{{$firmante2}}</td>
-        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.2cm;">{{$firmante3}}</td>
-        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.2cm;">{{$firmante4}}</td>
         <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.2cm;">{{$firmante5}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.2cm;">{{$firmante4}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.2cm;">{{$firmante3}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.2cm;">{{$firmante2}}</td>
+        <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.2cm;">{{$firmante1}}</td>
       </tr>
       <tr>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion2}}</td>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion3}}</td>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion4}}</td>
         <td class="firma" style="font-size: 8pt;">{{$descripcion5}}</td>
+        <td class="firma" style="font-size: 8pt;">{{$descripcion4}}</td>
+        <td class="firma" style="font-size: 8pt;">{{$descripcion3}}</td>
+        <td class="firma" style="font-size: 8pt;">{{$descripcion2}}</td>
+        <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
       </tr>
     </table>
     </div>

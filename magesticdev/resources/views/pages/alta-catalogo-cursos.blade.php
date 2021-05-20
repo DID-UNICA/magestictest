@@ -109,7 +109,7 @@
                             </div>
                     </div>
 
-                    <div id=NumTemas style="display:none" class="form-group{{ $errors->has('presentacion') ? ' has-error' : '' }}">
+                    <div id=NumTemas style="display:none" class="form-group{{ $errors->has('temas') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Número de Temas: </label>
                         <div class="col-md-6">
                             <input type="number"  class="form-control" name="temas" min=1 value="{{ old('temas') }}">
@@ -130,19 +130,6 @@
                                     </span>
                                 @endif
                             </div>
-                    </div>
-                    
-
-                    <div class="form-group{{ $errors->has('presentacion') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Presentación: </label>
-
-                        <div class="col-md-5">
-													<textarea cols="90" wrap="hard" id="presentacion" type="text" class="form-control" name="presentacion" value="{{ old('presentacion') }}">@if ($errors->has('presentacion'))
-                                <span class="help-block">
-                                        <strong>{{ $errors->first('presentacion') }}</strong>
-                                    </span>
-                            @endif</textarea>
-                        </div>
                     </div>
 
                     <div class="form-group{{ $errors->has('dirigido') ? ' has-error' : '' }}">
@@ -192,25 +179,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('antecedente_id') ? ' has-error' : '' }}">
+                    <div id="antecedentes" class="form-group{{ $errors->has('antesc') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Antecedentes:</label>
-                        <div class="col-md-6">
-                            <select onchange="deter()" id='antecedente_id' class="form-control" multiple="multiple" name="antecedente_id[]" value="{{ old('antecedente_id')}}>
-                            @foreach($catalogo_cursos as $catalogo_curso)
-                                <option value="{{ $catalogo_curso->id }} ">{{ $catalogo_curso->nombre_curso }} ({{ $catalogo_curso->clave_curso }})</option>
-                                    $antecedente_id = $request->input('antecedente_id');
-                            @endforeach
-                                <option id="Otros" value="Otros">Otros</option>
-                            </select>
-                            @if ($errors->has('antecedente_id'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('antecedente_id') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div id="E1" class="form-group{{ $errors->has('antesE') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Otros Antecedentes:</label>
                         <div class="col-md-5">
                             <textarea cols="90" wrap="hard" type="text" class="form-control" name="antesc"></textarea>
                         </div>
@@ -227,21 +197,6 @@
                 </form>
             </div>
         <script type="text/javascript">
-            function selectCheck() {
-                    
-                    document.getElementById('E1').style.display = 'block';
-            }
-            function esconder() {
-                    
-                    document.getElementById('E1').style.display = 'none';
-            }
-            function deter(){
-              if(document.getElementById("Otros").selected){
-                  selectCheck();
-              }else{
-                  esconder();
-              }
-            }
             function cantidadtemas(){
                 var tipo;
                 tipo = document.getElementById("tipo").value;
@@ -252,7 +207,6 @@
                     document.getElementById('NumTemas').style.display = 'none';
                 }
             }
-              esconder();
         </script>
     </section>
 

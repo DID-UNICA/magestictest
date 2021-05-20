@@ -19,7 +19,6 @@ class CreateCatalogoCursos extends Migration
             $table->string('duracion_curso');
             $table->string('tipo');
             $table->string('institucion');
-            $table->longText('presentacion')->nullable();
             $table->longText('dirigido')->nullable();
             $table->longText('objetivo')->nullable();
             $table->longText('contenido')->nullable();

@@ -122,6 +122,8 @@ body {
 }
 .tabla-centro{
   width: 100%;
+  align-content: center;
+  align-items: center;
   
   
   
@@ -143,6 +145,7 @@ body {
       <br>
       <h2 class='nombre_profesor'>{{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
       <h3 style="font-size: 14pt; padding-top: 0.5cm;">{{$texto}}</h3>
+
       <div class='nombre_curso' style="padding-top: 0.2cm;">{{$cursoCatalogo->nombre_curso}}</div>
       @if($generacion != "")
         <h3 style="font-size: 12px;">Dentro del plan de becarios de UNICA, generación {{$generacion}}°</h3>
@@ -160,7 +163,13 @@ body {
       <p class="firma" style="font-size: 8pt;"> {{$descripcion1}} </p>
     </div>
 
--->
+    <div>
+      <p class="firma1" style="padding-top: 1cm;">___________________</p>
+      <p class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;"> {{$firmante2}} </p>
+      <p class="firma" style="font-size: 8pt;"> {{$descripcion2}} </p>
+    </div>
+  -->
+
 
 
 
@@ -192,44 +201,33 @@ body {
 
 
     <div>
-    <table width=auto style="padding-left: 2.9cm;">
-      <tr width=auto>
-        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
-        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 1.2cm;">______________________</td>
+    <table width=100% style="border: 1px solid black;">
+      <tr width=100%>
+        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 2.5cm;">______________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm; padding-right: 2.5cm;">______________________</td>
       </tr>
     </table>
 
-    <table width=auto style=" padding-left: 4.3cm;">
-      <tr width=auto>
-        <td class="firma" style="font-weight: bold; font-size: 11pt;"> {{$firmante1}}</td> 
-        <td width=260 class="firma" style="font-weight: bold; font-size: 11pt;padding-left: 2.7cm;">{{$firmante2}}</td>
+    <table width=100% style="text-align: center; border: 1px solid black;">
+      <tr width=100%>
+        <td width=260 align="center" class="firma" style="font-weight: bold; font-size: 11pt; padding-left: 2.5cm;"> {{$firmante2}}</td> 
+        <td width=260 class="firma" align="center" style="font-weight: bold; font-size: 11pt; padding-right: 2.5cm;">{{$firmante1}}</td>
 
       </tr>
 
 
       <tr>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
         <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">{{$descripcion2}}</td>
+        <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">{{$descripcion1}}</td>
       </tr>
     </table>
 
   </div>
-
-
     <table width=auto style="vertical-align: top; padding-top: 1.4cm; margin: 0px;">
     <tr width=auto>
       <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
       <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>
     </tr>
     </table>
-
-
-
-
   </body>
-
-
-
-
-
 </html>

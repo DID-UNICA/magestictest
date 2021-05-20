@@ -157,7 +157,6 @@ class CursoController extends Controller
         $user->hora_fin = $request->hora_fin;
         $user->dias_semana = $request->dias_semana;
         $user->numero_sesiones = $request->numero_sesiones;
-        $user->texto_diploma = $request->texto_diploma;
         $user->costo = $request->costo;
         $user->cupo_maximo = $request->cupo_maximo;
         $user->cupo_minimo = $request->cupo_minimo;
@@ -386,7 +385,6 @@ class CursoController extends Controller
         $curso->hora_fin = $request->hora_fin;
         $curso->dias_semana = $dias_semana;
         $curso->numero_sesiones = $request->numero_sesiones;
-        $curso->texto_diploma = $request->texto_diploma;
         $curso->costo = $request->costo;
         $curso->cupo_maximo = $request->cupo_maximo;
         $curso->cupo_minimo = $request->cupo_minimo;

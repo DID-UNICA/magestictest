@@ -70,10 +70,6 @@
     {!!Form::label("numero_sesiones", "Número de sesiones")!!}
     {!!Form::text("numero_sesiones", $user->numero_sesiones, [ "class" => "form-control", "placeholder" => "Sesiones", "required","disabled"])!!}
   </div>
-  <div class="form-group col-md-6 ">
-    {!!Form::label("texto_diploma", "Texto para diploma:")!!}
-    {!!Form::text("texto_diploma", $user->texto_diploma, [ "class" => "form-control", "placeholder" => "Texto diploma", "required","disabled"])!!}
-  </div>
 
     <div class="form-group col-md-6">
     {!!Form::label("costo", "Costo:")!!}

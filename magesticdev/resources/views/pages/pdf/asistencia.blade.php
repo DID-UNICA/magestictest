@@ -169,7 +169,7 @@ body{
         </tr>
 		<tr>
 		    <td class="titulos">Sede</td>
-		    <td class="valores">{{$salon->sede}} - {{$salon->ubicacion}}</td>
+		    <td class="valores">{{$salon->sede}}</td>
 		</tr>
         <tr>
             <td class="titulos" width="40%">Horario</td>

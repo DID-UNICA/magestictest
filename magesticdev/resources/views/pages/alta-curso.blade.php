@@ -181,19 +181,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('texto_diploma') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Dirigido a:</label>
-
-                            <div class="col-md-6">
-                                <input id="texto_diploma" type="text" class="form-control" name="texto_diploma" value="{{ old('texto_diploma') }}" required>
-
-                                @if ($errors->has('texto_diploma'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('texto_diploma') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                         <div class="form-group{{ $errors->has('costo') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Costo</label>
                             <div class="col-md-6">
