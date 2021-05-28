@@ -69,15 +69,16 @@ td{
         </div>
         <form class="form-horizontal" method="POST" action="{{ route('curso.ver-respuesta') }}">
                   {{csrf_field()}}
-                  <button type="submit" class="btn btn-primary">
+									@if( empty($users) )
+										<p>Aún no hay alumnos inscritos en este curso</p>
+										<a href="{{ URL::to('curso/inscripcion', $curso->id) }}" class="btn btn-success" style='margin: 20px;'>Inscribir Participantes</a>
+									@else
+									<button type="submit" class="btn btn-primary">
                           Modificar lista
-                      </button>
+                  </button>
+									
+                  
             <div class="panel-body tablaFija" style="overflow-x:auto;">
-              @if( empty($users) )
-
-              Aún no hay alumnos inscritos en este curso
-              @else
-              
                   <input name="curso_id" type="hidden" value="{{$curso->id}}">
                   <table width="100%">
                       <tr>
@@ -225,16 +226,8 @@ td{
                     @endfor
                     
                 </table>
-
-                  <div class="form-group">
-
-
-                  </div>
-                  
               </form>
-
-
-            </div>
+							@endif
     </section>
 
     <script>
@@ -348,6 +341,5 @@ td{
           }
         }
      </script>
-              @endif
 
 @endsection

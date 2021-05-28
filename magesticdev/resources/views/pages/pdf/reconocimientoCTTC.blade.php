@@ -139,38 +139,61 @@ body {
     @endif
       <br>
       <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      <h3 style="font-size: 14pt;padding-top: 0.5cm;">por impartir el {{$curso->getTipoCadena()}}</h3>
-      <h2 class='nombre_curso' style="padding-top: 0.2cm;">{{$cursoCatalogo->nombre_curso}}</h2>
-      <p style="padding-top: 0.4cm; font-size:12pt;">{{$fechaimp}}</h5>
+
+
+
+      <table width="15cm" align="center">
+        <tr width="15cm">
+         <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top;">por impartir el {{$curso->getTipoCadena()}}</td>
+        </tr>
+        <tr width="15cm">
+          <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top;">{{$cursoCatalogo->nombre_curso}}</td>
+        </tr>
+      </table>
+
+
+     <!-- <h3 style="font-size: 14pt;padding-top: 0.5cm;">por impartir el {{$curso->getTipoCadena()}}</h3>
+      <h2 class='nombre_curso' style="padding-top: 0.2cm;">{{$cursoCatalogo->nombre_curso}}</h2> -->
+
+
+      <p style="font-size:12pt;">{{$fechaimp}}</h5>
       <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
       <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 0.7cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="font-size: 8pt; padding-bottom: 1cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
-    <div class = "tabla-centro" style="margin-bottom: 0px;">
-    <table>
-      <tr>
-        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
-        <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
-      </tr>
-      <tr>
-        <td width=260 class="firma" style="font-weight: bold; padding-top: 0.3cm;">{{$coordinacion->grado}} {{$coordinacion->coordinador}}</td>
-        <td width=260 class="firma" style="font-weight: bold; padding-top: 0.3cm;">{{$coordinadorGeneral->grado}} {{ $coordinadorGeneral->coordinador }}</td>
-      </tr>
-      <tr>
-        <td width=260 class="firma" style="font-size: 8pt;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
-        <td width=260 class="firma" style="font-size: 8pt;">Coordinador General del Centro de Docencia</td>
+
+    <div>
+    <table width="100%">
+      <tr width="100%">
+        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 2.5cm;">______________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm; padding-right: 2.5cm;">______________________</td>
       </tr>
     </table>
-    </div>
+
+    <table width="100%">
+      <tr width="100%">
+        <td width=260 align="center" class="firma" style="font-weight: bold; font-size: 11pt; padding-left: 2.5cm;">{{$coordinacion->grado}} {{$coordinacion->coordinador}}</td>
+        <td width=260 class="firma" align="center" style="font-weight: bold; font-size: 11pt; padding-right: 2.5cm;">{{$coordinadorGeneral->grado}} {{ $coordinadorGeneral->coordinador }}</td>
+
+      </tr>
+
+
+      <tr>
+        <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
+
+        <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">Coordinador General del Centro de Docencia</td>
+      </tr>
+    </table>
+    
   </div>
-  <table width=100% style="vertical-align: top; padding-top: 1.5cm; margin: 0px;">
-    <tr width=100% >
-@if($folio_der > 0)
-<td id="numero_inferior">{{ $folio_der }}</td>
-@endif
-      <td style='text-align:right' id="folio">{{ $folio }}</td>
+
+
+    <table width=auto style="vertical-align: top; padding-top: 1.4cm; margin: 0px;">
+    <tr width=auto>
+      <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
+      <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>
     </tr>
-  </table>
+    </table>
   </body>
 </html>
 

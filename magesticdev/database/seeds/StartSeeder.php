@@ -1452,7 +1452,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>35,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1460,7 +1461,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>34,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1468,7 +1470,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>33,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1476,7 +1479,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>32,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1484,7 +1488,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>31,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1492,7 +1497,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>30,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1500,7 +1506,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>29,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1508,7 +1515,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>28,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1516,7 +1524,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>27,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1524,7 +1533,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>26,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1532,7 +1542,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>25,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1540,7 +1551,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>24,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1548,7 +1560,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>23,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1556,7 +1569,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>22,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1564,7 +1578,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>21,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1572,7 +1587,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>20,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1580,7 +1596,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>19,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1588,7 +1605,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>18,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1596,7 +1614,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>17,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1604,7 +1623,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>16,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1612,7 +1632,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>15,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1620,7 +1641,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>14,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1628,7 +1650,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>13,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1636,7 +1659,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>12,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1644,7 +1668,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>11,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1652,7 +1677,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>10,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1660,7 +1686,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>9,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1668,7 +1695,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>8,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>5
+          'calificacion'=>5,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1676,7 +1704,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>7,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>10
+          'calificacion'=>10,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1684,7 +1713,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>6,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>9
+          'calificacion'=>9,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1692,7 +1722,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>5,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>10
+          'calificacion'=>10,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1700,7 +1731,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>15,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>9
+          'calificacion'=>9,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1708,7 +1740,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>16,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>8
+          'calificacion'=>8,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1716,7 +1749,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>17,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>9
+          'calificacion'=>9,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1724,7 +1758,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>18,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>9
+          'calificacion'=>9,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1732,7 +1767,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>19,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>9
+          'calificacion'=>9,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1740,7 +1776,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>17,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>9
+          'calificacion'=>9,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1748,7 +1785,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>2,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>10
+          'calificacion'=>10,
+					'espera'=>0
         ]);
 
         DB::table('participante_curso')->insert([
@@ -1756,7 +1794,8 @@ Qué es una computadora y cómo funciona',
           'profesor_id'=>21,
           'asistencia'=>true,
           'acreditacion'=>true,
-          'calificacion'=>10
+          'calificacion'=>10,
+					'espera'=>0
         ]);
 
         //ENCUESTAS PARA REPORTE DE COMENTARIOS Y SUGERENCIAS

@@ -14,7 +14,7 @@ use Carbon\Carbon;
 use App\Salon;
 use App\Exports\AllCursosExport;
 use App\Exports\AllCursosPartialExport;
-
+use Dompdf;
 class FormatosController extends Controller
 {
     public function generarreporte(Request $request){
@@ -200,7 +200,7 @@ class FormatosController extends Controller
             //Identificadores Grandes
                 $pdf = PDF::loadView(
                     'pages.pdf.formatos-identificadores', $datos
-                );
+                )->setPaper('letter');
                 return $pdf->download(
                     $cursoCatalogo->nombre_curso . 'Identificadores.pdf'
                 );
@@ -208,7 +208,7 @@ class FormatosController extends Controller
         //Identificadores Pequeños
             $pdf = PDF::loadView(
                 'pages.pdf.formatos-identificadoresPequeños', $datos
-            );
+            )->setPaper('letter');
             return $pdf->download(
                 $cursoCatalogo->nombre_curso . 'Identificadores.pdf'
             );

@@ -15,7 +15,7 @@ body {
   align-items: center;
   font-size: 18pt;
 }
-#header{
+.header{
 	z-index:-1;
 	position: fixed;
 	margin-top: -60px;
@@ -170,11 +170,17 @@ hr{
 </style>
 
 <body>
+<script type="text/php">
+$GLOBALS["header"] = NULL;
+</script>
 
-<div id="header">{{$tipo}}: {{$cursoCatalogo->nombre_curso}}
+
+<div class="header">
+<script type="text/php">$GLOBALS["header"] = $pdf->open_object();</script>
+{{$tipo}}: {{$cursoCatalogo->nombre_curso}}
 <br>
 <hr>
-
+<script type="text/php">$pdf->close_object();</script>
 </div>
 
 <div id="content">
@@ -239,7 +245,27 @@ hr{
 			</table>
 		</div>
 	</div>
+	<!--Sustituidos todos los px por pt en textos-->
+<!-- <script type="text/php">
+    if ( isset($pdf) ) {
+        $pdf->page_script('
+            $font = $fontMetrics->get_font("Helvetica", "bold");
+            if ($PAGE_NUM != 1){
+                $pdf->text(130, 20, "{{$tipo}}: {{$cursoCatalogo->nombre_curso}}", $font, 12);
+								$pdf->text(120, 30, "___________________________________________", $font, 12);
+            }
+        ');
+    }
+</script> -->
+
+<script type="text/php">
+  $pdf->page_script('
+    if ($PAGE_NUM >= 2) {
+      $pdf->add_object($GLOBALS["header"],"add");
+    }
+  ');
+</script>
 </body>
+
 </html>
 
-<!--Sustituidos todos los px por pt en textos-->

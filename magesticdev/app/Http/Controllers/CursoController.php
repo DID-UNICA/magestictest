@@ -312,7 +312,8 @@ class CursoController extends Controller
     }
     public function bajaParticipante($id,$curso,$espera)
     {
-        $user = ParticipantesCurso::where('participante_curso.profesor_id',$id)
+        try{
+					$user = ParticipantesCurso::where('participante_curso.profesor_id',$id)
         ->where('participante_curso.curso_id',$curso)
         ->delete();
         $limite = ParticipantesCurso::where('curso_id',$curso)
@@ -323,6 +324,10 @@ class CursoController extends Controller
             }
         }
         return redirect()->back()->with('success', 'El profesor ha sido desinscrito del curso');
+			}catch (\Illuminate\Database\QueryException $e){
+				return redirect()->back()->with('danger', 
+					'El instructor no puede ser dado de baja porque ya contestó encuestas de evaluación.');
+		}
     }
 
 

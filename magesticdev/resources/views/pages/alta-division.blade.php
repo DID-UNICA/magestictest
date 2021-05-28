@@ -31,9 +31,9 @@
 
 
                         <div class="form-group{{ $errors->has('nombre') ? ' has-error' : '' }}">
-                            <label for="nombre" class="col-md-4 control-label">Nombre de la División</label>
+                            <label for="nombre" class="col-md-4 control-label">Nombre de la División: </label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" style='margin: 3px;'>
                                 <input id="nombre" type="text" class="form-control" name="nombre" value="{{ old('nombre') }}"  required oninvalid="this.setCustomValidity('Ingrese un nombre por favor')" oninput="this.setCustomValidity('')">
 
                                 @if ($errors->has('nombre'))
@@ -42,8 +42,8 @@
                                     </span>
                                 @endif
                             </div>
-
-                            <div class="col-md-6">
+														<label for="nombre" class="col-md-4 control-label">Abreviatura de la División: </label>
+                            <div class="col-md-6" style='margin: 3px;'>
                                 <input id="abreviatura" type="text" class="form-control" name="abreviatura" value="{{ old('abreviatura') }}">
 
                                 @if ($errors->has('abreviatura'))

@@ -139,15 +139,24 @@ body {
       <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan la presente constancia a:</h2>
       <br>
       <h2 class='nombre_profesor'>{{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-      <h3 style="font-size: 14pt;padding-top: 0.5cm;">{{$texto}}</h3>
-      <div class='nombre_curso' style="padding-top: 0.2cm;">{{$cursoCatalogo->nombre_curso}}</div>
+
+      <table width="15cm" align="center">
+        <tr width="15cm">
+         <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top;">{{$texto}}</td>
+        </tr>
+        <tr width="15cm">
+          <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top;">{{$cursoCatalogo->nombre_curso}}</td>
+        </tr>
+      </table>
+
+
       @if($generacion != "")
         <h3 style="font-size: 12px;">Dentro del plan de becarios de UNICA, generación {{$generacion}}°</h3>
       @endif
-      <p style="padding-top: 1cm; font-size: 12pt;">{{$fechaimp}}</h5>
+      <p style="font-size: 12pt;">{{$fechaimp}}</h5>
       <p style="padding-top: 0.3cm; padding-bottom: 0.3cm; font-size: 12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
       <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 0.7cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="font-size: 8pt; padding-bottom: 0.8cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
 
 

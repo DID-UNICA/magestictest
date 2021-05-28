@@ -10,90 +10,111 @@ html{
 	height: 100%;
 }
 .logo{
-    width: 50px;
+  width: 50px;
 	position: absolute;
 	margin-left: 2%;
+	margin-top: 0.1cm;
 }
-.nombre{
-	font-size: 30px;
+.nombre-largo{
+	font-size: 50px;
+	font-family:'Tangerine', serif;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 1cm;
+}
+.nombre-mediano{
+	font-size: 70px;
+	font-family:'Tangerine', serif;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 0.6cm;
+}
+.nombre-pequenio{
+	font-size: 85px;
 	font-family:'Tangerine', serif;
 	font-weight: bold;
 	text-align: center;
 }
 .curso{
-	font-size: 13px;
+	font-size: 11px;
 	text-align: center;
 	font-family: 'Arial', 'Helvetica', sans-serif;
 	font-weight: bold;
 	vertical-align: top;
-	margin-top: 2%;
+	padding-top: 0.2cm;
+	width: 60%;
+	margin-left: auto;
+  margin-right: auto;
+
 }
 
 .fecha{
+	width: 30%;
+	padding-left:62%;
 	text-align: right;
-	font-size: 12px;
+	font-size: 11px;
 	font-family: 'Arial', 'Helvetica', sans-serif;
 	font-style: italic;
 	font-weight: bold;
-	margin-right: 15%;
-	padding-bottom: 0.5cm;
 }
-td{
-	height: 1cm;
-}
-.margenes{
-	border-bottom: 1px solid black;
-}
-table{
+
+.identi{
 	border-top: 1px solid black;
 	border-left: 1px solid black;
 	border-right: 1px solid black;
+	border-bottom: 0.5px solid black;
 	width: 15cm;
+	height: 5cm;
 }
 </style>
-
-
 <body>
-	<div>
-	<table class=margenes>
-		<?php
-			$iter = 1; 
-	        foreach($participantes as $alumno){
-				if($iter == 6){
-					print("</table>");
-					echo "<div style='page-break-after: always;'></div>";
-					print("<table>");
-					$iter = 1;
-				}
-					print("
+<div>
+		@php
+			$iter = 1;
+		@endphp
+		<table>
+	  @foreach($participantes as $alumno)
+				@if($iter === 5)
+					</table>
+					<div style='page-break-after: always;'></div>
+					<table>
+					@php
+						$iter = 1;
+					@endphp
+				@endif
+				@php
+					$iter++;
+				@endphp
+				<table width=100% class=identi>
 					<tr width=100%>
-					<td width=100%>
-						<div>
-							<img class=logo src='img/cdd.png'>
-						</div>
-						<div class=curso>
-							{$cursoCatalogo->nombre_curso}
-						</div>
-						</td></tr>
-						<tr><td>
-						<div class=nombre>{$alumno->nombres}</div></td></tr>
-						<tr><td class=margenes>
+						<td width=100%>
+							<div>
+								<img class=logo src='img/cdd.png'>
+							</div>
+							<div class=curso>
+								{{ $cursoCatalogo->nombre_curso }}
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						@if(strlen($alumno->nombres) <= 8)
+							<div class=nombre-pequenio> {{ $alumno->nombres }} </div>
+						@elseif(strlen($alumno->nombres) <= 16)
+							<div class=nombre-mediano> {{ $alumno->nombres }} </div>
+						@else
+							<div class=nombre-largo> {{ $alumno->nombres }} </div>
+						@endif
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<br>
-						 <div class=fecha>{$fechaimp}</div> 
-					</td></tr>
-				");
-	        	$iter++;
-	    		}       	
-			?>
-			</table>
+						 <div class=fecha>{{ $fechaimp }}</div> 
+						</td>
+					</tr>
+					</table>
+			@endforeach
 	</div>
-</table>    
-</body>
-</html>
-	        }
-			?>
-		</table>
-	</div>
-</table>    
 </body>
 </html>

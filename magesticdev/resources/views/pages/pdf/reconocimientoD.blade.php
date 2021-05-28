@@ -138,42 +138,46 @@ body {
     @endif
       <br>
       <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
+
+
       <h3 style="font-size: 14pt;line-height: 30%;">por impartir el</h3>
       <h2 class='nombre_curso'>Módulo {{$curso->getNumModulo($diplomado->id)}}. {{$cursoCatalogo->nombre_curso}}</h2>
       <h3 style="font-size: 14pt;line-height: 30%;">el cual forma parte del Diplomado:</h3>
       <h3 style="font-size: 14pt;line-height: 30%;">"{{$diplomado->nombre_diplomado}}"</h3>
+
+
       <p style="padding-top: 0.3cm; font-size:12pt;">{{$fechaimp}}</h5>
       <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt;">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
       <p style="line-height: 20%; font-size: 12pt; font-weight: bold;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 1.5cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="font-size: 8pt; padding-bottom: 0.8cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
-<table style="position: left;">
-<tr>
-<td width=260 class="firma1">___________________</td>
-<td width=260 class="firma1">___________________</td>
-<td width=260 class="firma1">___________________</td>
-</tr>
-<tr>
-    <td width=260 class="firma" style="font-weight: bold; padding-top: 0.2cm;">{{$coordinacion->grado}} {{$coordinacion->coordinador}}</td>
-    <td width=260 class="firma" style="font-weight: bold; padding-top: 0.2cm;">{{$coordinadorGeneral->grado}} {{ $coordinadorGeneral->coordinador }}</td>
-    <td width=260 class="firma" style="font-weight: bold; padding-top: 0.2cm;">{{$secretarioApoyo->grado}} {{$secretarioApoyo->secretario}}</td>
-</tr>
-<tr>
-    <td class="firma" style="font-size: 8pt;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
-    <td class="firma" style="font-size: 8pt;">Coordinador General del Centro de Docencia</td>
-    <td class="firma" style="font-size: 8pt;">Secretaría de Apoyo a la Docencia</td>
-</tr>
-</table>
-</div>
-</div>
-<table width=100% style="padding-bottom: 0.1cm; padding-top: 1.5cm;">
-    <tr width=100% >
-@if($folio_der > 0)
-<td id="numero_inferior">{{ $folio_der }}</td>
-@endif
-      <td style='text-align:right' id="folio">{{ $folio }}</td>
-    </tr>
-  </table>
+
+  <div class="tabla-centro">
+    <table class="tabla-centro">
+      <tr>
+        <td class="firma1" style="padding-top: 1cm;">___________________</td>
+        <td class="firma1" style="padding-top: 1cm;">___________________</td>
+        <td class="firma1" style="padding-top: 1cm;">___________________</td>
+      </tr>
+      <tr>
+        <td class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$coordinacion->grado}} {{$coordinacion->coordinador}}</td>
+        <td class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$coordinadorGeneral->grado}} {{ $coordinadorGeneral->coordinador }}</td>
+        <td class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$secretarioApoyo->grado}} {{$secretarioApoyo->secretario}}</td>
+      </tr>
+      <tr>
+        <td class="firma" style="font-size: 8pt;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
+        <td class="firma" style="font-size: 8pt;">Coordinador General del Centro de Docencia</td>
+        <td class="firma" style="font-size: 8pt;">Secretaría de Apoyo a la Docencia</td>
+      </tr>
+    </table>
+
+  </div>
+      <table width=auto style="vertical-align: top; padding-top: 1.5cm; margin: 0px;">
+      <tr width=auto>
+        <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
+        <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>
+      </tr>
+    </table>
   </body>
 </html>
 <!--Falta corregir espacios en zona de firmas-->
