@@ -25,12 +25,12 @@ body {
   text-align: left;
   bottom: 2px;
   left: 19px;
-  color: #8D8D8D;
+  color: black;
 }
 #folio{
   font-size: 10pt;
   text-align: right;
-  color: #8D8D8D;
+  color: black;
   margin-right: 2%;
   margin-left: 82%;
 }
@@ -115,8 +115,7 @@ body {
   line-height: 10%;
 }
 .tabla-centro{
-  width: 65%;
-  margin-left: 16%;
+  width: 100%;
 }
 
 </style>
@@ -149,7 +148,7 @@ body {
       <p style="padding-top: 0.3cm; font-size:12pt;">{{$fechaimp}}</h5>
       <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt;">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
       <p style="line-height: 20%; font-size: 12pt; font-weight: bold;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 0.8cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="font-size: 8pt; padding-bottom: 1cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
 
   <div class="tabla-centro">

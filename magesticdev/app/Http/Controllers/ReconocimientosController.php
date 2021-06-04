@@ -427,8 +427,9 @@ class ReconocimientosController extends Controller{
             rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return response()->download(public_path('reconocimientos.zip'))->deleteFileAfterSend(public_path('reconocimientos.zip'));
         }elseif($tipo == "S"){
-            $tsprofes = TemaSeminarioProfesor::where('curso_id', $curso->id)
-            ->get();
+            $tsprofes = TemaSeminarioProfesor::where('curso_id', $curso->id)->get();
+						if($tsprofes->isEmpty())
+							return redirect()->back()->with('danger', 'No hay profesores asignados para los temas del seminario');
             $ceros = "000";
             $iter = 1;
           foreach($tsprofes as $tsp){

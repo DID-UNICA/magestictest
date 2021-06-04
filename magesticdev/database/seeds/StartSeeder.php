@@ -1041,6 +1041,15 @@ en impuestos universitarios.',
           'usuario' => 'jacob',
           'password' => Hash::make('1234'),
       ]);
+			
+			DB::table('coordinacions')->insert([
+				'nombre_coordinacion' => 'Área de Gestión y Vinculación',
+				'abreviatura' => 'GV',
+				'coordinador' => 'Jorge Luis Morales',
+				'grado' => 'M.E.M.',
+				'usuario' => 'jorge',
+				'password' => Hash::make('1234'),
+		]);
 
       //CATÁLOGO DE CURSOS DE PRUEBA
         DB::table('catalogo_cursos')->insert([

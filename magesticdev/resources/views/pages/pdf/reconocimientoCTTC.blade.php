@@ -113,11 +113,12 @@ body {
   align:center;
   padding-top: 0.5cm;
   line-height: 10%;
-  color:#8D8D8D;
+
 }
 .tabla-centro{
-  width: 65%;
-  margin-left: 16%;
+  width: 100%;
+  align-content: center;
+  align-items: center;
 }
 
 </style>
