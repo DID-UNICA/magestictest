@@ -19,7 +19,7 @@
     <br>
       <div class="panel panel-default">
 			<div class="panel-heading">
-                <h3> Curso:  Seleccione semestre</h3>
+                <h3> Área:  Seleccione periodo</h3>
             </div>
             <div class="panel-body">
             <form method="POST" action="{{ action('CoordinadorController@enviarCoordinacion')}}">
@@ -30,6 +30,10 @@
                     }
                 ?>
                 </select>
+                <select name='periodo' width="25%">
+                    <option value='i'>Intersemestral</option>
+                    <option value='s'>Semestral</option>
+                </select>
                 <br>
                 <select name='coordinacion' width="25%">
                 <?php 
@@ -38,10 +42,6 @@
                     }
                 ?>
 				        </select>
-                <select name='periodo' width="25%">
-                    <option value='i'>Intersemestral</option>
-                    <option value='s'>Semestral</option>
-                </select>
 				{{ csrf_field() }}
         <button id="dia"  type="submit" class="btn btn-primary active">Enviar</button>
         </form>
