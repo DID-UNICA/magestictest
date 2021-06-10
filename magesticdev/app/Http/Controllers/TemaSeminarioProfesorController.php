@@ -26,6 +26,8 @@ class TemaSeminarioProfesorController extends Controller
             $tmp[$profesor->id]=$profesor->getNombres();
         }
         $profesores = $tmp;
+        if(empty($profesores))
+          return redirect()->back()->with('danger', 'Aún no hay instructores inscritos, primero asigne instructores');
         $temas = TemaSeminario::where('catalogo_id', $catalogo->id)
             ->get();
         return view('pages.asignar-temas-seminario')

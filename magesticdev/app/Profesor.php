@@ -243,9 +243,12 @@ class Profesor extends Authenticatable
 
     public function getFacultad()
     {
-        $facultad = Facultad::where('id', $this->facultad_id)->get()[0]->nombre;
-        return $facultad;
+        if($this->facultad_id)
+          return Facultad::findOrFail($this->facultad_id)->nombre;
+        else
+          return $this->procedencia;
     }
+
     public function getSugerenciaFinalSeminario($curso_id){
         $participante_curso = ParticipantesCurso::where('curso_id', $curso_id)
             ->where('profesor_id', $this->id)->first();

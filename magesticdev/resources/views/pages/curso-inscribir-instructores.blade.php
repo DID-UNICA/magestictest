@@ -32,6 +32,9 @@
                     <span class="col-md-6" style='padding-top:3px'>
                         <button class="btn btn-info" type="submit">Buscar</button>
                         <a href="{{ route('curso.consulta') }}" class="btn btn-danger">Regresar</a>
+                        @if($curso->getTipo() === 'S')
+                        <a href="{{ route('profesorts.store', $curso->id) }}" class="btn btn-warning">Asignar temas</a>
+                        @endif
                     </span>
                     {!! Form::close() !!}
                 </div>

@@ -145,11 +145,10 @@ class ProfesorController extends Controller
         $user->facebook = $request->facebook;
         $user->email = $request->email;
         $user->unam = $request->unam;
-        /*TODO: Insertar en profesorescarreras las carreras*/
-        if($user->unam == 1){
+        if($user->unam == 1 and $request->facultad_id != 0){
             $user->procedencia = null;
             $user->facultad_id = $request->facultad_id;
-        }else if ($user->unam == 0){
+        }else{
             $user->procedencia = $request->procedencia;
             $user->facultad_id = null;
         }

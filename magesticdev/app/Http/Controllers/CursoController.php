@@ -408,13 +408,8 @@ class CursoController extends Controller
         ->where('semestre_si',$request->semestreInter)
         ->get();
         $catalogo = CatalogoCurso::find($request->catalogo_id);
-        if($catalogo->tipo == 'S'){
-            return redirect()
-                ->route('profesorts.store', $newCurso[0]->id);
-        }
-        else{
         return redirect()->route('curso.modificarInstructores', $curso->id)
-        ->with('warning', 'Asigne instructores ahora o posteriormente');}
+          ->with('warning', 'Asigne instructores ahora o posteriormente');
     }
     public function inscripcionParticipante($id)
     {

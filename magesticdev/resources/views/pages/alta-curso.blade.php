@@ -264,6 +264,9 @@
                                 <button disabled type="submit" class="btn btn-primary" id="boton" onclick="validador()">
                                     Crear
                                 </button>
+                                @if($user->tipo === 'S')
+                                <p1 style="color: red;"> *El curso es un seminario, recuerde que después de añadir instructores es necesario asignarlos a sus temas</p1>
+                                @endif
                             </div>
 
                         </div>

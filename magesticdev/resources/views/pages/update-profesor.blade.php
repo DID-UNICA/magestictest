@@ -3,13 +3,20 @@
 
 @section('contenido')
 <script>
-window.onload =  procedencia_carrera;
-var id_fac = 50;
+window.onload =  procedencia_fac;
+let id_fac = 0;
 var carreras = [];
 var divisiones = [];
 var facultades = [];
 var i = 0;
 var ingenieria_id = 0;
+
+// Obtenemos el id de la facultad, si es 0 es porque es externo o es interno con la opción "Otra"
+@if($user->facultad_id)
+  id_fac = {{$user->facultad_id}};
+@endif
+
+// Obtenemos las carreras y las convertimos en un arreglo de JS
 @for($i = 0; $i<sizeof($carreras); $i++)
   carreras[{{$i}}] = {
     id: {{ $carreras[$i]->id}},
@@ -17,6 +24,7 @@ var ingenieria_id = 0;
   }
 @endfor
 
+// Obtenemos las divisiones y las convertimos en un arreglo de JS
 @for($i = 0; $i<sizeof($divisiones); $i++)
   divisiones[{{$i}}] = {
     id: {{ $divisiones[$i]->id}},
@@ -24,6 +32,7 @@ var ingenieria_id = 0;
   }
 @endfor
 
+// Obtenemos las facultades y las convertimos en un arreglo de JS
 @for($i = 0; $i<sizeof($facultades); $i++)
   @if($facultades[$i]->nombre == "Facultad de Ingeniería")
     ingenieria_id = {{$facultades[$i]->id}};
@@ -33,10 +42,34 @@ var ingenieria_id = 0;
     nombre: "{{ $facultades[$i]->nombre}}"
     }
 @endfor
+
+function procedencia_fac(){
+  let fac_opc = document.getElementById('facultad_option');
+  fac_opc.selectedIndex = id_fac;
+  console.log(id_fac);
+  console.log(fac_opc.selectedIndex);
+  procedencia_carrera();
+}
+
 function changeFunc() {
+
   var selectBox = document.getElementById("facultad_option");
+  console.log(selectBox.selectedIndex);
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-  id_fac = selectedValue;
+  id_fac = parseInt(selectedValue);
+  console.log(id_fac);
+
+  var procedencia_n = document.getElementById("procedencia_n");
+  var procedencia = document.getElementById("procedencia");
+
+  if(id_fac === 0){
+    procedencia_n.style.display = "block";
+    procedencia.style.display = "block";
+  }else{
+    procedencia_n.style.display = "none";
+    procedencia.style.display = "none";
+  }
+
   showCarreras();
 }
 
@@ -252,7 +285,8 @@ function procedencia_carrera() {
       <div style="display:initial;" id="facultad" class="form-group{{ $errors->has('facultad_id') ? ' has-error' : '' }}">
         <div class="col-md-4">
           {!!Form::label("facultad", "Facultad:", ["id" =>"facultad_n"])!!}
-          <select id="facultad_option" onchange="changeFunc();" name="facultad_id" class="form-control">
+          <select id="facultad_option" value='0' onchange="changeFunc();" name="facultad_id" class="form-control">
+            <option  value="0"> Otra </option>
             @foreach($facultades as $fac)
               
                 <option  value="{{ $fac->id }} "> {{ $fac->nombre }} </option>

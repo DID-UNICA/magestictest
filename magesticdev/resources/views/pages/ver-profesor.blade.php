@@ -99,7 +99,7 @@
     </div>
     <div class="form-group col-md-4 col-sm-6">
       {!!Form::label("unam_bool", "UNAM:")!!}
-    @if($user->unam == 1)
+    @if($user->facultad_id)
       {!!Form::text("unam_bool", "Sí", [ "class" => "form-control", "placeholder" => "Sí", "required","disabled"])!!}
     </div>
     <div class="form-group col-md-4 col-sm-6">
