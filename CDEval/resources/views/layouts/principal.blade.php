@@ -22,7 +22,7 @@
 <div class="wrap">
     <nav class="nav-bar navbar-inverse" role="navigation">
         <div id ="top-menu" class="container-fluid active">
-            <a class="navbar-brand" href="{{ route('evaluacion.admin', [$profesor->id]) }}">Centro de Docencia - Evaluaciones</a>
+            <a class="navbar-brand" id="nav-a" href="{{ route('evaluacion.admin', [$profesor->id]) }}">Centro de Docencia - Evaluaciones</a>
             <ul class="nav navbar-nav">
 
                 <li class="dropdown movable">
@@ -32,7 +32,7 @@
                         <i id="usericon" class="fa fa-2x fa-user-circle"></i>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                    <a href="{{ route('logout') }}"  style="text-align:center"> logout </a>
+                    <a href="{{ route('logout') }}" class="btn btn-logout"> Cerrar sesión </a>
                     </ul>
 
             </ul>
@@ -48,11 +48,8 @@
             <li class="nav-header">
                 <div class="link"><i class="fa fa-pencil"></i>Cursos Inscritos<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
-				<p>
-					<!--<?php echo json_encode($infoCursos) ?>-->
-				</p>
-                @foreach($infoCursos as $infoCurso)
-                    <li><a href="{{ route('evaluacion.index',['profesor_id'=> $profesor->id,'curso_id'=>$infoCurso[0]->id,'catalogoCurso_id'=>$infoCurso[1]->id] ) }}">{{ $infoCurso[1]->nombre_curso }} {{$infoCurso[0]->semestre_anio}}</a></li>
+                @foreach($cursos as $curso)
+                    <li><a href="{{ route('evaluacion.index',['profesor_id'=> $profesor->id,'curso_id'=>$curso->id,'catalogoCurso_id'=>$curso->catalogo_id] ) }}">{{ $curso->getNombreCurso() }} {{$curso->semestre_imparticion}}</a></li>
                 @endforeach
                 </ul>
             </li>

@@ -18,23 +18,52 @@
       <div class="panel panel-default">
 
         <div class="panel-heading">
-              <h3>Cursos</h3>
-              {!! Form::open(["route" => "buscar.curso", "method" => "GET"]) !!}
-              
+            <h3>Cursos</h3>
+            <h4>Periodo</h4>
+            <div class="row">
+                <form action="{{route('cursos.coordinacion',['encargado_id'=>$encargado_id,'message'=>$message])}}">
+                    <div class="form-group">
+                        <div class="col-md-4"><input class="form-control" type="text" name="periodo_anio" placeholder="Periodo" value="{{isset($periodo_anio)? $periodo_anio:null}}"></div>
+                        <div class="col-md-2"><select class="form-control" name="periodo_pi">
+                            @if (isset($periodo_pi) && $periodo_pi == '1')
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            @else
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            @endif
+                        </select></div>
+                        <div class="col-md-2"><select class="form-control" name="periodo_si">
+                            @if (isset($periodo_si) && $periodo_si == 's')
+                            <option value="s" selected>s</option>
+                            <option value="i">i</option>
+                            @else
+                            <option value="s">s</option>
+                            <option value="i" selected>i</option>
+                            @endif
+                        </select></div>
+                        <div class="col-md-4"><button type="submit" class="btn btn-info">Cambiar periodo</button></div>
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <h4>Buscar</h4>
+            {!! Form::open(["route" => ["buscar.curso",$encargado_id,$message], "method" => "GET"]) !!}
               <div class="input-group">
                   {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Curso"])!!}
-                  <hr id="hr">
-                  <br>
                   {!! Form::select('type', array(
                          'nombre' => 'Por nombre',
                          'instructor' => 'Por instructor'),
                          null,['class' => 'btn dropdown-toggle pull-left'] ) !!}
                 
                   <span class="input-group-btn col-md-2">
-                      <button class="btn btn-search " type="submit">Buscar</button>
+                    <button class="btn btn-search " type="submit">Buscar</button>
                 </span>
-                   {!! Form::close() !!}
+                <input type="hidden" name="periodo_anio" value="{{isset($periodo_anio)? $periodo_anio:null}}">
+                <input type="hidden" name="periodo_pi" value="{{isset($periodo_pi)? $periodo_pi:null}}">
+                <input type="hidden" name="periodo_si" value="{{isset($periodo_si)? $periodo_si:null}}">
               </div>
+            {!! Form::close() !!}
           </div>
 
                 <div class="panel-body">
@@ -43,7 +72,7 @@
                                 <tr>
                                     <th>Curso</th>
                                     <th>Instructor(es)</th>
-                                    <th>Semestre</th>
+                                    <th>Periodo</th>
                                     <th>Evaluación</th>
                                     <th>Evaluar</th>
                                 </tr>
