@@ -99,34 +99,41 @@
     </div>
     <div class="form-group col-md-4 col-sm-6">
       {!!Form::label("unam_bool", "UNAM:")!!}
-    @if($user->facultad_id)
+    @if($user->unam)
       {!!Form::text("unam_bool", "Sí", [ "class" => "form-control", "placeholder" => "Sí", "required","disabled"])!!}
+		@else
+      {!!Form::text("unam_bool", "No", [ "class" => "form-control", "placeholder" => "No", "required","disabled"])!!}
+		@endif
+		</div>
+		@if($user->facultad_id)
+		<div class="form-group col-md-4 col-sm-6">
+      {!!Form::label("facultad", "Facultad:")!!}
+      {!!Form::text("facultad", $user->getFacultad(), [ "class" => "form-control", "placeholder" => "Facultad", "required","disabled"])!!}
     </div>
-    <div class="form-group col-md-4 col-sm-6">
-      {!!Form::label("carrera", "Carrera(s):")!!}
-      {!!Form::text("carrera", $user->getCarrerasPorNombre(), [ "class" => "form-control", "placeholder" => "Carrera", "required","disabled"])!!}
-    </div>
+		@endif
+		@if($user->getCarrerasPorNombre() != 'Ninguna')
+			<div class="form-group col-md-4 col-sm-6">
+				{!!Form::label("carrera", "Carrera(s):")!!}
+				{!!Form::text("carrera", $user->getCarrerasPorNombre(), [ "class" => "form-control", "placeholder" => "Carrera", "required","disabled"])!!}
+			</div>
+		@endif
+		@if($user->getDivisionesPorNombre() != 'Ninguna')
     <div class="form-group col-md-4 col-sm-6">
       {!!Form::label("division", "Division(es):")!!}
       {!!Form::text("division", $user->getDivisionesPorNombre(), [ "class" => "form-control", "placeholder" => "Division", "required","disabled"])!!}
     </div>
-    <div class="form-group col-md-4 col-sm-6">
-      {!!Form::label("facultad", "Facultad:")!!}
-      {!!Form::text("facultad", $user->getFacultad(), [ "class" => "form-control", "placeholder" => "Facultad", "required","disabled"])!!}
-    </div>
-    @else
-      {!!Form::text("unam_bool", "No", [ "class" => "form-control", "placeholder" => "No", "required","disabled"])!!}
-    </div>
-    <div class="form-group col-md-8 col-sm-6">
-      {!!Form::label("procedencia", "Procedencia:")!!}
-      {!!Form::text("procedencia", $user->procedencia, [ "class" => "form-control", "placeholder" => "Procedencia", "required","disabled"])!!}
-    </div>
-    @endif
+		@endif
+		@if($user->procedencia)
+			<div class="form-group col-md-8 col-sm-6">
+				{!!Form::label("procedencia", "Procedencia:")!!}
+				{!!Form::text("procedencia", $user->procedencia, [ "class" => "form-control", "placeholder" => "Procedencia", "required","disabled"])!!}
+			</div>
+		@endif
+		<div class="form-group col-md-6 col-sm-6">
+			{!!Form::label("semblanza_corta", "Semblanza corta:")!!}
+			{!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "cols"=>"90", "wrap"=>"hard", "class" => "form-control", "placeholder" => "Semblanza", "required","disabled"])!!}
+		</div>
 
-   <div class="form-group col-md-6 col-sm-6">
-    {!!Form::label("semblanza_corta", "Semblanza corta:")!!}
-    {!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "cols"=>"90", "wrap"=>"hard", "class" => "form-control", "placeholder" => "Semblanza", "required","disabled"])!!}
-  </div>
 <div class="row col-md-3 "> 
   <a href="{{ URL::to('profesor/actualizar', $user->id) }}" class="btn btn-info btn-block">Actualiza información</a>
   <a href="{{ URL::to('profesor/baja', $user->id) }}" class="btn btn-danger btn-block">Dar de baja</a>

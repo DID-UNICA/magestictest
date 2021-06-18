@@ -13,6 +13,6 @@ class CoordinadorGeneral extends Model
 
     protected $table = "coordinador_general";
     protected $fillable = [
-        'coordinador','comentarios','grado'
+        'coordinador','comentarios','grado','genero'
     ];
 }

@@ -22,25 +22,35 @@
         </div>
         <div class="panel-body">
             <table class="col-md-12 container-fluid">
+              @if($user->id != null)
                 <tr>
                     <th>Coordinador</th>
-                
+                    <th>Género</th>
                 </tr>
                 <tr>
                     <td>{{ $user->grado}} {{ $user->coordinador}}</td>
+                    @if($user->genero === 'F')
+                      <td>Femenino</td>
+                    @elseif($user->genero === 'M')
+                      <td>Masculino</td>
+                    @endif
                 </tr>
                 <tr>
-                    <td>
-                        <a href="{{route('coordinador-general.nuevo')}}" style="margin: 10px;" class="btn btn-success">Nuevo</a>
-
-                    </td>
-                    @if($user->id != null)
                     <td>
                         <a href="{{ URL::to('coordinador-general/actualizar', $user->id) }}" style="margin: 10px;" class="btn btn-info">Editar</a>
                         <button type="button" class="btn btn-danger" data-toggle="modal" style="margin: 10px;" data-target="#myModal{{$user->id}}">Eliminar</button>
                     </td>
-                    @endif
                 </tr>
+                @else
+                <tr>
+                    <th>No hay un coordinador general aún.</th>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{{route('coordinador-general.nuevo')}}" style="margin: 10px;" class="btn btn-success">Nuevo</a>
+                    </td>
+                </tr>
+                @endif
 
                 <!-- Modal -->
                     <div class="modal fade" id="myModal{{$user->id}}" role="dialog">

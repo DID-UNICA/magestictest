@@ -47,6 +47,12 @@ class SecretarioApoyoController extends Controller
         $user->secretario = $request->secretario;
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
+        if($request->genero === 'M')
+          $user->genero = 'M';
+        elseif($request->genero === 'F')
+          $user->genero = 'F';
+        else
+          $user->genero = null;
         $user->save();
         return redirect('/secretario-apoyo')
           ->with('success','Se han actualizado los datos correctamente');
@@ -77,6 +83,12 @@ class SecretarioApoyoController extends Controller
             $user->secretario = $request->secretario;
             $user->comentarios = $request->comentarios;
             $user->grado = $request->grado;
+            if($request->genero === 'M')
+              $user->genero = 'M';
+            elseif($request->genero === 'F')
+              $user->genero = 'F';
+            else
+              $user->genero = null;
             $user->save();
         return redirect('/secretario-apoyo')
           ->with('success', 'Se ha creado el registro correctamente');

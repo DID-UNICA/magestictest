@@ -18,7 +18,8 @@ class CreateCoordinacionTable extends Migration
             $table->string('abreviatura');
             $table->string('nombre_coordinacion');
             $table->string('coordinador');
-            $table->string('grado');
+            $table->string('grado')->nullable();
+						$table->string('genero');
             $table->string('usuario')->unique();
             $table->string('password');
             $table->string('comentarios')->nullable();

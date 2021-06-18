@@ -28,7 +28,7 @@
                         <label for="name" class="col-md-4 control-label">Director:</label>
 
                         <div class="col-md-6">
-                            <input id="director" type="text" class="form-control" name="director" value="{{ old('director') }}" >
+                            <input id="director" type="text" class="form-control" name="director" required value="{{ old('director') }}" >
 
                             @if ($errors->has('director'))
                                 <span class="help-block">
@@ -36,6 +36,23 @@
                                     </span>
                             @endif
                         </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="genero" class="col-md-4 control-label">Género:</label>
+                      <div class="col-md-3">
+                        <div class="row">
+                          <label class="radio-inline">
+                              <input id="genero_M" type="radio" name="genero" value = 'M' required>
+                            Masculino
+                          </label>
+                        </div>
+                        <div class="row">
+                          <label class="radio-inline">
+                              <input id="genero_F" type="radio" name="genero" value='F' >
+                            Femenino
+                          </label>
+                        </div>
+                      </div>
                     </div>
                     <div class="form-group{{ $errors->has('comentarios') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Comentarios:</label>
@@ -54,7 +71,7 @@
                         <label for="name" class="col-md-4 control-label">Abreviatura del grado:</label>
 
                         <div class="col-md-6">
-                            <input id="grado" type="text" class="form-control" name="grado" value="{{ old('grado') }}" >
+                            <input id="grado" type="text" class="form-control" name="grado" required value="{{ old('grado') }}" >
 
                             @if ($errors->has('grado'))
                                 <span class="help-block">

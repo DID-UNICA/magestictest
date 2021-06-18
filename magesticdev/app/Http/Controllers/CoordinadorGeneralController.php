@@ -45,6 +45,12 @@ class CoordinadorGeneralController extends Controller
         $user->coordinador = $request->coordinador;
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
+        if($request->genero === 'M')
+					$user->genero = 'M';
+				elseif($request->genero === 'F')
+					$user->genero = 'F';
+				else
+					$user->genero = null;
         $user->save();
         return redirect('/coordinador-general')
           ->with('success','Se han actualizado los datos correctamente');
@@ -75,6 +81,12 @@ class CoordinadorGeneralController extends Controller
         $user->coordinador = $request->coordinador;
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
+        if($request->genero === 'M')
+					$user->genero = 'M';
+				elseif($request->genero === 'F')
+					$user->genero = 'F';
+				else
+					$user->genero = null;
         $user->save();
         return redirect('coordinador-general')
             ->with("user",$user)

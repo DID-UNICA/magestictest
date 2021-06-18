@@ -21,8 +21,8 @@
 
                     <div class="row">
                         <div class="row">
-                            <div class="row col-md-12 ">
-                                <div class="form-group col-md-4" style="margin-left:1%;">
+                            <div class="row col-md-12 " style="margin:2px;">
+                                <div class="form-group col-md-4">
                                     {!!Form::label("nombre", "Nombre:")!!}
                                     {!!Form::text("nombre", $user->nombre_coordinacion, [ "class" => "form-control", "placeholder" => "Nombre", "required","disabled"])!!}
                                 </div>
@@ -32,21 +32,32 @@
                                     {!!Form::text("coordinador", $user->coordinador, [ "class" => "form-control", "placeholder" => "Coordinador", "required","disabled"])!!}
                                 </div>
 
-                                <div class="form-group col-md-4" style="margin-left:1%;">
+                                <div class="form-group col-md-4">
+                                    {!!Form::label("coordinador", "Género:")!!}
+                                    @if($user->genero === 'M')
+                                      {!!Form::text("coordinador", 'Masculino', [ "class" => "form-control", "placeholder" => "Coordinador", "required","disabled"])!!}
+                                    @elseif($user->genero === 'F')
+                                      {!!Form::text("coordinador", 'Femenino', [ "class" => "form-control", "placeholder" => "Coordinador", "required","disabled"])!!}
+                                    @else
+                                      {!!Form::text("coordinador", 'Indefinido', [ "class" => "form-control", "placeholder" => "Coordinador", "required","disabled"])!!}
+                                    @endif
+                                </div>
+
+                                <div class="form-group col-md-4">
                                     {!!Form::label("usuario", "Usuario del Coordinador:")!!}
                                     {!!Form::text("usuario", $user->usuario, [ "class" => "form-control", "placeholder" => "Usuario", "required","disabled"])!!}
                                 </div>
 
-                                <div class="form-group col-md-4" style="margin-left:1%;">
+                                <div class="form-group col-md-4">
                                     {!!Form::label("abreviatura", "Abreviatura del nombre:")!!}
                                     {!!Form::text("abreviatura", $user->abreviatura, [ "class" => "form-control", "placeholder" => "Abreviatura", "required","disabled"])!!}
                                 </div>
 
-                                <div class="form-group col-md-6" style="margin-left:1%;">
+                                <div class="form-group col-md-6">
                                     {!!Form::label("comentarios", "Comentarios:")!!}
                                     {!!Form::text("comentarios", $user->comentarios, [ "class" => "form-control", "placeholder" => "Comentarios", "required","disabled"])!!}
                                 </div>
-                                <div class="form-group col-md-2" style="margin-left:1%;">
+                                <div class="form-group col-md-4">
                                     {!!Form::label("grado", "Abreviatura de grado del Coordinador:")!!}
                                     {!!Form::text("grado", $user->grado, [ "class" => "form-control", "placeholder" => "Grado", "required","disabled"])!!}
                                 </div>

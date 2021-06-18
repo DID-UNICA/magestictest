@@ -44,10 +44,12 @@
 					<form id="form" class="form-horizontal" method="GET" action="{{ route('constancias.generar.b', $curso->id)}}">
 						{{ csrf_field() }}
 						<div class="form-group {{ $errors->has('type') ? ' has-error' : '' }}">
-							<label for="name" class="col-md-4 control-label">Tipo de constancia: </label>
+							<div class="col-md-4">
+                {!!Form::label("type", "Tipo de constancia:")!!}
+              </div>
 							<div class="col-md-6">
 								<input type="hidden" name="id" id="auxiliar">
-									<select id="type" class="form-control" name="type" value="{{ old('type')}}" onchange="determinarFirmantes()">
+									<select id="type" style="margin-bottom: 15px;" class="form-control" name="type" value="{{ old('type')}}" onchange="determinarFirmantes()">
 									@if($count_profesores > 3)
 										<option value="AA">Coordinación</option>
 										<option value="D">Coordinación General</option>
@@ -87,7 +89,7 @@
 							</div>
 						</div>
 						<div class="form-group col-md-4">
-								{!!Form::label("typeId_label", "Folio institucional (Número consecutivo):")!!}
+								{!!Form::label("typeid", "Folio institucional (Número consecutivo):")!!}
 						</div>
 						<div class="form-group col-md-6">
 								{!!Form::text("typeid", null, [ "class" => "form-control", "placeholder" => "Dígitos nueve, diez y once del folio"])!!}
@@ -101,7 +103,7 @@
 						<div class="form-group{{ $errors->has('texto_int') ? ' has-error' : '' }}">
 							<label for="texto_int" class="col-md-4 control-label">Texto Intermedio: </label>
 							<div class="col-md-6">
-								<select id="texto1" class="form-control" name="texto1" value="{{ old('texto1')}}" onchange="determinarTexto()">
+								<select id="texto1" style="margin-bottom:15px;" class="form-control" name="texto1" value="{{ old('texto1')}}" onchange="determinarTexto()">
 									<option value="por acreditar el ">por acreditar el <<i>tipo de curso</i>></option>
 									<option value="por haber asistido al ">por haber asistido al <<i>tipo de curso</i>></option>
 									<option value="por haber sido parte del ">por haber sido parte del <<i>tipo de curso</i>></option>
@@ -113,54 +115,54 @@
 								</span>
 								@endif
 								<div id="div_tp" style="display:none; margin-top:5px;" class="form-group{{ $errors->has('texto_per') ? ' has-error' : '' }}">
-										<input id="texto_per" type="text" class="form-control" name="texto_per" value="{{ old('texto_per') }}" >
+										<input placeholder="Texto personalizado" id="texto_per" type="text" class="form-control" name="texto_per" value="{{ old('texto_per') }}" >
 								</div>
 							</div>
 						</div>
 						<div style="display: none;" id=firmanteUno>
 							<div class="col-md-4">
-									<label for="name1" class="control-label">Nombre:</label>
+									<label for="name5" class="control-label">Nombre:</label>
 							</div>
-							<div class="col-md-6 form-group{{ $errors->has('name1') ? ' has-error' : '' }}">
-								<input id="name1" type="text" class="form-control" name="name1" value="{{ old('name1') }}" >
-								@if ($errors->has('name1'))
+							<div class="col-md-6 form-group{{ $errors->has('name5') ? ' has-error' : '' }}">
+								<input placeholder="Nombre del primer firmante" id="name5" type="text" class="form-control" name="name5" value="{{ old('name5') }}" >
+								@if ($errors->has('name5'))
 										<span class="help-block">
-												<strong>{{ $errors->first('name1') }}</strong>
+												<strong>{{ $errors->first('name5') }}</strong>
 										</span>
 								@endif
 							</div>
 							<div class="col-md-4">
-								<label for="posicion1" class="control-label">Cargo:</label>
+								<label for="posicion5" class="control-label">Cargo:</label>
 							</div>
-							<div class="col-md-6 form-group{{ $errors->has('posicion1') ? ' has-error' : '' }}">
-									<input id="posicion1" type="text" class="form-control" name="posicion1" value="{{ old('posicion1') }}" >
-									@if ($errors->has('posicion1'))
+							<div class="col-md-6 form-group{{ $errors->has('posicion5') ? ' has-error' : '' }}">
+									<input placeholder="Descripción del primer firmante" id="posicion5" type="text" class="form-control" name="posicion5" value="{{ old('posicion5') }}" >
+									@if ($errors->has('posicion5'))
 									<span class="help-block">
-											<strong>{{ $errors->first('posicion1') }}</strong>
+											<strong>{{ $errors->first('posicion5') }}</strong>
 									</span>
 									@endif
 							</div>
 						</div>
 						<div style="display: none;" id=firmanteDos>
 							<div class="col-md-4">
-								<label for="name2" class="control-label">Nombre:</label>
+								<label for="name4" class="control-label">Nombre:</label>
 							</div>
-							<div class="col-md-6 form-group{{ $errors->has('name2') ? ' has-error' : '' }}">
-								<input id="name2" type="text" class="form-control" name="name2" value="{{ old('name2') }}" >
-								@if ($errors->has('name2'))
+							<div class="col-md-6 form-group{{ $errors->has('name4') ? ' has-error' : '' }}">
+								<input placeholder="Nombre del segundo firmante" id="name4" type="text" class="form-control" name="name4" value="{{ old('name4') }}" >
+								@if ($errors->has('name4'))
 										<span class="help-block">
-												<strong>{{ $errors->first('name2') }}</strong>
+												<strong>{{ $errors->first('name4') }}</strong>
 										</span>
 								@endif
 							</div>
 							<div class="col-md-4">
-								<label for="posicion2" class="control-label">Cargo:</label>
+								<label for="posicion4" class="control-label">Cargo:</label>
 							</div>
-							<div class="col-md-6 form-group{{ $errors->has('posicion2') ? ' has-error' : '' }}">
-								<input id="posicion2" type="text" class="form-control" name="posicion2" value="{{ old('posicion2') }}" >
-								@if ($errors->has('posicion2'))
+							<div class="col-md-6 form-group{{ $errors->has('posicion4') ? ' has-error' : '' }}">
+								<input placeholder="Descripción del segundo firmante" id="posicion4" type="text" class="form-control" name="posicion4" value="{{ old('posicion4') }}" >
+								@if ($errors->has('posicion4'))
 										<span class="help-block">
-												<strong>{{ $errors->first('posicion2') }}</strong>
+												<strong>{{ $errors->first('posicion4') }}</strong>
 										</span>
 								@endif
 							</div>
@@ -170,7 +172,7 @@
 									<label for="name3" class="control-label">Nombre:</label>
 							</div>
 							<div class="col-md-6 form-group{{ $errors->has('name3') ? ' has-error' : '' }}">
-								<input id="name3" type="text" class="form-control" name="name3" value="{{ old('name3') }}" >
+								<input placeholder="Nombre del tercer firmante" id="name3" type="text" class="form-control" name="name3" value="{{ old('name3') }}" >
 								@if ($errors->has('name3'))
 										<span class="help-block">
 												<strong>{{ $errors->first('name3') }}</strong>
@@ -181,7 +183,7 @@
 								<label for="posicion3" class="control-label">Cargo:</label>
 							</div>
 							<div class="col-md-6 form-group{{ $errors->has('posicion3') ? ' has-error' : '' }}">
-								<input id="posicion3" type="text" class="form-control" name="posicion3" value="{{ old('posicion3') }}" >
+								<input placeholder="Descripción del tercer firmante" id="posicion3" type="text" class="form-control" name="posicion3" value="{{ old('posicion3') }}" >
 								@if ($errors->has('posicion3'))
 										<span class="help-block">
 												<strong>{{ $errors->first('posicion3') }}</strong>
@@ -191,48 +193,48 @@
 						</div>
 						<div style="display: none;" id=firmanteCuatro>
 							<div class="col-md-4">
-									<label for="name4" class="control-label">Nombre:</label>
+									<label for="name2" class="control-label">Nombre:</label>
 							</div>
-							<div class="col-md-6 form-group{{ $errors->has('name4') ? ' has-error' : '' }}">
-								<input id="name4" type="text" class="form-control" name="name4" value="{{ old('name4') }}" >
-								@if ($errors->has('name4'))
+							<div class="col-md-6 form-group{{ $errors->has('name2') ? ' has-error' : '' }}">
+								<input placeholder="Nombre del cuarto firmante" id="name2" type="text" class="form-control" name="name2" value="{{ old('name2') }}" >
+								@if ($errors->has('name2'))
 										<span class="help-block">
-												<strong>{{ $errors->first('name4') }}</strong>
+												<strong>{{ $errors->first('name2') }}</strong>
 										</span>
 								@endif
 							</div>
 							<div class="col-md-4">
-									<label for="posicion4" class="control-label">Cargo:</label>
+									<label for="posicion2" class="control-label">Cargo:</label>
 							</div>
-							<div class="col-md-6 form-group{{ $errors->has('posicion4') ? ' has-error' : '' }}">
-								<input id="posicion4" type="text" class="form-control" name="posicion4" value="{{ old('posicion4') }}" >
-								@if ($errors->has('posicion4'))
+							<div class="col-md-6 form-group{{ $errors->has('posicion2') ? ' has-error' : '' }}">
+								<input placeholder="Descripción del cuarto firmante" id="posicion2" type="text" class="form-control" name="posicion2" value="{{ old('posicion2') }}" >
+								@if ($errors->has('posicion2'))
 										<span class="help-block">
-												<strong>{{ $errors->first('posicion4') }}</strong>
+												<strong>{{ $errors->first('posicion2') }}</strong>
 										</span>
 								@endif
 							</div>
 						</div>
 						<div style="display: none;" id=firmanteCinco>
 							<div class="col-md-4">
-									<label for="name5" class="control-label">Nombre:</label>
+									<label for="name1" class="control-label">Nombre:</label>
 							</div>
-							<div class="col-md-6 form-group{{ $errors->has('name5') ? ' has-error' : '' }}">
-								<input id="name5" type="text" class="form-control" name="name5" value="{{ old('name5') }}" >
-								@if ($errors->has('name5'))
+							<div class="col-md-6 form-group{{ $errors->has('name1') ? ' has-error' : '' }}">
+								<input placeholder="Nombre del quinto firmante" id="name1" type="text" class="form-control" name="name1" value="{{ old('name1') }}" >
+								@if ($errors->has('name1'))
 										<span class="help-block">
-												<strong>{{ $errors->first('name5') }}</strong>
+												<strong>{{ $errors->first('name1') }}</strong>
 										</span>
 								@endif
 							</div>
 							<div class="col-md-4">
-									<label for="posicion5" class="control-label">Cargo:</label>
+									<label for="posicion1" class="control-label">Cargo:</label>
 							</div>
-							<div class="col-md-6 form-group{{ $errors->has('posicion5') ? ' has-error' : '' }}">
-								<input id="posicion5" type="text" class="form-control" name="posicion5" value="{{ old('posicion5') }}" >
-								@if ($errors->has('posicion5'))
+							<div class="col-md-6 form-group{{ $errors->has('posicion1') ? ' has-error' : '' }}">
+								<input placeholder="Descripción del quinto firmante" id="posicion1" type="text" class="form-control" name="posicion1" value="{{ old('posicion1') }}" >
+								@if ($errors->has('posicion1'))
 										<span class="help-block">
-												<strong>{{ $errors->first('posicion5') }}</strong>
+												<strong>{{ $errors->first('posicion1') }}</strong>
 										</span>
 								@endif
 							</div>
@@ -242,29 +244,7 @@
 									<label for="generacion" class="control-label">Generación: </label>
 							</div>
 							<div class="col-md-6 form-group {{ $errors->has('generacion') ? ' has-error' : '' }}">
-									<input id="numgen" type="number" class="form-control" name="generacion" value="{{ old('generacion') }}" >
-							</div>
-							<div class="col-md-4">
-									<label for="nameU" class="control-label">Nombre:</label>
-							</div>
-							<div class="col-md-6 form-group{{ $errors->has('nameU') ? ' has-error' : '' }}">
-									<input id="nameU" type="text" class="form-control" name="nameU" value="{{ old('nameU') }}" >
-									@if ($errors->has('nameU'))
-											<span class="help-block">
-													<strong>{{ $errors->first('nameU') }}</strong>
-											</span>
-									@endif
-							</div>
-							<div class="col-md-4">
-									<label for="posicionU" class="control-label">Cargo:</label>
-							</div>
-							<div class="col-md-6 form-group{{ $errors->has('posicionU') ? ' has-error' : '' }}">
-									<input id="posicionU" type="text" class="form-control" name="posicionU" value="{{ old('posicionU') }}" >
-									@if ($errors->has('posicionU'))
-											<span class="help-block">
-													<strong>{{ $errors->first('posicionU') }}</strong>
-											</span>
-									@endif
+									<input min="1" id="numgen" type="number" class="form-control" name="generacion" value="{{ old('generacion') }}" >
 							</div>
 						</div>
 						<div class="form-group col-md-12">

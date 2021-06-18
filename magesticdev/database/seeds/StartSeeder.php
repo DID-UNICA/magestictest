@@ -1010,6 +1010,7 @@ en impuestos universitarios.',
           'abreviatura'=>'CO',
           'nombre_coordinacion'=>'Área de Cómputo',
           'coordinador'=>'Daniela Lopez Gomez',
+          'genero' => 'F',
           'grado'=>'M.C.C',
           'usuario'=>'daniela',
           'password'=> Hash::make('1234')
@@ -1019,6 +1020,7 @@ en impuestos universitarios.',
           'abreviatura'=>'DI',
           'nombre_coordinacion'=>'Área Disciplinar e Investigación Educativa',
           'coordinador'=>'Roman Dominguez Perez',
+          'genero' => 'M',
           'grado'=>'M.E.M.',
           'usuario'=>'roman',
           'password'=> Hash::make('1234')
@@ -1028,6 +1030,7 @@ en impuestos universitarios.',
           'nombre_coordinacion' => 'Área Didáctico Pedagógica',
           'abreviatura' => 'DP',
           'coordinador' => 'Daniel Morales',
+          'genero' => 'M',
           'grado' => 'M.E.M.',
           'usuario' => 'daniel',
           'password' => Hash::make('1234'),
@@ -1037,6 +1040,7 @@ en impuestos universitarios.',
           'nombre_coordinacion' => 'Área de Desarrollo Humano',
           'abreviatura' => 'DH',
           'coordinador' => 'Jacob Hernandez',
+          'genero' => 'M',
           'grado' => 'M.E.M.',
           'usuario' => 'jacob',
           'password' => Hash::make('1234'),
@@ -1046,6 +1050,7 @@ en impuestos universitarios.',
 				'nombre_coordinacion' => 'Área de Gestión y Vinculación',
 				'abreviatura' => 'GV',
 				'coordinador' => 'Jorge Luis Morales',
+        'genero' => 'M',
 				'grado' => 'M.E.M.',
 				'usuario' => 'jorge',
 				'password' => Hash::make('1234'),
@@ -1356,21 +1361,24 @@ Qué es una computadora y cómo funciona',
         //SECRETARIO DE APOYO A LA DOCENCIA
         DB::table('secretario_apoyo')->insert([
             'secretario' => "Claudia Loreto Miranda",
-            'grado' => "Mtra."
+            'grado' => "Mtra.",
+            'genero' => 'F'
         ]);
 
         //DIRECCIÓN DEL CENTRO DE DOCENCIA (DATO DE PRUEBA)
         DB::table('direccion')->insert([
             'director' => "Gabriel Aguilar Luna",
             'comentarios' => 'Ingeniero en computacion egresado de la UNAM, trabajo mucho tiempo en cargos administraticos en la FI',
-            'grado' => "M.E.M."
+            'grado' => "M.E.M.",
+            'genero' => 'M'
 
         ]);
 
         //COORDINADOR GENERAL DEL CENTRO DE DOCENCIA
         DB::table('coordinador_general')->insert([
             'coordinador' => "Margarita Ramírez Galindo",
-            'grado' => "M.E.M."
+            'grado' => "M.E.M.",
+            'genero' => "F"
 
         ]);
 

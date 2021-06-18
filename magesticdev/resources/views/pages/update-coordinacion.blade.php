@@ -38,6 +38,33 @@
                             {!!Form::text("coordinador", $user->coordinador, [ "class" => "form-control", "placeholder" => "Coordinador", "required",""])!!}
                         </div>
                         <div class="form-group col-md-4">
+                          <div class="col-md-3">
+                            {!!Form::label("genero_l", "Género:")!!}
+                          </div>
+                            <div class="col-md-3">
+                              <div class="row">
+                                <label class="radio-inline">
+                                  @if($user->genero === 'M')
+                                    <input id="genero_M" type="radio" name="genero" value = 'M' checked required>
+                                  @else
+                                    <input id="genero_M" type="radio" name="genero" value = 'M' required>
+                                  @endif
+                                  Masculino
+                                </label>
+                              </div>
+                              <div class="row">
+                                <label class="radio-inline">
+                                  @if($user->genero === 'F')
+                                    <input id="genero_F" type="radio" name="genero" value='F' checked>
+                                  @else
+                                    <input id="genero_F" type="radio" name="genero" value='F'>
+                                  @endif
+                                  Femenino
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="form-group col-md-4">
                             {!!Form::label("usuario", "Usuario")!!}
                             {!!Form::text("usuario", $user->usuario, [ "class" => "form-control", "placeholder" => "Usuario", "required",""])!!}
                         </div>

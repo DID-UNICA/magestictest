@@ -30,7 +30,33 @@
                             {!!Form::label("secretario", "Secretario:")!!}
                             {!!Form::text("secretario", $user->secretario, [ "class" => "form-control", "placeholder" => "Secretario", "required",""])!!}
                         </div>
-
+                        <div class="form-group col-md-6">
+                          <div>
+                            {!!Form::label("genero_l", "Género:")!!}
+                          </div>
+                          <div>
+                            <div class="row">
+                              <label class="radio-inline">
+                                @if($user->genero === 'M')
+                                  <input id="genero_M" type="radio" name="genero" value = 'M' checked required>
+                                @else
+                                  <input id="genero_M" type="radio" name="genero" value = 'M' required>
+                                @endif
+                                Masculino
+                              </label>
+                            </div>
+                            <div class="row">
+                              <label class="radio-inline">
+                                @if($user->genero === 'F')
+                                  <input id="genero_F" type="radio" name="genero" value='F' checked>
+                                @else
+                                  <input id="genero_F" type="radio" name="genero" value='F'>
+                                @endif
+                                Femenino
+                              </label>
+                            </div>
+                          </div>
+                        </div>
                         <div class="form-group col-md-4">
                             {!!Form::label("comentarios", "Comentarios:")!!}
                             {!!Form::text("comentarios", $user->comentarios, [ "class" => "form-control", "placeholder" => "Comentarios",""])!!}

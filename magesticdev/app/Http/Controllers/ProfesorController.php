@@ -153,9 +153,7 @@ class ProfesorController extends Controller
             $user->facultad_id = null;
         }
         $user->save();
-        $fac_ing = Facultad::where('nombre', '=', 'Facultad de Ingeniería')->first();
-        if($user->facultad_id == $fac_ing->id){
-          $carreras_old = ProfesoresCarreras::where('id_profesor', $user->id)->get();
+				$carreras_old = ProfesoresCarreras::where('id_profesor', $user->id)->get();
           foreach($carreras_old as $old){
             $old->delete();
           }
@@ -163,6 +161,8 @@ class ProfesorController extends Controller
           foreach($divisiones_old as $old){
             $old->delete();
           }
+        $fac_ing = Facultad::where('nombre', '=', 'Facultad de Ingeniería')->first();
+        if($user->facultad_id == $fac_ing->id){
           $num_carreras = Carrera::count();
           $num_divisiones = Division::count();
           for($i = 0; $i<$num_carreras; $i++){

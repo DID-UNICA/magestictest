@@ -93,7 +93,12 @@ class ConstanciasController extends Controller{
 
     public function generar($id, Request $request){
         $pdfMerger = new PdfManage;
-        $generacion = $request->generacion;
+        $tipoDeConstancia = $request->type;
+        if ($tipoDeConstancia === "H")
+          $generacion = $request->generacion;
+        else
+          $generacion = null;
+        $esUnica = false;
         $folio_der = (strlen($request->numero) != 0 and is_numeric($request->numero)) ? intval($request->numero) : -1;
         $zip = new Zipper();
         $zip::make(public_path('constancias.zip'));
@@ -136,7 +141,6 @@ class ConstanciasController extends Controller{
             );
         }
         //Obtención de datos del curso
-        $tipoDeConstancia = $request->type;
         $curso = Curso::findOrFail($id);
         $idTipo = (strlen($request->typeid) != 0 and is_numeric($request->typeid)) ? intval($request->typeid) : $curso->getTypeId();
         if($idTipo>99){
@@ -253,37 +257,58 @@ class ConstanciasController extends Controller{
             // El tipo de constancia tiene al coordinador como mayor cargo
             if ($tipoDeConstancia == "A" or $tipoDeConstancia == "AA"){
                 $firmante1 = $coordinacion->grado." ".$coordinacion->coordinador;
-                $descripcion1 = "Coordinador de ".$coordinacion->nombre_coordinacion;
+                if($coordinacion->genero === 'F')
+                  $descripcion1 = "Coordinadora de ".$coordinacion->nombre_coordinacion;
+                else
+                  $descripcion1 = "Coordinador de ".$coordinacion->nombre_coordinacion;
                 $formatoConstancia = 1;
             //El tipo de constancia necesita al coordinador general como mayor cargo
             }elseif ($tipoDeConstancia == "B" or $tipoDeConstancia == "D" 
                 or $tipoDeConstancia == "I" or $tipoDeConstancia == "H"){
                 $firmante1 = $coordinadorGeneral->grado." ".$coordinadorGeneral->coordinador;
-                $descripcion1 = "Coordinador del Centro de Docencia";
+                if($coordinadorGeneral->genero === 'F')
+                  $descripcion1 = "Coordinadora del Centro de Docencia";
+                else
+                  $descripcion1 = "Coordinador del Centro de Docencia";
                 $formatoConstancia = 1;
             //El tipo de constancia necesita al director como mayor cargo
             }elseif ($tipoDeConstancia == "E" OR $tipoDeConstancia == "G"){
                 $firmante1 = $director->grado." ".$director->director;
-                $descripcion1 = "Director de la Facultad de Ingeniería";
+                if($director->genero === 'F')
+                  $descripcion1 = "Directora de la Facultad de Ingeniería";
+                else
+                  $descripcion1 = "Director de la Facultad de Ingeniería";
                 $formatoConstancia = 1;
             //El tipo de constancia necesita al SAD como mayor cargo
             }elseif ($tipoDeConstancia == "C" or $tipoDeConstancia == "F"){
                 $firmante1 = $secretarioApoyo->grado." ".$secretarioApoyo->secretario;
-                $descripcion1 = "Secretario de Apoyo a la Docencia";
+                if($secretarioApoyo->genero === 'F')
+                  $descripcion1 = "Secretaria de Apoyo a la Docencia";
+                else
+                  $descripcion1 = "Secretario de Apoyo a la Docencia";
                 $formatoConstancia = 1;
             }
             //BUSCAMOS AL SEGUNDO FIRMANTE
             if($tipoDeConstancia == "I"){
                 $firmante2 = $coordinacion->grado." ".$coordinacion->coordinador;
-                $descripcion2 = "Coordinador de ".$coordinacion->nombre_coordinacion;
+                if($coordinacion->genero === 'F')
+                  $descripcion2 = "Coordinadora de ".$coordinacion->nombre_coordinacion;
+                else
+                  $descripcion2 = "Coordinador de ".$coordinacion->nombre_coordinacion;
                 $formatoConstancia = 2;
             }elseif($tipoDeConstancia == "G"){
                 $firmante2 = $secretarioApoyo->grado." ".$secretarioApoyo->secretario;
-                $descripcion2 = "Secretario de Apoyo a la Docencia";
+                if($secretarioApoyo->genero === 'F')
+                  $descripcion2 = "Secretaria de Apoyo a la Docencia";
+                else
+                  $descripcion2 = "Secretario de Apoyo a la Docencia";
                 $formatoConstancia = 2;
             }elseif($tipoDeConstancia == "F"){
 								$firmante2 = $coordinadorGeneral->grado." ".$coordinadorGeneral->coordinador;
-								$descripcion2 = "Coordinador del Centro de Docencia";
+								if($coordinadorGeneral->genero === 'F')
+                  $descripcion2 = "Coordinadora del Centro de Docencia";
+                else
+                  $descripcion2 = "Coordinador del Centro de Docencia";
 								$formatoConstancia = 2;
 						}
             //BUSCAMOS A LOS INSTRUCTORES
@@ -295,69 +320,69 @@ class ConstanciasController extends Controller{
                 if($count >= 1){
                 //La constancia es para cuando sólo hay un instructor
                   $firmante2 = $profesores[0]->getFirmanteConstancia();
-                  $descripcion2 = "Instructor";
+                  $descripcion2 = $profesores[0]->getDescripcionConstancia();
                   $formatoConstancia = 2;
                 }if($count >= 2){
                 //La constancia es para cuando hay dos instructores
                   $firmante3 = $profesores[1]->getFirmanteConstancia();
-                  $descripcion3 = "Instructor";
+                  $descripcion3 = $profesores[1]->getDescripcionConstancia();
                   $formatoConstancia = 3;
                 }if($count >= 3){
                 //La constancia es para cuando hay tres instructores
                   $firmante4 = $profesores[2]->getFirmanteConstancia();
-                  $descripcion4 = "Instructor";
+                  $descripcion4 = $profesores[2]->getDescripcionConstancia();
                   $formatoConstancia = 4;
                 }if($count >= 4){
                 //La constancia es para cuando hay cuatro instructores
-                  $firmante5 = $profesores[2]->getFirmanteConstancia();
-                  $descripcion5 = "Instructor";
+                  $firmante5 = $profesores[3]->getFirmanteConstancia();
+                  $descripcion5 = $profesores[3]->getDescripcionConstancia();
                   $formatoConstancia = 5;
                 }
             //SE ELIGIÓ LA OPCIÓN MANUAL
             }if ($tipoDeConstancia == "f1"){
                 //Un Firmante
-                $firmante1 = $request->name1;
-                $descripcion1 = $request->posicion1;
+                $firmante1 = $request->name5;
+                $descripcion1 = $request->posicion5;
                 $formatoConstancia = 1;
             }elseif ($tipoDeConstancia == "f2"){
                 //Dos Firmantes
-                $firmante1 = $request->name1;
-                $descripcion1 = $request->posicion1;
-                $firmante2 = $request->name2;
-                $descripcion2 = $request->posicion2;
+                $firmante2 = $request->name5;
+                $descripcion2 = $request->posicion5;
+                $firmante1 = $request->name4;
+                $descripcion1 = $request->posicion4;
                 $formatoConstancia = 2;
             }elseif ($tipoDeConstancia == "f3"){
                 //Tres Firmantes
-                $firmante1 = $request->name1;
-                $descripcion1 = $request->posicion1;
-                $firmante2 = $request->name2;
-                $descripcion2 = $request->posicion2;
-                $firmante3 = $request->name3;
-                $descripcion3 = $request->posicion3;
+                $firmante3 = $request->name5;
+                $descripcion3 = $request->posicion5;
+                $firmante2 = $request->name4;
+                $descripcion2 = $request->posicion4;
+                $firmante1 = $request->name3;
+                $descripcion1 = $request->posicion3;
                 $formatoConstancia = 3;
             }elseif ($tipoDeConstancia == "f4"){
                 //Cuatro Firmantes
-                $firmante1 = $request->name1;
-                $descripcion1 = $request->posicion1;
-                $firmante2 = $request->name2;
-                $descripcion2 = $request->posicion2;
-                $firmante3 = $request->name3;
-                $descripcion3 = $request->posicion3;
-                $firmante4 = $request->name4;
-                $descripcion4 = $request->posicion4;
+                $firmante4 = $request->name5;
+                $descripcion4 = $request->posicion5;
+                $firmante3 = $request->name4;
+                $descripcion3 = $request->posicion4;
+                $firmante2 = $request->name3;
+                $descripcion2 = $request->posicion3;
+                $firmante1 = $request->name2;
+                $descripcion1 = $request->posicion2;
                 $formatoConstancia = 4;
             }elseif ($tipoDeConstancia == "f5"){
                 //Cinco Firmantes
-                $firmante1 = $request->name1;
-                $descripcion1 = $request->posicion1;
-                $firmante2 = $request->name2;
-                $descripcion2 = $request->posicion2;
-                $firmante3 = $request->name3;
-                $descripcion3 = $request->posicion3;
-                $firmante4 = $request->name4;
-                $descripcion4 = $request->posicion4;
                 $firmante5 = $request->name5;
                 $descripcion5 = $request->posicion5;
+                $firmante4 = $request->name4;
+                $descripcion4 = $request->posicion4;
+                $firmante3 = $request->name3;
+                $descripcion3 = $request->posicion3;
+                $firmante2 = $request->name2;
+                $descripcion2 = $request->posicion2;
+                $firmante1 = $request->name1;
+                $descripcion1 = $request->posicion1;
                 $formatoConstancia = 5;
             }
             

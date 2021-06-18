@@ -11,6 +11,6 @@ class Director extends Model
     use Notifiable;
     protected $table = 'direccion';
     protected $fillable = [
-        'director','comentarios','grado'
+        'director','comentarios','grado','genero'
     ];
 }

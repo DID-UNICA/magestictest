@@ -163,7 +163,7 @@ body {
       <p style= "font-size: 12pt;">{{$fechaimp}}</h5>
       <p style="padding-top: 0.3cm; padding-bottom: 0.3cm; font-size: 12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
       <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 1cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="font-size: 8pt; padding-bottom: 1.9cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
 
 <!--
@@ -233,7 +233,7 @@ body {
     </table>
 
   </div>
-    <table width=auto style="vertical-align: top; padding-top: 1.4cm; margin: 0px;">
+    <table width=auto style="vertical-align: top; padding-top: 0.6cm; margin: 0px;">
     <tr width=auto>
       <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
       <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>

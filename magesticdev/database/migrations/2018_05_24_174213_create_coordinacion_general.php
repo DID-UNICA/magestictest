@@ -17,6 +17,7 @@ class CreateCoordinacionGeneral extends Migration
             $table->increments('id')->unique();
             $table->String('coordinador');
             $table->String('grado');
+            $table->string('genero');
             $table->String('comentarios')->nullable();
             $table->timestamps();
         });

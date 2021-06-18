@@ -62,6 +62,12 @@ class CoordinacionController extends Controller
         $user->password= bcrypt($request->password);
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
+				if($request->genero === 'M')
+					$user->genero = 'M';
+				elseif($request->genero === 'F')
+					$user->genero = 'F';
+				else
+					$user->genero = null;
         $user->save();
         return redirect('/coordinacion')
             ->with("user",$user)
@@ -111,6 +117,12 @@ class CoordinacionController extends Controller
         $user->password= bcrypt($request->password);
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
+				if($request->genero === 'M')
+					$user->genero = 'M';
+				elseif($request->genero === 'F')
+					$user->genero = 'F';
+				else
+					$user->genero = null;
         $user->save();
         return redirect('/coordinacion')
           ->with("success",'Se ha creado el registro correctamente');

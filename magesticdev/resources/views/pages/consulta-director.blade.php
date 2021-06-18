@@ -22,23 +22,35 @@
         </div>
         <div class="panel-body">
             <table class="col-md-12">
+            @if($user->id != null)
                 <tr>
                     <th>Director</th>
+                    <th>Género</th>
                 </tr>
                 <tr>
                     <td>{{ $user->grado}} {{ $user->director}}</td>
+                    @if($user->genero === 'F')
+                      <td>Femenino</td>
+                    @elseif($user->genero === 'M')
+                      <td>Masculino</td>
+                    @endif
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{{ URL::to('direccion/actualizar', $user->id) }}" style="margin: 10px;" class="btn btn-info">Editar</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" style="margin: 10px;" data-target="#myModal{{$user->id}}">Eliminar</button>
+                    </td>
+                </tr>
+                @else
+                <tr>
+                    <th>No hay un director aún.</th>
                 </tr>
                 <tr>
                     <td>
                         <a href="{{route('direccion.nuevo')}}" style="margin: 10px;" class="btn btn-success">Nuevo</a>
                     </td>
-                    @if($user->id != null)
-                        <td>
-                            <a href="{{ URL::to('direccion/actualizar', $user->id) }}" style="margin: 10px;" class="btn btn-info">Editar</a>
-                            <button type="button" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#myModal{{$user->id}}">Eliminar</button>
-                        </td>
-                    @endif
                 </tr>
+                @endif
                 <!-- Modal -->
                     <div class="modal fade" id="myModal{{$user->id}}" role="dialog">
                       <div class="modal-dialog">

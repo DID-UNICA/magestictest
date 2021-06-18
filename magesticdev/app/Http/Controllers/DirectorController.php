@@ -47,6 +47,12 @@ class DirectorController extends Controller
         $user->director = $request->director;
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
+        if($request->genero === 'M')
+          $user->genero = 'M';
+        elseif($request->genero === 'F')
+          $user->genero = 'F';
+        else
+          $user->genero = null;
         $user->save();
         return redirect('/direccion')
           ->with('success','Se han actualizado los datos correctamente');
@@ -77,6 +83,12 @@ class DirectorController extends Controller
             $user->director = $request->director;
             $user->comentarios = $request->comentarios;
             $user->grado = $request->grado;
+            if($request->genero === 'M')
+              $user->genero = 'M';
+            elseif($request->genero === 'F')
+              $user->genero = 'F';
+            else
+              $user->genero = null;
             $user->save();
         return redirect('/direccion')
           ->with('success','Se ha creado el registro correctamente');

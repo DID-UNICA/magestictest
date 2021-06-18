@@ -11,6 +11,6 @@ class SecretarioApoyo extends Model
     use Notifiable;
     protected $table = 'secretario_apoyo';
     protected $fillable = [
-        'secretario','comentarios','grado'
+        'secretario','comentarios','grado','genero'
     ];
 }
