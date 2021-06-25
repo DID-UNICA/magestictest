@@ -227,13 +227,13 @@ class DiplomadoController extends Controller
         //Para insertar el número de módulo
         $dipCursos = DiplomadosCurso::where('diplomado_id', $request->diplomado)->get();
         if($dipCursos->isEmpty()){ 
-            $num_modulo = 1;
+            $num_modulo = 0;
         }
         else{
-            $dipCursos->sortByDesc('num_modulo');
-            $num_modulo = intval($dipCursos[0]->num_modulo)+1;
+            $num_modulo = $dipCursos->count();
         } 
         foreach ($request->curso_id as $key => $value) {
+            $num_modulo++;
             $dipCursos = new DiplomadosCurso;
             $dipCursos->diplomado_id = $request->diplomado;
             $dipCursos->curso_id = $value;
@@ -246,7 +246,6 @@ class DiplomadoController extends Controller
                 $pcurso->curso_id = $value;
                 $pcurso->save();
             }
-            $num_modulo++;
         }
         return redirect()->back()->with('success', 'El diplomado ha sido actualizado exitosamente');
     }

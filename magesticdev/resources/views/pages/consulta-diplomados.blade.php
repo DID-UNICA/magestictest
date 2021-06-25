@@ -4,12 +4,12 @@
   <!--Body content-->
 
   <div class="content">
-    <div class="top-bar">       
-      <a href="#menu" class="side-menu-link burger"> 
+    <div class="top-bar">
+      <a href="#menu" class="side-menu-link burger">
         <span class='burger_inside' id='bgrOne'></span>
         <span class='burger_inside' id='bgrTwo'></span>
         <span class='burger_inside' id='bgrThree'></span>
-      </a>      
+      </a>
     </div>
     <section class="content-inner">
     <br>
@@ -40,9 +40,9 @@
               <td>
                   <a href="{{ URL::to('diplomado/ver-diplomado',$diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-primary">Ver Módulos</a>
                   <a href="{{ URL::to('diplomado/ver-participantes',$diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-info">Ver Participantes</a>
-                  <a href=" {{ URL::to('diplomado/inscribirAlumnos',$diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-success">Inscribir Participantes</a>
+                  <a href="{{ URL::to('diplomado/inscribirAlumnos',$diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-success">Inscribir Participantes</a>
                   <a href="{{ URL::to('diplomado', $diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-warning">Detalles</a>
-                  <a href=" {{ URL::to('diplomas', $diplomado->id)}}" style="margin-bottom: 15px;" class="btn btn-info">Diplomas</a>
+                  <a href="{{ URL::to('diplomas', $diplomado->id) }}" style="margin-bottom: 15px;" class="btn btn-info">Diplomas</a>
                   <button type="button" class="btn btn-danger" data-toggle="modal" style="margin-bottom: 15px;" data-target="#myModal">Dar de baja</button>
               </td>
             </tr>

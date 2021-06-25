@@ -145,15 +145,15 @@ class DiplomasController extends Controller{
           }
         $fecha = $dia_a . " de " .$mes_a . " de " . $anio;
         
-        if (!$diplomadosProfesor){
+        if ($diplomadosProfesor->isEmpty()){
           return redirect()
             ->back()
-            ->with('warning', 'El diplomado no tiene alumnos inscritos');
+            ->with('danger', 'El diplomado no tiene alumnos inscritos');
         }
-        if(!$diplomadosCurso){
+        if($diplomadosCurso->isEmpty()){
           return redirect()
             ->back()
-            ->with('warning', 'El diplomado no tiene cursos inscritos');
+            ->with('danger', 'El diplomado no tiene módulos asociados');
         }
         $tmp = Profesor::all();
         $folio_der = (strlen($request->folder) != 0 and is_numeric($request->folder)) ?  intval($request->folder) : 1;

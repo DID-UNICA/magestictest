@@ -50,7 +50,7 @@ class CursoController extends Controller
         $instructor->profesor_id = $profesor_id;
         $instructor->save();
         return redirect()->route('curso.modificarInstructores', $curso_id)
-          ->with('success', "El profesor ahora es instructor del curso");
+          ->with('success', "El profesor ahora es instructor");
     }
 
     public function bajaInstructores($curso_id, $profesor_id)
@@ -63,19 +63,6 @@ class CursoController extends Controller
     
      public function index()
     {
-        /*$enDiplomadoObj = DiplomadosCurso::select('curso_id')->get();
-        $enDiplomadoArray = array();
-        foreach ($enDiplomadoObj as $enDip) {
-            array_push($enDiplomadoArray, $enDip->curso_id);
-        }
-        $temporales = Curso::whereNotIn('id', $enDiplomadoArray)
-        ->get();
-        $cursos = array();
-        foreach($temporales as $curso){
-            if ($curso->getTipo() != 'D'){
-                array_push($cursos,$curso);
-            }
-        }*/
         return view("pages.consulta-cursos")
             ->with("cursos",Curso::all());
     }
@@ -171,13 +158,6 @@ class CursoController extends Controller
           return redirect('curso')
             ->with('success', 'Se han actualizado los datos correctamente');
         }
-        /*return view("pages.ver-curso")
-            ->with("user",$user)
-            ->with("cursos", Curso::all())
-            ->with("profesores",Profesor::all())
-            ->with("repetidos", $auxArray)
-            ->with('success','Se han actualizado los cambios');}
-        */
     }
 
     /**
@@ -217,7 +197,7 @@ class CursoController extends Controller
       return view('pages.buscador-tematicas')->with('curso_id', $id);
     }
     public function Csearch(Request $request){
-        #dd($request);
+       
         if ($request->type == "nombre_curso") {
             $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")->get();
             $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
@@ -257,8 +237,6 @@ class CursoController extends Controller
                 default:
                     break;
             }
-            // dd($aux->filter(function ($value, $key){return sizeof($value) > 0;}));
-            // return $aux;
             $res_busqueda = Curso::where("semestre_anio", ">=", (integer)$request->anio)->where("semestre_anio", "<=", (integer)$request->anio2)
                 ->whereNotIn("id",$aux->filter(function ($value, $key){return sizeof($value) > 0;}))
                 ->get();
@@ -308,7 +286,7 @@ class CursoController extends Controller
         }
         $user = Curso::findOrFail($id);
         $user -> delete(); 
-        return redirect('diplomado')->with('success', "El curso se eliminó exitosamente");
+        return redirect('diplomado')->with('success', "El módulo se eliminó exitosamente");
     }
     public function bajaParticipante($id,$curso,$espera)
     {
@@ -412,38 +390,34 @@ class CursoController extends Controller
           ->with('warning', 'Asigne instructores ahora o posteriormente');
     }
     public function inscripcionParticipante($id)
-    {
-        $count = ParticipantesCurso::select('id')
-            ->where('curso_id',$id)
-            ->count();
+    { 
+      //Datos del curso y cantidad de participantes
+      $curso = Curso::findOrFail($id);
+      $count = ParticipantesCurso::select('id')
+          ->where('curso_id',$id)
+          ->count();
+      
+      //Profesores que se pueden inscribir al curso
+      $users = Profesor::select('*')
+          ->whereNotIn('id',Profesor::join('participante_curso','participante_curso.profesor_id','profesors.id')
+              ->where('participante_curso.curso_id',$id)
+              ->select('profesors.id')->get())
+          ->whereNotIn('id', ProfesoresCurso::where('curso_id',$id)->select('profesor_id')->get())
+          ->get()
+          ->sortBy("apellido_paterno");
 
-        $cupo = Curso::findOrFail($id)->cupo_maximo;
-
-        $users = Profesor::select('*')
-            ->whereNotIn('id',Profesor::join('participante_curso','participante_curso.profesor_id','profesors.id')
-                ->where('participante_curso.curso_id',$id)
-                ->select('profesors.id')->get())
-            ->whereNotIn('id', ProfesoresCurso::where('curso_id',$id)->select('profesor_id')->get())
-            ->get()
-            ->sortBy("apellido_paterno");
-        #$users = Profesor::all();
-        $nombre_curso = CatalogoCurso::findOrFail($id)->nombre_curso;
-        $enLista = ParticipantesCurso::select('id')->where('estuvo_en_lista',true)->where('curso_id',$id)->count();
-        $cancelados = ParticipantesCurso::select('id')->where('cancelación',true)->where('curso_id',$id)->count();
-        $curso = Curso::findOrFail($id);
-        $curso_id = $id;
-        $countAux = 0;
-        if($count > ($enLista+$cancelados))
-            $countAux = $count-$enLista-$cancelados;
-        #Session::flash('inscripcion', 'Se ha dado de alta correctamente');
-        return view("pages.curso-inscripcion")
-            ->with("users",$users)
-            ->with("curso_id",$curso_id)
-            ->with("count",$countAux)
-            ->with("cupo",$cupo)
-            ->with("curso",$curso)
-            ->with("nombre_curso", $nombre_curso)
-            ->with("lista",$enLista);
+      //Cancelados y lista de espera
+      $enLista = ParticipantesCurso::select('id')->where('estuvo_en_lista',true)->where('curso_id',$id)->count();
+      $cancelados = ParticipantesCurso::select('id')->where('cancelación',true)->where('curso_id',$id)->count();
+      
+      $countAux = 0;
+      if($count > ($enLista+$cancelados))
+          $countAux = $count-$enLista-$cancelados;
+      return view("pages.curso-inscripcion")
+          ->with("users",$users)
+          ->with("count",$countAux)
+          ->with("curso",$curso)
+          ->with("lista",$enLista);
     }
 
     public function GenerarFormatos($id)
@@ -656,22 +630,9 @@ class CursoController extends Controller
 
         }
 
-         /*if($request->monto_pago){
-            if(in_array($profesor_id,$request->monto_pago)){
-                $participante->monto_pago = true;
-            }else{
-                $participante->monto_pago = false;
-            }
-        }else{
-            $participante->monto_pago = false;
-        }*/
-            //return $participante;
             $participante->save();
         }
             $users = Curso::all();
-            //return view("pages.consulta-cursos")
-            //    ->with("users",$users);
-            //return $participantes;
             return redirect()->back()->with('success', 'Cambios realizados correctamente');
     }
 
