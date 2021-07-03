@@ -127,6 +127,11 @@
     </div>
 
     <div class="form-group col-md-6">
+        {!!Form::label("acreditacion", "Acreditación")!!}
+        {!!Form::number("acreditacion", $user->acreditacion, [ "class" => "form-control", "placeholder" => "Acreditación", "required",""])!!}
+    </div>
+
+    <div class="form-group col-md-6">
         {!!Form::label("costo", "Costo:")!!}
         {!!Form::number("costo", $user->costo, [ "class" => "form-control", "placeholder" => "Costo", "required",""])!!}
     </div>

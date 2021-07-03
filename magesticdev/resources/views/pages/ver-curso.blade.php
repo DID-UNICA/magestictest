@@ -71,6 +71,11 @@
     </div>
 
     <div class="form-group col-md-6">
+      {!!Form::label("acreditacion", "Acreditación")!!}
+      {!!Form::text("acreditacion", $user->acreditacion, [ "class" => "form-control", "placeholder" => "Acreditacion", "required","disabled"])!!}
+    </div>
+
+    <div class="form-group col-md-6">
       {!!Form::label("costo", "Costo:")!!}
       {!!Form::text("costo", $user->costo, [ "class" => "form-control", "placeholder" => "Costo", "required","disabled"])!!}
     </div>

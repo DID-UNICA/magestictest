@@ -242,12 +242,16 @@ body {
     <tr>
       <td>Asistentes: {{$asistentes}}</td>
     </tr>
+    @if($libro!='')
     <tr>
       <td>Libro: {{$libro}}</td>
     </tr>
+    @endif
+    @if($foja!='')
     <tr>
       <td>Foja: {{$foja}}</td>
     </tr>
+    @endif
     <tr>
       <td><td>
     </tr>

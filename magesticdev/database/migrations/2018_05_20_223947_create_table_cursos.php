@@ -19,6 +19,7 @@ class CreateTableCursos extends Migration
             $table->string('hora_fin');
             $table->String('dias_semana')->nullable();
             $table->integer('numero_sesiones');
+            $table->integer('acreditacion');
             $table->double('costo');
             $table->integer('cupo_maximo');
             $table->integer('cupo_minimo');

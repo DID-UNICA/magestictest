@@ -163,12 +163,13 @@ class ConstanciasController extends Controller{
             array_push($profesores,$tmp);
         }
         //Obtención de participantes ordenados y acreditados
-        if($institucion == 'DGAPA'){
-            $acreditacion = '6';
-        }
-        else if($institucion == 'CDD'){
-            $acreditacion = '8';
-        }
+        $acreditacion = $curso->acreditacion;
+        // if($institucion == 'DGAPA'){
+        //     $acreditacion = '6';
+        // }
+        // else if($institucion == 'CDD'){
+        //     $acreditacion = '8';
+        // }
         $participantes = Profesor::leftJoin(
             'participante_curso',
             'profesors.id','=','participante_curso.profesor_id'

@@ -158,6 +158,7 @@ class DiplomasController extends Controller{
         $tmp = Profesor::all();
         $folio_der = (strlen($request->folder) != 0 and is_numeric($request->folder)) ?  intval($request->folder) : 1;
         $iterprof = 1;
+        $acreditados_empty=true;
         foreach($diplomadosProfesor as $diplomadoProfesor){
           $acredito = true;
           $calificaciones = array();
@@ -183,11 +184,15 @@ class DiplomasController extends Controller{
               break;
             }
             if($participante->asistencia and $participante->acreditacion){
-              if($curso->getInstitucion() == 'DGAPA' && $participante->calificacion >= 6){
-                array_push($cursos,$curso);
-                array_push($calificaciones,$participante->calificacion);
-                $promedio += intval($participante->calificacion);
-              }else if($curso->getInstitucion() == 'CDD' && $participante->calificacion >= 8){
+              // if($curso->getInstitucion() == 'DGAPA' && $participante->calificacion >= 6){
+              //   array_push($cursos,$curso);
+              //   array_push($calificaciones,$participante->calificacion);
+              //   $promedio += intval($participante->calificacion);
+              // }else if($curso->getInstitucion() == 'CDD' && $participante->calificacion >= 8){
+              //   array_push($cursos,$curso);
+              //   array_push($calificaciones,$participante->calificacion);
+              //   $promedio += intval($participante->calificacion);
+              if($participante->acreditacion >= $curso->calificacion){
                 array_push($cursos,$curso);
                 array_push($calificaciones,$participante->calificacion);
                 $promedio += intval($participante->calificacion);
@@ -195,12 +200,15 @@ class DiplomasController extends Controller{
                 //El alumno no amerita constancia
                 $acredito = false;
               }
+            }else{
+              $acredito = false;
             }
             $iterprom++;
           }
           if($iterprom != 0){
           $promedio = $promedio / $iterprom;}
           if($acredito){
+            $acreditados_empty=false;
             $pdf = PDF::loadView('pages.pdf.diploma', array('profesor'=>$profesor,
               'calificaciones'=>$calificaciones,
               'promedio' => $promedio,
@@ -227,6 +235,14 @@ class DiplomasController extends Controller{
         $folio_der++;
         $iterprof++;   
         }
+      
+      if($acreditados_empty){
+        $zip::close();
+        rrmdir(resource_path('views/pages/tmp'.$hash_aux));
+        return redirect()
+        ->back()
+        ->with('warning', 'El diplomado no tiene alumnos que ameriten diploma');
+      }
       $zip::addString('Diplomas_'.$diplomado->id.'.pdf',$pdfMerger->merge('string',resource_path('views/pages/tmp'.$hash_aux.'/Diplomas_'.$diplomado->id.'.pdf')));
       $zip::close();
       rrmdir(resource_path('views/pages/tmp'.$hash_aux));

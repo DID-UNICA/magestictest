@@ -72,13 +72,13 @@
                       <td> {!!Form::label("numfoja", "Número Foja:")!!}</td>
                     </tr>
                     <tr>
-                      <td> {!!Form::number("foja", null, [ "class" => "col-md-6 form-control", "placeholder" => "Número", "required",""])!!}</td>
+                      <td> {!!Form::number("foja", null, [ "class" => "col-md-6 form-control", "placeholder" => "Número, en blanco no aparecerá en el diploma", ""])!!}</td>
                     </tr>
                     <tr>
                       <td> {!!Form::label("numlibro", "Número Libro:")!!}</td>
                     </tr>
                     <tr>
-                      <td> {!!Form::number("libro", null, [ "class" =>"col-md-6 form-control", "placeholder" => "Número", "required",""])!!}</td>
+                      <td> {!!Form::number("libro", null, [ "class" =>"col-md-6 form-control", "placeholder" => "Número, en blanco no aparecerá en el diploma", ""])!!}</td>
                     </tr>
                   </table>
                 </div>

@@ -171,11 +171,25 @@
                             <label for="name" class="col-md-4 control-label">Número de sesiones:</label>
 
                             <div class="col-md-6">
-                                <input id="numero_sesiones" type="numbrer" min="1" class="form-control" name="numero_sesiones" value="{{ old('numero_sesiones') }}" required>
+                                <input id="numero_sesiones" type="number" min="1" class="form-control" name="numero_sesiones" value="{{ old('numero_sesiones') }}" required>
 
                                 @if ($errors->has('numero_sesiones'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('numero_sesiones') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('acreditacion') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Acreditación:</label>
+
+                            <div class="col-md-6">
+                                <input id="acreditacion" type="number" min="1" class="form-control" name="acreditacion" value="{{ old('acreditacion') }}" required>
+
+                                @if ($errors->has('acreditacion'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('acreditacion') }}</strong>
                                     </span>
                                 @endif
                             </div>

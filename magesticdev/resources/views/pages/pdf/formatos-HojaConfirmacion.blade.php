@@ -76,7 +76,7 @@ hr{
                     </div>
 		<table class="datosTabla" width="100%">
 			<tr>
-				<td class="small" width="60%"> Nombre del Participante para el Diploma
+				<td class="small" width="60%"> Nombre del participante
 				</td>
 				<td class="small" width="25%" style='text-align:left;'> {{$fechaimp}} </td>
 				<td class="small" width="8%" >Datos Correctos</td>

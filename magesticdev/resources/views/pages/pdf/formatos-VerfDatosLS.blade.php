@@ -87,7 +87,7 @@ body {
                     </div>
 			<table class="datosTabla" width="100%">
 			<tr>
-				<td class="small" width="75%"> Nombre del Participante para el Diploma
+				<td class="small" width="75%"> Nombre del participante
 				</td>
 				<td class="small" width="15%"> {{ $fechaimp}} </td>
 			</tr>
