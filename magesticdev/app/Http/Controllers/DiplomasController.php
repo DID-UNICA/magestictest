@@ -104,7 +104,7 @@ class DiplomasController extends Controller{
         $fecha = $fecha->format('d/m/Y');
         $fecha = explode("/",$fecha);
         $anio = $fecha[2];
-        $dia_a = $fecha[0];
+        $dia_a = (int) $fecha[0];
         $mes_a = $fecha[1];
         $folior = "F04".$anio.'D'.$idFol.'D';
         if ($mes_a == '01'){
