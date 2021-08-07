@@ -149,7 +149,7 @@ body {
 
       <table width="15cm" align="center">
         <tr width="15cm">
-          <td height="2.5cm" align="center" style="font-size: 14pt; vertical-align: top;" class="texto">{{$tema}}</td>
+          <td height="2.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;" class="texto">{{$tema}}</td>
         </tr>
       </table>
 
@@ -174,7 +174,7 @@ body {
 </tr>
 <tr>
     <td class="firma" style="font-size: 8pt;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
-    <td class="firma" style="font-size: 8pt;">Coordinador General del Centro de Docencia</td>
+    <td class="firma" style="font-size: 8pt;">Coordinador del Centro de Docencia</td>
     <td class="firma" style="font-size: 8pt;">Secretaría de Apoyo a la Docencia</td>
 </tr>
 </table>

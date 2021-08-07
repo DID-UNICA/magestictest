@@ -24,7 +24,11 @@
             <table class="col-md-12">
             @if($user->id != null)
                 <tr>
+                  @if($user->genero === 'F')
                     <th>Director</th>
+                  @else
+                    <th>Directora</th>
+                  @endif
                     <th>Género</th>
                 </tr>
                 <tr>

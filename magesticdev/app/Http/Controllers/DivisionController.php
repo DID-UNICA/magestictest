@@ -74,7 +74,7 @@ class DivisionController extends Controller
         $user->abreviatura= $request->abreviatura;
         $user->save();
         return redirect('/division')
-          ->with('success','Se ha creado el registro correctamente');
+          ->with('success','Se ha creado la división correctamente');
     }
 
     /**

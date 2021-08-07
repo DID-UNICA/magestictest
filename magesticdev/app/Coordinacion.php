@@ -28,4 +28,15 @@ class Coordinacion extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    public function getDescripcion(){
+      if($this->genero === 'F')
+        return "Coordinadora de ".$this->nombre_coordinacion;
+      else
+        return "Coordinador de ".$this->nombre_coordinacion;
+    }
+
+    public function getNombreFirma(){
+      return $this->grado.' '.$this->coordinador;
+    }
 }

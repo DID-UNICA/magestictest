@@ -237,7 +237,7 @@ body {
   </table>
   <table class="folios"  width="20%" style="text-align:left;">
     <tr>
-      <td>Duración: {{$duracion}}</td>
+      <td>Duración: {{$duracion}}h</td>
     </tr>
     <tr>
       <td>Asistentes: {{$asistentes}}</td>

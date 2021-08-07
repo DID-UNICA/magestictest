@@ -291,10 +291,8 @@ class Curso extends Model
     public function getInteresados($tematicas){
         $interesados_collection = array();
         foreach($tematicas as $tematica){
-            #TODO por cada encuesta buscar la tematica
             $encuestascursos = EncuestaFinalCurso::whereRaw("lower(unaccent(otros)) LIKE lower(unaccent('%".$tematica."%'))")->get();
             $encuestassemis = EncuestaFinalSeminario::whereRaw("lower(unaccent(otros)) LIKE lower(unaccent('%".$tematica."%'))")->get();
-            #TODO hacer join hasta los profesores que contestaron su encuesta
             foreach($encuestascursos as $encuestacurso){
                 $interesados = DB::table('_evaluacion_final_curso')
                             ->join('participante_curso', '_evaluacion_final_curso.participante_curso_id', '=', 'participante_curso.id')

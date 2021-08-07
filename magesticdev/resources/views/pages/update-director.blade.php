@@ -18,8 +18,7 @@
         @include('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
-            <h1>Director</h1>
-                <h2>{{ $user->nombre }}</h2>
+              <h1>Dirección</h1>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -27,7 +26,7 @@
                         {!! Form::open(['route' => array('direccion.actualizar', $user->id), "method" => "PUT"]) !!}
                         
                         <div class="form-group col-md-4">
-                            {!!Form::label("director", "Director:")!!}
+                            {!!Form::label("director", "Nombre:")!!}
                             {!!Form::text("director", $user->director, [ "class" => "form-control", "placeholder" => "Nombre", "required",""])!!}
                         </div>
                         <div class="form-group col-md-6">

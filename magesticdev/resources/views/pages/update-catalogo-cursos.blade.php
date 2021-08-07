@@ -15,6 +15,7 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
                 <div class="panel-heading">
                       <h1>Actualizar</h1>
@@ -25,7 +26,7 @@
 	<div class="row col-md-12 ">
 		<div class="form-group col-md-3">
         {!!Form::label("clave_curso", "Clave:")!!}
-        {!!Form::text("clave_curso",$user->clave_curso , [ "class" => "form-control", "required"])!!}
+        {!!Form::text("clave_curso",$user->clave_curso , [ "class" => "form-control", "required", "maxlength"=>"25"])!!}
     </div>
 		<div class="form-group col-md-9">
 				{!!Form::label("nombre_curso", "Nombre del curso:")!!}

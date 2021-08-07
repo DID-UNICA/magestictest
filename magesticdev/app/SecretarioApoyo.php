@@ -13,4 +13,15 @@ class SecretarioApoyo extends Model
     protected $fillable = [
         'secretario','comentarios','grado','genero'
     ];
+
+    public function getDescripcion(){
+      if($this->genero === 'F')
+        return "Secretaria de Apoyo a la Docencia";
+      else
+        return "Secretario de Apoyo a la Docencia";
+    }
+
+    public function getNombreFirma(){
+      return $this->grado.' '.$this->secretario;
+    }
 }

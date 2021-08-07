@@ -16,7 +16,11 @@
         @include ('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>Coordinador general</h3>
+              @if($user->genero === 'F')  
+                <h3>Coordinadora del Centro de Docencia</h3>
+              @else)
+                <h3>Coordinador del Centro de Docencia</h3>
+              @endif
 
             </div>
         </div>
@@ -24,7 +28,11 @@
             <table class="col-md-12 container-fluid">
               @if($user->id != null)
                 <tr>
-                    <th>Coordinador</th>
+                    @if($user->genero === "F")
+                      <th>Coordinadora</th>
+                    @else
+                      <th>Coordinador</th>
+                    @endif
                     <th>Género</th>
                 </tr>
                 <tr>

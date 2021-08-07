@@ -119,7 +119,7 @@ class SalonController extends Controller
         $user->capacidad= $request->capacidad;
         $user->ubicacion= $request->ubicacion;
         $user->save();
-        return redirect('salon')->with('success','Se ha creado el registro correctamente');
+        return redirect('salon')->with('success','Se ha creado el salón correctamente');
     }
     /**
      * Store a newly created resource in storage.

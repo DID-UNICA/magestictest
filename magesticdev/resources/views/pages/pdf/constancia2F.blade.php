@@ -148,7 +148,7 @@ body {
 
       <table width="15cm" align="center">
         <tr width="15cm">
-         <td height="0.25cm" align="center" style="font-size: 14pt; vertical-align: top;">{{$texto}}</td>
+         <td height="0.25cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
         </tr>
         <tr width="15cm">
           <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top;">{{$cursoCatalogo->nombre_curso}}</td>

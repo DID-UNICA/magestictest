@@ -91,7 +91,6 @@
                     <li><a href="{{ route('curso.consulta') }}">Cursos programados</a></li>
                     <li><a href="{{ route('catalogo-cursos.consulta') }}">Catálogo de cursos</a></li>
                     <li><a href="{{ route('catalogo-cursos.nuevo') }}">Alta Catálogo</a></li>
-
                 </ul>
             </li>
 
@@ -101,8 +100,6 @@
                     <li><a href="{{ route('profesor.nuevo') }}">Alta Profesor</a></li>
                     <li><a href="{{ route('profesor.consulta') }}">Consulta de profesores</a></li>
                     <li><a href="{{route('categoria.consulta')}}">Categoría y Nivel</a></li>
-                  <!--  <li><a href="#">Curriculum</a></li> -->
-
                 </ul>
             </li>
 
@@ -111,7 +108,6 @@
                 <ul class="submenu">
                     <li><a href="{{ route('salon.consulta') }}">Consulta Salones</a></li>
                     <li><a href="{{ route('salon.nuevo') }}">Alta de Salón</a></li>
-                    <!--<li><a href="#">Baja de Salon</a></li>-->
                 </ul>
             </li>
             <li class="nav-header">
@@ -127,9 +123,9 @@
                 <ul class="submenu">
                     <li><a href="{{route('coordinacion.nuevo')}}">Alta de Coordinación</a></li>
                     <li><a href="{{route('coordinacion.consulta')}}">Consulta de coordinaciones</a></li>
-                    <li><a href="{{route('coordinador-general.consulta')}}">Coordinación general</a></li>
+                    <li><a href="{{route('coordinador-general.consulta')}}">Coordinación del Centro de Docencia</a></li>
                     <li><a href="{{route('secretario-apoyo.consulta')}}">Secretaría de apoyo</a></li>
-                    <li><a href="{{route('direccion.consulta')}}">Director</a></li>
+                    <li><a href="{{route('direccion.consulta')}}">Dirección</a></li>
 
                 </ul>
             </li>

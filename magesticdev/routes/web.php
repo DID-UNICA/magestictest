@@ -194,7 +194,7 @@ Route::get('diplomas/{id}/generar','DiplomasController@generar')->name('diplomas
 Route::get('reconocimientos/{id}','ReconocimientosController@selectType')->name('reco.elegir');
 Route::get('reconocimientosDiploma/{diplomaid}/{cursoid}','ReconocimientosController@selectTypeD')->name('reco.elegir2');
 Route::get('reconocimientos/{id}/generar','ReconocimientosController@generar')->name('reconocimientos.generar');
-Route::get('reconocimientos/{diplomadoid}/{cursoid}/generar','ReconocimientosController@generard')->name('reconocimientos.generard');
+Route::get('reconocimientos/{diplomadoid}/{cursoid}/generar','ReconocimientosController@generarD')->name('reconocimientos.generard');
 Route::get('reconocimientos/fecha/{id}','ReconocimientosController@fechaEnvio')->name('reconocimientos.fecha');
 Route::post('reconocimientos/actualizar_fecha/{id}','ReconocimientosController@fechaEnvioActualizar')->name('reconocimientos.actualizarFecha');
 

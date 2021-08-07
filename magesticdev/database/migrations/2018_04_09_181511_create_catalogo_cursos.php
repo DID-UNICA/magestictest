@@ -25,7 +25,7 @@ class CreateCatalogoCursos extends Migration
             $table->longText('antecedentes')->nullable();
             $table->date('fecha_disenio');
             $table->integer('coordinacion_id')->unsigned();
-            $table->string('clave_curso')->unique();
+            $table->string('clave_curso',25)->unique();
 
             $table->foreign('coordinacion_id')->references('id')->on('coordinacions');
 

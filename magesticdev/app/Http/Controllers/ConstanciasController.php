@@ -163,22 +163,18 @@ class ConstanciasController extends Controller{
             array_push($profesores,$tmp);
         }
         //Obtención de participantes ordenados y acreditados
-        $acreditacion = $curso->acreditacion;
-        // if($institucion == 'DGAPA'){
-        //     $acreditacion = '6';
-        // }
-        // else if($institucion == 'CDD'){
-        //     $acreditacion = '8';
-        // }
+        if(!$curso->acreditacion)
+          return redirect()->back()->with('danger', 'No hay acreditación asignada al curso');
         $participantes = Profesor::leftJoin(
             'participante_curso',
             'profesors.id','=','participante_curso.profesor_id'
         )
         ->where('participante_curso.curso_id',$id)
-        ->where('participante_curso.calificacion','>=',$acreditacion)
+        ->where('participante_curso.calificacion','>=',$$curso->acreditacion)
         ->where('participante_curso.asistencia', TRUE)
         ->where('participante_curso.acreditacion', TRUE)
         ->select('profesors.*')->get();
+
         if(count($participantes) <= 0){
             return redirect()->back()->with(
                 'warning',
@@ -189,7 +185,7 @@ class ConstanciasController extends Controller{
             $zip::close();
             rrmdir(resource_path('views/pages/tmp'.$hash_aux));
             return redirect()->back()->with(
-                'warning', 'No hay profesores asignados para dicho curso'
+                'warning', 'No hay instructores asignados en este curso'
             );
         }
         $participantes = $participantes->sortBy(function($user){
@@ -210,7 +206,7 @@ class ConstanciasController extends Controller{
         $fecha = $fecha->format('d/m/Y');
         $fecha = explode("/",$fecha);
         $anio = $fecha[2];
-        $dia_a = $fecha[0];
+        $dia_a = (int) $fecha[0];
         $mes_a = $fecha[1];
         if ($mes_a == '01'){
             $mes_a = 'enero';
@@ -239,7 +235,7 @@ class ConstanciasController extends Controller{
         }
         $fecha = $dia_a . " de " .$mes_a . " de " . $anio;
         $folio = "F04".$anio.$tipo;
-        //$texto = "por acreditar el ".$curso->getTipoCadena();
+
 				if($request->texto1 == "D"){
 					$texto = $request->texto_per;
 				}else{
@@ -256,6 +252,7 @@ class ConstanciasController extends Controller{
 
             //BUSCAMOS AL PRIMER FIRMANTE
             // El tipo de constancia tiene al coordinador como mayor cargo
+            // TODO: Usar el método get descricion en administrativos
             if ($tipoDeConstancia == "A" or $tipoDeConstancia == "AA"){
                 $firmante1 = $coordinacion->grado." ".$coordinacion->coordinador;
                 if($coordinacion->genero === 'F')

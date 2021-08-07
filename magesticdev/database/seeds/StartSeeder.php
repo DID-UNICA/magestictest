@@ -1791,9 +1791,8 @@ de oportunidades que libera',
             'antecedentes' => 'Conocimientos básicos de informática y tecnologías de información: 
 Qué es una computadora y cómo funciona',
             'fecha_disenio' => '2018-05-18',
-            'clave_curso' => 'ADFVJ0911598'
+            'clave_curso' => 'ADFVJ091S']);
 
-        ]);
         DB::table('catalogo_cursos')->insert([
             'nombre_curso' =>'Administración',
             'duracion_curso' => '20',
@@ -1804,7 +1803,7 @@ Qué es una computadora y cómo funciona',
             'objetivo' => 'Que los que tomen el curso refuerzen sus conocimientos administrativos',
             'contenido' => 'Que es la administracion y sus derivados',
             'fecha_disenio' => '2018-05-18',
-            'clave_curso' => 'FJHCZC'
+            'clave_curso' => 'FJHCZC78'
 
         ]);
         DB::table('catalogo_cursos')->insert([
@@ -1882,7 +1881,7 @@ Qué es una computadora y cómo funciona',
             'objetivo' => 'Aprender temas avanzados de programacion ',
             'contenido' => 'Temas Avanzados de programacion',
             'fecha_disenio' => '2018-05-18',
-            'clave_curso' => 'ADFVJ080578451'
+            'clave_curso' => 'ADFVJ080'
 
         ]);
         DB::table('catalogo_cursos')->insert([

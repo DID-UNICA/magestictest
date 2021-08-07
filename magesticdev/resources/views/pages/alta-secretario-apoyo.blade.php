@@ -17,7 +17,7 @@
         @include('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>Alta Secretario de Apoyo</h3>
+                <h3>Alta Secretaría de Apoyo</h3>
                 
             </div>
             <div class="panel-body">
@@ -81,7 +81,7 @@
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="submit" class="btn btn-primary">
-                                Crear Secretario
+                                Crear
                             </button>
                         </div>
                     </div>

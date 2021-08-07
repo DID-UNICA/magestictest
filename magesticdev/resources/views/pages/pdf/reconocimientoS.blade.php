@@ -175,7 +175,7 @@ body {
 
       <tr>
         <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
-        <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">Coordinador General del Centro de Docencia</td>
+        <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">Coordinador del Centro de Docencia</td>
       </tr>
 
     </table>

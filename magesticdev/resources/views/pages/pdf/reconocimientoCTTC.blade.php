@@ -145,10 +145,10 @@ body {
 
       <table width="15cm" align="center">
         <tr width="15cm">
-         <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top;">por impartir el {{$curso->getTipoCadena()}}</td>
+         <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">por impartir el {{$curso->getTipoCadena()}}</td>
         </tr>
         <tr width="15cm">
-          <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top;">{{$cursoCatalogo->nombre_curso}}</td>
+          <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
         </tr>
       </table>
 
@@ -182,7 +182,7 @@ body {
       <tr>
         <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
 
-        <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">Coordinador General del Centro de Docencia</td>
+        <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">Coordinador del Centro de Docencia</td>
       </tr>
     </table>
     

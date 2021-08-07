@@ -396,7 +396,6 @@ class ProfesorController extends Controller
 
     public function delete($id)
     {
-        //TODO Borrar la presencia del profesor en sus tablas transitivas de carreras y divisiones
         try{
             $user = Profesor::findOrFail($id);
             $divisions = ProfesoresDivisiones::where('id_profesor', $id)->get();

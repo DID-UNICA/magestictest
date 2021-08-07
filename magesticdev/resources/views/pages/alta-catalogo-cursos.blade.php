@@ -31,7 +31,7 @@
                         <label for="name" class="col-md-4 control-label">Clave:</label>
 
                         <div class="col-md-6 col-sm-3">
-                            <input id="clave_curso" type="text" class="form-control" name="clave_curso" value="{{ old('clave_curso') }}" maxlength="8" required oninvalid="this.setCustomValidity('Ingrese la clave por favor')" oninput="this.setCustomValidity('')">
+                            <input id="clave_curso" type="text" class="form-control" name="clave_curso" value="{{ old('clave_curso') }}" maxlength="25" required oninvalid="this.setCustomValidity('Ingrese la clave por favor')" oninput="this.setCustomValidity('')">
 
                             @if ($errors->has('clave_curso'))
                                 <span class="help-block">

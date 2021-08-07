@@ -83,6 +83,12 @@ class CatalogoCursosController extends Controller
     public function update(Request $request, $id)
     {
         $catalogoCurso = CatalogoCurso::find($id);
+        if($catalogoCurso->clave_curso != $request->clave_curso){
+            if(CatalogoCurso::where('clave_curso', $request->clave_curso)->exists())
+                return redirect()->back()->with('danger', 'Error al actualizar los datos. La clave ya está en uso');
+            else
+                $catalogoCurso->clave_curso = $request->clave_curso;
+        }
         $catalogoCurso->nombre_curso = $request->nombre_curso;
         $catalogoCurso->duracion_curso = $request->duracion_curso;
         $catalogoCurso->coordinacion_id = $request->coordinacion_id;
@@ -93,7 +99,6 @@ class CatalogoCursosController extends Controller
         $catalogoCurso->contenido = $request->contenido;
         $catalogoCurso->antecedentes = $request->antesc;
         $catalogoCurso->fecha_disenio = $request->fecha_disenio;
-        $catalogoCurso->clave_curso = $request->clave_curso;
 
         $catalogoCurso->save();
         $temas = TemaSeminario::where('catalogo_id', $catalogoCurso->id)->get();
@@ -188,10 +193,8 @@ class CatalogoCursosController extends Controller
 
     public function create(Request $request)
     {
-        $exists1 = CatalogoCurso::where('nombre_curso', $request->nombre_curso)->exists();
-        $exists2 = CatalogoCurso::where('clave_curso', $request->clave_curso)->exists(); 
-        if($exists1 or $exists2)
-          return redirect()->back()->with('danger', 'Error al crear el curso: '.$request->nombre_curso.' El nombre o la clave ya están en uso');
+        if(CatalogoCurso::where('clave_curso', $request->clave_curso)->exists())
+          return redirect()->back()->with('danger', 'Error al crear el curso: '.$request->nombre_curso.'. La clave ya está en uso');
         $catalogoCurso = new CatalogoCurso;
         $catalogoCurso->nombre_curso = $request->nombre_curso;
         $catalogoCurso->duracion_curso = $request->duracion_curso;
