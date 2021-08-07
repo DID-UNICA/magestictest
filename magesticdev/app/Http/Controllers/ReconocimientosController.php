@@ -146,7 +146,7 @@ class ReconocimientosController extends Controller{
         $fecha = $fecha->format('d/m/Y');
         $fecha = explode("/",$fecha);
         $anio = $fecha[2];
-        $dia_a = $fecha[0];
+        $dia_a = (int) $fecha[0];
         $mes_a = $fecha[1];
         $folio_der = (strlen($request->folio_der) != 0 and is_numeric($request->folio_der)) ?  intval($request->folio_der) : -1;
         if ($mes_a == '01'){
@@ -292,7 +292,7 @@ class ReconocimientosController extends Controller{
         $fecha = $fecha->format('d/m/Y');
         $fecha = explode("/",$fecha);
         $anio = $fecha[2];
-        $dia_a = $fecha[0];
+        $dia_a = (int) $fecha[0];
         $mes_a = $fecha[1];
         $folio_der = (strlen($request->folio_der) != 0 and is_numeric($request->folio_der)) ?  intval($request->folio_der) : -1;
         if ($mes_a == '01'){
