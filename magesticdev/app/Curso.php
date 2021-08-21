@@ -85,6 +85,35 @@ class Curso extends Model
     public function getFechaFin(){
         return $this->fecha_fin;
     }
+    //TODO:Arreglar este método, para obtener toda la fecha con carbon lista
+    public function translate_month($month){
+        if ($month == '01'){
+            $month = 'enero';
+        } elseif ($month == '02') {
+            $month = 'febrero';
+        } elseif ($month == '03') {
+            $month = 'marzo';
+        } elseif ($month == '04') {
+            $month = 'abril';
+        } elseif ($month == '05') {
+            $month = 'mayo';
+        } elseif ($month == '06') {
+            $month = 'junio';
+        } elseif ($month == '07') {
+            $month = 'julio';
+        } elseif ($month == '08') {
+            $month = 'agosto';
+        } elseif ($month == '09') {
+            $month = 'septiembre';
+        } elseif ($month == '10') {
+            $month = 'octubre';
+        } elseif ($month == '11') {
+            $month = 'noviembre';
+        } elseif ($month == '12') {
+            $month = 'diciembre';
+        }
+        return $month;
+    }
     public function getFechaInicio(){
         return $this->fecha_inicio;
     }

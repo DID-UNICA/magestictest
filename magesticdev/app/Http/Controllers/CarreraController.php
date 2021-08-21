@@ -46,13 +46,18 @@ class CarreraController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = Carrera::find($id);
-        $user->nombre = $request->nombre;
-        $user->clave = $request->clave;
-        $user->save();
-        return redirect('/carrera')
-          ->with('success', 'Los cambios han sido actualizados correctamente')
-          ->with("user",$user);
+      $user = Carrera::find($id);
+      if($user->clave != $request->clave){
+        if(Carrera::where('clave', $request->clave)->exists())
+            return redirect()->back()->with('danger', 'Error al actualizar los datos. La clave ya está en uso');
+        else
+            $user->clave = $request->clave;
+      }
+      $user->nombre = $request->nombre;
+      $user->save();
+      return redirect('/carrera')
+        ->with('success', 'Los cambios han sido actualizados correctamente')
+        ->with("user",$user);
     }
 
 

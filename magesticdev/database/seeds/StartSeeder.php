@@ -218,7 +218,7 @@ class StartSeeder extends Seeder
         //TABLA DE CARRERAS DE LA FACULTAD DE INGENIERÍA
         DB::table('carreras')->insert([
           'nombre' => 'Ingeniería Aeroespacial',
-          'clave' => 107
+          'clave' => 139
         ]);
 
         DB::table('carreras')->insert([
@@ -228,12 +228,12 @@ class StartSeeder extends Seeder
 
         DB::table('carreras')->insert([
           'nombre' => 'Ingeniería Geomática',
-          'clave' => 107
+          'clave' => 125
         ]);
 
         DB::table('carreras')->insert([
           'nombre' => 'Ingeniería Ambiental',
-          'clave' => 107
+          'clave' => 137
         ]);
 
         DB::table('carreras')->insert([

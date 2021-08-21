@@ -13,4 +13,15 @@ class Director extends Model
     protected $fillable = [
         'director','comentarios','grado','genero'
     ];
+
+    public function getDescripcion(){
+      if($this->genero === 'F')
+        return "Directora del Centro de Docencia";
+      else
+        return "Director del Centro de Docencia";
+    }
+
+    public function getNombreFirma(){
+      return $this->grado.' '.$this->director;
+    }
 }

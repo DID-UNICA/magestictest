@@ -138,18 +138,18 @@
         </div>
       </div>
       <div class="panel-body tablaFija">
-        <table class="col-md-12">
+    <table class="col-md-12" style="width:100%">
      <tr>
-        <th>Nombre</th>
-         <th>Instructor</th>
-        <th>Salon</th>
-        <th></th>
+        <th style="width:30%">Nombre</th>
+         <th style="width:30%">Instructor</th>
+        <th style="width:15%">Periodo</th>
+        <th style="width:25%"></th>
      </tr>
     @foreach($cursos as $curso)
         <tr>
         <td>{{ $curso->getNombreCurso() }} </td>
         <td>{{$curso->getProfesores() }}</td>
-        <td>{{ $curso->getSalon()}}</td>
+        <td>{{ $curso->getSemestre() }}</td>
         <td class="boton">
             <a href="{{ URL::to('curso/generar-formatos',$curso->id) }}" class="btn btn-primary" style="margin-bottom: 15px;">Generar formatos</a>
             <a href="{{ URL::to('curso/ver-profesores',$curso->id) }}" class="btn btn-warning" style="margin-bottom: 15px;">Ver Curso</a>
@@ -181,7 +181,7 @@
                     </div>
     @endforeach
 
-</table>
+    </table>
 
                 
       
