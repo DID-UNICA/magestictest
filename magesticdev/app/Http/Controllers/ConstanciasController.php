@@ -137,6 +137,8 @@ class ConstanciasController extends Controller{
       //FOLIO PEQUEÑO
       if($request->gen_folio_peq)
         $folio_der = (strlen($request->numero) != 0 and is_numeric($request->numero)) ? intval($request->numero) : -1;
+      else
+        $folio_der = -1;
 
       //TEXTO INTERMEDIO
       if($request->texto1 == "D"){
@@ -170,7 +172,7 @@ class ConstanciasController extends Controller{
         }catch(\ErrorException  $e){
           return redirect()->back()->with(
             'info',
-            'Primero hay que dar de alta al Coordinador General'
+            'Primero hay que dar de alta al Coordinador del Centro de Docencia'
           );
         }
 
@@ -344,16 +346,16 @@ class ConstanciasController extends Controller{
       ->where('participante_curso.calificacion','>=',$curso->acreditacion)
       ->where('participante_curso.asistencia', TRUE)
       ->where('participante_curso.acreditacion', TRUE)
-      ->select('profesors.*')->get();
+      ->select('profesors.*')
+      ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+      ->get();
       if(count($participantes) <= 0){
           return redirect()->back()->with(
               'warning',
               'No hay alumnos que ameriten constancia'
           );
       }
-      $participantes = $participantes->sortBy(function($user){
-              return $user->apellido_paterno;
-      });
+
       $tmp = array();
       foreach($participantes as $participante){
         $tmp2 = ParticipantesCurso::where(
@@ -387,7 +389,7 @@ class ConstanciasController extends Controller{
             $participante->folio_inst = $folio_inst;
           }
           else
-            $folio_inst = "";
+            $participante->folio_inst = "";
           if($folio_der > 0)
                 $participante->folio_peque = strval($folio_der);
             else
@@ -453,6 +455,9 @@ class ConstanciasController extends Controller{
       }catch(Exception $e){
         rrmdir(resource_path('views/pages/tmp'.$hash_aux));
         $zip::close();
+        return redirect()->back()->with(
+          'warning', 'Errores al generar el formato'
+        );
       }
     }//End Function
 }//End Class

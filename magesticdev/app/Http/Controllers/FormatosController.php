@@ -135,11 +135,10 @@ class FormatosController extends Controller
         )->where('participante_curso.curso_id',$id)
         ->select('profesors.*', 'participante_curso.cancelación', 
             'participante_curso.espera'
-        )->get();
+        )
+        ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+        ->get();
 
-        $participantes = $participantes->sortBy(function($user){
-            return $user->apellido_paterno;
-        });
         $tipo=$cursoCatalogo->tipo;
 
         if( $cursoCatalogo->tipo == "C"){

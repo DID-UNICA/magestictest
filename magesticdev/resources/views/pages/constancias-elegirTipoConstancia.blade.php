@@ -43,11 +43,11 @@
                 <div class="col-md-6">
                   <select id="type" class="form-control" name="type" value="{{ old('type')}}" onchange="determinarFirmantes()">
                     @if($count_profesores > 3)
-                      <option value="AA">Coordinación</option>
-                      <option value="D">Coordinación General</option>
-                      <option value="I">Coordinación y Coordinador general</option>
+                      <option value="AA">Coordinación del Área</option>
+                      <option value="D">Coordinación del Centro de Docencia</option>
+                      <option value="I">Coordinación del Área y Coordinación del Centro de Docencia</option>
                       <option value="E">Director</option>
-                      <option value="F">Coordinación General  y Secretaría de Apoyo a la Docencia</option>
+                      <option value="F">Coordinación del Centro de Docencia y Secretaría de Apoyo a la Docencia</option>
                       <option value="G">Secretaría de Apoyo a la Docencia y Director</option>
                       <option value="H">UNICA</option>
                       <option value="f1">Un firmante</option>
@@ -56,14 +56,14 @@
                       <option value="f4">Cuatro firmantes</option>
                       <option value="f5">Cinco firmantes</option>
                     @else
-                      <option value="A">Instructores y Coordinación</option>
-                      <option value="B">Instructores y Coordinación General</option>
+                      <option value="A">Instructores y Coordinación del Área</option>
+                      <option value="B">Instructores y Coordinación del Centro de Docencia</option>
                       <option value="C">Instructores y Secretaría de Apoyo a la Docencia</option>
-                      <option value="AA">Coordinación</option>
-                      <option value="D">Coordinación General</option>
-                      <option value="I">Coordinación y Coordinación General</option>
+                      <option value="AA">Coordinación del Área</option>
+                      <option value="D">Coordinación del Centro de Docencia</option>
+                      <option value="I">Coordinación del Área y Coordinación del Centro de Docencia</option>
                       <option value="E">Director</option>
-                      <option value="F">Coordinación General y Secretaría de Apoyo a la Docencia</option>
+                      <option value="F">Coordinación del Centro de Docencia y Secretaría de Apoyo a la Docencia</option>
                       <option value="G">Secretaría de Apoyo a la Docencia y Director</option>
                       <option value="H">UNICA</option>
                       <option value="f1">Un firmante</option>

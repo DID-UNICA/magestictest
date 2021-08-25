@@ -114,7 +114,7 @@ $GLOBALS["header2"] = NULL;
             <tr>
                 <td class="titulos">Coordinación</td>
                 <td class="valores">{{$coordinacion->nombre_coordinacion}}</td>
-            </td>
+            </tr>
 			<tr >
 				<td class="titulos" width="10%" style="vertical-align: top;">Instructor</td>
 				<td class="valores mayus" width="30%" height=56px style="vertical-align: top;">{!! nl2br($curso->getProfesoresInst()) !!}</td>
@@ -212,7 +212,7 @@ $GLOBALS["header2"] = NULL;
             <tr>
                 <td class="titulos">Coordinación</td>
                 <td class="valores">{{$coordinacion->nombre_coordinacion}}</td>
-            </td>
+            </tr>
 			<tr >
 				<td class="titulos" width="10%" style="vertical-align: top;">Instructor</td>
 				<td class="valores mayus" width="30%" height=56px style="vertical-align: top;">{!! nl2br($curso->getProfesoresInst()) !!}</td>
@@ -242,7 +242,7 @@ $GLOBALS["header2"] = NULL;
 		<table style="width: 85%">
 			<tr >
                 <td class="titulos" width=13%> Número total de horas que abarca el curso</td>
-                <td class="valores" width=20%>{{ $curso->numero_sesiones }}</td>
+                <td class="valores" width=20%>{{ $cursoCatalogo->duracion_curso }}</td>
 				<td class="titulos" width=17%>Fechas de impartición</td>
 			</tr>
 		</table>

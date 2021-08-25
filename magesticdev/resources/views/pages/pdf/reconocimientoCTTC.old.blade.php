@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <head>
-    <title>Coordinacion General</title>
+    <title>Coordinación General</title>
 </head>
 <style>
-html{
-      width: auto;
-      height: auto;
-    }
 
+html{
+  width:100%;
+  height:100%
+}
 @page{ margin-bottom: 0px; }
 
 body {
   font-family:Arial, Helvetica, Sans-serif,cursive;
-  margin-bottom: 0px;
-
 }
 #fondo{
   background-image: url("../public/img/ri_1.png");
@@ -22,7 +20,6 @@ body {
   background-position: 4cm 1.9cm;
   bottom: 0.75cm;
   right: 1.2cm;
-
 }
 #numero_inferior{
   text-align: left;
@@ -59,14 +56,12 @@ body {
 #img2{
  position: absolute;
  margin-top: 1%;
-
 }
 #img1{
  position: absolute;
  margin-top: 0.5cm;
  margin-right: 2%;
  margin-left: 82%;
-
 }
 #encabezado_4{
   font-size: 18pt;
@@ -78,7 +73,7 @@ body {
   font-size: 18pt;
   font-style: italic;
   font-family:'Tangerine', serif;
-  
+  line-height: 120%;
   text-align: center;
   font-weight: bold;
 }
@@ -93,14 +88,13 @@ body {
     font-style:italic;
     font-size: 22pt;
     line-height: 100%;
-    font-weight: bold;
 }
 .centro {
     line-height: 20%;
     text-align: center;
 }
 .page-break {
-    page-break-after: always;
+  page-break-after: always;
 }
 
 #coordinador{
@@ -119,15 +113,12 @@ body {
   align:center;
   padding-top: 0.5cm;
   line-height: 10%;
-  
+
 }
 .tabla-centro{
   width: 100%;
   align-content: center;
   align-items: center;
-  
-  
-  
 }
 
 </style>
@@ -137,63 +128,68 @@ body {
     <img id=img1 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudo_fi_color.png" width="166" height="198">
     <img id= img2 src='img/escudounam-color.png' width="174" height="221">
     <div class=encabezado id=encabezado_2>FACULTAD DE INGENIERÍA</div>
-    <div id=encabezado_3 style="padding-top: 0.1cm;">SECRETARÍA DE APOYO A LA DOCENCIA</div>
+    <div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>
     <div id=encabezado_4>CENTRO DE DOCENCIA</div>
     <div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
     <br>
     <div class="centro">
-      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan la presente constancia a:</h2>
+    @if($profesor->genero=="masculino")
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento al:</h2>
+    @elseif($profesor->genero=="femenino")
+    <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento a la:</h2>
+    @endif
       <br>
-      <h2 class='nombre_profesor'>{{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
+      <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
+
+
 
       <table width="15cm" align="center">
         <tr width="15cm">
-         <td height="0.25cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+         <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">por impartir el {{$curso->getTipoCadena()}}</td>
         </tr>
         <tr width="15cm">
-          <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top;">{{$cursoCatalogo->nombre_curso}}</td>
+          <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
         </tr>
-      
-
-
-
-      @if($generacion != "")
-      <tr width="15cm">
-        <td height="0.25cm" align="center" style="font-size: 12px;">Dentro del plan de becarios de UNICA, generación {{$generacion}}°</td>
-      </tr>
-      @endif
-
       </table>
 
-      <p style= "font-size: 12pt;">{{$fechaimp}}</h5>
-      <p style="padding-top: 0.3cm; padding-bottom: 0.3cm; font-size: 12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
+
+     <!-- <h3 style="font-size: 14pt;padding-top: 0.5cm;">por impartir el {{$curso->getTipoCadena()}}</h3>
+      <h2 class='nombre_curso' style="padding-top: 0.2cm;">{{$cursoCatalogo->nombre_curso}}</h2> -->
+
+
+      <p style="font-size:12pt;">{{$fechaimp}}</h5>
+      <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
       <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 1.9cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="font-size: 8pt; padding-bottom: 1cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
+
     <div>
-    <table width=100%>
-      <tr width=100%>
+    <table width="100%">
+      <tr width="100%">
         <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 2.5cm;">______________________</td>
         <td width=260 class="firma1" style="padding-top: 1cm; padding-right: 2.5cm;">______________________</td>
       </tr>
     </table>
 
-    <table width=100%>
-      <tr width=100%>
-        <td width=260 align="center" class="firma" style="font-weight: bold; font-size: 11pt; padding-left: 2.5cm;"> {{$firmante2}}</td> 
-        <td width=260 class="firma" align="center" style="font-weight: bold; font-size: 11pt; padding-right: 2.5cm;">{{$firmante1}}</td>
+    <table width="100%">
+      <tr width="100%">
+        <td width=260 align="center" class="firma" style="font-weight: bold; font-size: 11pt; padding-left: 2.5cm;">{{$coordinacion->grado}} {{$coordinacion->coordinador}}</td>
+        <td width=260 class="firma" align="center" style="font-weight: bold; font-size: 11pt; padding-right: 2.5cm;">{{$coordinadorGeneral->grado}} {{ $coordinadorGeneral->coordinador }}</td>
 
       </tr>
 
 
       <tr>
-        <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">{{$descripcion2}}</td>
-        <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">{{$descripcion1}}</td>
+        <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">Coordinador de {{$coordinacion->nombre_coordinacion}}</td>
+
+        <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">Coordinador del Centro de Docencia</td>
       </tr>
     </table>
-
+    
   </div>
-    <table width=auto style="vertical-align: top; padding-top: 0.6cm; margin: 0px;">
+
+
+    <table width=auto style="vertical-align: top; padding-top: 1.4cm; margin: 0px;">
     <tr width=auto>
       <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
       <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>
@@ -201,3 +197,4 @@ body {
     </table>
   </body>
 </html>
+

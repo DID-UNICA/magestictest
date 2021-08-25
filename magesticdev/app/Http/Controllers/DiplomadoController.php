@@ -94,7 +94,7 @@ class DiplomadoController extends Controller
     public function verParticipantesDiplomado($id)
     {
         $diplomado = Diplomado::findOrFail($id);
-        $diplomadosParticipantes = DiplomadosProfesor::join('profesors', 'profesors.id', 'profesor_id')->where('diplomado_id',$id)->orderBy('apellido_paterno')->orderBy('apellido_materno')->get();
+        $diplomadosParticipantes = DiplomadosProfesor::join('profesors', 'profesors.id', 'profesor_id')->where('diplomado_id',$id)->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")->get();
         $diplomadosCurso = DiplomadosCurso::where('diplomado_id',$diplomado->id)->get();
         $profesores = array();
         $bajas = array();
@@ -292,7 +292,9 @@ class DiplomadoController extends Controller
                 $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
                 ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
                 ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('id',$inscritos)->get();
+                ->whereNotIn('id',$inscritos)
+                ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+                ->get();
 
             }
             return view("pages.diplomado-inscribirAlumnos")

@@ -248,6 +248,7 @@ class CursoController extends Controller
                 $profesores = Profesor::select('id')->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
                 ->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
                 ->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
+                ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
                 ->get();
             }
             $curso_prof = ProfesoresCurso::select('curso_id')->whereIn('profesor_id', $profesores)->get();
@@ -405,8 +406,8 @@ class CursoController extends Controller
               ->where('participante_curso.curso_id',$id)
               ->select('profesors.id')->get())
           ->whereNotIn('id', ProfesoresCurso::where('curso_id',$id)->select('profesor_id')->get())
-          ->get()
-          ->sortBy("apellido_paterno");
+          ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+          ->get();
 
       //Cancelados y lista de espera
       $enLista = ParticipantesCurso::select('id')->where('estuvo_en_lista',true)->where('curso_id',$id)->count();
@@ -441,10 +442,9 @@ class CursoController extends Controller
 
         $users = Profesor::leftJoin('participante_curso','profesors.id','=','participante_curso.profesor_id')
             ->where('participante_curso.curso_id',$id)
-            ->select('profesors.*')->get();
-        $users = $users->sortBy(function($user){
-                return $user->apellido_paterno;
-            });
+            ->select('profesors.*')
+            ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+            ->get();
 
         $lista_curso=array();
         foreach($users as $user){

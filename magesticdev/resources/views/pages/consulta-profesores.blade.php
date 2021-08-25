@@ -42,7 +42,7 @@
                       <th>RFC</th>
                       <th>Número Trabajador</th>
                   </tr>
-                  @foreach($users->sortBy('apellido_paterno') as $user)
+                  @foreach($users as $user)
                       <tr>
                           <td> {{ $user->apellido_paterno }} {{ $user->apellido_materno }} {{ $user->nombres }}</td>
                           <td>{{ $user->email}}</td>

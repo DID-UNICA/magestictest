@@ -57,7 +57,8 @@ class TemaSeminarioProfesorController extends Controller
         }
         Session::flash('create', 'Se ha creado el registro correctamente');
         return redirect()
-            ->route('curso.consulta');
+            ->route('curso.consulta')
+            ->with('success', 'Se han guardado los datos');;
     }
 
     public function update($id, Request $request){
