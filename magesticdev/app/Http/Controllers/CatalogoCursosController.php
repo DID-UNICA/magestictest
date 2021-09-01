@@ -89,6 +89,25 @@ class CatalogoCursosController extends Controller
             else
                 $catalogoCurso->clave_curso = $request->clave_curso;
         }
+        $temas = TemaSeminario::where('catalogo_id', $catalogoCurso->id)->get();
+        //El tipo se actualizó a seminario y hay que cambiar temas
+        if($request->tipo == 'S' && $temas->count() != intval($request->num_temas)){
+            return view("pages.update-temas-seminario")
+                ->with('temas', $temas)
+                ->with('num_temas', $request->num_temas)
+                ->with('catalogo_id', $catalogoCurso->id);
+        }
+        //El tipo dejó de ser seminario y hay que eliminar todos sus temas
+        if(!$temas->isEmpty() && $catalogoCurso->tipo != $request->tipo){
+            foreach($temas as $tema){
+              try{
+                $tema->delete();
+              } catch(\Illuminate\Database\QueryException $e){
+                return redirect()->back()
+                ->with('danger', 'Existen instructores de algún curso asociados a los temas del seminario, primero elimínelos antes de cambiar de tipo');
+              }
+            }
+        }
         $catalogoCurso->nombre_curso = $request->nombre_curso;
         $catalogoCurso->duracion_curso = $request->duracion_curso;
         $catalogoCurso->coordinacion_id = $request->coordinacion_id;
@@ -101,20 +120,7 @@ class CatalogoCursosController extends Controller
         $catalogoCurso->fecha_disenio = $request->fecha_disenio;
 
         $catalogoCurso->save();
-        $temas = TemaSeminario::where('catalogo_id', $catalogoCurso->id)->get();
-        //El tipo se actualizó a seminario y hay que cambiar temas
-        if($request->tipo == 'S'){
-            return view("pages.update-temas-seminario")
-                ->with('temas', $temas)
-                ->with('num_temas', $request->num_temas)
-                ->with('catalogo_id', $catalogoCurso->id);
-        }
-        //El tipo dejó de ser seminario y hay que eliminar todos sus temas
-        if(!$temas->isEmpty()){
-            foreach($temas as $tema){
-                $tema->delete();
-            }
-        }
+        
         return redirect('catalogo-cursos/'.$catalogoCurso->id)
             ->with("user",$catalogoCurso)
             ->with('success','Se han actualizado los cambios');

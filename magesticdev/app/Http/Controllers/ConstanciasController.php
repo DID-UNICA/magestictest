@@ -161,7 +161,7 @@ class ConstanciasController extends Controller{
           $descripcion1 = $coordinacion->getDescripcion();
           $formatoConstancia = 1;
 
-      //El tipo de constancia necesita al coordinador general como mayor cargo
+      //El tipo de constancia necesita al coordinador del CD como mayor cargo
       }elseif ($tipoDeConstancia == "B" or $tipoDeConstancia == "D" 
       or $tipoDeConstancia == "I" or $tipoDeConstancia == "H"){
         try{
@@ -225,7 +225,7 @@ class ConstanciasController extends Controller{
           );
         }
 
-      //El tipo de constancia necesita al coordinador general como menor cargo
+      //El tipo de constancia necesita al coordinador del CD como menor cargo
       }elseif($tipoDeConstancia == "F"){
         try{
           $coordinadorGeneral = CoordinadorGeneral::first();
@@ -235,7 +235,7 @@ class ConstanciasController extends Controller{
         }catch(\ErrorException  $e){
           return redirect()->back()->with(
             'info',
-            'Primero hay que dar de alta al Coordinador General'
+            'Primero hay que dar de alta al Coordinador del Centro de Docencia”'
           );
         }
       }

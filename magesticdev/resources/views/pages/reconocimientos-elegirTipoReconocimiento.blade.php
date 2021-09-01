@@ -118,12 +118,11 @@
             @endif
 
             <!-- Texto personalizado si el tipo es evento -->
-            <!-- TODO: Recuperar modulos del diplomado -->
             @if ($curso->getTipo()=='D')
               <div class="form-group row">
                 {!!Form::label("diplomado", "Nombre del diplomado:", ["class"=>"col-md-3"])!!}
                 <div class="col-md-6">
-                  {!!Form::select('diplomado', array('1'=>'Diplomado'),'Diplomado', ["class" => "form-control"])!!}
+                    {!!Form::select('diplomado', $diplomados,null, ["class" => "form-control"])!!}
                   </div>
               </div>
             @endif

@@ -15,4 +15,12 @@ class DiplomadosCurso extends Model
      */
     protected $fillable = [
         'num_modulo','diplomado_id','curso_id'];
+
+    function getDiplomado(){
+      return Diplomado::findOrFail($this->diplomado_id);
+    }
+
+    function getCurso(){
+      return Curso::findOrFail($this->curso_id);
+    }
 }

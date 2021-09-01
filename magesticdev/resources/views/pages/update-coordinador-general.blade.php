@@ -18,7 +18,7 @@
         <div class="panel panel-default">
         @include ('partials.messages')
             <div class="panel-heading">
-                <h1>Coordinador General</h1>
+                <h1>Coordinación del Centro de Docencia</h1>
                 <h2>{{ $user->coordinador }}</h2>
             </div>
             <div class="panel-body">

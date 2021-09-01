@@ -18,6 +18,7 @@
     </div>
     <section class="content-inner">
         <br>
+        @include ('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>Generar formatos {{$curso->getNombreCurso()}}</h3>

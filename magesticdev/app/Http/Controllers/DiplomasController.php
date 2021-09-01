@@ -76,7 +76,7 @@ class DiplomasController extends Controller{
             $coordinadorGeneral = $coordinadorGeneral[0];
         }catch(\ErrorException  $e){
             rrmdir(resource_path('views/pages/tmp'.$hash_aux));
-            return redirect()->back()->with('info', 'Primero hay que dar de alta al Coordinador General');    
+            return redirect()->back()->with('info', 'Primero hay que dar de alta al Coordinador del Centro de Docencia');    
         } 
         try{
             $secretarioApoyo = SecretarioApoyo::all();

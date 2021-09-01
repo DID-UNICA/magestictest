@@ -25,9 +25,9 @@
             @if($user->id != null)
                 <tr>
                   @if($user->genero === 'F')
-                    <th>Director</th>
-                  @else
                     <th>Directora</th>
+                  @else
+                    <th>Director</th>
                   @endif
                     <th>Género</th>
                 </tr>

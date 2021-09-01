@@ -431,13 +431,36 @@ class Curso extends Model
         return $profesores;
     }
     public function getInstructores(){
-        $profesor = Profesor::join('profesor_curso', 'profesors.id', '=', 'profesor_curso.profesor_id')
+        $instructores = Profesor::join('profesor_curso', 'profesors.id', '=', 'profesor_curso.profesor_id')
         ->join('cursos', 'cursos.id', '=', 'profesor_curso.curso_id')
         ->where('cursos.id', '=', $this->id)
-        ->select('profesors.*')
         ->get();
-        return $profesor;
+        return $instructores;
     }
+    public function getProfesoresCurso(){
+      return ProfesoresCurso::where('curso_id', $this->id)->get();
+    }
+
+    public function getTemasInstrsSeminario(){
+      $temas = array();
+      $tmps = $this->getCatalogoCurso()->getTemasSeminario();
+      foreach($tmps as $tmp){
+        $instructores = ProfesoresCurso::where('curso_id', $this->id)
+          ->where('tema_seminario_id', $tmp->id)->get();
+        $pretemas = ["nombre" => $tmp->nombre, "id"=> $tmp->id, "instructor"=> 'Sin asignar'];
+        if(!$instructores->isEmpty()){
+          foreach($instructores as $index => $instructor){
+            if($index === 0)
+              $pretemas["instructor"] = $instructor->getProfesor()->getNombres2();
+            else
+              $pretemas["instructor"] = $pretemas["instructor"].', '.$instructor->getProfesor()->getNombres2();
+          }
+        }
+        array_push($temas, $pretemas);
+      }
+      return $temas;
+    }
+
     public function getParticipantes(){
         $profesor = Profesor::join('participante_curso', 'profesors.id', '=', 'participante_curso.profesor_id')
         ->join('cursos', 'cursos.id', '=', 'participante_curso.curso_id')
@@ -472,10 +495,23 @@ class Curso extends Model
         return $catcurso->coordinacion_id;
     }
 
-        public function getNumModulo($diplomado_id){
-        $dipCurso = DiplomadosCurso::where('diplomado_id',$diplomado_id)
-            ->where('curso_id', $this->id)->get();
-        return $dipCurso[0]->num_modulo;
+    public function getNumModulo($diplomado_id){
+      $dipCurso = DiplomadosCurso::where('diplomado_id',$diplomado_id)
+          ->where('curso_id', $this->id)->get();
+      return $dipCurso[0]->num_modulo;
+    }
+
+    public function getDiplomados(){
+      $tmp = array();
+      if($this->getTipo() != 'D')
+        return FALSE;
+      $dips = DiplomadosCurso::where('curso_id',$this->id)->get();
+      if($dips->isEmpty())
+        return FALSE;
+      foreach($dips as $dip){
+        $tmp[$dip->getDiplomado()->id] = $dip->getDiplomado()->nombre_diplomado;
+      }
+      return $tmp;
     }
 
     public function allNombreCurso(){

@@ -81,7 +81,7 @@ body {
   font-family:'Tangerine', serif;
   font-style:italic;
   font-size: 24pt;
-  line-height: 100%
+  line-height: 50%
 }
 .nombre_curso{
   font-family:'Tangerine', serif;
@@ -135,13 +135,19 @@ body {
       <div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
       <br>
       <div class="centro">
-        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">A G R A D E C I M I E N T O</h2>
+        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.5cm;">Otorgan el presente</h3>
+        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">A G R A D E C I M I E N T O</h3>
+        @if($profesor->genero=="masculino")
+          <h3 style="text-align: center;font-size: 18pt;font-style:normal; margin-top: 0.5cm;">al: </h2>
+        @elseif($profesor->genero=="femenino")
+          <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.5cm;"> a la: </h2>
+         @endif
         <br>
-        <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
+        <h1 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h1>
 
         <table width="15cm" align="center">
           <tr width="15cm">
-            <td height="2.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;" class="texto">{{$tema}}</td>
+            <td height="2.5cm" align="center" vertical-align="top" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$tema}}</td>
           </tr>
         </table>
 
@@ -156,25 +162,26 @@ body {
         <table class = "tabla-centro">
           <tr>
             @if($numFirmantes == 1){
-            <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
+            <td width=260 class="firma1" style="padding-top: 1cm;">___________________</td>
             }@elseif($numFirmantes == 2){
-            <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
+            <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 2.5cm;">___________________</td>
+            <td width=260 class="firma1" style="padding-top: 1cm;
+              padding-right: 2.5cm;">___________________</td>
             }@elseif($numFirmantes == 3){
-            <td  class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td  class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td  class="firma1" style="padding-top: 1cm;">______________________</td>
+            <td  class="firma1" style="padding-top: 1cm;">___________________</td>
+            <td  class="firma1" style="padding-top: 1cm;">___________________</td>
+            <td  class="firma1" style="padding-top: 1cm;">___________________</td>
             }@elseif($numFirmantes == 4){
-            <td class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td class="firma1" style="padding-top: 1cm;">______________________</td>
+            <td class="firma1" style="padding-top: 1cm;">___________________</td>
+            <td class="firma1" style="padding-top: 1cm;">___________________</td>
+            <td class="firma1" style="padding-top: 1cm;">___________________</td>
+            <td class="firma1" style="padding-top: 1cm;">___________________</td>
             }@elseif($numFirmantes == 5){
-            <td class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td class="firma1" style="padding-top: 1cm;">______________________</td>
+            <td class="firma1" style="padding-top: 1cm;">___________________</td>
+            <td class="firma1" style="padding-top: 1cm;">___________________</td>
+            <td class="firma1" style="padding-top: 1cm;">___________________</td>
+            <td class="firma1" style="padding-top: 1cm;">___________________</td>
+            <td class="firma1" style="padding-top: 1cm;">___________________</td>
             }
             @endif
           </tr>
@@ -182,8 +189,8 @@ body {
             @if($numFirmantes == 1){
             <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[0]}}</td>
             }@elseif($numFirmantes == 2){
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[1]}}</td>
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[0]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm; padding-left: 2.5cm;">{{$firmantes[1]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm; padding-right: 2.5cm;">{{$firmantes[0]}}</td>
             }@elseif($numFirmantes == 3){
             <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[2]}}</td>
             <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[1]}}</td>
@@ -206,8 +213,8 @@ body {
             @if($numFirmantes == 1){
             <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
             }@elseif($numFirmantes == 2){
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[1]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
+            <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">{{$descripciones[1]}}</td>
+            <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">{{$descripciones[0]}}</td>
 
             }@elseif($numFirmantes == 3){
             <td class="firma" style="font-size: 8pt;">{{$descripciones[2]}}</td>
@@ -232,7 +239,7 @@ body {
         </table>
       </div>
     </div>
-    <table width=auto style="vertical-align: top; padding-top: 1.5cm; margin: 0px;">
+    <table width=auto style="vertical-align: top; padding-top: 1cm; margin: 0px;">
       <tr width=auto>
         <td id="numero_inferior" style="left: 1.2cm;">{{ $folio_der }}</td>
         <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;">{{ $folio }}</td>

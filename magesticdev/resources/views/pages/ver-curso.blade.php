@@ -93,7 +93,8 @@
     <div class="form-group col-md-6">
       {!!Form::label("profesores", "Instructor(es):")!!}
       <textarea class="form-control" rows="5" cols="55" disabled>
-        @foreach($profesores as $profesor){{$profesor->getNombres()}}.
+        @foreach($profesores as $profesor)
+          {{$profesor->getNombres()}}.
         @endforeach
       </textarea>
     </div>
@@ -103,17 +104,13 @@
       <a href="{{ URL::to('curso/instructores', $user->id) }}" class="btn btn-success">Modificar Instructores</a>
       <a href="{{ URL::to('curso/baja', $user->id) }}" class="btn btn-danger">Dar de baja</a>
       @if($user->getTipo() === 'S')
-        <a href="{{ route('profesorts.store', $user->id) }}" class="btn btn-warning">Asignar temas</a>
+        <a href="{{ route('curso.modificarInstructores', $user->id) }}" class="btn btn-warning">Asignar temas</a>
       @endif
     </div>
-    
+  </div>
 </div>
 
-
-
-      </div>
-
-     </section>
+</section>
      
 @endsection
   

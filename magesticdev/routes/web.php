@@ -44,12 +44,14 @@ Route::get('curso/actualizar/{id}', "CursoController@edit")->name('curso.update'
 Route::get('curso/inscripcion/{id}', "CursoController@inscripcionParticipante")->name('curso.inscripcion');
 Route::post('curso/inscripcion/{curso_id}/busqueda', "ProfesorController@search1")->name('profesor.consulta1');
 Route::post('curso/inscripcion/{curso_id}/search2', "ProfesorController@search2")->name('profesor.consulta2');
+Route::post('curso/inscripcion/{curso_id}/{tema_id}/search3', "ProfesorController@search3")->name('profesor.consulta3');
 Route::get('curso/generar-formatos/{curso}', "CursoController@GenerarFormatos")->name('curso.generar-formatos');
 Route::get('curso/ver-profesores/{curso}', "CursoController@verParticipante")->name('curso.ver-participante');
-Route::get('curso/nuevo/{curso_id}/asignartemas', "TemaSeminarioProfesorController@index")->name('profesorts.store');
-Route::get('curso/actualizar/{curso_id}/asignartemas', "TemaSeminarioProfesorController@index")->name('profesorts.update');
-Route::post('curso/nuevo/{curso_id}/asignartemas/save', "TemaSeminarioProfesorController@create")->name('profesorts.store.save');
-Route::post('curso/actualizar/{curso_id}/asignartemas/save', "TemaSeminarioProfesorController@update")->name('profesorts.update.save');
+
+
+Route::get('curso/modificar-instructor-tema/{curso_id}/{tema_id}', "CursoController@modificarInstructoresSeminario")->name('profesorts.update');
+Route::post('curso/modificar-instructor-tema/asignar/{curso_id}/{profesor_id}/{tema_id}', "CursoController@altaInstructorSeminario")->name('curso.altaInstructorSeminario');
+Route::post('curso/modificar-instructor-tema/eliminar/{curso_id}/{profesor_id}/{tema_id}', "CursoController@bajaInstructorSeminario")->name('curso.bajaInstructorSeminario');
 
 Route::post('curso/ver-profesores/response/', "CursoController@verRespuesta")->name('curso.ver-respuesta');
 
@@ -192,7 +194,6 @@ Route::get('diplomas/{id}/','DiplomasController@selectType')->name('diplomas.ele
 Route::get('diplomas/{id}/generar','DiplomasController@generar')->name('diplomas.generar');
 
 Route::get('reconocimientos/{id}','ReconocimientosController@selectType')->name('reco.elegir');
-Route::get('reconocimientosDiploma/{diplomaid}/{cursoid}','ReconocimientosController@selectTypeD')->name('reco.elegir2');
 Route::get('reconocimientos/{id}/generar','ReconocimientosController@generar')->name('reconocimientos.generar');
 Route::get('reconocimientos/{diplomadoid}/{cursoid}/generar','ReconocimientosController@generarD')->name('reconocimientos.generard');
 Route::get('reconocimientos/fecha/{id}','ReconocimientosController@fechaEnvio')->name('reconocimientos.fecha');

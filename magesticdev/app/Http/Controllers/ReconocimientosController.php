@@ -11,12 +11,12 @@ use App\ProfesoresCurso;
 use App\ParticipantesCurso;
 use App\Diplomado;
 use App\DiplomadosCurso;
+use App\TemaSeminario;
 use App\Profesor;
 use App\Director;
 use App\CoordinadorGeneral;
 use App\SecretarioApoyo;
 use App\Coordinacion;
-use App\TemaSeminarioProfesor;
 use File;
 use iio\libmergepdf\Merger;
 use iio\libmergepdf\Pages;
@@ -74,18 +74,21 @@ class ReconocimientosController extends Controller{
     public function selectType($id)
     {
         $curso = Curso::findOrFail($id);
+        if($curso->getTipo() === 'D'){
+          $dips = $curso->getDiplomados();
+          if(!$dips)
+            return redirect()->back()->with('danger', 
+              'Para crear reconocimientos de un módulo de diplomado, es necesario que esté asociado al menos a un diplomado'
+            );
+          else
+            return view("pages.reconocimientos-elegirTipoReconocimiento")
+            ->with('curso',$curso)
+            ->with('diplomados',$dips);
+        }
         return view("pages.reconocimientos-elegirTipoReconocimiento")
                 ->with('curso',$curso);
     }
-    public function selectTypeD($diplomaid, $cursoid)
-    {
-        $curso = Curso::findOrFail($cursoid);
-        $diplomado = Diplomado::findOrFail($diplomaid);
-        return view("pages.reconocimientos-elegirTipoReconocimiento")
-                ->with('curso',$curso)
-                ->with('diplomado', $diplomado);
-    }
-    
+
     public function generar(Request $request, $id){
       try{
         $hash_aux = str_replace(".", "0",substr(Hash::make(url()->full(), [
@@ -267,8 +270,6 @@ class ReconocimientosController extends Controller{
       else
         $folio_der = -1;
 
-      //TODO: TEXTO INTERMEDIO
-
       //ZIP, DIR y MERGER
       $pdfMerger = new PdfManage;
       $zip = new Zipper();
@@ -330,37 +331,22 @@ class ReconocimientosController extends Controller{
             'folio_der'=>$instructor->folio_peque,
             'tema' => $request->texto_pers))
             ->setPaper('letter', 'landscape');
-          // } elseif($cursoCatalogo->tipo=="S"){
-          //   $tsprofs = TemaSeminarioProfesor::where('curso_id', $curso->id)->where('profesor_id',$profesor->id)->get();
-          //   if($tsprofes->isEmpty()){
-          //     rrmdir(resource_path('views/pages/tmp'.$hash_aux));
-          //     $zip::close();
-		 			// 		return redirect()->back()->with('danger', 'No hay un profesor asignado para algún tema del seminario');
-          //   }
-          //   // Tenemos que generar un reconocimiento por cada tema que el profesor impartió
-          //   foreach($tsprofs as $tsprof){
-          //     $tema=$tsprof->getTema();
-          //     $pdf = PDF::loadView('pages.pdf.reconocimientoS', 
-          //       array('curso' => $curso,
-          //       'profesor'=>$profesor,
-          //       'cursoCatalogo' => $cursoCatalogo,
-          //       'fecha'=>$fecha, 
-          //       'firmantes'=>$firmantes,
-          //       'descripciones'=>$descripciones, 
-          //       'fechaimp'=>$fechaimp,
-          //       'duracion'=>$tema->duracion,
-          //       'tema' => $tema->nombre,
-          //       'folio' => $instructor->folio_inst,
-          //       'folio_der' => $instructor_curso->folio_peque,
-          //     ))->setPaper('letter', 'landscape');
-          //       $nombreArchivo = strval($iter).'_'.$profesor->getNombresArchivo().'_R.pdf';
-          //       $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
-          //       $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
-          //       $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
-          //       $iter++;
-          //       $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
-          //   }
-          //   }
+          } elseif($cursoCatalogo->tipo=="S"){
+              $tema = TemaSeminario::findOrFail($instructor->tema_seminario_id);
+              $pdf = PDF::loadView('pages.pdf.reconocimientoS', 
+                array('curso' => $curso,
+                'profesor'=>$profesor,
+                'cursoCatalogo' => $cursoCatalogo,
+                'fecha'=>$fecha, 
+                'firmantes'=>$firmantes,
+                'descripciones'=>$descripciones,
+                'numFirmantes'=>$numFirmantes,
+                'fechaimp'=>$fechaimp,
+                'duracion'=>$tema->duracion,
+                'tema' => $tema->nombre,
+                'folio' => $instructor->folio_inst,
+                'folio_der' => $instructor->folio_peque,
+              ))->setPaper('letter', 'landscape');
 
           } elseif($cursoCatalogo->tipo=="D"){
             $diplomado = Diplomado::findOrFail($request->diplomado);

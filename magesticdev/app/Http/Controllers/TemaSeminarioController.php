@@ -36,7 +36,12 @@ class TemaSeminarioController extends Controller
     {
         $antiguosTemas = TemaSeminario::where('catalogo_id', $catalogo_id)->get();
         foreach($antiguosTemas as $tema){
+          try{
             $tema->delete();
+          } catch(\Illuminate\Database\QueryException $e){
+            return redirect()->back()
+            ->with('danger', 'Existen instructores de algún curso asociados a los temas anteriores, primero elimínelos');
+          }
         }
         for($i=0; $i<intval($num_temas); $i++){
             $tema = new TemaSeminario;
@@ -54,8 +59,13 @@ class TemaSeminarioController extends Controller
 
     public function delete($id){
         try{
-            $user = TemaSeminario::findOrFail($id);
-            $user -> delete();
+            $tema = TemaSeminario::findOrFail($id);
+            try{
+              $tema->delete();
+            } catch(\Illuminate\Database\QueryException $e){
+              return redirect()->back()
+              ->with('danger', 'Existen instructores de algún curso asociados a este tema, primero elimínelos');
+            }
             return;
         }catch (\Illuminate\Database\QueryException $e){
                 return redirect()->back()->with('danger', 'El tema de seminario no pudo ser eliminado.');

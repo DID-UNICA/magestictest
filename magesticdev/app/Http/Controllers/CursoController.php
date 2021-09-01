@@ -32,15 +32,54 @@ class CursoController extends Controller
      */
     public function vistaInstructores($id)
     {
-        $curso = Curso::findOrFail($id);
-        $profesores = Profesor::whereNotIn('id',
-          ProfesoresCurso::select('profesor_id')->where('curso_id',$id)->get())->get();
-        $instructores = Profesor::whereIn('id',
-          ProfesoresCurso::select('profesor_id')->where('curso_id',$id)->get())->get();
-        return view('pages.curso-inscribir-instructores')
+      $curso = Curso::findOrFail($id);
+      if($curso->getTipo() ==='S'){
+        return view('pages.asignar-temas-seminario')
           ->with('curso', $curso)
-          ->with('profesores', $profesores)
-          ->with('instructores', $instructores);
+          ->with('temas', $curso->getTemasInstrsSeminario());
+      }
+      $profesores = Profesor::whereNotIn('id',
+        ProfesoresCurso::select('profesor_id')->where('curso_id',$id)->get())->get();
+      $instructores = Profesor::whereIn('id',
+        ProfesoresCurso::select('profesor_id')->where('curso_id',$id)->get())->get();
+      return view('pages.curso-inscribir-instructores')
+        ->with('curso', $curso)
+        ->with('profesores', $profesores)
+        ->with('instructores', $instructores);
+    }
+
+    public function modificarInstructoresSeminario($curso_id, $tema_id){
+      $curso = Curso::findOrFail($curso_id);
+      $profesores = Profesor::whereNotIn('id',
+        ProfesoresCurso::select('profesor_id')->where('curso_id',$curso_id)
+        ->where('tema_seminario_id', $tema_id)->get())->get();
+      $instructores = Profesor::whereIn('id',
+        ProfesoresCurso::select('profesor_id')->where('curso_id',$curso_id)
+        ->where('tema_seminario_id', $tema_id)->get())->get();
+      return view('pages.curso-inscribir-instructores')
+        ->with('curso', $curso)
+        ->with('profesores', $profesores)
+        ->with('instructores', $instructores)
+        ->with('tema_id', $tema_id);
+    }
+
+    public function altaInstructorSeminario($curso_id, $profesor_id, $tema_id){
+      $instructor = new ProfesoresCurso;
+      $instructor->curso_id = $curso_id;
+      $instructor->profesor_id = $profesor_id;
+      $instructor->tema_seminario_id = $tema_id;
+      $instructor->save();
+      return redirect()->route('profesorts.update', [$curso_id, $tema_id])
+        ->with('success', "El profesor ahora es instructor");
+    }
+
+    public function bajaInstructorSeminario($curso_id, $profesor_id, $tema_id){
+      $instructor = ProfesoresCurso::where('curso_id', $curso_id)
+        ->where('profesor_id',$profesor_id)
+        ->where('tema_seminario_id',$tema_id);
+      $instructor->delete();
+      return redirect()->route('profesorts.update', [$curso_id, $tema_id])
+        ->with('warning', "El profesor ya no es más un instructor del curso");
     }
 
     public function altaInstructores($curso_id, $profesor_id)
@@ -55,10 +94,18 @@ class CursoController extends Controller
 
     public function bajaInstructores($curso_id, $profesor_id)
     {
+      $curso = Curso::findOrFail($curso_id);
+      if($curso->getTipoCadena() === 'S'){
+        $expositores = ProfesoresCurso::where('curso_id', $curso_id)->where('profesor_id',$profesor_id)->get();
+        foreach($expositores as $expositor){
+          $expositor->delete();
+        }
+      } else {
         $instructor = ProfesoresCurso::where('curso_id', $curso_id)->where('profesor_id',$profesor_id);
         $instructor->delete();
-        return redirect()->route('curso.modificarInstructores', $curso_id)
-          ->with('warning', "El profesor ya no es más un instructor del curso");
+      }
+      return redirect()->route('curso.modificarInstructores', $curso_id)
+        ->with('warning', "El profesor ya no es más un instructor del curso");
     }
     
      public function index()
@@ -84,7 +131,6 @@ class CursoController extends Controller
             ->with("salones",$salones)
             ->with("profesores",$profesores)
             ->with("user",$user);
-
     }
 
     /**
@@ -132,7 +178,6 @@ class CursoController extends Controller
      */
     public function update(Request $request, $id)
     {
-    
         $user = Curso::find($id);
         $user->semestre_anio = $request->semestreAnio;
         $user->semestre_pi = $request->semestreTemporada;
@@ -151,14 +196,8 @@ class CursoController extends Controller
         $user->salon_id = $request->salon_id;
         $user->save();
         $catalogo = CatalogoCurso::find($user->catalogo_id);
-        if($catalogo->tipo == 'S'){
-            return redirect()
-                ->route('profesorts.update', $user->id);
-        }
-        else{
-          return redirect('curso')
-            ->with('success', 'Se han actualizado los datos correctamente');
-        }
+        return redirect('curso')
+          ->with('success', 'Se han actualizado los datos correctamente');
     }
 
     /**

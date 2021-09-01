@@ -15,11 +15,15 @@ class CreateProfesorCurso extends Migration
             $table->increments('id')->unique();
             $table->Integer('curso_id')->unsigned();
             $table->Integer('profesor_id')->unsigned();
+            $table->Integer('tema_seminario_id')->unsigned()->nullable();
+
             $table->string('folio_inst')->nullable();
             $table->string('folio_peque')->nullable();
             $table->date('fecha_envio')->nullable();
+
             $table->foreign('curso_id')->references('id')->on('cursos');
             $table->foreign('profesor_id')->references('id')->on('profesors');
+            $table->foreign('tema_seminario_id')->references('id')->on('temas_seminarios');
 
             $table->timestamps();
         });

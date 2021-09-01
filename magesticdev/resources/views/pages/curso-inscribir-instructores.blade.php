@@ -19,8 +19,15 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h2>{{ $curso->getNombreCurso()}}</h2>
-                <h3>Lista de de instructores</h3>              
-                {!! Form::open(["route" => ["profesor.consulta2", $curso->id], "method" => "POST"]) !!}
+                @if($curso->getTipo() === 'S')
+                  <h3>Escoger instructores del tema</h2>
+                @endif
+                <h3>Lista de de instructores</h3>
+                @if($curso->getTipo() === 'S')
+                  {!! Form::open(["route" => ["profesor.consulta3", $curso->id, $tema_id], "method" => "POST"]) !!}
+                @else
+                  {!! Form::open(["route" => ["profesor.consulta2", $curso->id], "method" => "POST"]) !!}
+                @endif
                 <div class="input-group">
                     {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Profesor"])!!}
                     {!! Form::select('type', array(
@@ -32,9 +39,6 @@
                     <span class="col-md-6" style='padding-top:3px'>
                         <button class="btn btn-info" type="submit">Buscar</button>
                         <a href="{{ route('curso.consulta') }}" class="btn btn-danger">Regresar</a>
-                        @if($curso->getTipo() === 'S')
-                        <a href="{{ route('profesorts.store', $curso->id) }}" class="btn btn-warning">Asignar temas</a>
-                        @endif
                     </span>
                     {!! Form::close() !!}
                 </div>
@@ -51,7 +55,11 @@
                         <th>Número Trabajador</th>
                     </tr>
                     @foreach($profesores as $profesor)
-                    {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.altaInstructores', $curso->id,$profesor->id] ,'files' => true, 'method' => 'POST' )) !!}
+                      @if($curso->getTipo() === 'S')
+                        {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.altaInstructorSeminario', $curso->id,$profesor->id, $tema_id] ,'files' => true, 'method' => 'POST' )) !!}
+                      @else
+                        {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.altaInstructores', $curso->id,$profesor->id] ,'files' => true, 'method' => 'POST' )) !!}
+                      @endif
                         <tr>
                             <td>{{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }} {{ $profesor->nombres }}</td>
                             <td>{{ $profesor->email}}</td>
@@ -76,7 +84,11 @@
                         <th>Número Trabajador</th>
                     </tr>
                     @foreach($instructores as $instructor)
-                    {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.bajaInstructores',$curso->id, $instructor->id] ,'files' => true, 'method' => 'POST' )) !!}
+                      @if($curso->getTipo() === 'S')
+                        {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.bajaInstructorSeminario', $curso->id,$instructor->id, $tema_id] ,'files' => true, 'method' => 'POST' )) !!}
+                      @else
+                        {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.bajaInstructores',$curso->id, $instructor->id] ,'files' => true, 'method' => 'POST' )) !!}
+                      @endif
                         <tr>
                             <td>{{ $instructor->apellido_paterno }} {{ $instructor->apellido_materno }} {{ $instructor->nombres }}</td>
                             <td>{{ $instructor->email}}</td>

@@ -16,9 +16,9 @@ class Director extends Model
 
     public function getDescripcion(){
       if($this->genero === 'F')
-        return "Directora del Centro de Docencia";
+        return "Directora";
       else
-        return "Director del Centro de Docencia";
+        return "Director";
     }
 
     public function getNombreFirma(){

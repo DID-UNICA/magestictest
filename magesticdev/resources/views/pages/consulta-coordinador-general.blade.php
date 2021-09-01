@@ -51,7 +51,7 @@
                 </tr>
                 @else
                 <tr>
-                    <th>No hay un coordinador general aún.</th>
+                    <th>No hay un Coordinador del Centro de Docencia aún.</th>
                 </tr>
                 <tr>
                     <td>

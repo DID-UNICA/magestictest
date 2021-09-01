@@ -44,7 +44,7 @@
         <td>
             <a href="{{ URL::to('curso/ver-profesores',$curso->id) }}" class="btn btn-primary "style="margin-bottom: 15px;">Ver Curso</a>
             <a href="{{ URL::to('curso', $curso->id) }}" class="btn btn-info" style="margin-bottom: 15px;">Detalles</a>
-            <a href="{{ URL::to('reconocimientosDiploma', array($diplomado->id,$curso->id)) }}" class="btn btn-success" style="margin-bottom: 15px;">Reconocimientos</a>
+            <a href="{{ URL::to('reconocimientos', $curso->id) }}" class="btn btn-success" style="margin-bottom: 15px;">Reconocimientos</a>
             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModalDesc{{$curso->id}}" style="margin-bottom: 15px;">Descartar de Diplomado</button>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$curso->id}}" style="margin-bottom: 15px;">Dar de baja</button>
         </td>

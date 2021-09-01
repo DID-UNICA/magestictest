@@ -260,6 +260,76 @@ class ProfesorController extends Controller
 
     }
     /*Busqueda de profesores para su inscripción como instructores*/
+    //TODO crear solo un metodo dividiendo la tarea de busqueda
+    public function search3(Request $request, $id,$tema_id)
+    {
+      $curso = Curso::findOrFail($id);
+      $instructores = Profesor::whereIn('id',
+        ProfesoresCurso::select('profesor_id')->where('curso_id',$id)
+        ->where('tema_seminario_id', $tema_id)->get())
+      ->get();
+      $words = explode(" ", $request->pattern);
+      $arreglo_aux = array();
+      $profesores = collect();
+      foreach($words as $word){
+        if($request->type == "nombre")
+        {
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
+          ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+          ->get());
+
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+            ->whereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
+          ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+          ->get());
+
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
+          ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+          ->get());
+
+        }elseif($request->type == "correo"){
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
+          ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+          ->get());
+
+        }elseif($request->type == "rfc"){
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
+          ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+          ->get());
+        }elseif($request->type == "num"){
+          array_push($arreglo_aux, Profesor::whereNotIn('id', 
+            ProfesoresCurso::select('profesor_id')
+            ->where('curso_id',$id)->get())
+          ->whereRaw("lower(unaccent(numero_trabajador)) ILIKE lower(unaccent('%".$word."%'))")
+          ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+          ->get());
+        }
+      }
+      foreach ($arreglo_aux as $profesoresword) {
+        $profesores = $profesores->concat($profesoresword);
+      }
+      $profesores = $profesores->unique();
+      return view('pages.curso-inscribir-instructores')
+        ->with('curso', $curso)
+        ->with('profesores', $profesores)
+        ->with('tema_id', $tema_id)
+        ->with('instructores', $instructores);
+    }
+
     public function search2(Request $request, $id)
     {
       $curso = Curso::findOrFail($id);
