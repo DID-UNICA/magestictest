@@ -75,15 +75,14 @@ class ReconocimientosController extends Controller{
     {
         $curso = Curso::findOrFail($id);
         if($curso->getTipo() === 'D'){
-          $dips = $curso->getDiplomados();
-          if(!$dips)
+          if(!$curso->diplomado_id)
             return redirect()->back()->with('danger', 
               'Para crear reconocimientos de un módulo de diplomado, es necesario que esté asociado al menos a un diplomado'
             );
           else
             return view("pages.reconocimientos-elegirTipoReconocimiento")
             ->with('curso',$curso)
-            ->with('diplomados',$dips);
+            ->with('diplomado',Diplomado::findOrFail($curso->diplomado_id));
         }
         return view("pages.reconocimientos-elegirTipoReconocimiento")
                 ->with('curso',$curso);
@@ -101,9 +100,6 @@ class ReconocimientosController extends Controller{
       // DATOS DEL CURSO
       $curso = Curso::findOrFail($id);
       $cursoCatalogo = CatalogoCurso::findOrFail($curso->catalogo_id);
-      $tipo = $cursoCatalogo->tipo;
-      if($tipo == 'CT'){$tipo = 'T';}
-      // TODO: Utilizar un arreglo llave valor
       $firmantes = array();
       $descripciones = array();
       $numFirmantes = 1;
@@ -112,42 +108,39 @@ class ReconocimientosController extends Controller{
       // PRIMER FIRMANTE
       //El reconocimiento necesita al coordinador del centro de docencia como mayor cargo
       if($request->tipof == 'A' || $request->tipof == 'B'){
-        try{
-          $coordinadorGeneral = CoordinadorGeneral::first();
-          $firmantes[0] = $coordinadorGeneral->getNombreFirma();
-          $descripciones[0] = $coordinadorGeneral->getDescripcion();
-        }catch(\ErrorException  $e){
+        $coordinadorGeneral = CoordinadorGeneral::first();
+        if(!$coordinadorGeneral){
           return redirect()->back()->with(
             'info',
             'Primero hay que dar de alta al Coordinador del Centro de Docencia'
           );
         }
+        $firmantes[0] = $coordinadorGeneral->getNombreFirma();
+        $descripciones[0] = $coordinadorGeneral->getDescripcion();
       }
       //El reconocimiento necesita al SAD como mayor cargo
       elseif($request->tipof == 'C'){
-        try{
-          $secretarioApoyo = SecretarioApoyo::first();
-          $firmantes[0] = $secretarioApoyo->getNombreFirma();
-          $descripciones[0] = $secretarioApoyo->getDescripcion();
-        }catch(\ErrorException  $e){
+        $secretarioApoyo = SecretarioApoyo::first();
+        if(!$secretarioApoyo){
           return redirect()->back()->with(
             'info', 
             'Primero hay que dar de alta al Secretario de Apoyo a la Docencia'
           );
         }
+        $firmantes[0] = $secretarioApoyo->getNombreFirma();
+        $descripciones[0] = $secretarioApoyo->getDescripcion();
       }
       //El reconocimiento necesita al Director como mayor cargo
       elseif($request->tipof == 'D'){
-        try{
-          $director = Director::first();
-          $firmantes[0] = $director->getNombreFirma();
-          $descripciones[0] = $director->getDescripcion();
-        }catch(\ErrorException  $e){
+        $director = Director::first();
+        if(!$director){
           return redirect()->back()->with(
             'info',
             'Primero hay que dar de alta al Director'
           );
         }
+        $firmantes[0] = $director->getNombreFirma();
+        $descripciones[0] = $director->getDescripcion();
       }
 
       // SEGUNDO FIRMANTE
@@ -160,31 +153,29 @@ class ReconocimientosController extends Controller{
       }
       // Se necesita al CCDD de área como menor cargo
       elseif($request->tipof == 'C'){
-        try{
-          $coordinadorGeneral = CoordinadorGeneral::first();
-          $firmantes[1] = $coordinadorGeneral->getNombreFirma();
-          $descripciones[1] = $coordinadorGeneral->getDescripcion();
-          $numFirmantes = 2;
-        }catch(\ErrorException  $e){
+        $coordinadorGeneral = CoordinadorGeneral::first();
+        if($coordinadorGeneral){
           return redirect()->back()->with(
             'info',
             'Primero hay que dar de alta al Coordinador del Centro de Docencia'
           );
         }
+        $firmantes[1] = $coordinadorGeneral->getNombreFirma();
+        $descripciones[1] = $coordinadorGeneral->getDescripcion();
+        $numFirmantes = 2;
       }
       // Se necesita al SAD de área como menor cargo
       elseif($request->tipof == 'D'){
-        try{
-          $secretarioApoyo = SecretarioApoyo::first();
-          $firmantes[1] = $secretarioApoyo->getNombreFirma();
-          $descripciones[1] = $secretarioApoyo->getDescripcion();
-          $numFirmantes = 2;
-        }catch(\ErrorException  $e){
+        $secretarioApoyo = SecretarioApoyo::first();
+        if(!$secretarioApoyo){
           return redirect()->back()->with(
             'info', 
             'Primero hay que dar de alta al Secretario de Apoyo a la Docencia'
           );
         }
+        $firmantes[1] = $secretarioApoyo->getNombreFirma();
+        $descripciones[1] = $secretarioApoyo->getDescripcion();
+        $numFirmantes = 2;
       }
 
       //SE ELIGIÓ LA OPCIÓN MANUAL
@@ -242,7 +233,8 @@ class ReconocimientosController extends Controller{
         );
 
       // OBTENCIÓN DE FECHAS
-      $fechaimp = $curso->getFecha();
+      if($curso->getTipo() != 'S')
+        $fechaimp = $curso->getFecha();
       $fecha = Carbon::parse($curso->getFechaFin());
       $fecha = $fecha->format('d/m/Y');
       $fecha = explode("/",$fecha);
@@ -251,18 +243,6 @@ class ReconocimientosController extends Controller{
       $mes_a = $fecha[1];
       $mes_a = $curso->translate_month($mes_a);
       $fecha = $dia_a . " de " .$mes_a . " de " . $anio;
-
-      //FOLIO INSTITUCIONAL
-      if($request->gen_folio_inst){
-        $idTipo = (strlen($request->folio_inst) != 0 and is_numeric($request->folio_inst)) ? intval($request->folio_inst) : $curso->getTypeId();
-        if($idTipo>99){
-            $idTipo = (string)$idTipo;
-        }elseif($idTipo>9){
-            $idTipo="0".(string)$idTipo;
-        }else{
-            $idTipo="00".(string)$idTipo;
-        }
-      }
 
       //FOLIO PEQUEÑO
       if($request->gen_folio_peq)
@@ -291,7 +271,7 @@ class ReconocimientosController extends Controller{
           $numLista = app('App\Http\Controllers\ReconocimientosController')->convertirACadena($iter);
           $profesor = Profesor::findOrFail($instructor->profesor_id);
           if($request->gen_folio_inst){
-            $instructor->folio_inst = "F04".$anio.$tipo.$idTipo."R".$numLista;
+            $instructor->folio_inst = $request->folio_inst.$numLista;
           }
           else
             $instructor->folio_inst = "";
@@ -312,12 +292,14 @@ class ReconocimientosController extends Controller{
               'descripciones'=>$descripciones,
               'numFirmantes'=>$numFirmantes,
               'fechaimp'=>$fechaimp,
+              'texto'=>$request->texto_pers,
               'folio'=>$instructor->folio_inst,
-              'folio_der'=>$instructor->folio_peque))
+              'folio_der'=>$instructor->folio_peque      
+              ))
             ->setPaper('letter', 'landscape');
           
           // Reconocimiento para evento
-          } elseif($cursoCatalogo->tipo=="E"){
+          }elseif($cursoCatalogo->tipo=="E"){
             $pdf = PDF::loadView('pages.pdf.reconocimientoE', 
             array('curso' => $curso,
             'profesor'=>$profesor,
@@ -328,11 +310,17 @@ class ReconocimientosController extends Controller{
             'numFirmantes'=>$numFirmantes,
             'fechaimp'=>$fechaimp,
             'folio'=>$instructor->folio_inst,
+            'tema' => $request->texto_pers,
             'folio_der'=>$instructor->folio_peque,
-            'tema' => $request->texto_pers))
+            ))
             ->setPaper('letter', 'landscape');
-          } elseif($cursoCatalogo->tipo=="S"){
+          }elseif($cursoCatalogo->tipo=="S"){
               $tema = TemaSeminario::findOrFail($instructor->tema_seminario_id);
+              if(!$fechaimp = $instructor->getFechaImparticion())
+                return redirect()->back()
+                  ->with('danger', 
+                    'Uno de los instructores no tiene fecha de impartición en su tema del seminario'
+                  );
               $pdf = PDF::loadView('pages.pdf.reconocimientoS', 
                 array('curso' => $curso,
                 'profesor'=>$profesor,
@@ -344,12 +332,13 @@ class ReconocimientosController extends Controller{
                 'fechaimp'=>$fechaimp,
                 'duracion'=>$tema->duracion,
                 'tema' => $tema->nombre,
+                'texto'=>$request->texto_pers,
                 'folio' => $instructor->folio_inst,
                 'folio_der' => $instructor->folio_peque,
               ))->setPaper('letter', 'landscape');
 
           } elseif($cursoCatalogo->tipo=="D"){
-            $diplomado = Diplomado::findOrFail($request->diplomado);
+            $diplomado = Diplomado::findOrFail($curso->diplomado_id);
             $pdf = PDF::loadView('pages.pdf.reconocimientoD', 
             array('curso' => $curso,
             'profesor'=>$profesor,
@@ -360,6 +349,7 @@ class ReconocimientosController extends Controller{
             'descripciones'=>$descripciones,
             'numFirmantes'=>$numFirmantes,
             'fechaimp'=>$fechaimp,
+            'texto'=>$request->texto_pers,
             'folio'=>$instructor->folio_inst,
             'folio_der'=>$instructor->folio_peque))
             ->setPaper('letter', 'landscape');

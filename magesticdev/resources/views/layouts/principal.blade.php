@@ -79,8 +79,11 @@
             <li class="nav-header">
                 <div class="link"><i class="fa fa-lg fa-send"></i>Diplomados<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
-                    <li><a href="{{ route('diplomado.consulta') }}">Diplomados programados</a></li>
-                    <li><a href="{{ route('diplomado.nuevo') }}">Alta de diplomado</a></li>
+                  <li><a href="{{ route('diplomado.consulta') }}">Ver Diplomados</a></li>
+                  <li><a href="{{ route('diplomado.nuevo') }}">Alta de diplomado</a></li>
+                  <li><a href="{{ route('modulo.consulta') }}">Ver Módulos Programados</a></li>
+                  <li><a href="{{ route('catalogo.modulo.consulta') }}">Ver Catálogo de Módulos</a></li>
+                  <li><a href="{{ route('catalogo.modulo.nuevo') }}">Alta de módulo</a></li>
 
                 </ul>
             </li>

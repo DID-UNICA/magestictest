@@ -81,7 +81,7 @@ body {
   font-family:'Tangerine', serif;
   font-style:italic;
   font-size: 24pt;
-  line-height: 50%
+  line-height: 100%
 }
 .nombre_curso{
   font-family:'Tangerine', serif;
@@ -138,16 +138,18 @@ body {
         <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.5cm;">Otorgan el presente</h3>
         <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">A G R A D E C I M I E N T O</h3>
         @if($profesor->genero=="masculino")
-          <h3 style="text-align: center;font-size: 18pt;font-style:normal; margin-top: 0.5cm;">al: </h2>
+          <h3 style="text-align: center;font-size: 18pt;font-style:normal; margin-top: 1cm;">al: </h2>
         @elseif($profesor->genero=="femenino")
-          <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.5cm;"> a la: </h2>
+          <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;"> a la: </h2>
+        @else
+          <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;"> a: </h2>
          @endif
         <br>
         <h1 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h1>
 
         <table width="15cm" align="center">
           <tr width="15cm">
-            <td height="2.5cm" align="center" vertical-align="top" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$tema}}</td>
+            <td height="2cm" align="center" vertical-align="top" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
           </tr>
         </table>
 

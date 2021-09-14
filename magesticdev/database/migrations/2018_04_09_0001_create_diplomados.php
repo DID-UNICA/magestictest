@@ -11,7 +11,6 @@ class CreateDiplomados extends Migration
         Schema::create('diplomados', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->string('nombre_diplomado');
-            $table->integer('cupo_maximo');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

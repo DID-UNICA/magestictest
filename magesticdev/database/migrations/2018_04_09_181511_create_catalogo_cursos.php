@@ -15,6 +15,7 @@ class CreateCatalogoCursos extends Migration
     {
         Schema::create('catalogo_cursos', function (Blueprint $table) {
             $table->increments('id')->unique();
+            $table->string('clave_curso',25)->unique();
             $table->string('nombre_curso');
             $table->string('duracion_curso');
             $table->string('tipo');
@@ -24,9 +25,8 @@ class CreateCatalogoCursos extends Migration
             $table->longText('contenido')->nullable();
             $table->longText('antecedentes')->nullable();
             $table->date('fecha_disenio');
-            $table->integer('coordinacion_id')->unsigned();
-            $table->string('clave_curso',25)->unique();
 
+            $table->integer('coordinacion_id')->unsigned();
             $table->foreign('coordinacion_id')->references('id')->on('coordinacions');
 
             $table->timestamps();

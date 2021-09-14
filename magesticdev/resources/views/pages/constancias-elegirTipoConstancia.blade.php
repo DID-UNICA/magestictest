@@ -95,7 +95,7 @@
               <div class= "form-group row">
                 {!!Form::label("typeid", "Folio institucional (Número consecutivo):",["class=col-md-4"])!!}
                 <div class= "col-md-6">
-                    {!!Form::text("typeid", null, [ "required","class=form-control","placeholder" => "Dígitos nueve, diez y once del folio"])!!}
+                    {!!Form::text("typeid", null, [ "required","class=form-control","placeholder" => "Caracteres hasta antes del número de lista"])!!}
                 </div>
               </div>
             </div>
@@ -283,12 +283,10 @@
 						</div>
 
             <!-- Botones -->
-						<div class="form-group col-md-6">
-							<div class="col-md-2">
-								<button type="submit" style="margin: 3px;" class="btn btn-primary">Generar</button>
-							</div>
-							<div class="col-md-2">
+						<div class="form-group row">
+							<div class="col-md-5">
 								<a href="{{ route('constancias.fecha',[$curso->id]) }}"><button type="button" style="margin: 3px;" class="btn btn-warning">Fecha de envío</button></a>
+								<button type="submit" style="margin: 3px;" class="btn btn-primary">Generar</button>
 							</div> 
 						</div>
 

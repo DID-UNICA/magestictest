@@ -32,6 +32,12 @@ class CatalogoCursosController extends Controller
           ->with("users",$users);
     }
 
+    public function verModulos(){
+      $modulos = CatalogoCurso::where('tipo','D')->get();
+      return view("pages.consulta-catalogo-modulos")
+        ->with('modulos', $modulos);
+    }
+
     
     /**
      * Show the form for creating a new resource.
@@ -40,14 +46,22 @@ class CatalogoCursosController extends Controller
      */
     public function nuevo()
     {
-        $coordinaciones = Coordinacion::all();
-        $catalogo_cursos = CatalogoCurso::all();
-        $profesores = Profesor::all();
+      $coordinaciones = Coordinacion::all();
+      $catalogo_cursos = CatalogoCurso::all();
+      $profesores = Profesor::all();
 
-        return view("pages.alta-catalogo-cursos")
-            ->with("catalogo_cursos",$catalogo_cursos)
-            ->with("profesores",$profesores)
-            ->with("coordinaciones",$coordinaciones);
+      return view("pages.alta-catalogo-cursos")
+          ->with("coordinaciones",$coordinaciones);
+    }
+
+    public function nuevoModulo()
+    {
+      $coordinaciones = Coordinacion::all();
+      $catalogo_cursos = CatalogoCurso::all();
+      $profesores = Profesor::all();
+
+      return view("pages.alta-catalogo-modulos")
+          ->with("coordinaciones",$coordinaciones);
     }
 
     /**
@@ -58,19 +72,33 @@ class CatalogoCursosController extends Controller
      */
     public function show($id)
     {
-        $catalogoCurso = CatalogoCurso::find($id);
-        return view("pages.ver-catalogo-cursos")
-            ->with("user",$catalogoCurso);
+      $catalogoCurso = CatalogoCurso::find($id);
+      return view("pages.ver-catalogo-cursos")
+          ->with("user",$catalogoCurso);
+    }
+
+    public function verModulo($catalogo_modulo_id)
+    {
+      $catalogoCurso = CatalogoCurso::findOrFail($catalogo_modulo_id);
+      return view("pages.ver-catalogo-modulo")
+          ->with("modulo",$catalogoCurso);
     }
 
 
     public function edit($id)
     {
-        $catalogoCurso = CatalogoCurso::find($id);
-        $coordinaciones = Coordinacion::all(['id','nombre_coordinacion']);
-        
-        return view("pages.update-catalogo-cursos")
-            ->with("user",$catalogoCurso)->with("coordinaciones",$coordinaciones);
+      $catalogoCurso = CatalogoCurso::find($id);
+      $coordinaciones = Coordinacion::all(['id','nombre_coordinacion']);
+      return view("pages.update-catalogo-cursos")
+          ->with("user",$catalogoCurso)->with("coordinaciones",$coordinaciones);
+    }
+
+    public function editModulo($catalogo_modulo_id)
+    {
+      $catalogoCurso = CatalogoCurso::findOrFail($catalogo_modulo_id);
+      $coordinaciones = Coordinacion::all(['id','nombre_coordinacion']);
+      return view("pages.update-catalogo-modulo")
+        ->with("modulo",$catalogoCurso)->with("coordinaciones",$coordinaciones);
     }
 
     /**
@@ -89,16 +117,9 @@ class CatalogoCursosController extends Controller
             else
                 $catalogoCurso->clave_curso = $request->clave_curso;
         }
-        $temas = TemaSeminario::where('catalogo_id', $catalogoCurso->id)->get();
-        //El tipo se actualizó a seminario y hay que cambiar temas
-        if($request->tipo == 'S' && $temas->count() != intval($request->num_temas)){
-            return view("pages.update-temas-seminario")
-                ->with('temas', $temas)
-                ->with('num_temas', $request->num_temas)
-                ->with('catalogo_id', $catalogoCurso->id);
-        }
-        //El tipo dejó de ser seminario y hay que eliminar todos sus temas
-        if(!$temas->isEmpty() && $catalogoCurso->tipo != $request->tipo){
+        if($catalogoCurso->tipo === 'S' && $catalogoCurso->tipo != $request->tipo){
+          $temas = TemaSeminario::where('catalogo_id', $catalogoCurso->id)->get();
+          if(!$temas->isEmpty()){
             foreach($temas as $tema){
               try{
                 $tema->delete();
@@ -107,6 +128,7 @@ class CatalogoCursosController extends Controller
                 ->with('danger', 'Existen instructores de algún curso asociados a los temas del seminario, primero elimínelos antes de cambiar de tipo');
               }
             }
+          }
         }
         $catalogoCurso->nombre_curso = $request->nombre_curso;
         $catalogoCurso->duracion_curso = $request->duracion_curso;
@@ -118,11 +140,36 @@ class CatalogoCursosController extends Controller
         $catalogoCurso->contenido = $request->contenido;
         $catalogoCurso->antecedentes = $request->antesc;
         $catalogoCurso->fecha_disenio = $request->fecha_disenio;
-
         $catalogoCurso->save();
         
         return redirect('catalogo-cursos/'.$catalogoCurso->id)
             ->with("user",$catalogoCurso)
+            ->with('success','Se han actualizado los cambios');
+    }
+
+    public function updateModulo(Request $request, $catalogo_modulo_id)
+    {
+        $catalogoCurso = CatalogoCurso::find($catalogo_modulo_id);
+        if($catalogoCurso->clave_curso != $request->clave_curso){
+            if(CatalogoCurso::where('clave_curso', $request->clave_curso)->exists())
+                return redirect()->back()->with('danger', 'Error al actualizar los datos. La clave ya está en uso');
+            else
+                $catalogoCurso->clave_curso = $request->clave_curso;
+        }
+
+        $catalogoCurso->nombre_curso = $request->nombre_curso;
+        $catalogoCurso->duracion_curso = $request->duracion_curso;
+        $catalogoCurso->coordinacion_id = $request->coordinacion_id;
+        $catalogoCurso->tipo = $request->tipo;
+        $catalogoCurso->institucion = $request->institucion;
+        $catalogoCurso->dirigido = $request->dirigido;
+        $catalogoCurso->objetivo = $request->objetivo;
+        $catalogoCurso->contenido = $request->contenido;
+        $catalogoCurso->antecedentes = $request->antesc;
+        $catalogoCurso->fecha_disenio = $request->fecha_disenio;
+        $catalogoCurso->save();
+
+        return redirect()->route('catalogo.modulo.ver', $catalogoCurso->id)
             ->with('success','Se han actualizado los cambios');
     }
 
@@ -183,18 +230,75 @@ class CatalogoCursosController extends Controller
             ->with("users",$users);
     }
 
+    public function searchModulos(Request $request)
+    {
+      $arreglo_aux = array();
+      $modulos = collect();
+        if($request->type == "nombre"){
+          $words=explode(" ", $request->pattern);
+          foreach($words as $word){
+              array_push($arreglo_aux, CatalogoCurso::whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%".$word."%'))")->where('tipo', 'D')
+                  ->get());
+          }
+          foreach ($arreglo_aux as $tmp) {
+              $modulos = $modulos->concat($tmp);
+          }
+
+        } elseif($request->type == "clave"){
+          $modulos = CatalogoCurso::whereRaw(
+            "lower(unaccent(clave_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")->where('tipo', 'D')
+            ->get();
+        } elseif($request->type == "coordinacion"){
+
+            $words=explode(" ", $request->pattern);
+            foreach($words as $word){
+                array_push($arreglo_aux, CatalogoCurso::join('coordinacions','coordinacions.id', '=', 'catalogo_cursos.coordinacion_id')
+                  ->whereRaw("lower(unaccent(coordinacions.nombre_coordinacion)) ILIKE lower(unaccent('%".$word."%'))")
+                  ->where('catalogo_cursos.tipo', 'D')
+                  ->get()
+                );
+            }
+            foreach ($arreglo_aux as $tmp) {
+              $modulos = $modulos->concat($tmp);
+            }
+        }
+
+        $coordinaciones = Coordinacion::all();
+        if($modulos->isEmpty()){
+          return redirect()->route('catalogo.modulo.consulta')
+            ->with('warning', 'No se encontraron resultados');
+        }
+        return view("pages.consulta-catalogo-modulos")
+            ->with("coordinaciones",$coordinaciones)
+            ->with("modulos",$modulos);
+    }
+
     public function delete($id)
     {
-         try{
-            $catalogoCurso = CatalogoCurso::findOrFail($id);
-            $catalogoCurso -> delete();
-            return redirect('catalogo-cursos')->with('success', 
-              'Se ha dado de baja el curso del catálogo'
-            );
-        }catch (\Illuminate\Database\QueryException $e){
-                return redirect()->back()->with('danger', 
-                  'El catálogo de cursos no puede ser eliminado porque tiene cursos asignados.');
-            }
+      try{
+        $catalogoCurso = CatalogoCurso::findOrFail($id);
+        $catalogoCurso -> delete();
+        return redirect('catalogo-cursos')->with('success', 
+          'Se ha dado de baja el curso del catálogo'
+        );
+      }catch (\Illuminate\Database\QueryException $e){
+        return redirect()->back()->with('danger', 
+          'El catálogo de cursos no puede ser eliminado porque tiene cursos asignados.');
+      }
+    }
+
+    public function deleteModulo($catalogo_modulo_id)
+    {
+      try{
+        $catalogoCurso = CatalogoCurso::findOrFail($catalogo_modulo_id);
+        $catalogoCurso->delete();
+        return redirect()->route('catalogo.modulo.consulta')->with('success',
+          'Se ha dado de baja el módulo'
+        );
+      }catch (\Illuminate\Database\QueryException $e){
+        return redirect()->back()->with('danger', 
+          'El catálogo de módulo no puede ser eliminado porque tiene módulos programados asignados.');
+      }
     }
 
     public function create(Request $request)
@@ -213,16 +317,40 @@ class CatalogoCursosController extends Controller
         $catalogoCurso->antecedentes = $request->antesc;
         $catalogoCurso->fecha_disenio = $request->fecha_disenio;
         $catalogoCurso->clave_curso = $request->clave_curso;
+        
         try{
             $catalogoCurso->save();
         } catch(\Illuminate\Database\QueryException $e){
             return redirect()->back()->with('danger', 'Error al almacenar en la base de datos');
         }
-        if($request->tipo == 'S'){
-            return view("pages.ingresar-temas-seminario")
-                ->with('num_temas', $request->temas)
-                ->with('catalogo_id', $catalogoCurso->id);
+        if($request->tipo === 'S'){
+            return redirect()->route('catalogo-curso.ver-ts',$catalogoCurso->id)->with('success','Catálogo de curso creado');
         }
         return redirect('catalogo-cursos')->with('success','Se ha dado de alta el curso: '.$catalogoCurso->nombre_curso.' exitosamente.');
     }
+
+    public function createModulo(Request $request)
+    {
+        if(CatalogoCurso::where('clave_curso', $request->clave_curso)->exists())
+          return redirect()->back()->with('danger', 'Error al crear el módulo: '.$request->nombre_curso.'. La clave ya está en uso');
+        $catalogoCurso = new CatalogoCurso;
+        $catalogoCurso->nombre_curso = $request->nombre_curso;
+        $catalogoCurso->duracion_curso = $request->duracion_curso;
+        $catalogoCurso->coordinacion_id = $request->coordinacion_id;
+        $catalogoCurso->tipo = $request->tipo;
+        $catalogoCurso->institucion = $request->institucion;
+        $catalogoCurso->dirigido = $request->dirigido;
+        $catalogoCurso->objetivo = $request->objetivo;
+        $catalogoCurso->contenido = $request->contenido;
+        $catalogoCurso->antecedentes = $request->antesc;
+        $catalogoCurso->fecha_disenio = $request->fecha_disenio;
+        $catalogoCurso->clave_curso = $request->clave_curso;
+        
+        try{
+            $catalogoCurso->save();
+            return redirect()->route('catalogo.modulo.consulta')->with('success','Se ha dado de alta el módulo: '.$catalogoCurso->nombre_curso.' exitosamente.');
+        } catch(\Illuminate\Database\QueryException $e){
+            return redirect()->back()->with('danger', 'Error al almacenar en la base de datos');
+        }
+      }
 }

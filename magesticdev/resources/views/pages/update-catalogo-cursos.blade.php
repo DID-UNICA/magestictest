@@ -52,12 +52,6 @@
     </div>
 	</div>
 	<div class="row col-md-12 ">
-    <div id="NumTemas" style="display:none;"class="form-group col-md-4">
-        {!!Form::label("temasl", "Número de Temas:")!!}
-        {!!Form::number('num_temas',$user->getNumTemas(),['id'=>'cantidadTemas','class'=>'form-control', 'required'=>'required','min'=>1]) !!}
-    </div>
-	</div>
-	<div class="row col-md-12 ">
     <div class="form-group col-md-5">
         {!!Form::label("dirigido", "Dirigido a:")!!}
         {!!Form::textarea("dirigido", $user->dirigido, ["cols"=>"90", "wrap"=>"hard", "class" => "form-control"])!!}
@@ -82,9 +76,13 @@
         {!!Form::label("fecha_disenio", "Fecha de diseño:")!!}
         {!!Form::date("fecha_disenio",$user->fecha_disenio , [ "class" => "form-control", "required"])!!}
 		</div>
-		<div class="form-group col-md-5">
-    	<a href="{{ URL::to('catalogo-cursos', $user->id) }}" style='margin-top: 15px;' class="btn btn-warning">Regresar</a>
-    	<button type="submit" style='margin-top: 15px;' class="btn btn-primary col-md-offset-1">Actualizar</button>
+	  <div class="row col-md-12 ">
+		  <div class="form-group col-md-5">
+    	  <a href="{{ URL::to('catalogo-cursos', $user->id) }}" style='margin-top: 15px;' class="btn btn-warning">Regresar</a>
+    	  <button type="submit" style='margin-top: 15px;' class="btn btn-primary">Actualizar</button>
+        @if($user->tipo === 'S')
+      	  <a href="{{ URL::to('catalogo-cursos/actualizar-temas-seminario', $user->id) }}" style='margin-top: 15px;' class="btn btn-success">Actualizar temas del seminario</a>
+        @endif
   	</div>
 	</div>
   {!! Form::close() !!}

@@ -132,11 +132,13 @@ body {
         <h3 style="text-align: center;font-size: 18pt;font-style: normal;">Otorgan el presente reconocimiento al:</h2>
       @elseif($profesor->genero=="femenino")
         <h3 style="text-align: center;font-size: 18pt;font-style: normal;">Otorgan el presente reconocimiento a la:</h2>
+      @else
+        <h3 style="text-align: center;font-size: 18pt;font-style: normal;">Otorgan el presente reconocimiento a:</h2>
       @endif
         <br>
         <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
-        <h3 style="font-size: 14pt;line-height: 30%;">por impartir el</h3>
-        <h2 class='nombre_curso'>Módulo {{$curso->getNumModulo($diplomado->id)}}. {{$cursoCatalogo->nombre_curso}}</h2>
+        <h3 style="font-size: 14pt;line-height: 30%;">{{$texto}}</h3>
+        <h2 class='nombre_curso'>Módulo {{$curso->num_modulo}}. {{$cursoCatalogo->nombre_curso}}</h2>
         <h3 style="font-size: 14pt;line-height: 30%;">el cual forma parte del Diplomado:</h3>
         <h3 style="font-size: 14pt;line-height: 30%;">"{{$diplomado->nombre_diplomado}}"</h3>
         <p style="padding-top: 0.3cm; font-size:12pt;">{{$fechaimp}}</h5>

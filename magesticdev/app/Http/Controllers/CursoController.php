@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CatalogoCurso;
-use App\DiplomadosCurso;
+use App\Diplomado;
 use App\Coordinacion;
 use App\Curso;
 use App\ParticipantesCurso;
@@ -53,20 +53,22 @@ class CursoController extends Controller
       $profesores = Profesor::whereNotIn('id',
         ProfesoresCurso::select('profesor_id')->where('curso_id',$curso_id)
         ->where('tema_seminario_id', $tema_id)->get())->get();
-      $instructores = Profesor::whereIn('id',
-        ProfesoresCurso::select('profesor_id')->where('curso_id',$curso_id)
-        ->where('tema_seminario_id', $tema_id)->get())->get();
-      return view('pages.curso-inscribir-instructores')
+      $instructores = ProfesoresCurso::where('curso_id',$curso_id)
+        ->where('tema_seminario_id', $tema_id)->get();
+      return view('pages.curso-inscribir-instructores-seminario')
         ->with('curso', $curso)
         ->with('profesores', $profesores)
         ->with('instructores', $instructores)
         ->with('tema_id', $tema_id);
     }
 
-    public function altaInstructorSeminario($curso_id, $profesor_id, $tema_id){
+    public function altaInstructorSeminario(Request $request, $curso_id, $profesor_id, $tema_id){
       $instructor = new ProfesoresCurso;
       $instructor->curso_id = $curso_id;
       $instructor->profesor_id = $profesor_id;
+      if(!$request->fecha_exposicion)
+        return redirect()->back()->with('danger', 'La fecha es obligatoria');
+      $instructor->fecha_exposicion = $request->fecha_exposicion;
       $instructor->tema_seminario_id = $tema_id;
       $instructor->save();
       return redirect()->route('profesorts.update', [$curso_id, $tema_id])
@@ -108,10 +110,32 @@ class CursoController extends Controller
         ->with('warning', "El profesor ya no es más un instructor del curso");
     }
     
-     public function index()
+    public function index()
     {
         return view("pages.consulta-cursos")
             ->with("cursos",Curso::all());
+    }
+
+    public function verModulosDiplomado($diplomado_id)
+    {
+      $modulos = Curso::where('diplomado_id',$diplomado_id)->get();
+      $diplomado = Diplomado::findOrFail($diplomado_id);
+      if($modulos->isEmpty())
+        return redirect()->back()->with('warning','No hay módulos programados asociados a ese diplomado');
+      return view("pages.consulta-modulos-diplomado")
+        ->with("cursos",$modulos)
+        ->with("diplomado",$diplomado);
+    }
+
+    public function verModulos()
+    {
+      $modulos = Curso::join('catalogo_cursos','catalogo_cursos.id', '=', 'cursos.catalogo_id')
+        ->where('catalogo_cursos.tipo', 'LIKE', 'D')
+        ->select('cursos.*')->get();
+      if($modulos->isEmpty())
+        return redirect()->back()
+          ->with('warning','No hay módulos programados. Pueden ser programados desde la pestaña "Ver Módulos"');
+      return view("pages.consulta-modulos")->with("cursos",$modulos);
     }
 
     /**
@@ -126,11 +150,19 @@ class CursoController extends Controller
     {
         $user = CatalogoCurso::find($id);
         $salones = Salon::all();
-        $profesores = Profesor::all();
         return view("pages.alta-curso")
             ->with("salones",$salones)
-            ->with("profesores",$profesores)
             ->with("user",$user);
+    }
+
+    public function nuevoModulo($catalogo_modulo_id){
+      $catalogo = CatalogoCurso::findOrFail($catalogo_modulo_id);
+      $salones = Salon::all();
+      $diplomados = Diplomado::all();
+      return view("pages.alta-modulo")
+        ->with("salones",$salones)
+        ->with("catalogo",$catalogo)
+        ->with('diplomados',$diplomados);
     }
 
     /**
@@ -148,6 +180,15 @@ class CursoController extends Controller
             ->with("profesores", $profesores);
     }
 
+    public function verModulo($modulo_id)
+    {
+        $modulo = Curso::find($modulo_id);
+        $profesores = Profesor::whereIn('id', ProfesoresCurso::select('profesor_id')->where('curso_id',$modulo_id)->get())->get();
+        return view("pages.ver-modulo")
+            ->with("modulo",$modulo)
+            ->with("profesores", $profesores);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -156,17 +197,20 @@ class CursoController extends Controller
      */
     public function edit($id)
     {
-        $user = Curso::find($id);
-        $repetidos = ProfesoresCurso::select('profesor_id')->where('curso_id',$id)->get();
-        $repeArray = array();
-        foreach ($repetidos as $value) {
-            array_push($repeArray, $value->profesor_id);
-        }
+        $curso = Curso::findOrFail($id);
+        $catalogos = CatalogoCurso::where('tipo','<>','D')->get();
         return view("pages.update-curso")
-            ->with("user",$user)
-            ->with("cursos",Curso::all())
-            ->with("profesores", Profesor::all())
-            ->with("repetidos", $repeArray);
+            ->with("curso",$curso)
+            ->with("catalogos",$catalogos);
+    }
+
+    public function editarModulo($modulo_id)
+    {
+        $modulo = Curso::findOrFail($modulo_id);
+        $catalogos = CatalogoCurso::where('tipo','D')->get();
+        return view("pages.update-modulo")
+            ->with("modulo",$modulo)
+            ->with("catalogos",$catalogos);
     }
 
     /**
@@ -195,8 +239,30 @@ class CursoController extends Controller
         $user->cupo_minimo = $request->cupo_minimo;
         $user->salon_id = $request->salon_id;
         $user->save();
-        $catalogo = CatalogoCurso::find($user->catalogo_id);
-        return redirect('curso')
+        return redirect()->route('curso.show',$curso->id)
+          ->with('success', 'Se han actualizado los datos correctamente');
+    }
+
+    public function updateModulo(Request $request, $id)
+    {
+        $modulo = Curso::find($id);
+        $modulo->semestre_anio = $request->semestreAnio;
+        $modulo->semestre_pi = $request->semestreTemporada;
+        $modulo->semestre_si = $request->semestreInter;
+        $modulo->catalogo_id = $request->catalogo_id;
+        $modulo->fecha_inicio = $request->fecha_inicio;
+        $modulo->fecha_fin = $request->fecha_fin;
+        $modulo->hora_inicio = $request->hora_inicio;
+        $modulo->hora_fin = $request->hora_fin;
+        $modulo->dias_semana = $request->dias_semana;
+        $modulo->numero_sesiones = $request->numero_sesiones;
+        $modulo->acreditacion = $request->acreditacion;
+        $modulo->costo = $request->costo;
+        $modulo->cupo_maximo = $request->cupo_maximo;
+        $modulo->cupo_minimo = $request->cupo_minimo;
+        $modulo->salon_id = $request->salon_id;
+        $modulo->save();
+        return redirect()->route('modulo.ver', $modulo->id)
           ->with('success', 'Se han actualizado los datos correctamente');
     }
 
@@ -206,40 +272,41 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
-    {
-        if($request->type == "nombre")
-            {
-                $words=explode(" ", $request->pattern);
-                foreach($words as $word){
-                    $users = Curso::whereRaw("lower(unaccent(nombre)) ILIKE lower(unaccent('%".$word."%'))")
-                    -> get();
-                }
-             return view('display')->with("users",$users);
-        }elseif($request->type == "rfc")
-        {
-                $users = Profesor::whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$request->pattern."%'))")
-                ->get();
-                return view('display')->with("users",$users);
-        }elseif($request->type == "email"){
-                $users = Profesor::whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$request->pattern."%'))")
-                ->get();
-                return view('display')->with("users",$users);
-        }elseif($request->type == "telefono"){
-                $users = Profesor::whereRaw("lower(unaccent(telefono)) ILIKE lower(unaccent('%".$request->pattern."%'))")
-                ->get();
-                return view('pages.consulta-cursos')->with("users",$users);
-        }
+    // public function search(Request $request)
+    // {
+    //     if($request->type == "nombre")
+    //         {
+    //             $words=explode(" ", $request->pattern);
+    //             foreach($words as $word){
+    //                 $users = Curso::whereRaw("lower(unaccent(nombre)) ILIKE lower(unaccent('%".$word."%'))")
+    //                 -> get();
+    //             }
+    //          return view('display')->with("users",$users);
+    //     }elseif($request->type == "rfc")
+    //     {
+    //             $users = Profesor::whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$request->pattern."%'))")
+    //             ->get();
+    //             return view('display')->with("users",$users);
+    //     }elseif($request->type == "email"){
+    //             $users = Profesor::whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$request->pattern."%'))")
+    //             ->get();
+    //             return view('display')->with("users",$users);
+    //     }elseif($request->type == "telefono"){
+    //             $users = Profesor::whereRaw("lower(unaccent(telefono)) ILIKE lower(unaccent('%".$request->pattern."%'))")
+    //             ->get();
+    //             return view('pages.consulta-cursos')->with("users",$users);
+    //     }
 
-    }
+    // }
 
     public function searchWords($id){
       return view('pages.buscador-tematicas')->with('curso_id', $id);
     }
+    
     public function Csearch(Request $request){
        
         if ($request->type == "nombre_curso") {
-            $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")->get();
+            $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")->where('tipo','<>', 'D')->get();
             $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
                 ->get();
             return view('pages.consulta-cursos')->with("cursos",$res_busqueda);
@@ -277,8 +344,10 @@ class CursoController extends Controller
                 default:
                     break;
             }
-            $res_busqueda = Curso::where("semestre_anio", ">=", (integer)$request->anio)->where("semestre_anio", "<=", (integer)$request->anio2)
-                ->whereNotIn("id",$aux->filter(function ($value, $key){return sizeof($value) > 0;}))
+            $res_busqueda = Curso::join('catalogo_cursos','catalogo_cursos.id', '=','cursos.catalogo_id')
+            ->where('catalogo_cursos.tipo', '!=','\'D\'')
+            ->where("cursos.semestre_anio", ">=", $request->anio)->where("cursos.semestre_anio", "<=", $request->anio2)
+                ->whereNotIn("cursos.id", $aux->flatten()->filter(function ($value, $key){return $value->count()>0;}))
                 ->get();
             return view('pages.consulta-cursos')->with("cursos",$res_busqueda);
         }elseif ($request->type=="titular") {
@@ -291,15 +360,96 @@ class CursoController extends Controller
                 ->get();
             }
             $curso_prof = ProfesoresCurso::select('curso_id')->whereIn('profesor_id', $profesores)->get();
-            $res_busqueda = Curso::whereIn('id',$curso_prof)->get();
+            $res_busqueda = Curso::join('catalogo_cursos','catalogo_cursos.id', '=','cursos.catalogo_id')
+            ->where('catalogo_cursos.tipo', '<>','D')
+            ->whereIn('cursos.id',$curso_prof)->get();
             return view('pages.consulta-cursos')->with("cursos",$res_busqueda);
         }elseif ($request->type=="clave") {
-            $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")->get();
+            $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")->where('tipo','<>','D')->get();
             $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
                 ->get();
             return view('pages.consulta-cursos')->with("cursos",$res_busqueda);
         }
     }
+
+    public function searchModulo(Request $request){
+      if ($request->type == "nombre_curso") {
+          $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")
+          ->where('tipo','D')->get();
+          $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
+              ->get();
+          return view('pages.consulta-modulos')->with("cursos",$res_busqueda);
+      }elseif ($request->type=="fechas") {
+          $aux = collect();
+          switch ($request->Sem.$request->IO) {
+              case '1i':
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio)->where("semestre_pi",'1')->where("semestre_si",'s')->get());
+                  break;
+              case '2s':
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio)->where("semestre_pi",'1')->where("semestre_si",'s')->get());
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio)->where("semestre_pi",'1')->where("semestre_si",'i')->get());
+                  break;
+              case '2i':
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio)->where("semestre_pi",'1')->where("semestre_si",'s')->get());
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio)->where("semestre_pi",'1')->where("semestre_si",'i')->get());
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio)->where("semestre_pi",'2')->where("semestre_si",'s')->get());
+                  break;
+              default:
+                  break;
+          }
+          switch ($request->Sem2.$request->IO2) {
+              case '1s':
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio2)->where("semestre_pi",'1')->where("semestre_si",'i')->get());
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio2)->where("semestre_pi",'2')->where("semestre_si",'i')->get());
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio2)->where("semestre_pi",'2')->where("semestre_si",'s')->get());
+                  break;
+              case '1i':
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio2)->where("semestre_pi",'2')->where("semestre_si",'i')->get());
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio2)->where("semestre_pi",'2')->where("semestre_si",'s')->get());
+                  break;
+              case '2s':
+                  $aux->push(Curso::select('id')->where("semestre_anio",$request->anio2)->where("semestre_pi",'2')->where("semestre_si",'i')->get());
+                  break;
+              default:
+                  break;
+          }
+          $res_busqueda = Curso::join('catalogo_cursos','catalogo_cursos.id', '=','cursos.catalogo_id')
+          ->where('catalogo_cursos.tipo', '\'D\'')
+          ->where("cursos.semestre_anio", ">=", $request->anio)->where("cursos.semestre_anio", "<=", $request->anio2)
+              ->whereNotIn("cursos.id",$aux->flatten()->filter(function ($value, $key){return $value->count()>0;}))
+              ->get();
+          return view('pages.consulta-modulos')->with("cursos",$res_busqueda);
+      }elseif ($request->type=="titular") {
+          $words=explode(" ", $request->pattern);
+          foreach($words as $word){
+              $profesores = Profesor::select('id')->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
+              ->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
+              ->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
+              ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+              ->get();
+          }
+          $curso_prof = ProfesoresCurso::select('curso_id')->whereIn('profesor_id', $profesores)->get();
+          $res_busqueda = Curso::whereIn('cursos.id',$curso_prof)
+            ->join('catalogo_cursos','catalogo_cursos.id', '=','cursos.catalogo_id')
+            ->where('catalogo_cursos.tipo', 'D')
+            ->get();
+          return view('pages.consulta-modulos')->with("cursos",$res_busqueda);
+      }elseif ($request->type=="clave") {
+          $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")->get();
+          $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
+            ->join('catalogo_cursos','catalogo_cursos.id', '=','cursos.catalogo_id')
+            ->where('catalogo_cursos.tipo', 'D')
+            ->get();
+          return view('pages.consulta-modulos')->with("cursos",$res_busqueda);
+      }elseif ($request->type=="diplomado") {
+        $diplomados = Diplomado::select('id')->whereRaw("lower(unaccent(nombre_diplomado)) ILIKE lower(unaccent('%".$request->pattern."%'))")->get();
+        $res_busqueda = Curso::whereIn('diplomado_id', $diplomados)
+            ->get();
+        return view('pages.consulta-modulos')->with("cursos",$res_busqueda);
+      }
+  }
+
+
 
     public function delete($id)
     {
@@ -318,16 +468,16 @@ class CursoController extends Controller
     public function deleteModulo($id)
     {
         $participantes = ParticipantesCurso::where('curso_id', $id)->get();
-        if(empty($participantes[0]) == FALSE){
+        if(!$participantes->isEmpty()){
             return redirect()->back()->with('danger', 'El curso no puede ser eliminado porque tiene alumnos inscritos.');
         }
         $profesores = ProfesoresCurso::where('curso_id', $id)->get();
         foreach($profesores as $profesor){
             $profesor->delete();
         }
-        $user = Curso::findOrFail($id);
-        $user -> delete(); 
-        return redirect('diplomado')->with('success', "El módulo se eliminó exitosamente");
+        $curso = Curso::findOrFail($id);
+        $curso->delete(); 
+        return redirect()->route('modulo.consulta')->with('success', "El módulo se eliminó exitosamente");
     }
     public function bajaParticipante($id,$curso,$espera)
     {
@@ -398,8 +548,6 @@ class CursoController extends Controller
 
 
         $curso = new Curso;
-        $profesorCurso = new ProfesoresCurso;
-
         $curso->semestre_anio = $request->semestreAnio;
         $curso->semestre_pi = (string)$request->semestreTemporada;
         $curso->semestre_si = $request->semestreInter;
@@ -415,22 +563,69 @@ class CursoController extends Controller
         $curso->cupo_minimo = $request->cupo_minimo;
         $curso->catalogo_id = $request->catalogo_id;
         $curso->salon_id = $request->salon_id;
-
         $curso->save();
 
-        //Determinar el id del curso que se acaba de inscribir
-        $newCurso = Curso::where('salon_id',$request->salon_id)
-        ->where('catalogo_id',$request->catalogo_id)
-        ->where('fecha_inicio',$request->fecha_inicio)
-        ->where('fecha_fin',$request->fecha_fin)
-        ->where('semestre_anio',$request->semestreAnio)
-        ->where('semestre_pi', (string)$request->semestreTemporada)
-        ->where('semestre_si',$request->semestreInter)
-        ->get();
-        $catalogo = CatalogoCurso::find($request->catalogo_id);
         return redirect()->route('curso.modificarInstructores', $curso->id)
           ->with('warning', 'Asigne instructores ahora o posteriormente');
     }
+
+    public function createModulo(Request $request, $catalogo_modulo_id)
+    {
+        $dias_semana = '';
+        if ($request->L == 'on') {
+            if (strlen($dias_semana)>0) {
+                $dias_semana .= ', Lunes';
+            }else{$dias_semana .= 'Lunes';}
+        }
+        if ($request->M == 'on') {
+            if (strlen($dias_semana)>0) {
+                $dias_semana .= ', Martes';
+            }else{$dias_semana .= 'Martes';}
+        }
+        if ($request->X == 'on') {
+            if (strlen($dias_semana)>0) {
+                $dias_semana .= ', Miércoles';
+            }else{$dias_semana .= 'Miércoles';}
+        }
+        if ($request->J == 'on') {
+            if (strlen($dias_semana)>0) {
+                $dias_semana .= ', Jueves';
+            }else{$dias_semana .= 'Jueves';}
+        }
+        if ($request->V == 'on') {
+            if (strlen($dias_semana)>0) {
+                $dias_semana .= ', Viernes';
+            }else{$dias_semana .= 'Viernes';}
+        }
+        if ($request->S == 'on') {
+            if (strlen($dias_semana)>0) {
+                $dias_semana .= ', Sábado';
+            }else{$dias_semana .= 'Sábado';}
+        }
+
+
+        $curso = new Curso;
+        $curso->semestre_anio = $request->semestreAnio;
+        $curso->semestre_pi = (string)$request->semestreTemporada;
+        $curso->semestre_si = $request->semestreInter;
+        $curso->fecha_inicio = $request->fecha_inicio;
+        $curso->fecha_fin = $request->fecha_fin;
+        $curso->hora_inicio = $request->hora_inicio;
+        $curso->hora_fin = $request->hora_fin;
+        $curso->dias_semana = $dias_semana;
+        $curso->numero_sesiones = $request->numero_sesiones;
+        $curso->acreditacion = $request->acreditacion;
+        $curso->costo = $request->costo;
+        $curso->cupo_maximo = $request->cupo_maximo;
+        $curso->cupo_minimo = $request->cupo_minimo;
+        $curso->catalogo_id = $catalogo_modulo_id;
+        $curso->salon_id = $request->salon_id;
+        $curso->save();
+
+        return redirect()->route('curso.modificarInstructores', $curso->id)
+          ->with('warning', 'Asigne instructores ahora o posteriormente');
+    }
+
     public function inscripcionParticipante($id)
     { 
       //Datos del curso y cantidad de participantes

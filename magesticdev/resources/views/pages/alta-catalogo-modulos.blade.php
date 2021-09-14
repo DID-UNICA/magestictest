@@ -19,12 +19,12 @@
         @include ('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>Alta Catálogo de Cursos</h3>
+                <h3>Alta Catálogo de Módulos</h3>
                 <h4>Coordinación de Gestión y Vinculación</h4>
             </div>
             <div class="panel-body">
 
-                <form id="catalogocursoform" class="form-horizontal" method="POST" action="{{ route('catalogo-cursos.store') }}">
+                <form id="catalogocursoform" class="form-horizontal" method="POST" action="{{ route('catalogo.modulo.store') }}">
                     {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('clave_curso') ? ' has-error' : '' }}">
@@ -93,12 +93,7 @@
 
                         <div class="col-md-6">
                                 <select id="tipo" class="form-control" name="tipo" value="{{ old('tipo')}}">
-                                    <option value="T">Taller </option>
-                                    <option value="C">Curso </option>
-                                    <option value="F">Foro </option>
-                                    <option value="S">Seminario </option>
-                                    <option value="E">Evento </option>
-                                    <option value="CT">Curso-Taller</option>
+                                    <option selected value="D">Módulo de diplomado</option>
                                 </select>
                                 @if ($errors->has('tipo'))
                                     <span class="help-block">

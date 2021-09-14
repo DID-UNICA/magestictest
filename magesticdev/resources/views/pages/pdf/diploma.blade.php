@@ -190,23 +190,25 @@ body {
         <td  class="firma1">______________________</td>
       </tr>
       <tr>
-        <td  class="firma2" style="font-size: 15px;">{{$coordinadorGeneral->grado}} {{ $coordinadorGeneral->coordinador }}</td>
-        <td  class="firma2" style="font-size: 15px;">{{$secretarioApoyo->grado}} {{$secretarioApoyo->secretario}}</td>
-        <td  class="firma2" style="font-size: 15px;">{{$direccion->grado}} {{$direccion->director }}</td>
+        <td  class="firma2" style="font-size: 15px;">{{ $coordinadorGeneral->getNombreFirma() }}</td>
+        <td  class="firma2" style="font-size: 15px;">{{ $secretarioApoyo->getNombreFirma() }}</td>
+        <td  class="firma2" style="font-size: 15px;">{{ $direccion->getNombreFirma() }}</td>
       </tr>
       <tr>
-        <td class="firma3" style="font-size: 8pt;">Coordinadora del Centro de Docencia</td>
-        <td class="firma3" style="font-size: 8pt;">Secretaría de Apoyo a la Docencia</td>
-        <td class="firma3" style="font-size: 8pt;">Director de la Facultad de Ingeniería</td>
+        <td class="firma3" style="font-size: 8pt;">{{$coordinadorGeneral->getDescripcion()}}</td>
+        <td class="firma3" style="font-size: 8pt;">{{$secretarioApoyo->getDescripcion()}}</td>
+        <td class="firma3" style="font-size: 8pt;">{{$direccion->getDescripcion()}}</td>
       </tr>
     </table>
     </div>
   </div>
 
     <table width=auto style="vertical-align: top; padding-top: 1cm; margin: 0px;">
-    <tr width=auto>
-      <td id="folio" style=" padding-left: 22.5cm; right:1.2cm;"> {{ $folio }}</td>
-    </tr>
+    @if($folio != '')
+      <tr width=auto>
+        <td id="folio" style=" padding-left: 22.5cm; right:1.2cm;"> {{ $folio }}</td>
+      </tr>
+    @endif
     </table>
 
 </body>
@@ -223,7 +225,7 @@ body {
     @foreach($cursos as $curso)
     <tr>
       <td width=80% class = "izq">
-       <strong> Módulo {{$curso->getNumModulo($diplomado->id)}}.</strong>  {{$curso->getNombreCursoSinClave()}}
+       <strong> Módulo {{$curso->num_modulo}}.</strong>  {{$curso->getNombreCursoSinClave()}}
       </td>
       <td width=20% class = "califi">
         {{$calificaciones[$loop->index]}}
@@ -242,25 +244,29 @@ body {
     <tr>
       <td>Asistentes: {{$asistentes}}</td>
     </tr>
-    @if($libro!='')
-    <tr>
-      <td>Libro: {{$libro}}</td>
-    </tr>
+    @if($libro != '')
+      <tr>
+        <td>Libro: {{$libro}}</td>
+      </tr>
     @endif
     @if($foja!='')
-    <tr>
-      <td>Foja: {{$foja}}</td>
-    </tr>
+      <tr>
+        <td>Foja: {{$foja}}</td>
+      </tr>
     @endif
     <tr>
       <td><td>
     </tr>
-    <tr>
-      <td>Folio: {{$folio_der}}</td>
-    </tr>
-    <tr>
-      <td>{{$folio}}</td>
-    </tr>
+    @if(intval($folio_der)>0)
+      <tr>
+        <td>Folio: {{$folio_der}}</td>
+      </tr>
+    @endif
+    @if($folio != '')
+      <tr>
+        <td>{{$folio}}</td>
+      </tr>
+    @endif
   </table>
   </div>
   </body>

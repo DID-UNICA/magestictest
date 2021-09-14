@@ -124,8 +124,8 @@ body {
 }
 
 </style>
-  <body>
-    <div id=fondo>
+  <body id=fondo>
+    <div>
       <div class=encabezado id=encabezado_1>UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
       <img id=img1 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudo_fi_color.png" width="166" height="198">
       <img id= img2 src='img/escudounam-color.png' width="174" height="221">
@@ -139,19 +139,35 @@ body {
         <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento al:</h2>
       @elseif($profesor->genero=="femenino")
       <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento a la:</h2>
+      @else
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento a:</h2>
       @endif
         <br>
         <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
 
-        <h3 style="font-size: 17px;line-height: 30%;">por impartir el tema</h3>
+        <table width="15cm" align="center">
+          <tr width="15cm">
+          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+          </tr>
+          <tr width="15cm">
+          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 50%;">{{$tema}}</td>
+          </tr>
+          <tr width="15cm">
+          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 85%;">en el Seminario:</td>
+          </tr>
+          <tr width="15cm">
+            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
+          </tr>
+        </table>
+        <p style="font-size:12pt;">{{$fechaimp}}</h5>
+        <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
+        <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
+        <p style="font-size: 8pt; padding-bottom: 0.8cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+
+      <!--  <h3 style="font-size: 17px;line-height: 30%;">{{$texto}}</h3>
         <h2 class='nombre_tema'>{{$tema}}</h2>
         <h3 style="font-size: 17px;line-height: 30%;">del seminario</h3>
-        <h2 class='nombre_curso'>{{$cursoCatalogo->nombre_curso}}</h2>
-
-        <p style="font-size:12pt;">{{$fechaimp}}</h5>
-        <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$duracion}} h</h5>
-        <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-        <p style="font-size: 8pt; padding-bottom: 1cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+        <h2 class='nombre_curso'>{{$cursoCatalogo->nombre_curso}}</h2>-->
       </div>
       <div class = "tabla-centro">
         <table class = "tabla-centro">
@@ -159,8 +175,9 @@ body {
             @if($numFirmantes == 1){
             <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
             }@elseif($numFirmantes == 2){
-            <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
-            <td width=260 class="firma1" style="padding-top: 1cm;">______________________</td>
+            <td width=260 class="firma1" style="padding-top: 1cm;padding-left: 2.5cm;">______________________</td>
+            <td width=260 class="firma1" style="padding-top: 1cm;padding-right: 2.5cm;">______________________</td>
+
             }@elseif($numFirmantes == 3){
             <td  class="firma1" style="padding-top: 1cm;">______________________</td>
             <td  class="firma1" style="padding-top: 1cm;">______________________</td>
@@ -181,19 +198,19 @@ body {
           </tr>
           <tr>
             @if($numFirmantes == 1){
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[0]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmantes[0]}}</td>
             }@elseif($numFirmantes == 2){
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[1]}}</td>
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[0]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;padding-left: 2.5cm;">{{$firmantes[1]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;padding-right: 2.5cm;">{{$firmantes[0]}}</td>
             }@elseif($numFirmantes == 3){
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[2]}}</td>
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[1]}}</td>
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[0]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmantes[2]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmantes[1]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmantes[0]}}</td>
             }@elseif($numFirmantes == 4){
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[3]}}</td>
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[2]}}</td>
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[1]}}</td>
-            <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[0]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmantes[3]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmantes[2]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmantes[1]}}</td>
+            <td  class="firma" style="font-weight: bold; font-size: 10pt; padding-top: 0.3cm;">{{$firmantes[0]}}</td>
             }@elseif($numFirmantes == 5){
             <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[4]}}</td>
             <td  class="firma" style="font-weight: bold; font-size: 9pt; padding-top: 0.2cm;">{{$firmantes[3]}}</td>
@@ -207,8 +224,8 @@ body {
             @if($numFirmantes == 1){
             <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
             }@elseif($numFirmantes == 2){
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[1]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
+            <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">{{$descripciones[1]}}</td>
+            <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">{{$descripciones[0]}}</td>
 
             }@elseif($numFirmantes == 3){
             <td class="firma" style="font-size: 8pt;">{{$descripciones[2]}}</td>
@@ -233,7 +250,7 @@ body {
         </table>
       </div>
     </div>
-    <table width=auto style="vertical-align: top; padding-top: 0.7cm; margin: 0px;">
+    <table width=auto style="vertical-align: top; padding-top: 1cm; margin: 0px;">
       <tr width=auto>
         <td id="numero_inferior" style="left: 1.2cm;">{{ $folio_der }}</td>
         <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;">{{ $folio }}</td>

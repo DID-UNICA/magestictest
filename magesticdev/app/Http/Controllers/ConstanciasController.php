@@ -104,12 +104,9 @@ class ConstanciasController extends Controller{
       //Obtención de datos del curso
       $curso = Curso::findOrFail($id);
       if(!$curso->acreditacion)
-        return redirect()->back()->with('danger', 'No hay acreditación asignada al curso');
+        return redirect()->back()->with('danger', 'No hay calificación asignada para la acreditación de este curso');
       $cursoCatalogo = CatalogoCurso::find($curso->catalogo_id);
       $coordinacion = Coordinacion::find($cursoCatalogo->coordinacion_id);
-      $tipo = $cursoCatalogo->tipo;
-      if($tipo == 'CT'){$tipo = 'T';}
-      $institucion = $cursoCatalogo->institucion;
 
       //Obtención de fechas
       $fechaimp = $curso->getFecha();
@@ -121,18 +118,6 @@ class ConstanciasController extends Controller{
       $mes_a = $fecha[1];
       $mes_a = $curso->translate_month($mes_a);
       $fecha = $dia_a . " de " .$mes_a . " de " . $anio;
-
-      //FOLIO INSTITUCIONAL
-      if($request->gen_folio){
-        $idTipo = (strlen($request->typeid) != 0 and is_numeric($request->typeid)) ? intval($request->typeid) : $curso->getTypeId();
-        if($idTipo>99){
-            $idTipo = (string)$idTipo;
-        }elseif($idTipo>9){
-            $idTipo="0".(string)$idTipo;
-        }else{
-            $idTipo="00".(string)$idTipo;
-        }
-      }
 
       //FOLIO PEQUEÑO
       if($request->gen_folio_peq)
@@ -164,45 +149,42 @@ class ConstanciasController extends Controller{
       //El tipo de constancia necesita al coordinador del CD como mayor cargo
       }elseif ($tipoDeConstancia == "B" or $tipoDeConstancia == "D" 
       or $tipoDeConstancia == "I" or $tipoDeConstancia == "H"){
-        try{
-          $coordinadorGeneral = CoordinadorGeneral::first();
-          $firmante1 = $coordinadorGeneral->getNombreFirma();
-          $descripcion1 = $coordinadorGeneral->getDescripcion();
-          $formatoConstancia = 1;
-        }catch(\ErrorException  $e){
+        $coordinadorGeneral = CoordinadorGeneral::first();
+        if(!$coordinadorGeneral){
           return redirect()->back()->with(
             'info',
             'Primero hay que dar de alta al Coordinador del Centro de Docencia'
           );
         }
+        $firmante1 = $coordinadorGeneral->getNombreFirma();
+        $descripcion1 = $coordinadorGeneral->getDescripcion();
+        $formatoConstancia = 1;
 
       //El tipo de constancia necesita al director como mayor cargo
       }elseif ($tipoDeConstancia == "E" OR $tipoDeConstancia == "G"){
-        try{
-          $director = Director::first();
-          $firmante1 = $director->getNombreFirma();
-          $descripcion1 = $director->getDescripcion();
-          $formatoConstancia = 1;
-        }catch(\ErrorException  $e){
+        $director = Director::first();
+        if(!$director){
           return redirect()->back()->with(
             'info',
             'Primero hay que dar de alta al Director'
           );
         }
+        $firmante1 = $director->getNombreFirma();
+        $descripcion1 = $director->getDescripcion();
+        $formatoConstancia = 1;
 
       //El tipo de constancia necesita al SAD como mayor cargo
       }elseif ($tipoDeConstancia == "C" or $tipoDeConstancia == "F"){
-        try{
-          $secretarioApoyo = SecretarioApoyo::first();
-          $firmante1 = $secretarioApoyo->getNombreFirma();
-          $descripcion1 = $secretarioApoyo->getDescripcion();
-          $formatoConstancia = 1;
-        }catch(\ErrorException  $e){
+        $secretarioApoyo = SecretarioApoyo::first();
+        if(!$secretarioApoyo){
           return redirect()->back()->with(
             'info', 
             'Primero hay que dar de alta al Secretario de Apoyo a la Docencia'
           );
         }
+        $firmante1 = $secretarioApoyo->getNombreFirma();
+        $descripcion1 = $secretarioApoyo->getDescripcion();
+        $formatoConstancia = 1;
       }
 
       //BUSCAMOS AL SEGUNDO FIRMANTE
@@ -213,31 +195,29 @@ class ConstanciasController extends Controller{
       
       //El tipo de constancia necesita al SAD como menor cargo
       }elseif($tipoDeConstancia == "G"){
-        try{
-          $secretarioApoyo = SecretarioApoyo::first();
-          $firmante2 = $secretarioApoyo->getNombreFirma();
-          $descripcion2 = $secretarioApoyo->getDescripcion();
-          $formatoConstancia = 2;
-        }catch(\ErrorException  $e){
+        $secretarioApoyo = SecretarioApoyo::first();
+        if(!$secretarioApoyo){
           return redirect()->back()->with(
             'info', 
             'Primero hay que dar de alta al Secretario de Apoyo a la Docencia'
           );
         }
+        $firmante2 = $secretarioApoyo->getNombreFirma();
+        $descripcion2 = $secretarioApoyo->getDescripcion();
+        $formatoConstancia = 2;
 
       //El tipo de constancia necesita al coordinador del CD como menor cargo
       }elseif($tipoDeConstancia == "F"){
-        try{
-          $coordinadorGeneral = CoordinadorGeneral::first();
-          $firmante2 = $coordinadorGeneral->getNombreFirma();
-          $descripcion2 = $coordinadorGeneral->getDescripcion();
-          $formatoConstancia = 2;
-        }catch(\ErrorException  $e){
+        $coordinadorGeneral = CoordinadorGeneral::first();
+        if(!$coordinadorGeneral){
           return redirect()->back()->with(
             'info',
             'Primero hay que dar de alta al Coordinador del Centro de Docencia”'
           );
         }
+        $firmante2 = $coordinadorGeneral->getNombreFirma();
+        $descripcion2 = $coordinadorGeneral->getDescripcion();
+        $formatoConstancia = 2;
       }
 
       //BUSCAMOS A LOS INSTRUCTORES
@@ -385,8 +365,7 @@ class ConstanciasController extends Controller{
           $numLista = app('App\Http\Controllers\ConstanciasController')->convertirACadena($iter);
           $profesor = Profesor::findOrFail($participante->profesor_id);
           if($request->gen_folio){
-            $folio_inst = "F04".$anio.$tipo.$idTipo."C".$numLista;
-            $participante->folio_inst = $folio_inst;
+            $participante->folio_inst = $request->typeid.$numLista;
           }
           else
             $participante->folio_inst = "";

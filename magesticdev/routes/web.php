@@ -37,7 +37,7 @@ Route::get('curso/nuevo/{id}', "CursoController@nuevo")->name("curso.nuevo");
 Route::post('curso/save', "CursoController@create")->name('curso.store');
 Route::get('curso/{id}', "CursoController@show")->name('curso.show');
 Route::get('curso', "CursoController@index")->name("curso.consulta");
-Route::get('curso/busqueda', "CursoController@search")->name('curso.busqueda');
+//Route::get('curso/busqueda', "CursoController@search")->name('curso.busqueda');
 Route::post('cursos/busqueda', "CursoController@Csearch")->name('curso.Csearch');
 Route::get('cursos/busquedapalabras/{id}', "CursoController@searchWords")->name('curso.Wsearch');
 Route::get('curso/actualizar/{id}', "CursoController@edit")->name('curso.update');
@@ -45,6 +45,7 @@ Route::get('curso/inscripcion/{id}', "CursoController@inscripcionParticipante")-
 Route::post('curso/inscripcion/{curso_id}/busqueda', "ProfesorController@search1")->name('profesor.consulta1');
 Route::post('curso/inscripcion/{curso_id}/search2', "ProfesorController@search2")->name('profesor.consulta2');
 Route::post('curso/inscripcion/{curso_id}/{tema_id}/search3', "ProfesorController@search3")->name('profesor.consulta3');
+Route::post('curso/inscripcion/{curso_id}/{tema_id}/search4', "ProfesorController@search4")->name('profesor.consulta4');
 Route::get('curso/generar-formatos/{curso}', "CursoController@GenerarFormatos")->name('curso.generar-formatos');
 Route::get('curso/ver-profesores/{curso}', "CursoController@verParticipante")->name('curso.ver-participante');
 
@@ -73,6 +74,10 @@ Route::post('catalogo-cursos/temasupdate/{id}/{temas}',"TemaSeminarioController@
 Route::get('catalogo-cursos/{id}', "CatalogoCursosController@show")->name('catalogo-cursos.show');
 Route::get('catalogo-cursos','CatalogoCursosController@search')->name("catalogo-cursos.consulta");
 Route::get('catalogo-cursos/actualizar/{id}', "CatalogoCursosController@edit")->name('catalogo-cursos.update');
+Route::get('catalogo-cursos/actualizar-temas-seminario/{curso_id}', "TemaSeminarioController@index")->name('catalogo-curso.ver-ts');
+Route::post('catalogo-cursos/actualizar-temas-seminario/update/{ts_id}', "TemaSeminarioController@update")->name('temas-catalogo.update');
+Route::get('catalogo-cursos/actualizar-temas-seminario/delete/{ts_id}', "TemaSeminarioController@delete")->name('temas-catalogo.delete');
+Route::post('catalogo-cursos/actualizar-temas-seminario/create/{ct_id}', "TemaSeminarioController@create")->name('temas-catalogo.create');
 Route::put('catalogo-cursos/actualizar/{id}', "CatalogoCursosController@update")->name('catalogo-cursos.actualizar');
 Route::get('catalogo-cursos/baja/{id}', "CatalogoCursosController@delete");
 
@@ -90,22 +95,71 @@ Route::get('coordinacion/baja/{id}', "CoordinacionController@delete");
 
 
 /* Rutas de Diplomado */
-Route::get('diplomado', "DiplomadoController@index")->name("diplomado.consulta");
+//Para consultar todos los diplomados
+Route::get('diplomados', "DiplomadoController@index")->name("diplomado.consulta");
+Route::post('diplomados/search', "DiplomadoController@search")->name("diplomado.search");
+
+//Para crear un nuevo diplomado y guardarlo
 Route::get('diplomado/nuevo', "DiplomadoController@nuevo")->name("diplomado.nuevo");
-Route::post('diplomado/save', "DiplomadoController@create")->name('diplomado.store');
-Route::get('diplomado/ver-diplomado/{diplomado}', "DiplomadoController@verCursosDiplomado")->name('diplomado.ver-diplomado');
-Route::get('diplomado/ver-participantes/{diplomado}', "DiplomadoController@verParticipantesDiplomado")->name('diplomado.ver-participantes');
-Route::get('diplomado/baja/{id}', "DiplomadoController@delete");
-Route::get('diplomado/{id}', "DiplomadoController@show")->name('diplomado.show');
-Route::get('diplomado/añadir-cursos/{id}', "DiplomadoController@añadirCursos");
-Route::post('diplomado/addCursos', "DiplomadoController@addCursos")->name('diplomado.addCursos');
-Route::get('diplomado/descartarCurso/{diplomado_id}/{curso_id}', "DiplomadoController@descartarCurso")->name('diplomado.descartarCurso');
-Route::get('diplomado/descartarParticipante/{diplomado_id}/{profesor_id}', "DiplomadoController@descartarParticipante")->name('diplomado.descartarParticipante');
-Route::get('diplomado/actualizar/{id}', "DiplomadoController@edit")->name('diplomado.edit');
-Route::put('diplomado/actualizar/{id}', "DiplomadoController@update")->name('diplomado.actualizar');
-Route::get('diplomado/inscribirAlumnos/{diplomado}', "DiplomadoController@inscribirAlumnos")->name('diplomado.inscribirAlumnos');
-Route::get('diplomado/buscarCandidatos/{diplomado}','DiplomadoController@buscarCandidatos')->name('diplomado.buscarCandidatos');
-Route::post('diplomado/registrar/{profesor_id}/{diplomado_id}', "DiplomadoController@registrarParticipante")->name('diplomado.registrar');
+Route::post('diplomado/nuevo/save', "DiplomadoController@create")->name('diplomado.store');
+//Para editar un diplomado y guardarlo
+Route::get('diplomado/{id}', "DiplomadoController@edit")->name("diplomado.edit");
+Route::put('diplomado/{id}/save', "DiplomadoController@update")->name("diplomado.update");
+//Para borrar un diplomado
+Route::get('diplomado/delete/{id}', "DiplomadoController@delete")->name("diplomado.delete");
+//Para asignar modulos al diplomado
+Route::post('diplomado/{diplomado_id}/modulos/asignar/search', "DiplomadoController@searchModulo")->name('modulo.search.diplomado');
+Route::get('diplomado/{diplomado_id}/modulos/asignar', "DiplomadoController@asignarModulo")->name("diplomado.modulo.asignar");
+Route::post('diplomado/{diplomado_id}/modulos/asignar/{modulo_id}', "DiplomadoController@createModulo")->name("diplomado.modulo.create");
+//Para desasignar un modulo de un diplomado
+Route::get('diplomado/{diplomado_id}/modulos/desasignar/{modulo_id}', "DiplomadoController@deleteModulo")->name("diplomado.modulo.delete");
+
+
+//Para consultar los módulos de un diplomado programados
+Route::get('diplomado/{diplomado_id}/modulos', "CursoController@verModulosDiplomado")->name("modulo.consulta.diplomado");
+//Para consultar todos los módulos programados
+Route::get('modulos/consulta', "CursoController@verModulos")->name("modulo.consulta");
+//Para crear un nuevo módulo programado
+Route::get('modulo/{catalogo_modulo_id}/crear', "CursoController@nuevoModulo")->name("modulo.nuevo");
+Route::post('modulo/{catalogo_modulo_id}/crear/save', "CursoController@createModulo")->name('modulo.store');
+//Para ver un módulo programado
+Route::get('modulo/{modulo_id}/ver', "CursoController@verModulo")->name("modulo.ver");
+//Para editar un módulo programado
+Route::get('modulo/{modulo_id}/editar', "CursoController@editarModulo")->name("modulo.edit");
+Route::put('modulo/{modulo_id}/editar/save', "CursoController@updateModulo")->name('modulo.update');
+//Para borrar un módulo programado
+Route::get('modulo/{modulo_id}/delete', "CursoController@deleteModulo")->name('modulo.delete');
+// Para buscar un módulo programado
+Route::post('modulo/search', "CursoController@searchModulo")->name('modulo.search');
+
+
+//Para consultar los catálogos de módulos
+Route::get('catalogo/modulos/consulta', "CatalogoCursosController@verModulos")->name("catalogo.modulo.consulta");
+Route::post('catalogo/modulos/search', "CatalogoCursosController@searchModulos")->name("catalogo.modulo.search");
+
+//Para crear un nuevo catálogo de módulo
+Route::get('catalogo/modulo/crear', "CatalogoCursosController@nuevoModulo")->name("catalogo.modulo.nuevo");
+Route::post('catalogo/modulo/crear/save', "CatalogoCursosController@createModulo")->name("catalogo.modulo.store");
+//Para ver un catalogo de modulo
+Route::get('catalogo/modulo/{catalogo_modulo_id}/ver', "CatalogoCursosController@verModulo")->name("catalogo.modulo.ver");
+//Para editar un catálogo de módulo
+Route::get('catalogo/modulo/{catalogo_modulo_id}/editar', "CatalogoCursosController@editModulo")->name("catalogo.modulo.edit");
+Route::put('catalogo/modulo/{catalogo_modulo_id}/editar/save', "CatalogoCursosController@updateModulo")->name("catalogo.modulo.update");
+//Para borrar un catálogo de módulo
+Route::get('catalogo/modulo/{catalogo_modulo_id}/delete', "CatalogoCursosController@deleteModulo")->name("catalogo.modulo.delete");
+
+// Route::get('diplomado/ver-diplomado/{diplomado}', "DiplomadoController@verCursosDiplomado")->name('diplomado.ver-diplomado');
+// Route::get('diplomado/ver-participantes/{diplomado}', "DiplomadoController@verParticipantesDiplomado")->name('diplomado.ver-participantes');
+// Route::get('diplomado/{id}', "DiplomadoController@show")->name('diplomado.show');
+// Route::get('diplomado/añadir-cursos/{id}', "DiplomadoController@añadirCursos");
+// Route::post('diplomado/addCursos', "DiplomadoController@addCursos")->name('diplomado.addCursos');
+// Route::get('diplomado/descartarCurso/{diplomado_id}/{curso_id}', "DiplomadoController@descartarCurso")->name('diplomado.descartarCurso');
+// Route::get('diplomado/descartarParticipante/{diplomado_id}/{profesor_id}', "DiplomadoController@descartarParticipante")->name('diplomado.descartarParticipante');
+// Route::get('diplomado/actualizar/{id}', "DiplomadoController@edit")->name('diplomado.edit');
+// Route::put('diplomado/actualizar/{id}', "DiplomadoController@update")->name('diplomado.actualizar');
+// Route::get('diplomado/inscribirAlumnos/{diplomado}', "DiplomadoController@inscribirAlumnos")->name('diplomado.inscribirAlumnos');
+// Route::get('diplomado/buscarCandidatos/{diplomado}','DiplomadoController@buscarCandidatos')->name('diplomado.buscarCandidatos');
+// Route::post('diplomado/registrar/{profesor_id}/{diplomado_id}', "DiplomadoController@registrarParticipante")->name('diplomado.registrar');
 
 
 

@@ -26,7 +26,7 @@
     @endfor
     @for($i = 0; $i<sizeof($facultades); $i++)
         @if($facultades[$i]->nombre == "Facultad de Ingeniería")
-          ingenieria_id = {{$facultades[$i]->id}};
+            ingenieria_id = {{$facultades[$i]->id}};
         @endif;
         facultades[{{$i}}] = {
         id: {{ $facultades[$i]->id}},
@@ -274,7 +274,7 @@
                         <option  value="Ingeniería">Ingeniería</option>
                         <option  value="Maestría">Maestría</option>
                         <option  value="Doctorado">Doctorado</option>
-                        <option  value="Otro">Otro</option>
+                        <option id="otroD">Otro</option>
                     </select>
                     @if ($errors->has('grado'))
                         <span class="help-block">
@@ -286,7 +286,7 @@
                 <div name="abr_grado_div" id="abr_grado_div" style="display:none" class="form-group{{ $errors->has('abr_grado') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Abreviatura de grado:</label>
                     <div class="col-md-6">
-                      <input name="abr_grado" id="abr_grado" type="text" class="form-control" value="{{ old('abr_grado') }}">
+                      <input name="abr_grado" id="abr_grado" type="text" class="form-control">
                         @if ($errors->has('abr_grado'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('abr_grado') }}</strong>
@@ -298,7 +298,7 @@
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     <label for="email" class="col-md-4 control-label">E-Mail</label>
                     <div class="col-md-6">
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" oninvalid="this.setCustomValidity('Ingrese su email por favor')" oninput="this.setCustomValidity('')">
+                        <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" oninvalid="this.setCustomValidity('Ingrese su email por favor')" oninput="this.setCustomValidity('')" maxlength="200">
                         @if ($errors->has('email'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('email') }}</strong>
@@ -310,10 +310,28 @@
                 <div class="form-group{{ $errors->has('genero') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Género</label>
                     <div class="col-md-6">
-                        Femenino: <input type="radio" name="genero" value="femenino" >
-                        Masculino: <input type="radio" name="genero" value="masculino" >
+                        Femenino: <input onclick="changeDegree()" type="radio" name="genero" value="femenino" >
+                        Masculino: <input onclick="changeDegree()" type="radio" name="genero" value="masculino" >
+                        Otro: <input onclick="changeDegree()" id="otro" type="radio" name="genero" value="otro">
+                    </label>
+                    <p id="warning" style="display: none">Si seleccionó género "otro" por favor verifique la abrevitura de su grado académico</p>
+                        <script>
+                            function changeDegree() {
+                                var genYes = document.getElementById("otro");
+                                var degree = document.getElementById("otroD");
+                                var abrDegree = document.getElementById("abr_grado_div");
+                                var warning = document.getElementById("warning");
+                                if(genYes.checked){
+                                    degree.selected="selected"
+                                    abrDegree.style="display: block"
+                                    warning.style="display: block"
+                                }else{
+                                    warning.style="display: none"
+                                }
+                            }
+                        </script>
                         @if ($errors->has('genero'))
-                          <span class="help-block">
+                            <span class="help-block">
                               <strong>{{ $errors->first('genero') }}</strong>
                           </span>
                         @endif

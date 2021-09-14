@@ -18,15 +18,13 @@ class Diplomado extends Model
      * @var array
      */
     protected $fillable = [
-        'id','nombre_diplomado','cupo_maximo'
+        'id','nombre_diplomado'
     ];
 
     public function getFecha(){
-        $diplomadosCurso = DiplomadosCurso::where('diplomado_id',$this->id)->get();
-        $cursos = array();
-        foreach($diplomadosCurso as $diplomadoCurso){
-            $curso=Curso::find($diplomadoCurso->curso_id);
-            array_push($cursos,$curso);
+        $cursos = Curso::where('diplomado_id', $this->id)->get();
+        if($cursos->isEmpty()){
+          return null;
         }
         //Llamar a funcion que ordene los cursos por fecha
         $fecha_inicio = Carbon::now();
@@ -109,17 +107,13 @@ class Diplomado extends Model
           }
         return $mes;
     }
+
     public function getDuracion(){
-        $diplomadosCurso = DiplomadosCurso::where('diplomado_id',$this->id)->get();
-        $cursos = array();
+        $modulos = Curso::where('diplomado_id',$this->id)->get();
         $duracionT = 0;
-        foreach($diplomadosCurso as $diplomadoCurso){
-            $curso=Curso::find($diplomadoCurso->curso_id);
-            array_push($cursos,$curso);
-        }
-        foreach($cursos as $curso){
-            $curso_catalogo = CatalogoCurso::find($curso->catalogo_id);
-            $tmp = intval($curso_catalogo->duracion_curso);
+        foreach($modulos as $modulo){
+            $catalogo = $modulo->getCatalogoCurso();
+            $tmp = intval($catalogo->duracion_curso);
             $duracionT = $duracionT + $tmp;
 
         }

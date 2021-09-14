@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class ProfesoresCurso extends Model
 {
     protected $table = 'profesor_curso';
@@ -14,9 +15,34 @@ class ProfesoresCurso extends Model
      * @var array
      */
     protected $fillable = [
-        'curso_id','profesor_id','tema_seminario_id', 'folio_inst','folio_peque','fecha_envio'];
+       'curso_id','profesor_id','tema_seminario_id', 'folio_inst','folio_peque','fecha_envio','fecha_exposicion'];
 
     public function getProfesor(){
       return Profesor::findOrFail($this->profesor_id);
+    }
+
+    public function getFechaImparticion(){
+
+      //arrays utiles
+      $meses_array = array('enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre');
+      $dias_semana_array = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
+      $fecha = $this->fecha_exposicion;
+      if(!$fecha)
+        return null;
+      if ($fecha[8] == '0'){
+        $dia = $fecha[9];
+      }
+      else{
+        $dia = $fecha[8] . $fecha[9];
+      }
+      if ($fecha[5] == '0'){
+        $mes = $fecha[6];
+      }
+      else{
+        $mes = $fecha[5] . $fecha[6];
+      }
+      $anio = $fecha[0].$fecha[1].$fecha[2].$fecha[3];
+      $fecha_cadena = 'El día '.$dia.' de '.$meses_array[$mes].' de '.$anio;
+      return $fecha_cadena;
     }
 }

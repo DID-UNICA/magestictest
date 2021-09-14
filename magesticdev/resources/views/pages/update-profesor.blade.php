@@ -229,27 +229,53 @@ function procedencia_carrera() {
           <div class="col-md-4">
             <div class="row">
               <label class="radio-inline">
-                @if($user->genero === "masculino")
-                <input id="femenino" type="radio" name="genero" value="femenino">
+                @if($user->genero == "femenino")
+                <input onclick="changeDegree()" id="femenino" type="radio" name="genero" value="femenino">
                 @else
-                <input id="femenino" type="radio" name="genero" value="femenino" checked>
+                <input onclick="changeDegree()" id="femenino" type="radio" name="genero" value="femenino" checked>
                 @endif
                 Femenino
               </label>
             </div>
             <div class="row">
               <label class="radio-inline">
-                @if($user->genero === "masculino")
-                <input id="masculino" type="radio" name="genero" value="masculino" checked>
+                @if($user->genero == "masculino")
+                <input onclick="changeDegree()" id="masculino" type="radio" name="genero" value="masculino" checked>
                 @else
-                <input id="masculino" type="radio" name="genero" value="masculino">
+                <input onclick="changeDegree()" id="masculino" type="radio" name="genero" value="masculino">
                 @endif
                 Masculino
               </label>
           </div>
+          <div class="row">
+              <label class="radio-inline">
+                @if($user->genero == "otro"){
+                <input onclick="changeDegree()" id="otroG" type="radio" name="genero" value="otro" checked>
+                @else
+                <input onclick="changeDegree()" id="otroG" type="radio" name="genero" value="otro">
+                @endif
+                Otro
+              </label>
+              <p id="warning" style="display: none">Si seleccionó género "otro" por favor verifique la abrevitura de su grado académico</p>
+            </div>
           </div>
       </div>
+      <script>
+        function changeDegree() {
+          var genYes = document.getElementById("otroG");
+          var warning = document.getElementById("warning");
+          var degree= document.getElementById("grado").value='Otro';
+          var abrDegree = document.getElementById("abr_grado_div")
 
+          if(genYes.checked){
+              abrDegree.style="display: block"
+              warning.style="display: block"
+          }
+          else{
+            warning.style="display: none"
+          }
+          }
+        </script>
        <div class="form-group col-md-6">
         {!!Form::label("semblanza_corta", "Semblanza corta:")!!}
         {!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "cols"=>"90", "wrap"=>"hard","class" => "form-control", "placeholder" => "Semblanza", ""])!!}

@@ -46,7 +46,7 @@ body {
   font-weight: bold;
 }
 #encabezado_2{
-  font-size: 22pt;
+  font-size: 20pt;
   font-weight: bold;
   line-height: 100%;
 }

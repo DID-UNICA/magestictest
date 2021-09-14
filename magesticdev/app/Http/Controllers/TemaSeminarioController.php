@@ -15,61 +15,48 @@ class TemaSeminarioController extends Controller
         $this->middleware('auth');
     }
 
-    public function create($catalogo_id, $num_temas, Request $request)
+    public function create(Request $request, $catalogo_id)
     {
-        
-        for($i = 0; $i < intval($num_temas); $i++){
-            $nombre = "nombre".$i;
-            $duracion = "duracion".$i;
-            $tema = new TemaSeminario;
-            $tema->nombre = $request->$nombre;
-            $tema->duracion = $request->$duracion;
-            $tema->catalogo_id = $catalogo_id;
-            $tema->save();
-        }
-        return redirect()
-            ->route('catalogo-cursos.consulta')
-            ->with('success', 'El catálogo se ha creado exitosamente.');
+      try{
+        $ts = new TemaSeminario;
+        $ts->nombre = $request->namen;
+        $ts->duracion = intval($request->duracion);
+        $ts->catalogo_id = $catalogo_id;
+        $ts->save();
+        return redirect()->back()->with('success', 'Nuevo tema de seminario creado exitosamente.');
+      }catch (\Illuminate\Database\QueryException $e){
+        return redirect()->back()->with('danger', 'Problemas al crear el nuevo tema del seminario.');
+      }
     }
 
-    public function update($catalogo_id, $num_temas, Request $request)
+    public function update(Request $request, $id)
     {
-        $antiguosTemas = TemaSeminario::where('catalogo_id', $catalogo_id)->get();
-        foreach($antiguosTemas as $tema){
-          try{
-            $tema->delete();
-          } catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()
-            ->with('danger', 'Existen instructores de algún curso asociados a los temas anteriores, primero elimínelos');
-          }
-        }
-        for($i=0; $i<intval($num_temas); $i++){
-            $tema = new TemaSeminario;
-            $nombre = "nombre".$i;
-            $duracion = "duracion".$i;
-            $tema->nombre = $request->$nombre;
-            $tema->duracion = $request->$duracion;
-            $tema->catalogo_id = $catalogo_id;
-            $tema->save();
-        }
-        return redirect()
-            ->route('catalogo-cursos.consulta')
-            ->with('success', 'El catálogo se ha actualizado exitosamente.');
+      try{
+        $ts = TemaSeminario::findOrFail($id);
+        $ts->nombre = $request->name;
+        $ts->duracion = $request->duracion;
+        $ts->save();
+        return redirect()->back()->with('success', 'Tema de seminario actualizado exitosamente.');
+      }catch (\Illuminate\Database\QueryException $e){
+        return redirect()->back()->with('danger', 'Problemas al actualizar del seminario.');
+      }
     }
 
     public function delete($id){
-        try{
-            $tema = TemaSeminario::findOrFail($id);
-            try{
-              $tema->delete();
-            } catch(\Illuminate\Database\QueryException $e){
-              return redirect()->back()
-              ->with('danger', 'Existen instructores de algún curso asociados a este tema, primero elimínelos');
-            }
-            return;
-        }catch (\Illuminate\Database\QueryException $e){
-                return redirect()->back()->with('danger', 'El tema de seminario no pudo ser eliminado.');
-            }
+      $ts = TemaSeminario::findOrFail($id);
+      try{
+        $ts->delete();
+        return redirect()->back()->with('success', 'Tema de seminario eliminado exitosamente.');
+      }catch(\Illuminate\Database\QueryException $e){
+        return redirect()->back()->with('danger', 'Problemas al eliminar el tema del seminario, verifique que no esté asociado a ningún instructor.');
+      }
+    }
+
+    public function index($cat_curso_id){
+      $cat_curso = CatalogoCurso::findOrFail($cat_curso_id);
+      return view('pages.update-temas-seminario-catalogo')
+        ->with('ts',TemaSeminario::where('catalogo_id', $cat_curso->id)->get())
+        ->with('ct', $cat_curso->id);
     }
 
 }

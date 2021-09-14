@@ -84,6 +84,9 @@
 							<div class = "form-group col-md-5">
 								<a style='margin: 3px;' href="{{ URL::to('catalogo-cursos') }}" class="btn btn-warning">Regresar</a>
 								<a style='margin: 3px;' href="{{ URL::to('catalogo-cursos/actualizar', $user->id) }}" class="btn btn-info">Actualizar información</a>
+                @if($user->tipo==='S')
+								  <a style='margin: 3px;' href="{{ URL::to('catalogo-cursos/actualizar-temas-seminario', $user->id) }}" class="btn btn-success">Actualizar temas del seminario</a>
+                @endif
 								<a style='margin: 3px;' href="{{ URL::to('catalogo-cursos/baja', $user->id) }}" class="btn btn-danger">Dar de baja</a>
 							</div>
 						</div>

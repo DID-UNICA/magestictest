@@ -15,42 +15,28 @@
     </div>
     <section class="content-inner">
     <br>
+    @include ('partials.messages')
       <div class="panel panel-default">
-      @include ('partials.messages')
-                <div class="panel-heading">
-                      <h1>Diplomado: {{ $diplomado->nombre_diplomado }}</h1>
-                </div>
-                <div class="panel-body">
-
-
-
-
-<div class="row">
-<div class="row">
-  <div class="row col-md-12 ">{!! Form::open(['route' => array('diplomado.actualizar', $diplomado->id), "method" => "PUT"]) !!}
-    <div class="col-md-12 row">
-      <div class="form-group col-md-6">
-          {!!Form::label("nombre", "Nombre:")!!}
-        {!!Form::text("nombre", $diplomado->nombre_diplomado, [ "class" => "form-control", "placeholder" => "Nombre de Diplomado", "required"])!!}
+        <div class="panel-heading">
+              <h1>Diplomado: {{ $diplomado->nombre_diplomado }}</h1>
+        </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12 ">
+            {!! Form::open(['route' => array('diplomado.update', $diplomado->id), "method" => "PUT"]) !!}
+            <div class="col-md-12 row">
+              <div class="form-group col-md-6">
+                {!!Form::label("nombre", "Nombre:")!!}
+                {!!Form::text("nombre", $diplomado->nombre_diplomado, [ "class" => "form-control", "placeholder" => "Nombre de Diplomado", "required"])!!}
+              </div>
+            <div>
+            <div class="form-group col-md-12 row">
+              <button type="submit" class="btn btn-info col-md-offset-1">Actualizar</button>
+              <a href="{{ route('diplomado.consulta') }}" class="btn btn-danger">Regresar</a>
+            </div>
+            {!! Form::close() !!}
+          </div>
+        </div>
       </div>
-    <div class="form-group col-md-4">
-      {!!Form::label("cupo_maximo", "Cupo Máximo:")!!}
-      {!!Form::number("cupo_maximo", $diplomado->cupo_maximo, [ "oninvalid"=>"this.setCustomValidity('Ingrese un valor mayor a 0 por favor')", "oninput"=>"this.setCustomValidity('')", "class" => "form-control", "placeholder" => "Cupo Máximo", "required",'min'=>0])!!}
-    </div>
-
-
-    <div>
-    <button type="submit" class="btn btn-primary col-md-offset-1">Actualizar</button>
-    <a href="{{ URL::to('diplomado', $diplomado->id) }}" class="btn btn-info">Regresar</a>
-
-  </div>
-  {!! Form::close() !!}
-</div>
-
-
-
-      </div>
-
-     </section>
-
+    </section>
 @endsection

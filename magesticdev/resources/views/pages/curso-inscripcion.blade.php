@@ -30,17 +30,21 @@
                       'correo' => 'Por correo',
                       'rfc' => 'Por RFC',
                         'num' => 'Por número trabajador'),
-                      null,['class' => 'btn dropdown-toggle pull-left'] ) !!}
+                      null,['class' => 'btn dropdown-toggle pull-left', 'style'=>'margin:5px;'] ) !!}
                     {!!Form::hidden('count',$count)!!}
                     {!!Form::hidden('cupo',$curso->cupo_maximo)!!}
                     {!!Form::hidden('curso',$curso)!!}
                     {!!Form::hidden('nombre_curso',$curso->getNombreCurso())!!}
                 {!! Form::close() !!}
-                    <span class="input-group-btn col-md-2">
-                         <button class="btn btn-search " type="submit">Buscar</button>
-                        <a href="{{ route('curso.consulta') }}" class="btn btn-info">Regresar</a>
+                    <div class="row form-group">
+                         <button style="margin:5px;" class="btn btn-success " type="submit">Buscar</button>
+                          @if($curso->getTipo() === 'D')
+                            <a style="margin: 5px;" href="{{ route('modulo.consulta') }}" class="btn btn-info">Regresar</a>
+                          @else
+                            <a style="margin:5px;" href="{{ route('curso.consulta') }}" class="btn btn-info">Regresar</a>
+                          @endif
 
-                    </span>
+                    </div>
                 </div>
             </div>
             <div class="panel-body tablaFija">

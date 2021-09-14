@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Diplomado;
 use App\Curso;
-use App\DiplomadosCurso;
-use App\DiplomadosProfesor;
 use App\ParticipantesCurso;
 use App\Profesor;
+use App\ProfesoresCurso;
 use App\CatalogoCurso;
 
 use Illuminate\Http\Request;
@@ -24,17 +23,65 @@ class DiplomadoController extends Controller
     public function index()
     {
         $diplomados = Diplomado::all();
-
         return view("pages.consulta-diplomados")
             ->with("diplomados",$diplomados);    
     }
+    public function search(Request $request)
+    {
+      $diplomados = Diplomado::whereRaw("lower(unaccent(nombre_diplomado)) ILIKE lower(unaccent('%".$request->pattern."%'))")->get();
+      if($diplomados->isEmpty())
+        return redirect()->route('diplomado.consulta')
+          ->with("warning","No se encontraron resultados");
+      return view("pages.consulta-diplomados")
+          ->with("diplomados",$diplomados);
+    }
+
+    public function searchModulo(Request $request, $diplomado_id){
+      $diplomado = Diplomado::findOrFail($diplomado_id);
+      $modulos_dip = Curso::where('diplomado_id', $diplomado->id)->get();
+      if ($request->type == "nombre_curso") {
+          $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")
+            ->where('tipo','D')->get();
+          $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
+            ->where('diplomado_id', null)
+            ->get();
+          return view('pages.diplomado-inscribir-modulos')->with("modulos",$res_busqueda)
+            ->with('modulos_dip', $modulos_dip)
+            ->with('diplomado',$diplomado);
+      }elseif ($request->type=="titular") {
+          $words=explode(" ", $request->pattern);
+          foreach($words as $word){
+              $profesores = Profesor::select('id')->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
+              ->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
+              ->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
+              ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+              ->get();
+          }
+          $curso_prof = ProfesoresCurso::select('curso_id')->whereIn('profesor_id', $profesores)->get();
+          $res_busqueda = Curso::whereIn('cursos.id',$curso_prof)
+            ->join('catalogo_cursos','catalogo_cursos.id', '=','cursos.catalogo_id')
+            ->where('catalogo_cursos.tipo', 'D')
+            ->where('cursos.diplomado_id', null)
+            ->get();
+          return view('pages.diplomado-inscribir-modulos')->with("modulos",$res_busqueda)
+          ->with('modulos_dip', $modulos_dip)
+          ->with('diplomado',$diplomado);
+      }elseif ($request->type=="clave") {
+          $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%".$request->pattern."%'))")->get();
+          $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
+            ->join('catalogo_cursos','catalogo_cursos.id', '=','cursos.catalogo_id')
+            ->where('catalogo_cursos.tipo', 'D')
+            ->where('cursos.diplomado_id', null)
+            ->get();
+          return view('pages.diplomado-inscribir-modulos')->with("modulos",$res_busqueda)
+          ->with('modulos_dip', $modulos_dip)
+          ->with('diplomado',$diplomado);
+      }
+  }
+
     public function nuevo()
     {
-        $cursos = Curso::all();
-        $catCursos = CatalogoCurso::all();
-        return view("pages.alta-diplomado")
-            ->with("catCursos",$catCursos)
-            ->with("cursos",$cursos);
+      return view("pages.alta-diplomado");
     }
 
     public function show($id){
@@ -44,335 +91,132 @@ class DiplomadoController extends Controller
     }
 
     public function edit($id){
-        $diplomado = Diplomado::find($id);
+        $diplomado = Diplomado::findOrFail($id);
         return view("pages.update-diplomado")
             ->with("diplomado",$diplomado);
     }
+
+    public function update(Request $request, $id){
+      $diplomado = Diplomado::findOrFail($id);
+      $diplomado->nombre_diplomado = $request->nombre;
+      $diplomado->save();
+      return redirect()->route('diplomado.consulta')->with('success', 'El diplomado ha sido actualizado exitosamente');
+  }
 
     public function create(Request $request)
     {
         $diplomado = new Diplomado;
         $diplomado->nombre_diplomado = $request->nombre;
-        $diplomado->cupo_maximo = $request->cupo_max;
         $diplomado->save();
-        return redirect('diplomado')
+        return redirect()->route('diplomado.consulta')
           ->with('success', 'El diplomado: '.$diplomado->nombre_diplomado.' ha sido dado de alta exitosamente');
     }
-    public function verDiplomado($id)
-    {
-        $diplomado = Diplomado::findOrFail($id);
 
-        $diplomadosCurso = DiplomadosCurso::where('diplomado_id',$id)->get();
-
-        $cursos = array();
-        foreach($diplomadosCurso as $diplomadoCurso){
-            $curso = Curso::find($diplomadoCurso->curso_id);
-            array_push($cursos,$curso);
-        }
-   
-        return view("pages.ver-diplomado")
-            ->with("diplomado",$diplomado)
-            ->with("cursos",$cursos);
-    }
-
-    public function verCursosDiplomado($id)
-    {
-        $diplomado = Diplomado::findOrFail($id);
-        $diplomadosCurso = DiplomadosCurso::where('diplomado_id',$id)->get();
-        $cursos = array();
-        foreach($diplomadosCurso as $diplomadoCurso){
-            $curso = Curso::find($diplomadoCurso->curso_id);
-            array_push($cursos,$curso);
-        }
-   
-        //return view("pages.ver-diplomado")
-        return view("pages.ver-cursos-diplomado")
-            ->with("diplomado",$diplomado)
-            ->with("cursos",$cursos);
-    }
-
-    public function verParticipantesDiplomado($id)
-    {
-        $diplomado = Diplomado::findOrFail($id);
-        $diplomadosParticipantes = DiplomadosProfesor::join('profesors', 'profesors.id', 'profesor_id')->where('diplomado_id',$id)->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")->get();
-        $diplomadosCurso = DiplomadosCurso::where('diplomado_id',$diplomado->id)->get();
-        $profesores = array();
-        $bajas = array();
-        foreach($diplomadosParticipantes as $diplomadosParticipante){
-          foreach($diplomadosCurso as $diplomadoCurso){
-            $curso = Curso::find($diplomadoCurso->curso_id);
-            $participante = ParticipantesCurso::where('curso_id',$curso->id)
-              ->where('profesor_id',$diplomadosParticipante->profesor_id)->get();
-            //Un participante no está inscrito en un módulo
-            if($participante == "[]"){
-              array_push($bajas,
-              array(
-                'modulo' => CatalogoCurso::find($curso->id)->nombre_curso,
-                'nombres' => Profesor::find($diplomadosParticipante->profesor_id)->getNombres2()
-              ));
-            }
-          }
-          array_push($profesores,Profesor::find($diplomadosParticipante->profesor_id));
-        }
-          return view("pages.ver-profesores-diplomado")
-              ->with("diplomado",$diplomado)
-              ->with("profesores",$profesores)
-              ->with('bajas', $bajas);
-    }
     public function delete($id)
-    {   
-        try {
-                $diplomado = Diplomado::findOrFail($id);
-
-                $diplomadosCursos = DiplomadosCurso::where('diplomado_id',$diplomado->id)->get();
-                $diplomadosProfesores = DiplomadosProfesor::where('diplomado_id',$diplomado->id)->get();
-                foreach($diplomadosCursos as $diplomadosCurso){
-                    $curso = Curso::find($diplomadosCurso->id);
-                    foreach($diplomadosProfesores as $diplomadosProfesor){
-                        $profesor = Profesor::find($diplomadosProfesor->id);
-                        $participanteCurso = ParticipantesCurso::where('curso_id',$curso->id)->where('profesor_id',$profesor->id)->get();
-                        $participanteCurso->delete();
-                        $diplomadosProfesor->delete();
-                    }
-                    $diplomadosCurso->delete();
-                }
-
-
-
-                $diplomado -> delete();
-                return redirect('diplomado')
-                  ->with('success', 'El diplomado ha sido eliminado exitosamente');
-
-            }catch (\Illuminate\Database\QueryException $e){
-                return redirect()->back()->with('danger', 'El curso no puede ser eliminado porque tiene alumnos inscritos.');
-            }
-    }
-
-
-
-    public function descartarCurso($diplomado_id, $curso_id){
-        $curso = Curso::where('id',$curso_id)->get();
-        $curso = $curso[0];
-        //return $curso;
-        $diplomado = Diplomado::where('id',$diplomado_id)->get();
-        $diplomado = $diplomado[0];
-        //return $diplomado;
-        $diplomadoCursos = DiplomadosCurso::where('diplomado_id',$diplomado->id)->where('curso_id',$curso->id)->get();
-        $diplomadoCursos[0] -> delete();
-        
-        //Hay que actualizar los números de módulo
-        $diplomadoCursos = DiplomadosCurso::where('diplomado_id',$diplomado->id)->get();
-        if(!$diplomadoCursos->isEmpty()){
-            $diplomadoCursos -> sortBy('num_modulo');
-            $num_modulo = 1;
-            foreach($diplomadoCursos as $modulo){
-                if ($modulo->num_modulo != $num_modulo) {
-                    $modulo->num_modulo = $num_modulo;
-                    $modulo->save();
-                }
-            $num_modulo++;
-            }
-        }
-        ParticipantesCurso::where('curso_id', '=', $curso_id)->delete();
-        return redirect()->back()->with('success', 'El curso ha sido descartado del diplomado '.$diplomado->nombre_diplomado.' exitosamente.');
-    }
-
-    public function descartarParticipante($diplomado_id, $profesor_id){
-        $profesor = Profesor::where('id',$profesor_id)->get();
-        $profesor=$profesor[0];
-        //return $curso;
-        $diplomado = Diplomado::where('id',$diplomado_id)->get();
-        $diplomado=$diplomado[0];
-        //return $diplomado;
-        $diplomadoProfesor = DiplomadosProfesor::where('diplomado_id',$diplomado->id)->where('profesor_id',$profesor->id)->get();
-        $diplomadoProfesor=$diplomadoProfesor[0];
-        $diplomadoProfesor -> delete();
-
-        $diplomadosCursos = DiplomadosCurso::where('diplomado_id',$diplomado->id)->get();
-        //return $diplomadosCursos;
-        foreach($diplomadosCursos as $diplomadosCurso){
-            $curso = Curso::find($diplomadosCurso->curso_id);
-            $participanteCurso = ParticipantesCurso::where('profesor_id',$profesor->id)
-            ->where('curso_id',$curso->id)
-            ->delete();
-        }
-        return redirect()->back()->with('success', 'El profesor ha sido descartado del diplomado '.$diplomado->nombre_diplomado.' exitosamente y de todos los módulos que lo conforman.');
-    }
-
-    public function añadirCursos($id){
-        $diplomado = Diplomado::where('id',$id)->get();
-        $diplomado = $diplomado[0];
-        $cursosDip = DiplomadosCurso::where('diplomado_id', $id)->select('curso_id')->get();
-        $cursDip = array();
-        foreach ($cursosDip as $value) {
-            array_push($cursDip,$value->curso_id);
-        }
-        $temporales = Curso::whereNotIn('id', $cursDip)->get();
-        $cursos = array();
-        foreach($temporales as $curso){
-            if ($curso->getTipo() == 'D'){
-                array_push($cursos,$curso);
-            }
-        }
-        $catCursos = CatalogoCurso::all()
-        ->where('tipo','D');
-        //Añadir filtros para solo mandar cursos que no estén ya estén inscritos
-        return view("pages.diplomado-añadirCursos")
-            ->with("cursos",$cursos)
-            ->with("catCursos",$catCursos)
-            ->with("id",$id);
-    }
-
-    public function addCursos(Request $request){
-        //Para insertar el número de módulo
-        $dipCursos = DiplomadosCurso::where('diplomado_id', $request->diplomado)->get();
-        if($dipCursos->isEmpty()){ 
-            $num_modulo = 0;
-        }
-        else{
-            $num_modulo = $dipCursos->count();
-        } 
-        foreach ($request->curso_id as $key => $value) {
-            $num_modulo++;
-            $dipCursos = new DiplomadosCurso;
-            $dipCursos->diplomado_id = $request->diplomado;
-            $dipCursos->curso_id = $value;
-            $dipCursos->num_modulo = $num_modulo;
-            $dipCursos->save();
-            $participantes = DiplomadosProfesor::where('diplomado_id', $request->diplomado)->get();
-            foreach ($participantes as $participante) {
-                $pcurso = new ParticipantesCurso;
-                $pcurso->profesor_id = $participante->profesor_id;
-                $pcurso->curso_id = $value;
-                $pcurso->save();
-            }
-        }
-        return redirect()->back()->with('success', 'El diplomado ha sido actualizado exitosamente');
-    }
-
-    public function update(Request $request, $id){
+    {
+      try{
         $diplomado = Diplomado::findOrFail($id);
-        $diplomado->nombre_diplomado = $request->nombre;
-        $diplomado->cupo_maximo = $request->cupo_maximo;
-        $diplomado->save();
-        return redirect()->back()->with('success', 'El diplomado ha sido actualizado exitosamente');
+        $diplomado -> delete();
+        return redirect()->route('diplomado.consulta')
+          ->with('success', 'El diplomado ha sido eliminado exitosamente');
+      }catch (\Illuminate\Database\QueryException $e){
+        return redirect()->back()->with('danger', 
+          'El Diplomado no puede eliminarse porque tiene módulos asociados a él, primero cambie el diplomado al que pertenecen o elimínelos');
+      }
     }
 
-    public function inscribirAlumnos($id){
-        $diplomado = Diplomado::find($id);
+    public function asignarModulo($diplomado_id){
+      $diplomado = Diplomado::findOrFail($diplomado_id);
+      $modulos = Curso::join('catalogo_cursos','catalogo_cursos.id', '=', 'cursos.catalogo_id')
+        ->where('catalogo_cursos.tipo', 'LIKE', 'D')
+        ->where('cursos.diplomado_id',null)
+        ->select('cursos.*')->get();
+      $modulos_dip = Curso::join('catalogo_cursos','catalogo_cursos.id', '=', 'cursos.catalogo_id')
+        ->where('catalogo_cursos.tipo', 'LIKE', 'D')
+        ->where('cursos.diplomado_id',$diplomado->id)
+        ->select('cursos.*')->get();
 
-        $count = DiplomadosProfesor::select('id')
-            ->where('diplomado_id',$diplomado->id)
-            ->count();
-
-        $cupo = $diplomado->cupo_maximo;
-
-        $profesores = Profesor::select('*')
-            ->whereNotIn('id',Profesor::join('diplomado_profesor','diplomado_profesor.profesor_id','profesors.id')
-                ->where('diplomado_profesor.diplomado_id',$diplomado->id)
-                ->select('profesors.id')->get())
-            ->get();
-        return view("pages.diplomado-inscribirAlumnos")
-            ->with("count",$count)
-            ->with("cupo",$cupo)
-            ->with("profesores",$profesores)
-            ->with("diplomado",$diplomado);
+      return view("pages.diplomado-inscribir-modulos")
+        ->with("modulos",$modulos)
+        ->with("diplomado",$diplomado)
+        ->with("modulos_dip", $modulos_dip);
     }
+
+    public function createModulo($diplomado_id, $modulo_id){
+      $modulo = Curso::findOrFail($modulo_id);
+      $modulo->num_modulo = Curso::where('diplomado_id',$diplomado_id)->count()+1;
+      $modulo->diplomado_id = $diplomado_id;
+      $modulo->save();
+
+      return redirect()->route("diplomado.modulo.asignar", $diplomado_id)
+        ->with("success", "El módulo se ha asignado correctamente");
+    }
+
+    public function deleteModulo($diplomado_id, $modulo_id){
+      $modulo = Curso::findOrFail($modulo_id);
+      $modulos_dip = Curso::where('diplomado_id', $diplomado_id)->where('num_modulo','>',$modulo->num_modulo)->get();
+      $modulo->num_modulo = null;
+      $modulo->diplomado_id = null;
+      $modulo->save();
+      foreach($modulos_dip as $modulo_dip){
+        $modulo_dip->num_modulo-=1;
+        $modulo_dip->save();
+      }
+
+      return redirect()->route("diplomado.modulo.asignar",$diplomado_id)
+        ->with("success", "El módulo se ha desasignado correctamente");
+    }
+
     public function buscarCandidatos(Request $request)
     {
-        $inscritos = Profesor::join('diplomado_profesor','diplomado_profesor.profesor_id','profesors.id')
-                ->where('diplomado_profesor.diplomado_id', '=', $request->diplomado_id)
-                ->select('profesors.id')->get();
-        $diplomado = Diplomado::findOrFail($request->diplomado_id);
+      $inscritos = Profesor::join('diplomado_profesor','diplomado_profesor.profesor_id','profesors.id')
+        ->where('diplomado_profesor.diplomado_id', '=', $request->diplomado_id)
+        ->select('profesors.id')->get();
+      $diplomado = Diplomado::findOrFail($request->diplomado_id);
 
-        if($request->type == "nombre")
-        {
-            $words=explode(" ", $request->pattern);
-            foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
-                ->whereNotIn('id',$inscritos)
-                ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
-                ->get();
+      if($request->type == "nombre")
+      {
+        $words=explode(" ", $request->pattern);
+        foreach($words as $word){
+          $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(nombres)) ILIKE lower(unaccent('%".$word."%'))")
+            ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_paterno)) ILIKE lower(unaccent('%".$word."%'))")
+            ->whereNotIn('id',$inscritos)->orWhereRaw("lower(unaccent(apellido_materno)) ILIKE lower(unaccent('%".$word."%'))")
+            ->whereNotIn('id',$inscritos)
+            ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+            ->get();
 
-            }
-            return view("pages.diplomado-inscribirAlumnos")
-                ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
+          }
+          return view("pages.diplomado-inscribirAlumnos")
+            ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
 
-        }elseif($request->type == "correo"){
-
-            $words=explode(" ", $request->pattern);
-            foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
-                    ->get();
-            }
-            return view("pages.diplomado-inscribirAlumnos")
-                ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
-        }elseif($request->type == "rfc"){
-
-            $words=explode(" ", $request->pattern);
-            foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
-                ->get();
-            }
-            return view("pages.diplomado-inscribirAlumnos")
-                ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
-        }elseif($request->type == "num"){
-
-            $words=explode(" ", $request->pattern);
-            foreach($words as $word){
-                $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(numero_trabajador)) ILIKE lower(unaccent('%".$word."%'))")
-                ->get();
-            }
-            return view("pages.diplomado-inscribirAlumnos")
-                ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
+      }elseif($request->type == "correo"){
+        $words=explode(" ", $request->pattern);
+        foreach($words as $word){
+          $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(email)) ILIKE lower(unaccent('%".$word."%'))")
+            ->get();
         }
-        $users = Profesor::all();
         return view("pages.diplomado-inscribirAlumnos")
-                ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
-
-    }
-
-public function registrarParticipante(Request $request){
-        $diplomado = Diplomado::find($request->diplomado_id);
-
-        //return $request->diplomado_id;
-        //return $request->profesor_id;
-        $count = DiplomadosProfesor::select('id')
-            ->where('diplomado_id',$diplomado->id)
-            ->count();
-        //Queda pendiente el registro
-        $cupo = $diplomado->cupo_maximo;
-
-        $diplomadoCursos = DiplomadosCurso::where('diplomado_id',$diplomado->id)->get();
-
-        if($count < $cupo){
-
-            $diplomadoProfesor = new DiplomadosProfesor;
-            $diplomadoProfesor->diplomado_id = $request->diplomado_id;
-            $diplomadoProfesor->profesor_id = $request->profesor_id;
-            $diplomadoProfesor->save();
-            $inscripciones="";
-            foreach($diplomadoCursos as $diplomadoCurso){
-                //Revisa si el alumno ya está inscrito
-                $tmp = ParticipantesCurso::where('profesor_id',$request->profesor_id)->where('curso_id',$diplomadoCurso->curso_id)->get();
-                if(count($tmp)>0){
-                    continue;
-                }
-                $participanteCurso = new ParticipantesCurso;
-                $participanteCurso->curso_id = $diplomadoCurso->curso_id;
-                $participanteCurso->profesor_id = $request->profesor_id;
-                //$inscripciones.=$participanteCurso->curso_id.$participanteCurso->profesor_id."   ";
-                $participanteCurso->save();
-            }
-            //return $inscripciones;
-
-
-            return redirect()->route("diplomado.inscribirAlumnos",$request->diplomado_id)->with('success', 'El alumno ha sido dado de alta en el diplomado y todos los módulos que le conforman exitosamente');
-        }else{
-            return redirect()->route("diplomado.inscribirAlumnos",$request->diplomado_id)->with('danger', 'El alumno no puede darse de alta debido a que el cupo ha sido llenado');
+          ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
+      }elseif($request->type == "rfc"){
+        $words=explode(" ", $request->pattern);
+        foreach($words as $word){
+          $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(rfc)) ILIKE lower(unaccent('%".$word."%'))")
+            ->get();
         }
+        return view("pages.diplomado-inscribirAlumnos")
+          ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
+      }elseif($request->type == "num"){
+        $words=explode(" ", $request->pattern);
+        foreach($words as $word){
+          $users = Profesor::select('*')->whereNotIn('id',$inscritos)->whereRaw("lower(unaccent(numero_trabajador)) ILIKE lower(unaccent('%".$word."%'))")
+            ->get();
+        }
+        return view("pages.diplomado-inscribirAlumnos")
+          ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
+      }
+      $users = Profesor::all();
+      return view("pages.diplomado-inscribirAlumnos")
+        ->with("profesores",$users)->with("count", $request->count)->with("cupo", $request->cupo)->with("diplomado",$diplomado);
 
     }
 

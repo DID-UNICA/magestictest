@@ -2,7 +2,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Antecedente;
 
 class CatalogoCurso extends Model
 {
@@ -16,7 +15,7 @@ protected $table = 'catalogo_cursos';
 protected $fillable = [
   'nombre_curso','duracion_curso','coordinacion_id','tipo',
   'dirigido','objetivo','contenido', 'antecedentes','fecha_disenio',
-  'clave_curso'
+  'clave_curso','diplomado_id','num_modulo'
 ];
 
     public function getCoordinacion(){
@@ -40,5 +39,12 @@ protected $fillable = [
     }
     public function getTemasSeminario(){
         return TemaSeminario::where('catalogo_id', $this->id)->get();
+    }
+    public function getDiplomado(){
+      return Diplomado::findOrFail($this->diplomado_id);
+    }
+
+    public function getNombreClave(){
+      return $this->nombre_curso.' ('.$this->clave_curso.')';
     }
 }

@@ -31,10 +31,8 @@
       <div class="panel-body">
         @include('flash::message')
         <div class="logos col-md-12 col-center">
-          <h3>
-            <img class="img-escudo" src="{{ asset('img/cdd.png') }}">
-            Manejo y Gestión de información del Centro de Docencia.
-          </h3>
+          <img class="img-escudo" src="{{ asset('img/cdd.png') }}">
+          <h3>Manejo y Gestión de información del Centro de Docencia.</h3>
         </div>
         <hr>
         <h2>Reconocimientos<span class="fa fa-file-pdf-o"></span></h2>
@@ -84,7 +82,7 @@
               <div class= "form-group row">
                 {!!Form::label("folio_inst", "Folio institucional (Número consecutivo):",["class=col-md-3"])!!}
                 <div class= "col-md-6">
-                    {!!Form::text("folio_inst", null, [ "required","class=form-control","placeholder" => "Dígitos nueve, diez y once del folio"])!!}
+                    {!!Form::text("folio_inst", null, [ "required","class=form-control","placeholder" => "Caracteres hasta antes del número de lista"])!!}
                 </div>
               </div>
             </div>
@@ -107,22 +105,20 @@
               </div>
             </div>
 
-            <!-- Texto personalizado si el tipo es evento -->
-            @if ($curso->getTipoCadenaUpper()=='Evento')
-              <div class="form-group row">
-                {!!Form::label("texto_pers", "Texto personalizado para el evento:", ["class"=>"col-md-3"])!!}
-                <div class="col-md-6">
-                  {!!Form::text("texto_pers",null,["placeholder"=>"Ingrese leyenda personalizada para el reconocimiento del evento","required","class"=>"form-control"])!!}
-                </div>
+            <!-- Texto personalizado si el tipo es Seminario -->
+            <div class="form-group row">
+              {!!Form::label("texto_pers", "Texto personalizado del reconocimiento:", ["class"=>"col-md-3"])!!}
+              <div class="col-md-6">
+                {!!Form::text("texto_pers",null,["placeholder"=>"Ingrese leyenda personalizada para el reconocimiento","required","class"=>"form-control"])!!}
               </div>
-            @endif
+            </div>
 
             <!-- Texto personalizado si el tipo es evento -->
             @if ($curso->getTipo()=='D')
               <div class="form-group row">
                 {!!Form::label("diplomado", "Nombre del diplomado:", ["class"=>"col-md-3"])!!}
                 <div class="col-md-6">
-                    {!!Form::select('diplomado', $diplomados,null, ["class" => "form-control"])!!}
+                    {!!Form::text('diplomado', $diplomado->nombre_diplomado,["class" => "form-control", 'disabled'])!!}
                   </div>
               </div>
             @endif
@@ -133,7 +129,7 @@
 									<label for="name5" class="col-md-3">Nombre:</label>
                   <div class="col-md-6">
                     <input placeholder="Nombre del primer firmante" id="name5" type="text" class="form-control" name="name5" value="{{ old('name5') }}">
-							    </div>
+							</div>
 							</div>
 							<div class="form-group row">
 								<label for="posicion5" class="col-md-3">Cargo:</label>
@@ -169,8 +165,8 @@
               </div>
 							<div class="form-group row">
 								<label for="posicion3" class="col-md-3">Cargo:</label>
-  							<div class="col-md-6">
-	  							<input placeholder="Descripción del tercer firmante" id="posicion3" type="text" class="form-control" name="posicion3" value="{{ old('posicion3') }}" >
+  						  <div class="col-md-6">
+	  				      <input placeholder="Descripción del tercer firmante" id="posicion3" type="text" class="form-control" name="posicion3" value="{{ old('posicion3') }}" >
 							  </div>
 							</div>
 						</div>
@@ -208,11 +204,13 @@
                 </div>
 							</div>
 						</div>
-            <div style="margin-left: 5px" class="form-group row">
-              <a style="margin: 3px;" href="{{ route('reconocimientos.fecha',[$curso->id]) }}" class="col-md-1 btn btn-warning">Fecha de envío</a>
-              <button style="margin: 3px;" type="submit" class="col-md-1 btn btn-primary" name="id" value="{{ $curso->id }}">
-                  Crear
-              </button>  
+            <div style="margin-left: 5px" class="row form-group">
+              <div class="col-md-4">
+                <a style="margin: 3px;" href="{{ route('reconocimientos.fecha',[$curso->id]) }}" class="btn btn-warning">Fecha de envío</a>
+                <button style="margin: 3px;" type="submit" class="btn btn-primary" name="id" value="{{ $curso->id }}">
+                    Generar
+                </button>  
+              </div>
             </div>
           </form>
       </div>

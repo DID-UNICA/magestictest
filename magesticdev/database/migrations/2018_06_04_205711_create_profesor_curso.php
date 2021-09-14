@@ -20,6 +20,7 @@ class CreateProfesorCurso extends Migration
             $table->string('folio_inst')->nullable();
             $table->string('folio_peque')->nullable();
             $table->date('fecha_envio')->nullable();
+            $table->date('fecha_exposicion')->nullable();
 
             $table->foreign('curso_id')->references('id')->on('cursos');
             $table->foreign('profesor_id')->references('id')->on('profesors');

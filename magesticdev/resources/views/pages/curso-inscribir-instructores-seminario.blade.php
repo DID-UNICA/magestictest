@@ -19,8 +19,9 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h2>{{ $curso->getNombreCurso()}}</h2>
+                <h3>Escoger instructores del tema</h2>
                 <h3>Lista de de instructores</h3>
-                  {!! Form::open(["route" => ["profesor.consulta2", $curso->id], "method" => "POST"]) !!}
+                  {!! Form::open(["route" => ["profesor.consulta4", $curso->id, $tema_id], "method" => "POST"]) !!}
                 <div class="input-group">
                     {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Profesor"])!!}
                     {!! Form::select('type', array(
@@ -31,11 +32,7 @@
                       null,['class' => 'btn dropdown-toggle pull-left', 'style' => 'margin-top:3px'] ) !!}
                     <span class="col-md-6" style='padding-top:3px'>
                         <button class="btn btn-info" type="submit">Buscar</button>
-                        @if($curso->getTipo()==='D')
-                          <a href="{{ route('modulo.consulta') }}" class="btn btn-danger">Regresar</a>
-                        @else
                           <a href="{{ route('curso.consulta') }}" class="btn btn-danger">Regresar</a>
-                        @endif
                     </span>
                     {!! Form::close() !!}
                 </div>
@@ -48,15 +45,17 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Correo</th>
-                        <th>RFC</th>
+                        <th>Fecha de exposición</th>
                         <th>Número Trabajador</th>
                     </tr>
                     @foreach($profesores as $profesor)
-                        {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.altaInstructores', $curso->id,$profesor->id] ,'files' => true, 'method' => 'POST' )) !!}
+                        {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.altaInstructorSeminario', $curso->id,$profesor->id, $tema_id] ,'files' => true, 'method' => 'POST' )) !!}
                         <tr>
                             <td>{{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }} {{ $profesor->nombres }}</td>
                             <td>{{ $profesor->email}}</td>
-                            <td>{{ $profesor->rfc}}</td>
+                            <td>
+                              {!! Form::date('fecha_exposicion',null, array('class'=>'form-control form-horizontal','required'))!!}
+                            </td>
                             <td>{{ $profesor->numero_trabajador}}</td>
                             <td>
                                 <button class="btn btn-success" style="margin-bottom: 15px;" type="submit">Asignar</button>
@@ -73,16 +72,16 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Correo</th>
-                        <th>RFC</th>
+                        <th>Fecha asignada</th>
                         <th>Número Trabajador</th>
                     </tr>
                     @foreach($instructores as $instructor)
-                        {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.bajaInstructores',$curso->id, $instructor->id] ,'files' => true, 'method' => 'POST' )) !!}
+                        {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.bajaInstructorSeminario', $curso->id,$instructor->getProfesor()->id, $tema_id] ,'files' => true, 'method' => 'POST' )) !!}
                         <tr>
-                            <td>{{ $instructor->apellido_paterno }} {{ $instructor->apellido_materno }} {{ $instructor->nombres }}</td>
-                            <td>{{ $instructor->email}}</td>
-                            <td>{{ $instructor->rfc}}</td>
-                            <td>{{ $instructor->numero_trabajador}}</td>
+                            <td>{{ $instructor->getProfesor()->apellido_paterno }} {{ $instructor->getProfesor()->apellido_materno }} {{ $instructor->getProfesor()->nombres }}</td>
+                            <td>{{ $instructor->getProfesor()->email}}</td>
+                            <td>{{ $instructor->fecha_exposicion}}</td>
+                            <td>{{ $instructor->getProfesor()->numero_trabajador}}</td>
                             <td>
                                 <button class="btn btn-danger" style="margin-bottom: 15px;" type="submit">Eliminar</button>
                             </td>

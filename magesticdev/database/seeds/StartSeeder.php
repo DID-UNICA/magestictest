@@ -447,7 +447,7 @@ Está Certificada en:
             'telefono' => '557458963',
             'grado' => 'Licenciatura',
             'abreviatura_grado' => 'Lic.',
-            'email' => 'MSP@gmail.com',
+            'email' => 'MSP@gmail.com, otro@correo.com',
             'semblanza_corta' => 'Profesora de la facultad de ingeniería, fundó la asociación de mujeres programadoras con
 el fin de impulsar los derechos y la presencia de la mujer en el ámbito profesional de
 las Tecnologías de la Información. Es egresada de la Facultad de Ciencias. Doctora en
@@ -1817,7 +1817,7 @@ Qué es una computadora y cómo funciona',
         ]);
 
         DB::table('catalogo_cursos')->insert([
-            'nombre_curso' =>'Cálculo Integral',
+            'nombre_curso' =>'Módulo 1. Cálculo Integral',
             'duracion_curso' => '20',
             'coordinacion_id' => 3,
             'tipo' => 'D',
@@ -1828,6 +1828,19 @@ Qué es una computadora y cómo funciona',
             'fecha_disenio' => '2018-05-18',
             'clave_curso' => 'CI2HCZA'
         ]);
+
+        DB::table('catalogo_cursos')->insert([
+          'nombre_curso' =>'Módulo 2. Cálculo Intermedio',
+          'duracion_curso' => '20',
+          'coordinacion_id' => 3,
+          'tipo' => 'D',
+          'institucion' => 'CDD',
+          'dirigido' => 'Alumnos de ingenieria',
+          'objetivo' => 'Aprender a integrar',
+          'contenido' => 'Metodos de integracion',
+          'fecha_disenio' => '2018-05-18',
+          'clave_curso' => 'CI2HCZF'
+      ]);
 
         DB::table('catalogo_cursos')->insert([
             'nombre_curso' =>'Álgebra Lineal',
@@ -2389,30 +2402,35 @@ Qué es una computadora y cómo funciona',
         DB::table('profesor_curso')->insert([
           'curso_id' => "3",
           'profesor_id' => '10',
-          'tema_seminario_id' => '3'
+          'tema_seminario_id' => '3',
+          'fecha_exposicion' => '09-10-21'
         ]);
         DB::table('profesor_curso')->insert([
           'curso_id' => "3",
           'profesor_id' => '10',
-          'tema_seminario_id' => '2'
+          'tema_seminario_id' => '2',
+          'fecha_exposicion' => '09-10-21'
         ]);
 
         DB::table('profesor_curso')->insert([
           'curso_id' => "3",
           'profesor_id' => '9',
-          'tema_seminario_id' => '1'
+          'tema_seminario_id' => '1',
+          'fecha_exposicion' => '09-10-21'
         ]);
 
         DB::table('profesor_curso')->insert([
           'curso_id' => "3",
           'profesor_id' => '8',
-          'tema_seminario_id' => '1'
+          'tema_seminario_id' => '1',
+          'fecha_exposicion' => '09-10-21'
         ]);
 
         DB::table('profesor_curso')->insert([
           'curso_id' => "3",
           'profesor_id' => '7',
-          'tema_seminario_id' => '2'
+          'tema_seminario_id' => '2',
+          'fecha_exposicion' => '09-10-21'
         ]);
 
         DB::table('profesor_curso')->insert([

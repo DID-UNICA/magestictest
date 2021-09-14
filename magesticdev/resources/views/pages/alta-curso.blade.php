@@ -11,9 +11,7 @@
       </a>
     </div>
     <section class="content-inner">
-    @if(session()->has('create'))
-      <div class="alert alert-success" role='alert'>{{session('create')}}</div>
-    @endif
+    @include ('partials.messages')
     <br>
       <div class="panel panel-default">
                 <div class="panel-heading">

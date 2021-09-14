@@ -25,10 +25,16 @@ class CreateTableCursos extends Migration
             $table->integer('cupo_minimo');
             $table->date('fecha_envio_constancia')->nullable();
             $table->date('fecha_envio_reconocimiento')->nullable();
+            $table->integer('num_modulo')->unsigned()->nullable();
+
             $table->integer('catalogo_id')->unsigned();
             $table->integer('salon_id')->unsigned();
+            $table->integer('diplomado_id')->nullable()->unsigned();
+            
             $table->foreign('catalogo_id')->references('id')->on('catalogo_cursos');
             $table->foreign('salon_id')->references('id')->on('salons');
+            $table->foreign('diplomado_id')->references('id')->on('diplomados');
+
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

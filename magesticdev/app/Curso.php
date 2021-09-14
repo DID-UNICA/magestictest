@@ -127,22 +127,24 @@ class Curso extends Model
         $dias_semana_array = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 
         //se consiguen en Carbon las fechas de inicio y fin del curso además del auxiliar
-      if ($this->fecha_inicio[8] == '0'){
-          $dia_inicio = $this->fecha_inicio[9];
+        $fecha_inicio = $this->fecha_inicio;
+        $fecha_fin = $this->fecha_fin;
+      if ($fecha_inicio[8] == '0'){
+          $dia_inicio = $fecha_inicio[9];
       }
       else{
-       $dia_inicio = $this->fecha_inicio[8] . $this->fecha_inicio[9];
+       $dia_inicio = $fecha_inicio[8] . $fecha_inicio[9];
      }
-      if($this->fecha_fin[8] == '0'){
-        $dia_fin = $this->fecha_fin[9];
+      if($fecha_fin[8] == '0'){
+        $dia_fin = $fecha_fin[9];
       }
       else{
-       $dia_fin = $this->fecha_fin[8] . $this->fecha_fin[9];
+       $dia_fin = $fecha_fin[8] . $fecha_fin[9];
       }
-        $anio_fin = $this->fecha_fin[0].$this->fecha_fin[1].$this->fecha_fin[2].$this->fecha_fin[3];
-        $mes_fin = $this->fecha_fin[5].$this->fecha_fin[6];
-        $anio_inicio = $this->fecha_inicio[0].$this->fecha_inicio[1].$this->fecha_inicio[2].$this->fecha_inicio[3];
-        $mes_inicio = $this->fecha_inicio[5].$this->fecha_inicio[6];
+        $anio_fin = $fecha_fin[0].$fecha_fin[1].$fecha_fin[2].$fecha_fin[3];
+        $mes_fin = $fecha_fin[5].$fecha_fin[6];
+        $anio_inicio = $fecha_inicio[0].$fecha_inicio[1].$fecha_inicio[2].$fecha_inicio[3];
+        $mes_inicio = $fecha_inicio[5].$fecha_inicio[6];
         $auxYear = (int)$anio_inicio;
         $auxMonth = (int)$mes_inicio;
       
@@ -495,23 +497,8 @@ class Curso extends Model
         return $catcurso->coordinacion_id;
     }
 
-    public function getNumModulo($diplomado_id){
-      $dipCurso = DiplomadosCurso::where('diplomado_id',$diplomado_id)
-          ->where('curso_id', $this->id)->get();
-      return $dipCurso[0]->num_modulo;
-    }
-
-    public function getDiplomados(){
-      $tmp = array();
-      if($this->getTipo() != 'D')
-        return FALSE;
-      $dips = DiplomadosCurso::where('curso_id',$this->id)->get();
-      if($dips->isEmpty())
-        return FALSE;
-      foreach($dips as $dip){
-        $tmp[$dip->getDiplomado()->id] = $dip->getDiplomado()->nombre_diplomado;
-      }
-      return $tmp;
+    public function getDiplomado(){
+      return Diplomado::find($this->diplomado_id);
     }
 
     public function allNombreCurso(){
