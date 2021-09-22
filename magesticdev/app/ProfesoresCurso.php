@@ -42,7 +42,7 @@ class ProfesoresCurso extends Model
         $mes = $fecha[5] . $fecha[6];
       }
       $anio = $fecha[0].$fecha[1].$fecha[2].$fecha[3];
-      $fecha_cadena = 'El día '.$dia.' de '.$meses_array[$mes].' de '.$anio;
+      $fecha_cadena = 'El día '.$dia.' de '.$meses_array[$mes-1].' de '.$anio;
       return $fecha_cadena;
     }
 }

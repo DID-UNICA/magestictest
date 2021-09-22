@@ -233,6 +233,7 @@ class CursoController extends Controller
         $user->hora_fin = $request->hora_fin;
         $user->dias_semana = $request->dias_semana;
         $user->numero_sesiones = $request->numero_sesiones;
+        $user->sesiones = $request->sesiones;
         $user->acreditacion = $request->acreditacion;
         $user->costo = $request->costo;
         $user->cupo_maximo = $request->cupo_maximo;
@@ -256,6 +257,7 @@ class CursoController extends Controller
         $modulo->hora_fin = $request->hora_fin;
         $modulo->dias_semana = $request->dias_semana;
         $modulo->numero_sesiones = $request->numero_sesiones;
+        $modulo->sesiones = $request->sesiones;
         $modulo->acreditacion = $request->acreditacion;
         $modulo->costo = $request->costo;
         $modulo->cupo_maximo = $request->cupo_maximo;
@@ -514,6 +516,7 @@ class CursoController extends Controller
      */
     public function create(Request $request)
     {
+        //dd($request);
         $dias_semana = '';
         if ($request->L == 'on') {
             if (strlen($dias_semana)>0) {
@@ -557,6 +560,7 @@ class CursoController extends Controller
         $curso->hora_fin = $request->hora_fin;
         $curso->dias_semana = $dias_semana;
         $curso->numero_sesiones = $request->numero_sesiones;
+        $curso->sesiones = $request->sesiones;
         $curso->acreditacion = $request->acreditacion;
         $curso->costo = $request->costo;
         $curso->cupo_maximo = $request->cupo_maximo;
@@ -571,6 +575,7 @@ class CursoController extends Controller
 
     public function createModulo(Request $request, $catalogo_modulo_id)
     {
+        //dd($request);
         $dias_semana = '';
         if ($request->L == 'on') {
             if (strlen($dias_semana)>0) {
@@ -614,6 +619,7 @@ class CursoController extends Controller
         $curso->hora_fin = $request->hora_fin;
         $curso->dias_semana = $dias_semana;
         $curso->numero_sesiones = $request->numero_sesiones;
+        $curso->sesiones = $request->sesiones;
         $curso->acreditacion = $request->acreditacion;
         $curso->costo = $request->costo;
         $curso->cupo_maximo = $request->cupo_maximo;
@@ -719,8 +725,6 @@ class CursoController extends Controller
 
 
     public function verRespuesta(Request $request){
-    //dd($request);
-    //return $request;
     //Crear una lista únicamente de los alumnos que no cancelaron
     $alumnos=array();
     $enFila = array();

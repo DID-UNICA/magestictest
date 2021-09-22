@@ -66,12 +66,17 @@
     </div>
 
     <div class="form-group col-md-6">
-      {!!Form::label("numero_sesiones", "Número de sesiones")!!}
-      {!!Form::text("numero_sesiones", $modulo->numero_sesiones, [ "class" => "form-control", "placeholder" => "Sesiones", "required","disabled"])!!}
+      {!!Form::label("numero_sesiones", "Número de sesiones:")!!}
+      {!!Form::text("numero_sesiones", $modulo->numero_sesiones, [ "class" => "form-control", "placeholder" => "Número Sesiones", "required","disabled"])!!}
+    </div>
+
+    <div class="form-group col-md-12">
+      {!!Form::label("sesiones", "Sesiones:")!!}
+      {!!Form::text("sesiones", $modulo->sesiones, [ "class" => "form-control", "placeholder" => "Sesiones", "required","disabled"])!!}
     </div>
 
     <div class="form-group col-md-6">
-      {!!Form::label("acreditacion", "Acreditación")!!}
+      {!!Form::label("acreditacion", "Acreditación:")!!}
       {!!Form::text("acreditacion", $modulo->acreditacion, [ "class" => "form-control", "placeholder" => "Acreditacion", "required","disabled"])!!}
     </div>
 

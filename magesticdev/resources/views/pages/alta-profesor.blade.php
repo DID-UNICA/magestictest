@@ -314,7 +314,7 @@
                         Masculino: <input onclick="changeDegree()" type="radio" name="genero" value="masculino" >
                         Otro: <input onclick="changeDegree()" id="otro" type="radio" name="genero" value="otro">
                     </label>
-                    <p id="warning" style="display: none">Si seleccionó género "otro" por favor verifique la abrevitura de su grado académico</p>
+                    <p id="warning" style="display: none;">*Si seleccionó género "otro" por favor ingrese una abreviatura de grado manual</p>
                         <script>
                             function changeDegree() {
                                 var genYes = document.getElementById("otro");
@@ -324,7 +324,7 @@
                                 if(genYes.checked){
                                     degree.selected="selected"
                                     abrDegree.style="display: block"
-                                    warning.style="display: block"
+                                    warning.style="display: block; color:red;"
                                 }else{
                                     warning.style="display: none"
                                 }

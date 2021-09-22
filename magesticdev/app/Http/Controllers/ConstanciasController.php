@@ -228,6 +228,7 @@ class ConstanciasController extends Controller{
         ->where('curso_id',$id)
         ->count();
         if($count == null){
+          $zip = new Zipper();
           $zip::close();
           return redirect()->back()->with(
               'warning', 'No hay instructores asignados en este curso'

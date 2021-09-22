@@ -36,17 +36,16 @@
 
 
                         <li>
-                            <a href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                <div style="text-align: left;">
-                                Salir 
-                               
-                                </div>
-                            </a>
-                            
-                            
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+
+                            <form id="ajustes-form" action="{{ route('usuario.editar') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                                <input name="id" value="{{ auth()->user()->id }}">
+                            </form>
+
+                            <form id="register-form" action="{{ route('registrar') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>
@@ -55,16 +54,29 @@
                                onclick="event.preventDefault();
                                 document.getElementById('ajustes-form').submit();">
                                 <div style="text-align: left;">
-                                Ajustes 
+                                Cuenta 
+                               
+                                </div>
+                            </a>
+
+                            <a href="{{ route('register') }}"
+                              onclick="event.preventDefault();
+                              document.getElementById('register-form').submit();">
+                              <div style="text-align: left;">
+                              Registrar Usuario
+                              </div>
+                            </a>
+                            
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                <div style="text-align: left;">
+                                Cerrar sesión
                                
                                 </div>
                             </a>
                             
                             
-                            <form id="ajustes-form" action="{{ route('usuario.editar') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                                <input name="id" value="{{ auth()->user()->id }}">
-                            </form>
                         </li>
                     </ul>
 

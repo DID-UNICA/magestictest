@@ -19,7 +19,7 @@ class Curso extends Model
      */
     protected $fillable = [
         'id','semestre_anio','semestre_pi','semestre_si','fecha_inicio','fecha_fin','hora_inicio','hora_fin','dias_semana',
-        'numero_sesiones','acreditacion','costo','cupo_maximo','cupo_minimo','catalogo_id','salon_id', 'fecha_envio_constancia', 'fecha_envio_reconocimiento'
+        'numero_sesiones','sesiones','acreditacion','costo','cupo_maximo','cupo_minimo','catalogo_id','salon_id', 'fecha_envio_constancia', 'fecha_envio_reconocimiento'
     ];
 
     public function getTypeId(){
@@ -119,6 +119,8 @@ class Curso extends Model
     }
 
     public function getFecha(){
+        
+        $sesiones_array = explode(',' , $this->sesiones);
         //zona horaria para Carbon
         $tz='America/Mexico_City';
 
@@ -174,11 +176,21 @@ class Curso extends Model
                         $y++;
                     }
                     if ($y - $x > 3) {
-                        $intervalo_inicio = $x;
-                        $intervalo_fin = $y;
                         $hayIntervalo = $y - $x;
                     }
                 }
+            }
+            $c = 0;
+            $fecha_aux_i = Carbon::createFromDate((int)$anio_inicio, (int)$mes_inicio, (int)$dia_inicio, $tz);
+            for ($s=0; $s < count($sesiones_array); $s++) { 
+                $fecha_s = Carbon::createFromDate((int)substr($sesiones_array[$s],0,4), (int)substr($sesiones_array[$s],5,2), (int)substr($sesiones_array[$s],8), $tz);
+                if ($fecha_aux_i->diffInDays($fecha_s) == 1) {
+                    $c++;
+                }else{$c = 0;}
+                $fecha_aux_i = Carbon::createFromDate((int)substr($sesiones_array[$s],0,4), (int)substr($sesiones_array[$s],5,2), (int)substr($sesiones_array[$s],8), $tz);
+            }
+            if ($c < 4) {
+                $hayIntervalo = 0;
             }
         }
 
@@ -189,42 +201,68 @@ class Curso extends Model
         while (!in_array(($fecha_fin->dayOfWeek+7)%7, $dias_curso_array)) {
           $fecha_fin->subDay();
         }
-        
-        //La magia
-        //variable de retorno
-        if ($fecha_inicio->diffInDays($fecha_fin) != 0){
-            $fecha_cadena = 'Los días ';
-            for (; $fecha_aux->diffInDays($fecha_fin) != 0; $fecha_aux->addDay()) {
-                if (in_array(($fecha_aux->dayOfWeek+7)%7, $dias_curso_array)){
-                    if ($fecha_aux->year != $auxYear) {
-                        $fecha_cadena .= ' de '.$meses_array[$auxMonth-1].' de '.(string)$auxYear.'. ';
-                        $auxYear = $fecha_aux->year;
-                        $auxMonth = $fecha_aux->month;
-                        $fecha_cadena .= (string)$fecha_aux->day;
-                    }
-                    elseif ($fecha_aux->month != $auxMonth) {
-                        $fecha_cadena .= ' de '.$meses_array[$auxMonth-1].'; ';
-                        $auxMonth = $fecha_aux->month;
-                        $fecha_cadena .= (string)$fecha_aux->day;
+
+        if (strlen($this->sesiones)>0) {
+            if (count($sesiones_array) == 1) {
+                $fecha_cadena = 'El día '.(int)substr($this->sesiones,8).' de '.$meses_array[((int)substr($this->sesiones,5,2))-1].' de '.substr($this->sesiones,0,4);
+            }else{
+                $fecha_cadena = 'Los días '.(int)substr($sesiones_array[0],8);
+                for ($i=1; $i < count($sesiones_array)-1; $i++) { 
+                    if (substr($sesiones_array[$i],0,4) != substr($sesiones_array[$i-1],0,4)) {
+                        $fecha_cadena .= ' de '.$meses_array[((int)substr($sesiones_array[$i-1],5,2))-1].' de '.substr($sesiones_array[$i-1],0,4).'. '.(int)substr($sesiones_array[$i],8);
+                    }elseif (substr($sesiones_array[$i],5,2) != substr($sesiones_array[$i-1],5,2)) {
+                        $fecha_cadena .= ' de '.$meses_array[((int)substr($sesiones_array[$i-1],5,2))-1].'; '.(int)substr($sesiones_array[$i],8);
                     }else{
-                        if ($fecha_aux->diffInDays($fecha_inicio) == 0){
+                        $fecha_cadena .= ', '.(int)substr($sesiones_array[$i],8);
+                    }
+                }
+                $i = count($sesiones_array)-1;
+                if (substr($sesiones_array[$i],0,4) != substr($sesiones_array[$i-1],0,4)) {
+                    $fecha_cadena .= ' de '.$meses_array[((int)substr($sesiones_array[$i-1],5,2))-1].' de '.substr($sesiones_array[$i-1],0,4).'. ';
+                }elseif (substr($sesiones_array[$i],5,2) != substr($sesiones_array[$i-1],5,2)) {
+                    $fecha_cadena .= ' de '.$meses_array[((int)substr($sesiones_array[$i-1],5,2))-1].'; ';
+                }
+                $fecha_cadena .= ' y '.(int)substr($sesiones_array[$i],8).' de '.$meses_array[((int)substr($sesiones_array[$i],5,2))-1].' de '.substr($sesiones_array[$i],0,4).'.';
+            }
+        }
+        else{
+            
+            //La magia
+            //variable de retorno
+            if ($fecha_inicio->diffInDays($fecha_fin) != 0){
+                $fecha_cadena = 'Los días ';
+                for (; $fecha_aux->diffInDays($fecha_fin) != 0; $fecha_aux->addDay()) {
+                    if (in_array(($fecha_aux->dayOfWeek+7)%7, $dias_curso_array)){
+                        if ($fecha_aux->year != $auxYear) {
+                            $fecha_cadena .= ' de '.$meses_array[$auxMonth-1].' de '.(string)$auxYear.'. ';
+                            $auxYear = $fecha_aux->year;
+                            $auxMonth = $fecha_aux->month;
+                            $fecha_cadena .= (string)$fecha_aux->day;
+                        }
+                        elseif ($fecha_aux->month != $auxMonth) {
+                            $fecha_cadena .= ' de '.$meses_array[$auxMonth-1].'; ';
+                            $auxMonth = $fecha_aux->month;
                             $fecha_cadena .= (string)$fecha_aux->day;
                         }else{
-                                $fecha_cadena .= ', '.(string)$fecha_aux->day;
+                            if ($fecha_aux->diffInDays($fecha_inicio) == 0){
+                                $fecha_cadena .= (string)$fecha_aux->day;
+                            }else{
+                                    $fecha_cadena .= ', '.(string)$fecha_aux->day;
+                            }
                         }
                     }
                 }
+            }else{
+                $fecha_cadena = 'El día '.$fecha_inicio->day;
             }
-        }else{
-            $fecha_cadena = 'El día '.$fecha_inicio->day;
-        }
 
 
-        //fianlizacion de la cadena
-        if (in_array(($fecha_aux->dayOfWeek+7)%7, $dias_curso_array) && $fecha_inicio->diffInDays($fecha_fin) != 0){
-          $fecha_cadena .= ' y '.(string)$fecha_aux->day;
+            //fianlizacion de la cadena
+            if (in_array(($fecha_aux->dayOfWeek+7)%7, $dias_curso_array) && $fecha_inicio->diffInDays($fecha_fin) != 0){
+              $fecha_cadena .= ' y '.(string)$fecha_aux->day;
+            }
+            $fecha_cadena .= ' de '.$meses_array[$auxMonth-1].' de '.(string)$auxYear;
         }
-        $fecha_cadena .= ' de '.$meses_array[$auxMonth-1].' de '.(string)$auxYear;
 
         //Si la cadena tiene más de 90 caracteres se cambia el formato
         if (strlen($fecha_cadena) > 120 || $hayIntervalo > 1) {

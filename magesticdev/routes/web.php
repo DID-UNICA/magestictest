@@ -20,6 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('home');
+Route::post('/registrar', function () {return view('auth.register');})->name('registrar');
+
 
 /* Rutas de Profesor */
 Route::get('profesor/nuevo', "ProfesorController@nuevo")->name("profesor.nuevo");
