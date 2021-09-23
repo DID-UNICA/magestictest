@@ -72,7 +72,7 @@
 
     <div class="form-group col-md-12">
       {!!Form::label("sesiones", "Sesiones:")!!}
-      {!!Form::text("sesiones", $modulo->sesiones, [ "class" => "form-control", "placeholder" => "Sesiones", "required","disabled"])!!}
+      {!!Form::text("sesiones", $modulo->sesiones, [ "class" => "form-control", "placeholder" => "YYYY-MM-DD,YYYY-MM-DD", "required","disabled"])!!}
     </div>
 
     <div class="form-group col-md-6">
@@ -91,7 +91,7 @@
     </div>
 
     <div class="form-group col-md-6">
-      {!!Form::label("cupo_minimo", "Cupo mínimo")!!}
+      {!!Form::label("cupo_minimo", "Cupo mínimo:")!!}
       {!!Form::text("cupo_minimo", $modulo->cupo_minimo, [ "class" => "form-control", "placeholder" => "Cupo mínimo", "required","disabled"])!!}
     </div>
 

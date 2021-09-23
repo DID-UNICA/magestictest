@@ -240,7 +240,7 @@ class CursoController extends Controller
         $user->cupo_minimo = $request->cupo_minimo;
         $user->salon_id = $request->salon_id;
         $user->save();
-        return redirect()->route('curso.show',$curso->id)
+        return redirect()->route('curso.show',$id)
           ->with('success', 'Se han actualizado los datos correctamente');
     }
 
