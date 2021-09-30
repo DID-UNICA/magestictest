@@ -13,9 +13,6 @@
             <span class='burger_inside' id='bgrThree'></span>
         </a>
     </div>
-    @if(sizeof($users)==0)
-      <div class="alert alert-warning" role='alert'>No hay resultados</div>
-    @endif
     <section class="content-inner">
         <br>
         @include ('partials.messages')
@@ -23,7 +20,7 @@
             <div class="panel-heading">
                 <h3>Catálogo de cursos</h3>
 
-                {!! Form::open(["route" => "catalogo-cursos.consulta", "method" => "GET"]) !!}
+                {!! Form::open(["route" => "catalogo-cursos.consulta", "method" => "POST"]) !!}
                 <div class="input-group">
                     {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Curso"])!!}
                     {!! Form::select('type', array(
@@ -75,16 +72,9 @@
                         </div>
                       </div>
                     </div>
-
                     @endforeach
                 </table>
-
-
-
-
             </div>
-
     </section>
-
 @endsection
 

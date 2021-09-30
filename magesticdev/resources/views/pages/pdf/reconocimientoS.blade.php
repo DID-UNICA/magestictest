@@ -153,7 +153,7 @@ body {
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 50%;">{{$tema}}</td>
           </tr>
           <tr width="15cm">
-          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 85%;">en el Seminario:</td>
+          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 85%;">{{$seminario}}</td>
           </tr>
           <tr width="15cm">
             <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
@@ -163,11 +163,6 @@ body {
         <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
         <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
         <p style="font-size: 8pt; padding-bottom: 0.8cm;">Ciudad Universitaria, Cd. Mx., a {{$fechaimp}}</h6>
-
-      <!--  <h3 style="font-size: 17px;line-height: 30%;">{{$texto}}</h3>
-        <h2 class='nombre_tema'>{{$tema}}</h2>
-        <h3 style="font-size: 17px;line-height: 30%;">del seminario</h3>
-        <h2 class='nombre_curso'>{{$cursoCatalogo->nombre_curso}}</h2>-->
       </div>
       <div class = "tabla-centro">
         <table class = "tabla-centro">

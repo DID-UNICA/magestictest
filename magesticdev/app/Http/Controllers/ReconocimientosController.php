@@ -154,7 +154,7 @@ class ReconocimientosController extends Controller{
       // Se necesita al CCDD de área como menor cargo
       elseif($request->tipof == 'C'){
         $coordinadorGeneral = CoordinadorGeneral::first();
-        if($coordinadorGeneral){
+        if(!$coordinadorGeneral){
           return redirect()->back()->with(
             'info',
             'Primero hay que dar de alta al Coordinador del Centro de Docencia'
@@ -332,6 +332,7 @@ class ReconocimientosController extends Controller{
                 'fechaimp'=>$fechaimp,
                 'duracion'=>$tema->duracion,
                 'tema' => $tema->nombre,
+                'seminario' => $request->sem_pers,
                 'texto'=>$request->texto_pers,
                 'folio' => $instructor->folio_inst,
                 'folio_der' => $instructor->folio_peque,

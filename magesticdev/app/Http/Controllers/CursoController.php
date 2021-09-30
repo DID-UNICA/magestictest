@@ -113,7 +113,9 @@ class CursoController extends Controller
     public function index()
     {
         return view("pages.consulta-cursos")
-            ->with("cursos",Curso::all());
+            ->with("cursos",$cursos = Curso::join('catalogo_cursos', 'catalogo_cursos.id', '=', 'cursos.catalogo_id')
+            ->where('catalogo_cursos.tipo', '<>', 'D')
+            ->select('cursos.*')->get());
     }
 
     public function verModulosDiplomado($diplomado_id)

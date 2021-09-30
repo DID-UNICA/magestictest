@@ -104,7 +104,7 @@
                 <div class="link"><i class="fa fa-lg fa-book"></i>Cursos<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
                     <li><a href="{{ route('curso.consulta') }}">Cursos programados</a></li>
-                    <li><a href="{{ route('catalogo-cursos.consulta') }}">Catálogo de cursos</a></li>
+                    <li><a href="{{ route('catalogo-cursos.ver.todos') }}">Catálogo de cursos</a></li>
                     <li><a href="{{ route('catalogo-cursos.nuevo') }}">Alta Catálogo</a></li>
                 </ul>
             </li>

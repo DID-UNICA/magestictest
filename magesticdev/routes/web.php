@@ -50,14 +50,10 @@ Route::post('curso/inscripcion/{curso_id}/{tema_id}/search3', "ProfesorControlle
 Route::post('curso/inscripcion/{curso_id}/{tema_id}/search4', "ProfesorController@search4")->name('profesor.consulta4');
 Route::get('curso/generar-formatos/{curso}', "CursoController@GenerarFormatos")->name('curso.generar-formatos');
 Route::get('curso/ver-profesores/{curso}', "CursoController@verParticipante")->name('curso.ver-participante');
-
-
 Route::get('curso/modificar-instructor-tema/{curso_id}/{tema_id}', "CursoController@modificarInstructoresSeminario")->name('profesorts.update');
 Route::post('curso/modificar-instructor-tema/asignar/{curso_id}/{profesor_id}/{tema_id}', "CursoController@altaInstructorSeminario")->name('curso.altaInstructorSeminario');
 Route::post('curso/modificar-instructor-tema/eliminar/{curso_id}/{profesor_id}/{tema_id}', "CursoController@bajaInstructorSeminario")->name('curso.bajaInstructorSeminario');
-
 Route::post('curso/ver-profesores/response/', "CursoController@verRespuesta")->name('curso.ver-respuesta');
-
 Route::get('curso/baja-profesor/{id}/{curso_id}/{espera}',"CursoController@bajaParticipante")->name('curso.baja-participante');
 //aqui se registran ambos parametros en la tabla intermedia
 Route::post('curso/registrar/{id}/{curso_id}', "CursoController@registrarParticipante")->name('curso.registrar');
@@ -74,7 +70,8 @@ Route::post('catalogo-cursos/save',"CatalogoCursosController@create")->name('cat
 Route::post('catalogo-cursos/temascreate/{id}/{temas}',"TemaSeminarioController@create")->name('temas.store');
 Route::post('catalogo-cursos/temasupdate/{id}/{temas}',"TemaSeminarioController@update")->name('temas.update');
 Route::get('catalogo-cursos/{id}', "CatalogoCursosController@show")->name('catalogo-cursos.show');
-Route::get('catalogo-cursos','CatalogoCursosController@search')->name("catalogo-cursos.consulta");
+Route::post('catalogo-cursos/search','CatalogoCursosController@search')->name("catalogo-cursos.consulta");
+Route::get('catalogo-cursos/','CatalogoCursosController@verCatalogosCursos')->name("catalogo-cursos.ver.todos");
 Route::get('catalogo-cursos/actualizar/{id}', "CatalogoCursosController@edit")->name('catalogo-cursos.update');
 Route::get('catalogo-cursos/actualizar-temas-seminario/{curso_id}', "TemaSeminarioController@index")->name('catalogo-curso.ver-ts');
 Route::post('catalogo-cursos/actualizar-temas-seminario/update/{ts_id}', "TemaSeminarioController@update")->name('temas-catalogo.update');
@@ -95,7 +92,6 @@ Route::put('coordinacion/actualizar/{id}', "CoordinacionController@update")->nam
 Route::put('coordinacion/password/{id}', "CoordinacionController@updatepass")->name('coordinacion.updatepass');
 Route::get('coordinacion/baja/{id}', "CoordinacionController@delete");
 
-
 /* Rutas de Diplomado */
 //Para consultar todos los diplomados
 Route::get('diplomados', "DiplomadoController@index")->name("diplomado.consulta");
@@ -115,7 +111,6 @@ Route::get('diplomado/{diplomado_id}/modulos/asignar', "DiplomadoController@asig
 Route::post('diplomado/{diplomado_id}/modulos/asignar/{modulo_id}', "DiplomadoController@createModulo")->name("diplomado.modulo.create");
 //Para desasignar un modulo de un diplomado
 Route::get('diplomado/{diplomado_id}/modulos/desasignar/{modulo_id}', "DiplomadoController@deleteModulo")->name("diplomado.modulo.delete");
-
 
 //Para consultar los módulos de un diplomado programados
 Route::get('diplomado/{diplomado_id}/modulos', "CursoController@verModulosDiplomado")->name("modulo.consulta.diplomado");
@@ -162,9 +157,6 @@ Route::get('catalogo/modulo/{catalogo_modulo_id}/delete', "CatalogoCursosControl
 // Route::get('diplomado/inscribirAlumnos/{diplomado}', "DiplomadoController@inscribirAlumnos")->name('diplomado.inscribirAlumnos');
 // Route::get('diplomado/buscarCandidatos/{diplomado}','DiplomadoController@buscarCandidatos')->name('diplomado.buscarCandidatos');
 // Route::post('diplomado/registrar/{profesor_id}/{diplomado_id}', "DiplomadoController@registrarParticipante")->name('diplomado.registrar');
-
-
-
 
 /* Rutas de Facultad */
 Route::get('facultad/nuevo', "FacultadController@nuevo")->name("facultad.nuevo");
@@ -245,10 +237,8 @@ Route::get('constancias/{id}','ConstanciasController@selectType')->name('constan
 Route::get('constancias/b/{id}','ConstanciasController@generar')->name('constancias.generar.b');
 Route::get('constancias/fecha/{id}','ConstanciasController@fechaEnvio')->name('constancias.fecha');
 Route::post('constancias/actualizar_fecha/{id}','ConstanciasController@fechaEnvioActualizar')->name('constancias.actualizarFecha');
-
 Route::get('diplomas/{id}/','DiplomasController@selectType')->name('diplomas.elegirTipoDiploma');
 Route::get('diplomas/{id}/generar','DiplomasController@generar')->name('diplomas.generar');
-
 Route::get('reconocimientos/{id}','ReconocimientosController@selectType')->name('reco.elegir');
 Route::get('reconocimientos/{id}/generar','ReconocimientosController@generar')->name('reconocimientos.generar');
 Route::get('reconocimientos/{diplomadoid}/{cursoid}/generar','ReconocimientosController@generarD')->name('reconocimientos.generard');

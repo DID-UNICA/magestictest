@@ -109,10 +109,18 @@
             <div class="form-group row">
               {!!Form::label("texto_pers", "Texto personalizado del reconocimiento:", ["class"=>"col-md-3"])!!}
               <div class="col-md-6">
-                {!!Form::text("texto_pers",null,["placeholder"=>"Ingrese leyenda personalizada para el reconocimiento","required","class"=>"form-control"])!!}
+                {!!Form::text("texto_pers",null,["placeholder"=>"Ej. Por su participación en","required","class"=>"form-control"])!!}
               </div>
             </div>
-
+            @if($curso->getTipo()=='S')
+             <!-- Texto para personalizar seminario -->
+             <div class="form-group row">
+              {!!Form::label("sem_pers", "Segundo texto personalizado para el reconocimiento:", ["class"=>"col-md-3"])!!}
+              <div class="col-md-6">
+                {!!Form::text("sem_pers",null,["placeholder"=>"Ej. En el seminario","required","class"=>"form-control"])!!}
+              </div>
+            </div>
+            @endif    
             <!-- Texto personalizado si el tipo es evento -->
             @if ($curso->getTipo()=='D')
               <div class="form-group row">

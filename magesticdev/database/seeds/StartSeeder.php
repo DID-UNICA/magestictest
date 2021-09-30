@@ -1752,7 +1752,7 @@ en impuestos universitarios.',
       //COORDINACIONES DEL CENTRO DE DOCENCIA, COORDINADORES DE PRUEBA
       DB::table('coordinacions')->insert([
         'abreviatura'=>'CO',
-        'nombre_coordinacion'=>'Área de Cómputo',
+        'nombre_coordinacion'=>'Formación y Desarrollo en Cómputo',
         'coordinador'=>'Daniela Lopez Gomez',
         'genero' => 'F',
         'grado'=>'M.C.C',
@@ -1771,7 +1771,7 @@ en impuestos universitarios.',
       ]);
       
       DB::table('coordinacions')->insert([
-        'nombre_coordinacion' => 'Área Didáctico Pedagógica',
+        'nombre_coordinacion' => 'Formación y Desarrollo Didáctico Pedagógico',
         'abreviatura' => 'DP',
         'coordinador' => 'Daniel Morales',
         'genero' => 'M',
@@ -1781,7 +1781,7 @@ en impuestos universitarios.',
       ]);
   
       DB::table('coordinacions')->insert([
-        'nombre_coordinacion' => 'Área de Desarrollo Humano',
+        'nombre_coordinacion' => 'Formación en Desarrollo Humano',
         'abreviatura' => 'DH',
         'coordinador' => 'Jacob Hernandez',
         'genero' => 'M',

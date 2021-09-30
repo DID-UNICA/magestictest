@@ -38,6 +38,12 @@ class CatalogoCursosController extends Controller
         ->with('modulos', $modulos);
     }
 
+    public function verCatalogosCursos(){
+      $catalogos = CatalogoCurso::where('tipo','<>','D')->get();
+      return view("pages.consulta-catalogo-cursos")
+        ->with('users', $catalogos);
+    }
+
     
     /**
      * Show the form for creating a new resource.
@@ -181,34 +187,25 @@ class CatalogoCursosController extends Controller
      */
     public function search(Request $request)
     {
-        if($request->type == "nombre")
-        {
+      $arreglo_aux = array();
+      $catalogos = collect();
+        if($request->type == "nombre"){
+          $words=explode(" ", $request->pattern);
+          foreach($words as $word){
+              array_push($arreglo_aux, CatalogoCurso::where('tipo', '<>','D')->whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%".$word."%'))")
+                  ->get());
+          }
+          foreach ($arreglo_aux as $tmp) {
+              $catalogos = $catalogos->concat($tmp);
+          }
+        }elseif($request->type == "clave"){
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $users = CatalogoCurso::whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%".$word."%'))")
+                $catalogos = CatalogoCurso::whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%".$word."%'))")->where('tipo','<>','D')
                     -> get();
             }
-            return view("pages.consulta-catalogo-cursos")
-            ->with("users",$users);
-
-        $coordinaciones = Coordinacion::all();
-        $users = CatalogoCurso::all();
-        return view("pages.consulta-catalogo-cursos")
-            ->with("coordinaciones",$coordinaciones)
-            ->with("users",$users);
-
-         }elseif($request->type == "clave"){
-
-            $words=explode(" ", $request->pattern);
-            foreach($words as $word){
-                $users = CatalogoCurso::whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%".$word."%'))")
-                    -> get();
-            }
-            return view("pages.consulta-catalogo-cursos")
-            ->with("users",$users);
         }
         elseif($request->type == "coordinacion"){
-
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
                 $aux = Coordinacion::select("id")->whereRaw("lower(unaccent(nombre_coordinacion)) ILIKE lower(unaccent('%".$word."%'))")
@@ -218,16 +215,14 @@ class CatalogoCursosController extends Controller
                 foreach ($aux as $value) {
                     array_push($aux2, $value->id);
                 }
-                $users = CatalogoCurso::whereIn("coordinacion_id", $aux2)->get();;
-            return view("pages.consulta-catalogo-cursos")
-            ->with("users",$users);
+                $catalogos = CatalogoCurso::whereIn("coordinacion_id", $aux2)->where('tipo','<>','D')->get();;
         }
-
-        $coordinaciones = Coordinacion::all();
-        $users = CatalogoCurso::all();
+        if($catalogos->isEmpty()){
+          return redirect()->route('catalogo-cursos.ver.todos')
+            ->with('warning', 'No se encontraron resultados');
+        }
         return view("pages.consulta-catalogo-cursos")
-            ->with("coordinaciones",$coordinaciones)
-            ->with("users",$users);
+            ->with("users",$catalogos);
     }
 
     public function searchModulos(Request $request)
