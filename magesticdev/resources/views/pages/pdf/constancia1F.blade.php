@@ -159,21 +159,24 @@ body {
       <p style="font-size: 12pt;">{{$fechaimp}}</h5>
       <p style="padding-top: 0.3cm; padding-bottom: 0.3cm; font-size: 12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
       <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-      <p style="font-size: 8pt; padding-bottom: 1.9cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
+      <p style="font-size: 8pt; padding-bottom: 1.7cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
 
 
 
     <div class = "tabla-centro">
-    <table class = "tabla-centro">
+    <table class="tabla-centro">
       <tr>
-        <td  class="firma1" style="padding-top: 1cm;">___________________</td>
+        <td class="firma1" style="padding-top: 1cm;">___________________</td>
       </tr>
       <tr>
-        <td  class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$firmante1}}</td>
+        <td class="firma" style="font-weight: bold; font-size: 11pt; padding-top: 0.3cm;">{{$firmante1}}</td>
       </tr>
+    </table>
+
+    <table width="4.2cm" style="margin: auto;">
       <tr>
-        <td class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
+        <td width="2cm" height="0.25cm" class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
       </tr>
     </table>
     </div>
@@ -181,7 +184,7 @@ body {
 
 
   </div>
-      <table width=auto style="vertical-align: top; padding-top: 0.6cm; margin: 0px;">
+      <table width=auto style="vertical-align: top; padding-top: 0.6cm; margin: 0px; position: absolute;">
       <tr width=auto>
         <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
         <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>

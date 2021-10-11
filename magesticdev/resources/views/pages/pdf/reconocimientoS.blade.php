@@ -136,11 +136,11 @@ body {
       <br>
       <div class="centro">
       @if($profesor->genero=="masculino")
-        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento al:</h2>
+        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento al:</h2>
       @elseif($profesor->genero=="femenino")
-      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento a la:</h2>
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a la:</h2>
       @else
-      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento a:</h2>
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a:</h2>
       @endif
         <br>
         <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
@@ -245,7 +245,7 @@ body {
         </table>
       </div>
     </div>
-    <table width=auto style="vertical-align: top; padding-top: 1cm; margin: 0px;">
+    <table width=auto style="vertical-align: top; padding-top: 1cm; margin: 0px; position: absolute;">
       <tr width=auto>
         <td id="numero_inferior" style="left: 1.2cm;">{{ $folio_der }}</td>
         <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;">{{ $folio }}</td>

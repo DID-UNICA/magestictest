@@ -193,7 +193,7 @@ body {
     </table>
 
   </div>
-    <table width=auto style="vertical-align: top; padding-top: 0.6cm; margin: 0px;">
+    <table width=auto style="vertical-align: top; padding-top: 0.6cm; margin: 0px; position: absolute;">
     <tr width=auto>
       <td id="numero_inferior" style="left: 1.2cm;"> {{ $folio_der }}</td>
       <td id="folio" style=" padding-left: 21.3cm; right:1.2cm;"> {{ $folio }}</td>
