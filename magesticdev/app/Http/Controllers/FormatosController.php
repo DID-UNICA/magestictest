@@ -166,7 +166,8 @@ class FormatosController extends Controller
             'fechaimp'=>$fechaimp,
             'salon'=>$salon,
             'participantes' => $participantes,
-            'tipo' => $tipo
+            'tipo' => $tipo,
+            'total' => $participantes->count()
         );
         if ($formato == "A"){
         //Lista de asistencia

@@ -85,7 +85,7 @@ class ReconocimientosController extends Controller{
             ->with('diplomado',Diplomado::findOrFail($curso->diplomado_id));
         }
         return view("pages.reconocimientos-elegirTipoReconocimiento")
-                ->with('curso',$curso);
+          ->with('curso',$curso);
     }
 
     public function generar(Request $request, $id){
@@ -233,8 +233,7 @@ class ReconocimientosController extends Controller{
         );
 
       // OBTENCIÓN DE FECHAS
-      if($curso->getTipo() != 'S')
-        $fechaimp = $curso->getFecha();
+      $fechaimp = $curso->getFecha();
       $fecha = Carbon::parse($curso->getFechaFin());
       $fecha = $fecha->format('d/m/Y');
       $fecha = explode("/",$fecha);
@@ -265,6 +264,42 @@ class ReconocimientosController extends Controller{
 
       //SELECCIÓN DE FORMATO
       $iter = 1;
+      //PDF del coordinador
+      if($cursoCatalogo->tipo=="S"){
+        $numLista = app('App\Http\Controllers\ReconocimientosController')->convertirACadena($iter);
+        if($request->gen_folio_inst){
+          $folio_inst = $request->folio_inst.$numLista;
+        }
+        else
+          $folio_inst = "";
+        if($folio_der > 0)
+          $folio_peque = strval($folio_der);
+        else
+          $folio_peque = "";
+        // fecha de todo el seminario
+        if(!isset($coordinacion)){
+          $coordinacion = Coordinacion::findOrFail($cursoCatalogo->coordinacion_id);
+        }
+        $pdf = PDF::loadView('pages.pdf.reconocimientoSC', 
+          array('curso' => $curso,
+          'coordinacion'=>$coordinacion,
+          'cursoCatalogo' => $cursoCatalogo,
+          'fecha'=>$fecha, 
+          'firmantes'=>$firmantes,
+          'descripciones'=>$descripciones,
+          'numFirmantes'=>$numFirmantes,
+          'fechaimp'=>$fechaimp,
+          'texto' => $request->sem_pers_coord,
+          'folio' => $folio_inst,
+          'folio_der' => $folio_peque,
+        ))->setPaper('letter', 'landscape');
+        $nombreArchivo = strval($iter).'Coordinador_'.$coordinacion->coordinador.'_R.pdf';
+        $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
+        $pdfMerger->addPDF(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo),'all','L');
+        $zip::addString($nombreArchivo,$pdf->download($nombreArchivo));
+        $iter++;
+        $folio_der = $folio_der > 0 ? $folio_der + 1 : $folio_der - 1;
+      }
       try{
         //Recorremos cada instructor
         foreach($instructores as $instructor){

@@ -107,7 +107,7 @@
 
             <!-- Texto personalizado si el tipo es Seminario -->
             <div class="form-group row">
-              {!!Form::label("texto_pers", "Texto personalizado del reconocimiento:", ["class"=>"col-md-3"])!!}
+              {!!Form::label("texto_pers", "Texto personalizado:", ["class"=>"col-md-3"])!!}
               <div class="col-md-6">
                 {!!Form::text("texto_pers",null,["placeholder"=>"Ej. Por su participación en","required","class"=>"form-control"])!!}
               </div>
@@ -118,6 +118,13 @@
               {!!Form::label("sem_pers", "Segundo texto personalizado para el reconocimiento:", ["class"=>"col-md-3"])!!}
               <div class="col-md-6">
                 {!!Form::text("sem_pers",null,["placeholder"=>"Ej. En el seminario","required","class"=>"form-control"])!!}
+              </div>
+            </div>
+            <!-- Texto para personalizar leyenda coordinador seminario -->
+            <div class="form-group row">
+              {!!Form::label("sem_pers_coord", "Segundo texto personalizado para el reconocimiento del coordinador:", ["class"=>"col-md-3"])!!}
+              <div class="col-md-6">
+                {!!Form::text("sem_pers_coord",null,["placeholder"=>"Ej. Por coordinar el VII seminario","required","class"=>"form-control"])!!}
               </div>
             </div>
             @endif    
