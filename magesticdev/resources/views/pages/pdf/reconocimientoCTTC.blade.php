@@ -159,7 +159,7 @@ body {
         <p style="font-size: 8pt; padding-bottom: 1cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
       </div>
 
-      <div class="tabla-centro">
+      <div class="tabla-centro" style="position: relative;">
         <table class="tabla-centro">
           <tr>
             @if($numFirmantes == 1){
@@ -215,9 +215,16 @@ body {
             @if($numFirmantes == 1){
             <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
             }@elseif($numFirmantes == 2){
-            <td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">{{$descripciones[1]}}</td>
-            <td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">{{$descripciones[0]}}</td>
-
+              <table width="4.2cm" style="position: absolute; top: 1.8cm; left: 5.5cm;">
+                <tr>
+                  <td width="2cm" height="0.25cm" class="firma" style="font-size: 8pt;">          {{$descripciones[1]}}</td>
+                </tr>
+              </table>
+              <table width="4.2cm" style="position: absolute; top: 1.8cm; right:5.5cm;">
+                <tr>
+                  <td width="2cm" height="0.25cm" class="firma" style="font-size: 8pt;">          {{$descripciones[0]}}</td>
+                </tr>
+              </table>
             }@elseif($numFirmantes == 3){
             <td class="firma" style="font-size: 8pt;">{{$descripciones[2]}}</td>
             <td class="firma" style="font-size: 8pt;">{{$descripciones[1]}}</td>

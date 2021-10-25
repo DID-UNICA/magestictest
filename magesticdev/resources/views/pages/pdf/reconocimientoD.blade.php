@@ -146,7 +146,7 @@ body {
         <p style="line-height: 20%; font-size: 12pt; font-weight: bold;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
         <p style="font-size: 8pt; padding-bottom: 1cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
       </div>
-      <div class="tabla-centro">
+      <div class="tabla-centro" style="position: relative;">
         <table class="tabla-centro">
           <tr>
             @if($numFirmantes == 1){
@@ -200,8 +200,18 @@ body {
             @if($numFirmantes == 1){
             <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
             }@elseif($numFirmantes == 2){
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[1]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
+
+              <table width="4.2cm" style="position: absolute; top: 1.6cm; left: 4.3cm;">
+                <tr>
+                  <td width="2cm" height="0.25cm" class="firma" style="font-size: 8pt;">          {{$descripciones[1]}}</td>
+                </tr>
+              </table>
+              <table width="4.2cm" style="position: absolute; top: 1.6cm; right:4.3cm;">
+                <tr>
+                  <td width="2cm" height="0.25cm" class="firma" style="font-size: 8pt;">          {{$descripciones[0]}}</td>
+                </tr>
+              </table>
+
 
             }@elseif($numFirmantes == 3){
             <td class="firma" style="font-size: 8pt;">{{$descripciones[2]}}</td>

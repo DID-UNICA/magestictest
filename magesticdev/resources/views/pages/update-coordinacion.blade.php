@@ -64,10 +64,32 @@
                               </div>
                             </div>
                           </div>
-                        <div class="form-group col-md-4">
-                            {!!Form::label("usuario", "Usuario")!!}
-                            {!!Form::text("usuario", $user->usuario, [ "class" => "form-control", "placeholder" => "Usuario", "required",""])!!}
-                        </div>
+                          <div class="col-md-3">
+                            {!!Form::label("es_admin", "Coordinacion con privilegios de administrador:")!!}
+                          </div>
+                          <div class="col-md-3">
+                              <div class="row">
+                                <label class="radio-inline">
+                                  @if($user->es_admin === True)
+                                    <input id="es_admin_T" type="radio" name="es_admin" value = 'T' checked required>
+                                  @else
+                                    <input id="es_admin_T" type="radio" name="es_admin" value = 'T' required>
+                                  @endif
+                                  Sí
+                                </label>
+                              </div>
+                              <div class="row">
+                                <label class="radio-inline">
+                                  @if($user->es_admin === False)
+                                    <input id="es_admin_F" type="radio" name="es_admin" value='F' checked>
+                                  @else
+                                    <input id="es_admin_F" type="radio" name="es_admin" value='F'>
+                                  @endif
+                                  No
+                                </label>
+                              </div>
+                            </div>
+                          </div>
                         <div class="form-group col-md-8">
                             {!!Form::label("comentarios", "Comentario")!!}
                             {!!Form::text("comentarios", $user->comentarios, [ "class" => "form-control", "placeholder" => "Comentario", ""])!!}

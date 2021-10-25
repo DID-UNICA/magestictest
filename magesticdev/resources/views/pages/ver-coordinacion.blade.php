@@ -44,8 +44,14 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    {!!Form::label("usuario", "Usuario del Coordinador:")!!}
-                                    {!!Form::text("usuario", $user->usuario, [ "class" => "form-control", "placeholder" => "Usuario", "required","disabled"])!!}
+                                    {!!Form::label("coordinador", "Privilegios de administrador:")!!}
+                                    @if($user->es_admin === True)
+                                      {!!Form::text("coordinador", 'Sí', [ "class" => "form-control", "placeholder" => "Coordinador", "required","disabled"])!!}
+                                    @elseif($user->es_admin === False)
+                                      {!!Form::text("coordinador", 'No', [ "class" => "form-control", "placeholder" => "Coordinador", "required","disabled"])!!}
+                                    @else
+                                      {!!Form::text("coordinador", 'Indefinido', [ "class" => "form-control", "placeholder" => "Coordinador", "required","disabled"])!!}
+                                    @endif
                                 </div>
 
                                 <div class="form-group col-md-4">

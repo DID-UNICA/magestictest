@@ -30,11 +30,23 @@
                             {!!Form::label("coordinador", "Coordinador:")!!}
                             {!!Form::text("coordinador", $user->coordinador, [ "class" => "form-control", "placeholder" => "coordinador", "required",""])!!}
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
+                            {!!Form::label("password", "Contraseña:")!!}
+                            {!!Form::text("password", '', [ "class" => "form-control", "placeholder" => "Dejar vacío si no se desea cambiar", ""])!!}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {!!Form::label("comentarios", "Comentarios:")!!}
+                            {!!Form::text("comentarios", $user->comentarios, [ "class" => "form-control", "placeholder" => "comentarios", ""])!!}
+                        </div>
+                        <div class="form-group col-md-4">
+                            {!!Form::label("grado", "Abreviatura de Grado:")!!}
+                            {!!Form::text("grado", $user->grado, [ "class" => "form-control", "placeholder" => "Abreviatura", "required",""])!!}
+                        </div>
+                        <div class="form-group col-md-8">
                           <div>
                             {!!Form::label("genero_l", "Género:")!!}
                           </div>
-                          <div>
+                          <div style="margin-left: 13px;">
                             <div class="row">
                               <label class="radio-inline">
                                 @if($user->genero === 'M')
@@ -57,15 +69,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="form-group col-md-4">
-                            {!!Form::label("comentarios", "Comentarios:")!!}
-                            {!!Form::text("comentarios", $user->comentarios, [ "class" => "form-control", "placeholder" => "comentarios", ""])!!}
-                        </div>
-                        <div class="form-group col-md-4">
-                            {!!Form::label("grado", "Abreviatura de Grado:")!!}
-                            {!!Form::text("grado", $user->grado, [ "class" => "form-control", "placeholder" => "Abreviatura", "required",""])!!}
-                        </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-12">
                             <button type="submit" class="btn btn-primary col-md-offset-1">Actualizar</button>
                         </div>
                         {!! Form::close() !!}

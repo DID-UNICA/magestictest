@@ -28,7 +28,7 @@ class FormatosController extends Controller
         }elseif($request->type2 == 'excel2'){
             return (new AllCursosPartialExport)->download('reporte_parcial.xlsx');
         }elseif ($request->type2 == 'sugerencia'){
-            $coordinaciones = Coordinacion::all();
+            $coordinaciones = Coordinacion::where('nombre_coordinacion','<>', 'Coordinación Del Centro de Docencia')->get();
             $cursos = Curso::all()
                 ->where('semestre_anio', $anio)
                 ->where('semestre_pi', $pi)

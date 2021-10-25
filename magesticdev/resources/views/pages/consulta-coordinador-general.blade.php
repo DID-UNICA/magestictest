@@ -18,7 +18,7 @@
             <div class="panel-heading">
               @if($user->genero === 'F')  
                 <h3>Coordinadora del Centro de Docencia</h3>
-              @else)
+              @else
                 <h3>Coordinador del Centro de Docencia</h3>
               @endif
 

@@ -25,7 +25,7 @@ class CatalogoCursosController extends Controller
 
     public function index()
     {
-      $coordinaciones = Coordinacion::all();
+      $coordinaciones = Coordinacion::where('nombre_coordinacion','<>', 'Coordinación Del Centro de Docencia')->get();
       $users = CatalogoCurso::all();
       return view("pages.consulta-catalogo-cursos")
           ->with("coordinaciones",$coordinaciones)
@@ -52,7 +52,7 @@ class CatalogoCursosController extends Controller
      */
     public function nuevo()
     {
-      $coordinaciones = Coordinacion::all();
+      $coordinaciones = Coordinacion::where('nombre_coordinacion','<>','Coordinación Del Centro de Docencia')->get();
       $catalogo_cursos = CatalogoCurso::all();
       $profesores = Profesor::all();
 
@@ -62,7 +62,7 @@ class CatalogoCursosController extends Controller
 
     public function nuevoModulo()
     {
-      $coordinaciones = Coordinacion::all();
+      $coordinaciones = Coordinacion::where('nombre_coordinacion','<>','Coordinación Del Centro de Docencia')->get();
       $catalogo_cursos = CatalogoCurso::all();
       $profesores = Profesor::all();
 
@@ -258,7 +258,7 @@ class CatalogoCursosController extends Controller
             }
         }
 
-        $coordinaciones = Coordinacion::all();
+        $coordinaciones = Coordinacion::where('nombre_coordinacion','<>', 'Coordinación Del Centro de Docencia')->get();
         if($modulos->isEmpty()){
           return redirect()->route('catalogo.modulo.consulta')
             ->with('warning', 'No se encontraron resultados');

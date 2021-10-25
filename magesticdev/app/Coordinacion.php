@@ -17,7 +17,7 @@ class Coordinacion extends Authenticatable
     protected $table = "coordinacions";
 
     protected $fillable = [
-        'nombre_coordinacion', 'abreviatura','coordinador','grado','genero','usuario','password','comentarios',
+        'nombre_coordinacion', 'abreviatura','coordinador','grado','genero','es_admin','password','comentarios',
     ];
 
     /**

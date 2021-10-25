@@ -19,23 +19,14 @@
                 <div class="panel-heading">
                 @include ('partials.messages')
                     <h3>Alta Coordinación</h3>
-                    
                 </div>
                 <div class="panel-body">
-
-
-
                     <form id="cursoform" class="form-horizontal" method="POST" action="{{ route('coordinacion.store') }}">
                         {{ csrf_field() }}
-
-
-
                         <div class="form-group{{ $errors->has('nombre_coordinacion') ? ' has-error' : '' }}">
                             <label for="nombre_coordinacion" class="col-md-4 control-label">Nombre de la coordinación: </label>
-
                             <div class="col-md-6">
                                 <input id="nombre_coordinacion" type="text" class="form-control" name="nombre_coordinacion" value="{{ old('nombre_coordinacion') }}"  required oninvalid="this.setCustomValidity('Ingrese una clave por favor')" oninput="this.setCustomValidity('')">
-
                                 @if ($errors->has('nombre_coordinacion'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('nombre_coordinacion') }}</strong>
@@ -46,10 +37,8 @@
 
                         <div class="form-group{{ $errors->has('abreviatura') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Abreviatura</label>
-
                             <div class="col-md-6">
                                 <input id="abreviatura" type="text" class="form-control" name="abreviatura" value="{{ old('abreviatura') }}" required oninvalid="this.setCustomValidity('Ingrese una abreviatura por favor')" oninput="this.setCustomValidity('')">
-
                                 @if ($errors->has('abreviatura'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('abreviatura') }}</strong>
@@ -60,10 +49,8 @@
 
                         <div class="form-group{{ $errors->has('coordinador') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Coordinador</label>
-
                             <div class="col-md-6">
                                 <input id="coordinador" type="text" class="form-control" name="coordinador" value="{{ old('coordinador') }}" required oninvalid="this.setCustomValidity('Ingrese un coordinador por favor')" oninput="this.setCustomValidity('')">
-
                                 @if ($errors->has('coordinador'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('coordinador') }}</strong>
@@ -71,6 +58,7 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="genero" class="col-md-4 control-label">Género</label>
                             <div class="col-md-3">
@@ -88,19 +76,26 @@
                               </div>
                             </div>
                           </div>
-                        <div class="form-group{{ $errors->has('usuario') ? ' has-error' : '' }}">
-                            <label for="usuario" class="col-md-4 control-label">Nombre de Usuario</label>
 
-                            <div class="col-md-6">
-                                <input id="usuario" type="text" class="form-control" name="usuario" value="{{ old('usuario') }}" required oninvalid="this.setCustomValidity('Ingrese un nombre de usuario')" oninput="this.setCustomValidity('')">
-
-                                @if ($errors->has('usuario'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('usuario') }}</strong>
-                                    </span>
-                                @endif
+                          <div class="form-group">
+                            <label for="es_admin" class="col-md-4 control-label">Privilegios de administrador:</label>
+                            <div class="col-md-3">
+                              <div class="row">
+                                <label class="radio-inline">
+                                    <input id="es_admin_T" type="radio" name="es_admin" value = 'T' required>
+                                  Sí
+                                </label>
+                              </div>
+                              <div class="row">
+                                <label class="radio-inline">
+                                    <input id="es_admin_F" type="radio" name="es_admin" value='F' >
+                                  No
+                                </label>
+                              </div>
                             </div>
-                        </div>
+                          </div>
+           
+                        
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Contraseña</label>
 
@@ -141,10 +136,6 @@
                                 @endif
                             </div>
                         </div>
-
-
-
-
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

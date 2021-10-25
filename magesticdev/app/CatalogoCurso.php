@@ -26,7 +26,7 @@ protected $fillable = [
     }
     
     public function allCoordinacion(){
-        $coordinacion = Coordinacion::all();
+        $coordinacion = Coordinacion::where('nombre_coordinacion','<>', 'Coordinación Del Centro de Docencia')->get();
         return $coordinacion;
     }
 

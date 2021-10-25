@@ -77,7 +77,7 @@ class DiplomasController extends Controller{
           'Primero hay que dar de alta al Director'
         );
       }
-      $coordinadorGeneral = CoordinadorGeneral::first();
+      $coordinadorGeneral = CoordinadorGeneral::where('nombre_coordinacion', 'Coordinación Del Centro de Docencia')->get()->first();
       if(!$coordinadorGeneral)
         return redirect()->back()->with('info', 
         'Primero hay que dar de alta al Coordinador del Centro de Docencia'

@@ -20,7 +20,7 @@ class Profesor extends Authenticatable
 
     protected $table = "profesors";
     protected $fillable = [
-        'nombres', 'apellido_paterno','apellido_materno','rfc','numero_trabajador', 'categoria_nivel_id', 'categoria_nivel_2_id',
+        'nombres', 'apellido_paterno','apellido_materno','rfc','numero_trabajador',
         'fecha_nacimiento','telefono','grado','abreviatura_grado','email','usuario', 'fecha_alta','grado','genero',
         'baja','causa_baja','semblanza_corta','facebook','unam','procedencia','facultad_id'
     ];
@@ -69,44 +69,40 @@ class Profesor extends Authenticatable
       return Carbon::parse($this->fecha_nacimiento)->age;
     }
 
+    public function getProfesorCategorias(){
+      return ProfesorCategoria::where('profesor_id', $this->id)->get();
+    }
     public function getCategoria_1(){
-        if($this->categoria_nivel_id)
-            return CategoriaNivel::findOrFail($this->categoria_nivel_id)->categoria;
+      $categoria = ProfesorCategoria::where('profesor_id', $this->id)->get()->first();
+      if($categoria->isNotEmpty())
+          return CategoriaNivel::findOrFail($this->categoria_nivel_id)->categoria;
         else
-            return "";
+          return "";
     }
 
     public function getCategoria_2(){
-      if($this->categoria_nivel_2_id)
-          return CategoriaNivel::findOrFail($this->categoria_nivel_2_id)->categoria;
+      $categoria = ProfesorCategoria::where('profesor_id', $this->id)->get()->last();
+      if($categoria->isNotEmpty())
+        return CategoriaNivel::findOrFail($this->categoria_nivel_id)->categoria;
       else
-          return "";
+        return "";
   }
 
-  public function getCatAbr_1(){
-    if($this->categoria_nivel_id)
-      return CategoriaNivel::findOrFail($this->categoria_nivel_id)->abreviatura;
-    else
-      return '';
+  public function getIdCategoria_1()
+  {
+      return ProfesorCategoria::where('profesor_id', $this->id)->get()->first()->categoria_nivel_id;
   }
 
-  public function getCatAbr_2(){
-    if($this->categoria_nivel_2_id)
-      return CategoriaNivel::findOrFail($this->categoria_nivel_2_id)->abreviatura;
-    else
-      return '';
+  public function getIdCategoria_2()
+  {
+      return ProfesorCategoria::where('profesor_id', $this->id)->get()->last()->categoria_nivel_id;
   }
 
   public function getCatAbr(){
-    if ($this->categoria_nivel_id )
-      $cat1 = CategoriaNivel::findOrFail($this->categoria_nivel_id)->abreviatura;
-    else
-      $cat1 = '';
-    if ($this->categoria_nivel_2_id)
-      $cat2 = CategoriaNivel::findOrFail($this->categoria_nivel_2_id)->abreviatura;
-    else
-      $cat2 = '';
-    if($cat1 != '' and $cat2 != '')
+    $categorias = ProfesorCategori::where('profesor_id', $this->id)->get();
+    $cat1 = CategoriaNivel::findOrFail($categorias->first()->categoria_nivel_id)->abreviatura;
+    $cat2 = CategoriaNivel::findOrFail($categorias->first()->categoria_nivel_id)->abreviatura;
+   if($cat1 != '' and $cat2 != '')
       return $cat1.', '.$cat2;
     elseif($cat1 == '' )
       return $cat2;
@@ -130,15 +126,7 @@ class Profesor extends Authenticatable
         return $grado;
     }
 
-    public function getIdCategoria_1()
-    {
-        return $this->categoria_nivel_id;
-    }
 
-    public function getIdCategoria_2()
-    {
-        return $this->categoria_nivel_2_id;
-    }
 
     public function getDivision(){
       $div_nombre = '';

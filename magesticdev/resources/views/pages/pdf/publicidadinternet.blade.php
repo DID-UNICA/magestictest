@@ -130,7 +130,7 @@ hr{
 	padding-bottom: 8px;
   font-size: 11pt;
   font-family: Calibri, Helvetica, Arial, serif;
-  text-align: left;
+  text-align: justify;
   font-style: italic;
   string-set: header;
 }
@@ -159,8 +159,8 @@ hr{
 .comentarios{
   font-family: Calibri, Helvetica, Arial, serif;
   font-size: 12pt;
-  font-style: italic;
   text-align: justify;
+  font-style: italic;
 }
 
 #tipolower{
@@ -222,7 +222,7 @@ $GLOBALS["header"] = NULL;
 			
 			@foreach ($curso->getInstanciaProfesores() as $profesor)
 			<p class=profesores> {{ $profesor->abreviatura_grado }} {{ $profesor->nombres }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}</p>
-			<p class=comentarios>{!! nl2br(str_replace(' ', '&nbsp;', $profesor->semblanza_corta)) !!}</p>
+			<p class=comentarios>{!! $profesor->semblanza_corta !!}</p>
 			@endforeach
 			
 			<table style="margin-top:10px">

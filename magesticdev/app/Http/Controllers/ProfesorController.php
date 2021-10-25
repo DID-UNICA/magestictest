@@ -13,6 +13,7 @@ use App\Curso;
 use App\Facultad;
 use App\Profesor;
 use App\ProfesoresCurso;
+use App\ProfesorCategoria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
@@ -118,8 +119,26 @@ class ProfesorController extends Controller
          if ($bandera or $bandera2)
             return redirect()->back()->with('danger', 'Datos incorrectos. Alguno de los datos ingresados ya esta registrado en el sistema');
         $user->telefono = $request->telefono;
-        $user->categoria_nivel_id = $request->categoria_nivel_id;
-        $user->categoria_nivel_2_id = $request->categoria_nivel_2_id;
+        if($categorias = ProfesorCategoria::where('profesor_id',$user->id)->get()->isNotEmpty()){
+          $categoria_1 = $categorias->first();
+          $categoria_1->categoria_nivel_id = $request->categoria_nivel_id;
+          $categoria_1->save();
+  
+          $categoria_2 = $categorias->last();
+          $categoria_2->categoria_nivel_2_id = $request->categoria_nivel_2_id;
+          $categoria_2->save();
+        }else{
+          $categoria_1 = new ProfesorCategoria();
+          $categoria_1->profesor_id = $user->id;
+          $categoria_1->categoria_nivel_id = $user->id;
+          $categoria_1->save();
+
+          $categoria_2 = new ProfesorCategoria();
+          $categoria_2->profesor_id = $user->id;
+          $categoria_2->categoria_nivel_id = $user->id;
+          $categoria_2->save();
+        }
+
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->telefono = $request->telefono;
         $user->grado = $request->grado;
@@ -552,12 +571,18 @@ class ProfesorController extends Controller
     {
         try{
             $user = Profesor::findOrFail($id);
+
             $divisions = ProfesoresDivisiones::where('id_profesor', $id)->get();
             foreach($divisions as $division)
               $division->delete();
+            
             $carreras = ProfesoresCarreras::where('id_profesor', $id)->get();
             foreach($carreras as $carrera)
               $carrera->delete();
+
+            $categorias = ProfesorCategoria::where('profesor_id', $id)->get();
+            foreach($categorias as $categoria)
+              $categoria->delete();
             $user -> delete();
             return redirect('/profesor')->with('success', 'El profesor fue dado de baja correctamente.');
         }catch (\Illuminate\Database\QueryException $e){
@@ -606,8 +631,17 @@ class ProfesorController extends Controller
         } 
 */
         $user->telefono = $request->telefono;
-        $user->categoria_nivel_id = $request->categoria_nivel_id;
-        $user->categoria_nivel_2_id = $request->categoria_nivel_2_id;
+        $categoria_1 = new ProfesorCategoria();
+
+        $categoria_1->profesor_id = $user->id;
+        $categoria_1->categoria_nivel_id = $user->id;
+        $categoria_1->save();
+
+        $categoria_2 = new ProfesorCategoria();
+        $categoria_2->profesor_id = $user->id;
+        $categoria_2->categoria_nivel_id = $user->id;
+        $categoria_2->save();
+
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->telefono = $request->telefono;
         $user->grado = $request->grado;

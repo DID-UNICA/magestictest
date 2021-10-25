@@ -6,14 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
 class CoordinadorGeneral extends Model
 {
     use Notifiable;
 
-    protected $table = "coordinador_general";
+    protected $table = "coordinacions";
     protected $fillable = [
-        'coordinador','comentarios','grado','genero'
+        'coordinador','comentarios','grado','genero','password','es_admin'
+    ];
+    protected $hidden = [
+      'password'
     ];
 
     public function getDescripcion(){

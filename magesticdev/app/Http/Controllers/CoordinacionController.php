@@ -21,9 +21,9 @@ class CoordinacionController extends Controller
 
     public function index()
     {
-        $users = Coordinacion::all();
+        $coordinacions = Coordinacion::where('nombre_coordinacion', '<>', 'Coordinación Del Centro de Docencia')->get();
         return view("pages.consulta-coordinacion")
-            ->with("users",$users);
+            ->with("users",$coordinacions);
     }
 
     public function nuevo()
@@ -58,8 +58,10 @@ class CoordinacionController extends Controller
         $user->nombre_coordinacion = $request->nombre_coordinacion;
         $user->abreviatura= $request->abreviatura;
         $user->coordinador= $request->coordinador;
-        $user->usuario= $request->usuario;
-        $user->password= bcrypt($request->password);
+        if($request->es_admin === 'T')
+          $user->es_admin = True;
+        if($request->es_admin === 'F')
+          $user->es_admin = False;
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
 				if($request->genero === 'M')
@@ -113,7 +115,6 @@ class CoordinacionController extends Controller
         $user->nombre_coordinacion = $request->nombre_coordinacion;
         $user->abreviatura= $request->abreviatura;
         $user->coordinador= $request->coordinador;
-        $user->usuario= $request->usuario;
         $user->password= bcrypt($request->password);
         $user->comentarios = $request->comentarios;
         $user->grado = $request->grado;
@@ -123,6 +124,12 @@ class CoordinacionController extends Controller
 					$user->genero = 'F';
 				else
 					$user->genero = null;
+        if($request->es_admin === 'T')
+					$user->es_admin = True;
+				elseif($request->es_admin === 'F')
+					$user->es_admin = False;
+				else
+					$user->es_admin = null;
         $user->save();
         return redirect('/coordinacion')
           ->with("success",'Se ha creado el registro correctamente');
@@ -161,8 +168,4 @@ class CoordinacionController extends Controller
      * @param  \App\Coordinacion  $coordinacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Coordinacion $coordinacion)
-    {
-        //
-    }
 }

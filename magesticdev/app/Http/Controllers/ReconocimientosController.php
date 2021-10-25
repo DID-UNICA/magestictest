@@ -108,7 +108,7 @@ class ReconocimientosController extends Controller{
       // PRIMER FIRMANTE
       //El reconocimiento necesita al coordinador del centro de docencia como mayor cargo
       if($request->tipof == 'A' || $request->tipof == 'B'){
-        $coordinadorGeneral = CoordinadorGeneral::first();
+        $coordinadorGeneral = CoordinadorGeneral::where('nombre_coordinacion', 'Coordinación Del Centro de Docencia')->get()->first();
         if(!$coordinadorGeneral){
           return redirect()->back()->with(
             'info',
@@ -153,7 +153,7 @@ class ReconocimientosController extends Controller{
       }
       // Se necesita al CCDD de área como menor cargo
       elseif($request->tipof == 'C'){
-        $coordinadorGeneral = CoordinadorGeneral::first();
+        $coordinadorGeneral = CoordinadorGeneral::where('nombre_coordinacion', 'Coordinación Del Centro de Docencia')->get()->first();
         if(!$coordinadorGeneral){
           return redirect()->back()->with(
             'info',
