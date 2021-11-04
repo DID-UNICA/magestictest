@@ -30,8 +30,7 @@ protected $fillable = [
         return $coordinacion;
     }
 
-    public function getIdCoordinacion()
-    {
+    public function getIdCoordinacion(){
         return $this->coordinacion_id;
     }
     public function getNumTemas(){
@@ -46,5 +45,18 @@ protected $fillable = [
 
     public function getNombreClave(){
       return $this->nombre_curso.' ('.$this->clave_curso.')';
+    }
+
+    public function getContenido_sangria(){
+        $conte = $this->contenido;
+        $conte_aux = '';
+        foreach(preg_split("/\n/", $conte) as $line){
+            for ($i=0; $i < strlen($line) && $line[$i] == ' '; $i++) { 
+                $line = substr_replace($line, '&nbsp;', $i, 1);
+                $i += 5;
+            }
+            $conte_aux .= $line;
+        } 
+        return $conte_aux;
     }
 }

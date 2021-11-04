@@ -119,25 +119,23 @@ class ProfesorController extends Controller
          if ($bandera or $bandera2)
             return redirect()->back()->with('danger', 'Datos incorrectos. Alguno de los datos ingresados ya esta registrado en el sistema');
         $user->telefono = $request->telefono;
-        if($categorias = ProfesorCategoria::where('profesor_id',$user->id)->get()->isNotEmpty()){
-          $categoria_1 = $categorias->first();
-          $categoria_1->categoria_nivel_id = $request->categoria_nivel_id;
-          $categoria_1->save();
-  
-          $categoria_2 = $categorias->last();
-          $categoria_2->categoria_nivel_2_id = $request->categoria_nivel_2_id;
-          $categoria_2->save();
-        }else{
+        $categoria_1 = ProfesorCategoria::where('profesor_id',$user->id)->where('numero',1)->get()->first();
+        if(!$categoria_1){
           $categoria_1 = new ProfesorCategoria();
           $categoria_1->profesor_id = $user->id;
-          $categoria_1->categoria_nivel_id = $user->id;
-          $categoria_1->save();
-
+          $categoria_1->numero = 1;
+        }
+        $categoria_1->categoria_nivel_id = $request->categoria_nivel_id;
+        $categoria_1->save();
+  
+        $categoria_2 = ProfesorCategoria::where('profesor_id',$user->id)->where('numero',2)->get()->first();
+        if(!$categoria_2){
           $categoria_2 = new ProfesorCategoria();
           $categoria_2->profesor_id = $user->id;
-          $categoria_2->categoria_nivel_id = $user->id;
-          $categoria_2->save();
+          $categoria_2->numero = 2;
         }
+        $categoria_2->categoria_nivel_id = $request->categoria_nivel_2_id;
+        $categoria_2->save();
 
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->telefono = $request->telefono;
@@ -583,7 +581,7 @@ class ProfesorController extends Controller
             $categorias = ProfesorCategoria::where('profesor_id', $id)->get();
             foreach($categorias as $categoria)
               $categoria->delete();
-            $user -> delete();
+            $user->delete();
             return redirect('/profesor')->with('success', 'El profesor fue dado de baja correctamente.');
         }catch (\Illuminate\Database\QueryException $e){
             return redirect('/profesor')->with('danger', 'El profesor no puede ser eliminado porque tiene cursos asignados.');
@@ -614,12 +612,12 @@ class ProfesorController extends Controller
      */
     public function create(Request $request)
     {
-        
         $bandera = false;
         $user = new Profesor;
         $user->nombres = $request->nombres;
         $user->apellido_paterno = $request->apellido_paterno;
         $user->apellido_materno = $request->apellido_materno;
+        $user->telefono = $request->telefono;
         if($request->grupoRFC == "a"){
           $user->rfc = $request->rfc1;
         }
@@ -630,17 +628,6 @@ class ProfesorController extends Controller
           return $request->curp;
         } 
 */
-        $user->telefono = $request->telefono;
-        $categoria_1 = new ProfesorCategoria();
-
-        $categoria_1->profesor_id = $user->id;
-        $categoria_1->categoria_nivel_id = $user->id;
-        $categoria_1->save();
-
-        $categoria_2 = new ProfesorCategoria();
-        $categoria_2->profesor_id = $user->id;
-        $categoria_2->categoria_nivel_id = $user->id;
-        $categoria_2->save();
 
         $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->telefono = $request->telefono;
@@ -674,6 +661,7 @@ class ProfesorController extends Controller
             $user->procedencia = $request->procedencia;
             $user->facultad_id = null;
         }
+
         $bandera = FALSE;
         $bandera2 = FALSE;
         if($user->rfc != "")
@@ -709,6 +697,19 @@ class ProfesorController extends Controller
                   }
                 }
             }
+            $categoria_1 = new ProfesorCategoria();
+
+            $categoria_1->profesor_id = $user->id;
+            $categoria_1->categoria_nivel_id = $request->categoria_nivel_id;
+            $categoria_1->numero = 1;
+            $categoria_1->save();
+
+            $categoria_2 = new ProfesorCategoria();
+            $categoria_2->profesor_id = $user->id;
+            $categoria_2->categoria_nivel_id = $request->categoria_nivel_2_id;
+            $categoria_2->numero = 2;
+            $categoria_2->save();
+
             return redirect('profesor')->with('success', 'Se ha dado de alta al profesor');
         }
     }

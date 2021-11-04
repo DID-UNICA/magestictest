@@ -17,6 +17,7 @@ class ProfesoresCategorias extends Migration
         $table->increments('id');
         $table->integer('profesor_id')->unsigned();
         $table->integer('categoria_nivel_id')->unsigned();
+        $table->integer('numero')->unsigned();
         $table->foreign('profesor_id')->references('id')->on('profesors');
         $table->foreign('categoria_nivel_id')->references('id')->on('categoria_nivel');
         $table->timestamps();

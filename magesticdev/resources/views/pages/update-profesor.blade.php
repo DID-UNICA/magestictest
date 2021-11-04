@@ -174,7 +174,7 @@ function procedencia_carrera() {
 
          <div class="form-group col-md-3">
            {!!Form::label("rfc", "RFC:")!!}
-           {!!Form::text("rfc", $user->rfc, [ "class" => "form-control", "placeholder" => "RFC","required",""])!!}
+           {!!Form::text("rfc", $user->rfc, [ "class" => "form-control", "placeholder" => "RFC",""])!!}
          </div>
 
          <div class="form-group col-md-3">

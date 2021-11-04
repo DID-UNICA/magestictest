@@ -64,7 +64,7 @@
 	<div class="row col-md-12 ">
     <div class="form-group col-md-5">
         {!!Form::label("contenido", "Contenido:")!!}
-        {!!Form::textarea("contenido", $user->contenido, ["cols"=>"90", "wrap"=>"hard", "class" => "form-control"])!!}
+        {!!Form::textarea("contenido", $user->contenido, ["cols"=>"90", "wrap"=>"soft", "class" => "form-control"])!!}
     </div>
 		<div class="form-group col-md-5">
         {!!Form::label("antecedentes", "Antecedentes:")!!}

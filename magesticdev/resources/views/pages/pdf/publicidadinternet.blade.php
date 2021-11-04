@@ -140,13 +140,13 @@ hr{
 	padding-top: 1px;
   font-size: 11pt;
   font-style: italic;
-	text-align: left;
+	text-align: justify;
 }
 .temario{
 	vertical-align: top;
   font-size: 11pt;
   font-style: italic;
-	text-align: left;
+	text-align: justify;
 }
 .profesores{
   font-family: Calibri, Helvetica, Arial, serif;
@@ -232,11 +232,11 @@ $GLOBALS["header"] = NULL;
 				</tr>
 				<tr>
 					<td id=rubro-temario>Contenido:</td>
-					<td class=temario>{!! nl2br(str_replace(' ', '&nbsp;', $cursoCatalogo->contenido)) !!}</td>
+					<td class=temario>{!! nl2br($cursoCatalogo->getContenido_sangria()) !!}</td>
 				</tr>
 				<tr>
 					<td id=rubro-Ant>Antecedentes:</td>
-					<td id=contenidos-Ant>{!! nl2br(str_replace(' ', '&nbsp;', $cursoCatalogo->antecedentes)) !!}</td>
+					<td id=contenidos-Ant>{!! $cursoCatalogo->antecedentes !!}</td>
 				</tr>
 				<tr>
 					<td class=rubros>Duración: </td>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use PDF;
@@ -177,12 +177,17 @@ class ReconocimientosController extends Controller{
         $descripciones[1] = $secretarioApoyo->getDescripcion();
         $numFirmantes = 2;
       }
-
+      $length4 = 0;
+      $length3 = 0;
+      $length2 = 0;
+      $length1 = 0;
+      $length0 = 0;
       //SE ELIGIÓ LA OPCIÓN MANUAL
       if ($request->tipof == "E"){
         //Un Firmante
         $firmantes[0] = $request->name5;
         $descripciones[0] = $request->posicion5;
+        $length0 = Str::length($descripciones[0]);
       }elseif ($request->tipof == "F"){
         //Dos Firmantes
         $firmantes[1] = $request->name5;
@@ -190,38 +195,53 @@ class ReconocimientosController extends Controller{
         $firmantes[0] = $request->name4;
         $descripciones[0] = $request->posicion4;
         $numFirmantes = 2;
+        $length0 = Str::length($descripciones[0]); //4
+        $length1 = Str::length($descripciones[1]); //5
+        
       }elseif ($request->tipof == "G"){
         //Tres Firmantes
         $firmantes[2] = $request->name5;
         $descripciones[2] = $request->posicion5;
+        $length2 = Str::length($descripciones[2]);
         $firmantes[1] = $request->name4;
         $descripciones[1] = $request->posicion4;
+        $length1 = Str::length($descripciones[1]);
         $firmantes[0] = $request->name3;
         $descripciones[0] = $request->posicion3;
+        $length0 = Str::length($descripciones[0]);
         $numFirmantes = 3;
       }elseif ($request->tipof == "H"){
         //Cuatro Firmantes
         $firmantes[3] = $request->name5;
         $descripciones[3] = $request->posicion5;
+        $length3 = Str::length($descripciones[3]);
         $firmantes[2] = $request->name4;
         $descripciones[2] = $request->posicion4;
+        $length2 = Str::length($descripciones[2]);
         $firmantes[1] = $request->name3;
         $descripciones[1] = $request->posicion3;
+        $length1 = Str::length($descripciones[1]);
         $firmantes[0] = $request->name2;
         $descripciones[0] = $request->posicion2;
+        $length0 = Str::length($descripciones[0]);
         $numFirmantes = 4;
       }elseif ($request->tipof == "I"){
         //Cinco Firmantes
         $firmantes[4] = $request->name5;
         $descripciones[4] = $request->posicion5;
+        $length4 = Str::length($descripciones[4]);
         $firmantes[3] = $request->name4;
         $descripciones[3] = $request->posicion4;
+        $length3 = Str::length($descripciones[3]);
         $firmantes[2] = $request->name3;
         $descripciones[2] = $request->posicion3;
+        $length2 = Str::length($descripciones[2]);
         $firmantes[1] = $request->name2;
         $descripciones[1] = $request->posicion2;
+        $length1 = Str::length($descripciones[1]);
         $firmantes[0] = $request->name1;
         $descripciones[0] = $request->posicion1;
+        $length0 = Str::length($descripciones[0]);
         $numFirmantes = 5;
       }
 
@@ -292,6 +312,11 @@ class ReconocimientosController extends Controller{
           'texto' => $request->sem_pers_coord,
           'folio' => $folio_inst,
           'folio_der' => $folio_peque,
+          'length0'=>$length0,
+          'length1'=>$length1,
+          'length2'=>$length2,
+          'length3'=>$length3,
+          'length4'=>$length4 
         ))->setPaper('letter', 'landscape');
         $nombreArchivo = strval($iter).'Coordinador_'.$coordinacion->coordinador.'_R.pdf';
         $pdf->save(resource_path('views/pages/tmp'.$hash_aux.'/'.$nombreArchivo));
@@ -329,7 +354,12 @@ class ReconocimientosController extends Controller{
               'fechaimp'=>$fechaimp,
               'texto'=>$request->texto_pers,
               'folio'=>$instructor->folio_inst,
-              'folio_der'=>$instructor->folio_peque      
+              'folio_der'=>$instructor->folio_peque,
+              'length0'=>$length0,
+              'length1'=>$length1,
+              'length2'=>$length2,
+              'length3'=>$length3,
+              'length4'=>$length4        
               ))
             ->setPaper('letter', 'landscape');
           
@@ -347,6 +377,11 @@ class ReconocimientosController extends Controller{
             'folio'=>$instructor->folio_inst,
             'tema' => $request->texto_pers,
             'folio_der'=>$instructor->folio_peque,
+            'length0'=>$length0,
+            'length1'=>$length1,
+            'length2'=>$length2,
+            'length3'=>$length3,
+            'length4'=>$length4 
             ))
             ->setPaper('letter', 'landscape');
           }elseif($cursoCatalogo->tipo=="S"){
@@ -371,6 +406,11 @@ class ReconocimientosController extends Controller{
                 'texto'=>$request->texto_pers,
                 'folio' => $instructor->folio_inst,
                 'folio_der' => $instructor->folio_peque,
+                'length0'=>$length0,
+                'length1'=>$length1,
+                'length2'=>$length2,
+                'length3'=>$length3,
+                'length4'=>$length4 
               ))->setPaper('letter', 'landscape');
 
           } elseif($cursoCatalogo->tipo=="D"){
@@ -387,7 +427,13 @@ class ReconocimientosController extends Controller{
             'fechaimp'=>$fechaimp,
             'texto'=>$request->texto_pers,
             'folio'=>$instructor->folio_inst,
-            'folio_der'=>$instructor->folio_peque))
+            'folio_der'=>$instructor->folio_peque,
+            'length0'=>$length0,
+            'length1'=>$length1,
+            'length2'=>$length2,
+            'length3'=>$length3,
+            'length4'=>$length4
+            ))
             ->setPaper('letter', 'landscape');
           }else{
             rrmdir(resource_path('views/pages/tmp'.$hash_aux));

@@ -149,7 +149,7 @@
                     <div class="form-group{{ $errors->has('contenido') ? ' has-error' : '' }}">
                         <label for="name" class="col-md-4 control-label">Contenidos:</label>
                         <div class="col-md-5">
-                                <textarea cols="90" wrap="hard" id="contenido" type="text" class="form-control" name="contenido" value="{{ old('contenido') }}">@if ($errors->has('contenido'))
+                                <textarea cols="90" wrap="soft" id="contenido" type="text" class="form-control" name="contenido" value="{{ old('contenido') }}">@if ($errors->has('contenido'))
                                 <span class="help-block">
                                         <strong>{{ $errors->first('contenido') }}</strong>
                                 </span>

@@ -214,35 +214,141 @@ body {
           <tr>
             @if($numFirmantes == 1){
             <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
-            }@elseif($numFirmantes == 2){
-
-              <table width="4.2cm" style="position: absolute; top: 1.6cm; left: 5.5cm;">
-                <tr>
-                  <td width="2cm" height="0.25cm" class="firma" style="font-size: 8pt;">          {{$descripciones[1]}}</td>
-                </tr>
-              </table>
-              <table width="4.2cm" style="position: absolute; top: 1.6cm; right:5.5cm;">
-                <tr>
-                  <td width="2cm" height="0.25cm" class="firma" style="font-size: 8pt;">          {{$descripciones[0]}}</td>
-                </tr>
-              </table>
+            }@elseif($numFirmantes == 2){                 
+                  <td class='firma' style='font-size: 8pt; padding-left: 2.5cm;'>{{$descripciones[1]}}</td>
+                  <td class='firma' style='font-size: 8pt; padding-right: 2.5cm;'>{{$descripciones[0]}}</td>
             }@elseif($numFirmantes == 3){
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[2]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[1]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
+              <?php
+                if($length2 >= 27 and $length1 < 27 and $length0 < 27){
+                  print("
+                  <td class='firma' style='font-size: 8pt; padding-left: 3cm; padding-right: 3cm;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 3cm; padding-right: 3cm;'>{$descripciones[0]}</td>");
+                }elseif($length1 >= 27 and $length0 < 27 and $length2 < 27){
+                  print("
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt; padding-left: 5cm; padding-right: 5cm;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[0]}</td>");
+                }elseif ($length0 >= 27 and $length1 < 27 and $length2 < 27) {
+                  print("
+                  <td class='firma' style='font-size: 8pt;padding-left: 3cm; padding-right: 3cm;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt; padding-left: 3cm; padding-right: 3cm;'>{$descripciones[0]}</td>");
+                }
+                elseif ($length2 >= 27 and $length1 >= 27 and $length0 >= 27) {
+                  print("
+                  <td class='firma' style='font-size: 8pt; padding-left: 2cm; padding-right: 2cm;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt; padding-left: 2cm; padding-right: 2cm;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt; padding-right: 2cm; padding-left: 2cm'>{$descripciones[0]}</td>");
+                }
+                else{
+                  print("
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[0]}</td>");
+                }
+              ?>
+
 
             }@elseif($numFirmantes == 4){
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[3]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[2]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[1]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
+
+              <?php
+                if($length3 >= 27 and $length1 < 27 and $length0 < 27 and $length2 < 27){
+                  print("
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[0]}</td>");
+                }elseif($length2 >= 27 and $length1 < 27 and $length0 < 27 and $length3 < 27){
+                  print("
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[0]}</td>");
+                }elseif($length1 >= 27 and $length0 < 27 and $length2 < 27 and $length3 < 27){
+                  print("
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[0]}</td>");
+                }elseif ($length0 >= 27 and $length1 < 27 and $length2 < 27 and $length3 < 27) {
+                  print("
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[0]}</td>");
+                }
+                elseif ($length2 >= 27 and $length1 >= 27 and $length0 >= 27 and $length3 >= 27) {
+                  print("
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 1cm; padding-right: 1cm;'>{$descripciones[0]}</td>");
+                }
+                else{
+                  print("
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[0]}</td>");
+                }
+              ?>
 
             }@elseif($numFirmantes == 5){
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[4]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[3]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[2]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[1]}}</td>
-            <td class="firma" style="font-size: 8pt;">{{$descripciones[0]}}</td>
+              <?php
+              if($length4 >= 27 and $length1 < 27 and $length0 < 27 and $length2 < 27 and $length3 < 2){
+                print("
+                <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[4]}</td>
+                <td class='firma' style='font-size: 8pt;'>{$descripciones[3]}</td>
+                <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[0]}</td>");
+              }elseif($length3 >= 27 and $length1 < 27 and $length0 < 27 and $length2 < 27){
+                  print("
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[4]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[0]}</td>");
+                }elseif($length2 >= 27 and $length1 < 27 and $length0 < 27 and $length3 < 27){
+                  print("
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[4]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[0]}</td>");
+                }elseif($length1 >= 27 and $length0 < 27 and $length2 < 27 and $length3 < 27){
+                  print("
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[4]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[0]}</td>");
+                }elseif ($length0 >= 27 and $length1 < 27 and $length2 < 27 and $length3 < 27) {
+                  print("
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[4]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[0]}</td>");
+                }
+                elseif ($length2 >= 27 and $length1 >= 27 and $length0 >= 27 and $length3 >= 27 and $length4 >= 27) {
+                  print("
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[4]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;padding-left: 0.3cm; padding-right: 0.3cm;'>{$descripciones[0]}</td>");
+                }
+                else{
+                  print("
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[4]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[3]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[2]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[1]}</td>
+                  <td class='firma' style='font-size: 8pt;'>{$descripciones[0]}</td>");
+                }
+              ?>
             }
             @endif
           </tr>

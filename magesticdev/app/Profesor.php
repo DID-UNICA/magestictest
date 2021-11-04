@@ -73,35 +73,52 @@ class Profesor extends Authenticatable
       return ProfesorCategoria::where('profesor_id', $this->id)->get();
     }
     public function getCategoria_1(){
-      $categoria = ProfesorCategoria::where('profesor_id', $this->id)->get()->first();
-      if($categoria->isNotEmpty())
-          return CategoriaNivel::findOrFail($this->categoria_nivel_id)->categoria;
+      $categoria = ProfesorCategoria::where('profesor_id', $this->id)->where('numero',1)->get()->first();
+      if($categoria)
+          return CategoriaNivel::findOrFail($categoria->categoria_nivel_id)->categoria;
         else
           return "";
     }
 
     public function getCategoria_2(){
-      $categoria = ProfesorCategoria::where('profesor_id', $this->id)->get()->last();
-      if($categoria->isNotEmpty())
-        return CategoriaNivel::findOrFail($this->categoria_nivel_id)->categoria;
+      $categoria = ProfesorCategoria::where('profesor_id', $this->id)->where('numero',2)->get()->first();
+      if($categoria)
+        return CategoriaNivel::findOrFail($categoria->categoria_nivel_id)->categoria;
       else
         return "";
   }
 
   public function getIdCategoria_1()
   {
-      return ProfesorCategoria::where('profesor_id', $this->id)->get()->first()->categoria_nivel_id;
+      $cat = ProfesorCategoria::where('profesor_id', $this->id)->where('numero',1)->get()->first();
+      if($cat)
+        return $cat->categoria_nivel_id;
+      else
+        return 1;
   }
 
   public function getIdCategoria_2()
   {
-      return ProfesorCategoria::where('profesor_id', $this->id)->get()->last()->categoria_nivel_id;
+    $cat = ProfesorCategoria::where('profesor_id', $this->id)->where('numero',2)->get()->first();
+    if($cat)
+      return $cat->categoria_nivel_id;
+    else
+      return 1;
   }
 
   public function getCatAbr(){
-    $categorias = ProfesorCategori::where('profesor_id', $this->id)->get();
-    $cat1 = CategoriaNivel::findOrFail($categorias->first()->categoria_nivel_id)->abreviatura;
-    $cat2 = CategoriaNivel::findOrFail($categorias->first()->categoria_nivel_id)->abreviatura;
+    $cat1 = ProfesorCategoria::where('profesor_id', $this->id)->where('numero',1)->get()->first();
+    if($cat1)
+      $cat1 = CategoriaNivel::findOrFail($cat1->categoria_nivel_id)->abreviatura;
+    else
+      $cat1 = '';
+    
+    $cat2 = ProfesorCategoria::where('profesor_id', $this->id)->where('numero',2)->get()->first();
+    if($cat2)
+      $cat2 = CategoriaNivel::findOrFail($cat2->categoria_nivel_id)->abreviatura;
+    else
+      $cat2 = '';
+
    if($cat1 != '' and $cat2 != '')
       return $cat1.', '.$cat2;
     elseif($cat1 == '' )
