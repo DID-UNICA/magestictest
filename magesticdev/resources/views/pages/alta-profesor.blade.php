@@ -341,7 +341,7 @@
                 <div class="form-group{{ $errors->has('semblanza_corta') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Semblanza Corta</label>
                     <div class="col-md-6">
-                        <textarea cols="90" wrap="hard" id="semblanza_corta" type="text" rows="4" cols="50" class="form-control" name="semblanza_corta" value="{{ old('semblanza_corta') }}" >@if ($errors->has('semblanza_corta'))
+                        <textarea cols="90" id="semblanza_corta" type="text" rows="4" cols="50" class="form-control" name="semblanza_corta" value="{{ old('semblanza_corta') }}" >@if ($errors->has('semblanza_corta'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('semblanza_corta') }}</strong>
                             </span>

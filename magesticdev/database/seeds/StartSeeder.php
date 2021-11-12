@@ -430,40 +430,20 @@ Sus grados profesionales son:
   - Maestra en Educación Superior por la Facultad de Filosofía y Letras de la UNAM.
   - Licenciada en Pedagogía por la Universidad Pedagógica Nacional.
 Está Diplomada en: 
-  - Aplicaciones de las TIC para la Enseñanza por la Facultad de Ingeniería y la 
-  Dirección General de Cómputo y Tecnologías de la Información y la Comunicació
-  de la UNAM. Docencia por la División de Educación Continua de la Facultad de 
-  Filosofía y Letras de la UNAM.
+  - Aplicaciones de las TIC para la Enseñanza por la Facultad de Ingeniería y la Dirección General de Cómputo y Tecnologías de la Información y la Comunicació de la UNAM. Docencia por la División de Educación Continua de la Facultad de Filosofía y Letras de la UNAM.
   - Producción y Comprensión Lingüística por la Casa de las Humanidades de la UNAM.
 Está Certificada en:
   - La Impartición de Cursos Presenciales por el Organismo Gubernamental CONOCER de SEP.
-    - Como Auditora Interna Nivel 2 en los Sistemas de Gestión de la Calidad, sobre la
-    base de la NORMA ISO 9001;2000 y bajo las directrices de ISO 9011;2002 por el
-  Organismo de Enlace Liasion INLAC a ISOITC176.
+    - Como Auditora Interna Nivel 2 en los Sistemas de Gestión de la Calidad, sobre la base de la NORMA ISO 9001;2000 y bajo las directrices de ISO 9011;2002 por el Organismo de Enlace Liasion INLAC a ISOITC176.
     - Como Auditora Interna por la Coordinación de la Investigación Científica de la UNAM.
-    Ha cursado: 68 cursos, talleres y seminarios en temas de formación docente, didáctica,
-    evaluación y comunicación.
-    Ha impartido 102 cursos, talleres y seminarios para profesores. En temas de formación
-    docente y área didáctico pedagógica. Es profesora de asignatura desde 1994 en las
-    asignaturas de "Técnicas para el estudio" en el semestre propedéutico y en "Cultura
-    y comunicación" de primer semestre. Es asesora psicopedagógica en COPADI Tutora y 
-    sinodal del Posgrado de MADEMS-UNAM. A participado como ponente en Congresos 
-    Nacionales e Internacionales de Educación, Enseñanza de la Ingeniería, Formación 
-    Docente y pedagogía desde el nivel educativo inicial. Medio superior y superior. 
-    Publicaciones en Colaboración: Programas y Manuales Psicopedagógicos para la atención
-    de niños de O a 6 años en los Centros de Desarrollo Infantil Derechos Reservados. 
+    Ha cursado: 68 cursos, talleres y seminarios en temas de formación docente, didáctica, evaluación y comunicación. Ha impartido 102 cursos, talleres y seminarios para profesores. En temas de formación docente y área didáctico pedagógica. Es profesora de asignatura desde 1994 en las asignaturas de "Técnicas para el estudio" en el semestre propedéutico y en "Cultura y comunicación" de primer semestre. Es asesora psicopedagógica en COPADI Tutora y sinodal del Posgrado de MADEMS-UNAM. A participado como ponente en Congresos Nacionales e Internacionales de Educación, Enseñanza de la Ingeniería, Formación Docente y pedagogía desde el nivel educativo inicial. Medio superior y superior. Publicaciones en Colaboración: Programas y Manuales Psicopedagógicos para la atención de niños de O a 6 años en los Centros de Desarrollo Infantil Derechos Reservados. 
     SEP. Registro Derechos de Autor 14091981 222/81 Agosto 1981. 
 Está Diplomada en: 
-  - Aplicaciones de las TIC para la Enseñanza por la Facultad de Ingeniería y la 
-  Dirección General de Cómputo y Tecnologías de la Información y la Comunicación de la 
-  UNAM. Docencia por la División de Educación Continua de la Facultad de Filosofía y 
-  Letras de la UNAM.
+  - Aplicaciones de las TIC para la Enseñanza por la Facultad de Ingeniería y la Dirección General de Cómputo y Tecnologías de la Información y la Comunicación de la UNAM. Docencia por la División de Educación Continua de la Facultad de Filosofía y  Letras de la UNAM.
   - Producción y Comprensión Lingüística por la Casa de las Humanidades de la UNAM. 
 Está Certificada en:
-  - La Impartición de Cursos Presenciales por el Organismo Gubernamental CONOCER de SEP. 
-    - Como Auditora Interna Nivel 2 en los Sistemas de Gestión de la Calidad, sobre la
-    base de la NORMA ISO 9001;2000 y bajo las directrices de ISO 9011;2002 por el 
-    Organismo de Enlace Liasion INLAC a ISOITC176.',
+  - La Impartición de Cursos Presenciales por el Organismo Gubernamental CONOCER de SEP.
+    - Como Auditora Interna Nivel 2 en los Sistemas de Gestión de la Calidad, sobre la base de la NORMA ISO 9001;2000 y bajo las directrices de ISO 9011;2002 por el Organismo de Enlace Liasion INLAC a ISOITC176.',
             'genero' => 'masculino',
             'facebook' => 'Juan Ramirez',
             'unam' => false,
@@ -481,10 +461,7 @@ Está Certificada en:
             'grado' => 'Licenciatura',
             'abreviatura_grado' => 'Lic.',
             'email' => 'MSP@gmail.com, otro@correo.com',
-            'semblanza_corta' => 'Profesora de la facultad de ingeniería, fundó la asociación de mujeres programadoras con
-el fin de impulsar los derechos y la presencia de la mujer en el ámbito profesional de
-las Tecnologías de la Información. Es egresada de la Facultad de Ciencias. Doctora en
-análisis de datos.',
+            'semblanza_corta' => 'Profesora de la facultad de ingeniería, fundó la asociación de mujeres programadoras con el fin de impulsar los derechos y la presencia de la mujer en el ámbito profesional de las Tecnologías de la Información. Es egresada de la Facultad de Ciencias. Doctora en análisis de datos.',
             'genero' => 'femenino',
             'facebook' => 'Martha Suarez',
             'unam' => true,
@@ -541,8 +518,7 @@ análisis de datos.',
             'grado' => 'Licenciatura',
             'abreviatura_grado' => 'Lic.',
             'email' => 'prof3@gmail.com',
-            'semblanza_corta' => 'Ingeniero mecanico con especialidad en diseño mecanico egresado de la unam y con
-maestria en Alemania.',
+            'semblanza_corta' => 'Ingeniero mecanico con especialidad en diseño mecanico egresado de la unam y con maestria en Alemania.',
             'genero' => 'masculino',
             'facebook' => 'Mateo Juarez',
             'unam' => true,
@@ -633,8 +609,7 @@ maestria en Alemania.',
             'grado' => 'Maestría',
             'abreviatura_grado' => 'Mtra.',
             'email' => 'MSP5@gmail.com',
-            'semblanza_corta' => 'Licenciada en contaduria, con maestria en impuestos empresariales y doctorado en 
-contaduria para Macroempresas.',
+            'semblanza_corta' => 'Licenciada en contaduria, con maestria en impuestos empresariales y doctorado en contaduria para Macroempresas.',
             'genero' => 'femenino',
             'facebook' => 'Vivi Salcedo',
             'unam' => true,

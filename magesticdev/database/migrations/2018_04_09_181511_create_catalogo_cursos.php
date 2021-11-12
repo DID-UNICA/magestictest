@@ -16,7 +16,7 @@ class CreateCatalogoCursos extends Migration
         Schema::create('catalogo_cursos', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->string('clave_curso',25)->unique();
-            $table->string('nombre_curso');
+            $table->string('nombre_curso',300);
             $table->string('duracion_curso');
             $table->string('tipo');
             $table->string('institucion');

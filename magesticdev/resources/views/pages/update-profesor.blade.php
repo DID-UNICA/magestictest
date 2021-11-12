@@ -278,7 +278,7 @@ function procedencia_carrera() {
         </script>
        <div class="form-group col-md-6">
         {!!Form::label("semblanza_corta", "Semblanza corta:")!!}
-        {!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "cols"=>"90", "wrap"=>"hard","class" => "form-control", "placeholder" => "Semblanza", ""])!!}
+        {!!Form::textarea("semblanza_corta", $user->semblanza_corta, [ "cols"=>"90","class" => "form-control", "placeholder" => "Semblanza", ""])!!}
       </div>
 
       <div class="form-group col-md-4">

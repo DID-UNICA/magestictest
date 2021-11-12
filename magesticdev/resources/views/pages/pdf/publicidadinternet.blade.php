@@ -137,10 +137,10 @@ hr{
 #contenidos-Ant{
 	vertical-align: top;
 	padding-bottom: 8px;
-	padding-top: 1px;
   font-size: 11pt;
   font-style: italic;
 	text-align: justify;
+	string-set: header;
 }
 .temario{
 	vertical-align: top;
@@ -222,7 +222,7 @@ $GLOBALS["header"] = NULL;
 			
 			@foreach ($curso->getInstanciaProfesores() as $profesor)
 			<p class=profesores> {{ $profesor->abreviatura_grado }} {{ $profesor->nombres }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}</p>
-			<p class=comentarios>{!! $profesor->semblanza_corta !!}</p>
+			<p class=comentarios>{!! nl2br($profesor->semblanza_corta) !!}</p>
 			@endforeach
 			
 			<table style="margin-top:10px">
@@ -235,8 +235,8 @@ $GLOBALS["header"] = NULL;
 					<td class=temario>{!! nl2br($cursoCatalogo->getContenido_sangria()) !!}</td>
 				</tr>
 				<tr>
-					<td id=rubro-Ant>Antecedentes:</td>
-					<td id=contenidos-Ant>{!! $cursoCatalogo->antecedentes !!}</td>
+					<td class=rubros>Antecedentes:</td>
+					<td class=contenidos>{!! $cursoCatalogo->antecedentes !!}</td>
 				</tr>
 				<tr>
 					<td class=rubros>Duración: </td>
