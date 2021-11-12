@@ -18,7 +18,7 @@ body {
 .header{
 	z-index:-1;
 	position: fixed;
-	margin-top: -60px;
+	margin-top: -{{60+(20*(ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/72)-1))}}px;
 	font-size: 12pt;
 	text-align:center;
   	font-weight: bold;
@@ -30,7 +30,7 @@ body {
 }
 
 @page {
-	margin-top:95px;
+	margin-top: {{95+(20*(ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/72)-1))}}px;
 }
 
 table{
@@ -98,6 +98,7 @@ hr{
   font-size: 14pt;
   font-weight: bold;
   font-family:Calibri, Helvetica, Arial, serif;
+  text-align: left;
 }
 
 .rubros{
