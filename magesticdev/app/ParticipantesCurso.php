@@ -16,7 +16,7 @@ class ParticipantesCurso extends Model
      */
     protected $fillable = [
         'curso_id','profesor_id','confirmacion','asistencia','pago_curso',
-        'monto_pago','cancelación','evaluacion_mobilirario','evaluacion_limpiea',
+        'monto_pago','cancelación',
         'espera', 'estuvo_en_lista','contesto_hoja_evaluacion','acreditacion',
         'causa_no_acreditacion','calificacion','inscrito','comentario','adicional',
         'folio_inst','folio_peque'

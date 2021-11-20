@@ -357,11 +357,11 @@ class Curso extends Model
         return $thisCatalogo->nombre_curso;
     }
 
+    //TODO Optimizar este metodo y su padre
     public function getInteresados($tematicas){
         $interesados_collection = array();
         foreach($tematicas as $tematica){
             $encuestascursos = EncuestaFinalCurso::whereRaw("lower(unaccent(otros)) LIKE lower(unaccent('%".$tematica."%'))")->get();
-            $encuestassemis = EncuestaFinalSeminario::whereRaw("lower(unaccent(otros)) LIKE lower(unaccent('%".$tematica."%'))")->get();
             foreach($encuestascursos as $encuestacurso){
                 $interesados = DB::table('_evaluacion_final_curso')
                             ->join('participante_curso', '_evaluacion_final_curso.participante_curso_id', '=', 'participante_curso.id')
@@ -373,17 +373,6 @@ class Curso extends Model
                 else
                     array_push($interesados_collection, $interesados);
             }
-            foreach($encuestassemis as $encuestasemi){
-              $interesados = DB::table('_evaluacion_final_seminario')
-                          ->join('participante_curso', '_evaluacion_final_seminario.participante_curso_id', '=', 'participante_curso.id')
-                          ->select('participante_curso.id')
-                          ->where('_evaluacion_final_seminario.id', '=', $encuestasemi->id)
-                          ->get();
-              if($interesados->isEmpty())
-                  continue;
-              else
-                  array_push($interesados_collection, $interesados);
-          }
         }
         if (empty($interesados_collection))
             return 0; //No hubo interesados con esas tematicas

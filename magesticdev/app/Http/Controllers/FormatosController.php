@@ -126,7 +126,7 @@ class FormatosController extends Controller
         $profesor = $curso->getProfesores();
         $salon=Salon::findOrFail($curso->salon_id);
         $fecha = Carbon::now();
-        $fecha = $fecha->format('d-m-Y');
+        $fecha = $fecha->format('d/m/Y');
         $fechaimp = $curso->getFecha_sinLeyenda();
         $participantes = Profesor::leftJoin(
             'participante_curso','profesors.id',

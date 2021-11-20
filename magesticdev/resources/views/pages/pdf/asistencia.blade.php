@@ -212,7 +212,7 @@ body{
         Fecha de emisión
       </td>
       <td class="margen">
-                  2017-03-30
+                  2017/03/30
       </td>
       <td class="margen">
         Versión

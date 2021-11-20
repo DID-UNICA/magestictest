@@ -18,11 +18,12 @@ body {
 .header{
 	z-index:-1;
 	position: fixed;
-	margin-top: -{{60+(20*(ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/72)-1))}}px;
+	margin-top: -{{65+(20*(ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/70)-1))}}px;
 	font-size: 12pt;
-	text-align:center;
-  	font-weight: bold;
-  	font-family:Calibri, Helvetica, Arial, serif;
+	text-align:left;
+  vertical-align: top;
+  font-weight: bold;
+  font-family:Calibri, Helvetica, Arial, serif;
 }
 
 @page :first {
@@ -30,7 +31,7 @@ body {
 }
 
 @page {
-	margin-top: {{95+(20*(ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/72)-1))}}px;
+	margin-top: {{95+(20*(ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/70)-1))}}px;
 }
 
 table{
@@ -98,7 +99,15 @@ hr{
   font-size: 14pt;
   font-weight: bold;
   font-family:Calibri, Helvetica, Arial, serif;
-  text-align: left;
+	text-align:left;
+  vertical-align: top;
+}
+#encabezado_7{
+  font-size: 12pt;
+  font-weight: bold;
+  font-family:Calibri, Helvetica, Arial, serif;
+	text-align:left;
+  vertical-align: top;
 }
 
 .rubros{
@@ -178,8 +187,7 @@ $GLOBALS["header"] = NULL;
 
 <div class="header">
 <script type="text/php">$GLOBALS["header"] = $pdf->open_object();</script>
-{{$tipo}}: {{$cursoCatalogo->nombre_curso}}
-<br>
+<table><tr><th id=encabezado_7>{{$tipo}}: </th><th id=encabezado_7>{{$cursoCatalogo->nombre_curso}}</th></tr></table>
 <hr>
 <script type="text/php">$pdf->close_object();</script>
 </div>
@@ -196,7 +204,7 @@ $GLOBALS["header"] = NULL;
 			<div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>
 			<div id=encabezado_4>CENTRO DE DOCENCIA</div>
 			<div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
-			<div class=encabezado id=encabezado_6>{{$tipo}}: {{$cursoCatalogo->nombre_curso}}</div>
+			<div><table style="width: auto"><tr><th class=encabezado id=encabezado_6>{{$tipo}}: </th><th class=encabezado id=encabezado_6>{{$cursoCatalogo->nombre_curso}}</th></tr></table></div>
 			<hr>
 		</div>
 

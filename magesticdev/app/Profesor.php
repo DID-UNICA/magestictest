@@ -61,7 +61,7 @@ class Profesor extends Authenticatable
     }
 
     public function fechaFormato(){
-        $fecha = Carbon::parse($this->fecha_nacimiento)->format('d-m-Y');
+        $fecha = Carbon::parse($this->fecha_nacimiento)->format('d/m/Y');
         return $fecha;
     }
 
@@ -257,22 +257,6 @@ class Profesor extends Authenticatable
           return Facultad::findOrFail($this->facultad_id)->nombre;
         else
           return $this->procedencia;
-    }
-
-    public function getSugerenciaFinalSeminario($curso_id){
-        $participante_curso = ParticipantesCurso::where('curso_id', $curso_id)
-            ->where('profesor_id', $this->id)->first();
-        if(!$participante_curso){
-            return "NULL";
-        }
-        $encuesta = EncuestaFinalSeminario::where('participante_curso_id', $participante_curso->id)->first();
-        if(!$encuesta){
-            return "NULL";
-        }
-        if($encuesta->sug == "Ninguna" or $encuesta->sug == "NINGUNA" or $encuesta->sug == "En blanco"){
-            return "NULL";
-        }
-        return $encuesta->sug;
     }
     public function getSugerenciaFinalCurso($curso_id){
         $participante_curso = ParticipantesCurso::where('curso_id', $curso_id)
