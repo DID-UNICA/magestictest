@@ -15,17 +15,17 @@ class EvaluacionInstructorCurso extends Migration
     {
         Schema::create('_evaluacion_instructor_curso', function(Blueprint $table){
           $table->increments('id');
-          $table->integer('p1');
-          $table->integer('p2');
-          $table->integer('p3');
-          $table->integer('p4');
-          $table->integer('p5');
-          $table->integer('p6');
-          $table->integer('p7');
-          $table->integer('p8');
-          $table->integer('p9');
-          $table->integer('p10');
-          $table->integer('p11');
+          $table->integer('p1')->nullable();
+          $table->integer('p2')->nullable();
+          $table->integer('p3')->nullable();
+          $table->integer('p4')->nullable();
+          $table->integer('p5')->nullable();
+          $table->integer('p6')->nullable();
+          $table->integer('p7')->nullable();
+          $table->integer('p8')->nullable();
+          $table->integer('p9')->nullable();
+          $table->integer('p10')->nullable();
+          $table->integer('p11')->nullable();
           $table->integer('participante_id')->unsigned();
           $table->integer('instructor_id')->unsigned();
 

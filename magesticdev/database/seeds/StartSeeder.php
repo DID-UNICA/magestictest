@@ -1720,6 +1720,329 @@ en impuestos universitarios.',
         'fecha_nacimiento'=>'1982-01-01'
       ]);
 
+      DB::table('profesors')->insert([ //id=120
+        ///'id' => 500,
+        'nombres' => 'Jesus',
+        'apellido_paterno' => 'Gallegos',
+        'apellido_materno' => 'Silva',
+        'rfc' => 'GASJ610723',
+        'numero_trabajador' => '107538',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=121
+        //'id' => 243,
+        'nombres' => 'Alejandro',
+        'apellido_paterno' => 'Jaramillo',
+        'apellido_materno' => 'Mora',
+        'rfc' => 'JAMA901116',
+        'numero_trabajador' => '882883',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=122
+        //'id' => 501,
+        'nombres' => 'Javier',
+        'apellido_paterno' => 'Hernandez',
+        'apellido_materno' => 'Alpizar',
+        'rfc' => 'HEAJ601030',
+        'numero_trabajador' => '99611',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=123
+        //'id' => 502,
+        'nombres' => 'Alicia',
+        'apellido_paterno' => 'Lara',
+        'apellido_materno' => 'Alvarez',
+        'rfc' => 'LAAA600811',
+        'numero_trabajador' => '980447',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=124
+        //'id' => 503,
+        'nombres' => 'Hector Luis',
+        'apellido_paterno' => 'Macias',
+        'apellido_materno' => 'Gonzalez',
+        'rfc' => 'MAGH400414',
+        'numero_trabajador' => '59618',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=125
+        //'id' => 504,
+        'nombres' => 'Cecilia Hideko',
+        'apellido_paterno' => 'Nagaki',
+        'apellido_materno' => 'Aoki',
+        'rfc' => 'NAAC590816',
+        'numero_trabajador' => '145510',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=126
+        //'id' => 505,
+        'nombres' => 'Roberto',
+        'apellido_paterno' => 'Stark',
+        'apellido_materno' => 'Feldman',
+        'rfc' => 'SAFR570402',
+        'numero_trabajador' => '73980',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=127
+        //'id' => 506,
+        'nombres' => 'Dafne Citlali',
+        'apellido_paterno' => 'Abad',
+        'apellido_materno' => 'Martinez',
+        'rfc' => 'AAMD810813',
+        'numero_trabajador' => '832349',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=128
+        //'id' => 507,
+        'nombres' => 'Estefania',
+        'apellido_paterno' => 'Abarca',
+        'apellido_materno' => 'Rodriguez',
+        'rfc' => 'AARE941113',
+        //'numero_trabajador' => '832349',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => false,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=129
+        //'id' => 508,
+        'nombres' => 'Omar Edsiel',
+        'apellido_paterno' => 'Abrego',
+        'apellido_materno' => 'Blancas',
+        'rfc' => 'AEBO930408',
+        //'numero_trabajador' => '832349',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => false,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=130
+        //'id' => 509,
+        'nombres' => 'Concepcion',
+        'apellido_paterno' => 'Abellan',
+        'apellido_materno' => 'Giral',
+        'rfc' => 'AEGC550710',
+        //'numero_trabajador' => '832349',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => false,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=131
+        //'id' => 510,
+        'nombres' => 'Luis Alberto',
+        'apellido_paterno' => 'Aburto',
+        'apellido_materno' => 'Cedillo',
+        'rfc' => 'AUCL901007',
+        //'numero_trabajador' => '832349',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => false,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=132
+        //'id' => 511,
+        'nombres' => 'Erika',
+        'apellido_paterno' => 'Adan',
+        'apellido_materno' => 'Morales',
+        'rfc' => 'AAME750211',
+        //'numero_trabajador' => '832349',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => false,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=133
+        //'id' => 512,
+        'nombres' => 'Guiomar',
+        'apellido_paterno' => 'Acevedo',
+        'apellido_materno' => 'Lopez',
+        'rfc' => 'AELG840222',
+        'numero_trabajador' => '877732',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=134
+        //'id' => 513,
+        'nombres' => 'Christian James',
+        'apellido_paterno' => 'Aguilar',
+        'apellido_materno' => 'Armenta',
+        'rfc' => 'AUAC840720',
+        //'numero_trabajador' => '877732',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => false,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=135
+        //'id' => 514,
+        'nombres' => 'Cruz Sergio',
+        'apellido_paterno' => 'Aguilar',
+        'apellido_materno' => 'Diaz',
+        'rfc' => 'AUDC660503',
+        'numero_trabajador' => '800726',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
+      DB::table('profesors')->insert([ //id=136
+        //'id' => 515,
+        'nombres' => 'Alejandra',
+        'apellido_paterno' => 'Aguilar',
+        'apellido_materno' => 'Hernandez',
+        'rfc' => 'AUHA730329',
+        'numero_trabajador' => '817131',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '55664487',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'prof2@gmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>1,
         'categoria_nivel_id'=>1,
@@ -1879,7 +2202,7 @@ en impuestos universitarios.',
       ]);
 
       //CATÁLOGO DE CURSOS DE PRUEBA
-      DB::table('catalogo_cursos')->insert([
+      DB::table('catalogo_cursos')->insert([ //id=1
           'nombre_curso' =>'Programacion Estructurada',
           'duracion_curso' => '10',
           'coordinacion_id' => 2,
@@ -1903,7 +2226,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso' => 'ADFVJ091S'
         ]);
 
-        DB::table('catalogo_cursos')->insert([
+        DB::table('catalogo_cursos')->insert([ //id=2
           'nombre_curso' =>'Administración',
           'duracion_curso' => '20',
           'coordinacion_id' => 3,
@@ -1916,7 +2239,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso' => 'FJHCZC78'
         ]);
 
-        DB::table('catalogo_cursos')->insert([
+        DB::table('catalogo_cursos')->insert([ //id=3
             'nombre_curso' =>'Ecuaciones Diferenciales',
             'duracion_curso' => '20',
             'coordinacion_id' => 4,
@@ -1929,7 +2252,7 @@ Qué es una computadora y cómo funciona',
             'clave_curso' => 'ED1HCZ12'
         ]);
 
-        DB::table('catalogo_cursos')->insert([
+        DB::table('catalogo_cursos')->insert([ //id=4
             'nombre_curso' =>'Módulo 1. Cálculo Integral',
             'duracion_curso' => '20',
             'coordinacion_id' => 4,
@@ -1942,7 +2265,7 @@ Qué es una computadora y cómo funciona',
             'clave_curso' => 'CI2HCZA'
         ]);
 
-        DB::table('catalogo_cursos')->insert([
+        DB::table('catalogo_cursos')->insert([ //id=5
           'nombre_curso' =>'Módulo 2. Cálculo Intermedio',
           'duracion_curso' => '20',
           'coordinacion_id' => 4,
@@ -1955,7 +2278,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso' => 'CI2HCZF'
       ]);
 
-        DB::table('catalogo_cursos')->insert([
+        DB::table('catalogo_cursos')->insert([ //id=6
             'nombre_curso' =>'Álgebra Lineal',
             'duracion_curso' => '20',
             'coordinacion_id' => 4,
@@ -1968,7 +2291,7 @@ Qué es una computadora y cómo funciona',
             'clave_curso' => 'ALA3HCZ'
         ]);
 
-        DB::table('catalogo_cursos')->insert([
+        DB::table('catalogo_cursos')->insert([ //id=7
             'nombre_curso' =>'Álgebra',
             'duracion_curso' => '20',
             'coordinacion_id' => 5,
@@ -1981,7 +2304,7 @@ Qué es una computadora y cómo funciona',
             'clave_curso' => 'A1A27HCZ'
         ]);
 
-        DB::table('catalogo_cursos')->insert([
+        DB::table('catalogo_cursos')->insert([ //id=8
             'nombre_curso' =>'Análisis Numérico',
             'duracion_curso' => '20',
             'coordinacion_id' => 2,
@@ -1994,7 +2317,7 @@ Qué es una computadora y cómo funciona',
             'clave_curso' => 'AN412HCZ'
         ]);
 
-        DB::table('catalogo_cursos')->insert([
+        DB::table('catalogo_cursos')->insert([ //id=9
             'nombre_curso' =>'Programación Estructurada',
             'duracion_curso' => '10',
             'coordinacion_id' => 2,
@@ -2007,7 +2330,7 @@ Qué es una computadora y cómo funciona',
             'clave_curso' => 'ADFVJ080'
         ]);
 
-        DB::table('catalogo_cursos')->insert([
+        DB::table('catalogo_cursos')->insert([ //id=10
             'nombre_curso' =>'Administración Básica',
             'duracion_curso' => '20',
             'coordinacion_id' => 2,
@@ -2020,7 +2343,7 @@ Qué es una computadora y cómo funciona',
             'clave_curso' => 'FJHCZA'
         ]);
 
-        DB::table('catalogo_cursos')->insert([ //id=10
+        DB::table('catalogo_cursos')->insert([ //id=11
           'nombre_curso'=>'Tecnologías de la Información y la Comunicación (TIC). Parte 1',
           'duracion_curso' => '20',
                 'coordinacion_id' => 2,
@@ -2030,7 +2353,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso'=>'TICDGAPA'
         ]);
 
-        DB::table('catalogo_cursos')->insert([ //id=11
+        DB::table('catalogo_cursos')->insert([ //id=12
           'nombre_curso'=>'Módulo 4. Tendencias y estrategias de comunicación para la docencia',
           'duracion_curso' => '20',
                 'tipo' => 'C',
@@ -2040,7 +2363,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso'=>'TECDDGAPA'
         ]);
 
-        DB::table('catalogo_cursos')->insert([ //id=12
+        DB::table('catalogo_cursos')->insert([ //id=13
           'nombre_curso'=>'Módulo 5. La importancia de la inteligencia emocional en la práctica docente',
           'duracion_curso' => '20',
                 'tipo' => 'C',
@@ -2050,7 +2373,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso'=>'TECDDGAPA5'
         ]);
 
-        DB::table('catalogo_cursos')->insert([ //id=13
+        DB::table('catalogo_cursos')->insert([ //id=14
           'nombre_curso'=>'Módulo 6. Liderazgo docente en la educación superior del siglo XXI',
           'duracion_curso' => '20',
                 'tipo' => 'C',
@@ -2060,7 +2383,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso'=>'TECDDGAPA6'
         ]);
 
-        DB::table('catalogo_cursos')->insert([ //id=14
+        DB::table('catalogo_cursos')->insert([ //id=15
           'nombre_curso'=>'Comunicación asertiva en el aula. Parte 2',
           'duracion_curso' => '20',
           'coordinacion_id' => 5,
@@ -2072,7 +2395,7 @@ Qué es una computadora y cómo funciona',
           'objetivo'=>'El docente conocera, analizará y aplicará los conecptos fundamentales de la personalidad y comunicación asertiva para mejorar sus habilidades docentes. El docente indentificará las conductas disruptivas de los estudiantes con la finalidad de generar un clima [...]'
         ]);
 
-        DB::table('catalogo_cursos')->insert([ //id=15
+        DB::table('catalogo_cursos')->insert([ //id=16
           'nombre_curso'=>'La violencia no visible en el aula: Detección e intervención',
           'duracion_curso' => '20',
           'coordinacion_id' => 5,
@@ -2082,7 +2405,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso'=>'VNADIDGAPA'
         ]);
 
-        DB::table('catalogo_cursos')->insert([ //id=16
+        DB::table('catalogo_cursos')->insert([ //id=17
           'nombre_curso'=>'Módulo 1. La educación como fundamento del desarrollo humano',
           'duracion_curso' => '20',
           'coordinacion_id' => 5,
@@ -2092,7 +2415,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso'=>'MLEFDHDGAPA'
         ]);
 
-        DB::table('catalogo_cursos')->insert([ //id=17
+        DB::table('catalogo_cursos')->insert([ //id=18
           'nombre_curso'=>'Módulo 2. La personaliddad e imagen del profesor como piedra angular en la formación del estudiante',
           'duracion_curso' => '20',
           'coordinacion_id' => 5,
@@ -2102,7 +2425,7 @@ Qué es una computadora y cómo funciona',
           'clave_curso'=>'PIPPAFEGAPA'
         ]);
 
-        DB::table('catalogo_cursos')->insert([ //id=18
+        DB::table('catalogo_cursos')->insert([ //id=19
           'nombre_curso'=>'Módulo 3. Habiliddades para la comunicación interpersonal en el proceso docente',
           'duracion_curso' => '20',
           'coordinacion_id' => 5,
@@ -2111,6 +2434,45 @@ Qué es una computadora y cómo funciona',
           'fecha_disenio'=>'2012-12-12',
           'clave_curso'=>'HCIPCDGAPA'
         
+        ]);
+        DB::table('catalogo_cursos')->insert([ //id=20
+          //'id' => 500,
+          'nombre_curso' =>'Actualización a Office 2007',
+          'duracion_curso' => '20',
+          'coordinacion_id' => 2,
+          'tipo' => 'E',
+          'institucion' => 'DGAPA',
+          'dirigido' => 'Administradores',
+          'objetivo' => 'Que los que tomen el curso refuerzen sus conocimientos administrativos',
+          'contenido' => 'Que es la administracion y sus derivados',
+          'fecha_disenio' => '2018-05-18',
+          'clave_curso' => 'COCU041'
+        ]);
+        DB::table('catalogo_cursos')->insert([ //id=21
+          //'id' => 501,
+          'nombre_curso' =>'Access',
+          'duracion_curso' => '20',
+          'coordinacion_id' => 2,
+          'tipo' => 'E',
+          'institucion' => 'DGAPA',
+          'dirigido' => 'Administradores',
+          'objetivo' => 'Que los que tomen el curso refuerzen sus conocimientos administrativos',
+          'contenido' => 'Que es la administracion y sus derivados',
+          'fecha_disenio' => '2018-05-18',
+          'clave_curso' => 'COCU021'
+        ]);
+        DB::table('catalogo_cursos')->insert([ //id=22
+          //'id' => 502,
+          'nombre_curso' =>'Access básico',
+          'duracion_curso' => '20',
+          'coordinacion_id' => 2,
+          'tipo' => 'E',
+          'institucion' => 'DGAPA',
+          'dirigido' => 'Administradores',
+          'objetivo' => 'Que los que tomen el curso refuerzen sus conocimientos administrativos',
+          'contenido' => 'Que es la administracion y sus derivados',
+          'fecha_disenio' => '2018-05-18',
+          'clave_curso' => 'COCU129'
         ]);
         //TEMAS DE SEMINARIO PARA CURSO ECUACIONES DIFERENCIALES
         DB::table('temas_seminarios')->insert([
@@ -2132,7 +2494,7 @@ Qué es una computadora y cómo funciona',
         ]);
 
         //CURSOS DE PRUEBA
-        DB::table('cursos')->insert([
+        DB::table('cursos')->insert([ //id=1
             'semestre_anio' => 2020,
             'semestre_pi'=>"2",
             'semestre_si' => "i",
@@ -2151,7 +2513,7 @@ Qué es una computadora y cómo funciona',
             'salon_id' => 1
         ]);
 
-        DB::table('cursos')->insert([
+        DB::table('cursos')->insert([ //id=2
             'semestre_anio' => 2020,
             'semestre_pi'=>"2",
             'semestre_si' => "i",
@@ -2169,7 +2531,7 @@ Qué es una computadora y cómo funciona',
             'catalogo_id' => 2,
             'salon_id' => 1
         ]);
-        DB::table('cursos')->insert([
+        DB::table('cursos')->insert([ //id=3
             'semestre_anio' => 2020,
             'semestre_pi'=>"2",
             'semestre_si' => "s",
@@ -2188,7 +2550,7 @@ Qué es una computadora y cómo funciona',
             'salon_id' => 1
         ]);
 
-        DB::table('cursos')->insert([
+        DB::table('cursos')->insert([ //id=4
             'semestre_anio' => 2020,
             'semestre_pi'=>"2",
             'semestre_si' => "i",
@@ -2206,7 +2568,7 @@ Qué es una computadora y cómo funciona',
             'catalogo_id' => 4,
             'salon_id' => 2
         ]);
-        DB::table('cursos')->insert([
+        DB::table('cursos')->insert([ //id=5
             'semestre_anio' => 2020,
             'semestre_pi'=>"2",
             'semestre_si' => "i",
@@ -2224,7 +2586,7 @@ Qué es una computadora y cómo funciona',
             'catalogo_id' => 6,
             'salon_id' => 3
         ]);
-        DB::table('cursos')->insert([
+        DB::table('cursos')->insert([ //id=6
             'semestre_anio' => 2015,
             'semestre_pi'=>"1",
             'semestre_si' => "s",
@@ -2242,7 +2604,7 @@ Qué es una computadora y cómo funciona',
             'catalogo_id' => 7,
             'salon_id' => 3
         ]);
-        DB::table('cursos')->insert([
+        DB::table('cursos')->insert([ //id=7
             'semestre_anio' => 2018,
             'semestre_pi'=>"2",
             'semestre_si' => "s",
@@ -2260,7 +2622,7 @@ Qué es una computadora y cómo funciona',
             'catalogo_id' => 3,
             'salon_id' => 2
         ]);
-        DB::table('cursos')->insert([
+        DB::table('cursos')->insert([ //id=8
             'semestre_anio' => 2018,
             'semestre_pi'=>"2",
             'semestre_si' => "i",
@@ -2278,7 +2640,7 @@ Qué es una computadora y cómo funciona',
             'catalogo_id' => 7,
             'salon_id' => 1
         ]);
-        DB::table('cursos')->insert([
+        DB::table('cursos')->insert([ //id=9
             'semestre_anio' => 2014,
             'semestre_pi'=>"2",
             'semestre_si' => "s",
@@ -2470,7 +2832,63 @@ Qué es una computadora y cómo funciona',
           'catalogo_id' => 9,
           'salon_id' => 1
         ]);
-
+        DB::table('cursos')->insert([ //id=19
+          //'id' => 500,
+          'semestre_anio' => 2022,
+          'semestre_pi'=>"1",
+          'semestre_si' => "i",
+          'fecha_inicio' => '2021-01-17',
+          'fecha_fin' => '2021-01-21',
+          'hora_inicio' => '14:00',
+          'hora_fin' => '17:00',
+          'dias_semana' => 'Lunes,Martes',
+          'numero_sesiones' => 5,
+          'sesiones' => "2020-01-06,2020-01-07,2020-01-13,2020-01-14,2020-01-20,2020-01-21,2020-01-27,2020-01-28,2020-02-10,2020-02-11",
+          'acreditacion' => 8,
+          'costo' => 2000,
+          'cupo_maximo' => 20,
+          'cupo_minimo' => 1,
+          'catalogo_id' => 20,
+          'salon_id' => 1
+        ]); 
+        DB::table('cursos')->insert([ //id=20
+          //'id' => 501,
+          'semestre_anio' => 2022,
+          'semestre_pi'=>"1",
+          'semestre_si' => "i",
+          'fecha_inicio' => '2021-01-03',
+          'fecha_fin' => '2021-01-10',
+          'hora_inicio' => '14:00',
+          'hora_fin' => '16:00',
+          'dias_semana' => 'Lunes,Martes',
+          'numero_sesiones' => 6,
+          'sesiones' => "2020-01-06,2020-01-07,2020-01-13,2020-01-14,2020-01-20,2020-01-21,2020-01-27,2020-01-28,2020-02-10,2020-02-11",
+          'acreditacion' => 8,
+          'costo' => 2000,
+          'cupo_maximo' => 20,
+          'cupo_minimo' => 1,
+          'catalogo_id' => 21,
+          'salon_id' => 1
+        ]); 
+        DB::table('cursos')->insert([ //id=21
+          //'id' => 502,
+          'semestre_anio' => 2022,
+          'semestre_pi'=>"1",
+          'semestre_si' => "i",
+          'fecha_inicio' => '2021-01-03',
+          'fecha_fin' => '2021-01-07',
+          'hora_inicio' => '14:00',
+          'hora_fin' => '17:00',
+          'dias_semana' => 'Lunes,Martes',
+          'numero_sesiones' => 5,
+          'sesiones' => "2020-01-06,2020-01-07,2020-01-13,2020-01-14,2020-01-20,2020-01-21,2020-01-27,2020-01-28,2020-02-10,2020-02-11",
+          'acreditacion' => 8,
+          'costo' => 2000,
+          'cupo_maximo' => 20,
+          'cupo_minimo' => 1,
+          'catalogo_id' => 22,
+          'salon_id' => 1
+        ]); 
         //SECRETARIO DE APOYO A LA DOCENCIA
         DB::table('secretario_apoyo')->insert([
           'secretario' => "Claudia Loreto Miranda",
@@ -2487,164 +2905,176 @@ Qué es una computadora y cómo funciona',
         ]);
 
         //ASIGNACIÓN DE INSTRUCTORES
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=1
           'curso_id' => "1",
           'profesor_id' => '1',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=2
           'curso_id' => "1",
           'profesor_id' => '2',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=3
           'curso_id' => "1",
           'profesor_id' => '3',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=4
           'curso_id' => "1",
           'profesor_id' => '4',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=5
           'curso_id' => "2",
           'profesor_id' => '5',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=6
           'curso_id' => "2",
           'profesor_id' => '6',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=7
           'curso_id' => "2",
           'profesor_id' => '7',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=8
           'curso_id' => "3",
           'profesor_id' => '10',
           'tema_seminario_id' => '3',
           'fecha_exposicion' => '09-10-21'
         ]);
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=9
           'curso_id' => "3",
           'profesor_id' => '10',
           'tema_seminario_id' => '2',
           'fecha_exposicion' => '09-10-21'
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=10
           'curso_id' => "3",
           'profesor_id' => '9',
           'tema_seminario_id' => '1',
           'fecha_exposicion' => '09-10-21'
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=11
           'curso_id' => "3",
           'profesor_id' => '8',
           'tema_seminario_id' => '1',
           'fecha_exposicion' => '09-10-21'
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=12
           'curso_id' => "3",
           'profesor_id' => '7',
           'tema_seminario_id' => '2',
           'fecha_exposicion' => '09-10-21'
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=13
           'curso_id' => "4",
           'profesor_id' => '9',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=14
           'curso_id' => "4",
           'profesor_id' => '10',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=15
           'curso_id' => "5",
           'profesor_id' => '11',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=16
           'curso_id' => "6",
           'profesor_id' => '12',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=17
           'curso_id' => "7",
           'profesor_id' => '13',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=18
           'curso_id' => "8",
           'profesor_id' => '14',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=19
           'curso_id' => "9",
           'profesor_id' => '15',
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=20
           'curso_id' => "9",
           'profesor_id' => '16',
         ]);
 
-        DB::table('profesor_curso')->insert([ //id=17
+        DB::table('profesor_curso')->insert([ //id=21
           'curso_id'=>10,
           'profesor_id'=>21,
         ]);
 
-        DB::table('profesor_curso')->insert([ //id=18
+        DB::table('profesor_curso')->insert([ //id=22
           'curso_id'=>10,
           'profesor_id'=>22,
         ]);
 
-        DB::table('profesor_curso')->insert([ //id=19
+        DB::table('profesor_curso')->insert([ //id=23
           'curso_id'=>11,
           'profesor_id'=>43,
         ]);
 
-        DB::table('profesor_curso')->insert([ //id=20
+        DB::table('profesor_curso')->insert([ //id=24
           'curso_id'=>12,
           'profesor_id'=>57,
         ]);
 
-        DB::table('profesor_curso')->insert([ //id=21
+        DB::table('profesor_curso')->insert([ //id=25
           'curso_id'=>13,
           'profesor_id'=>58,
         ]);
 
-        DB::table('profesor_curso')->insert([ //id=22
+        DB::table('profesor_curso')->insert([ //id=26
           'curso_id'=>14,
           'profesor_id'=>57
         ]);
 
-        DB::table('profesor_curso')->insert([ //id=23
+        DB::table('profesor_curso')->insert([ //id=27
           'curso_id'=>15,
           'profesor_id'=>101
         ]);
 
-        DB::table('profesor_curso')->insert([ //id=23
+        DB::table('profesor_curso')->insert([ //id=28
           'curso_id'=>16,
           'profesor_id'=>112
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=29
           'profesor_id'=>118,
           'curso_id'=>17
         ]);
 
-        DB::table('profesor_curso')->insert([
+        DB::table('profesor_curso')->insert([ //id=30
           'profesor_id'=>119,
           'curso_id'=>18
         ]);
+        DB::table('profesor_curso')->insert([ //id=31
+          'profesor_id'=>120,
+          'curso_id'=>19
+        ]);//GASJ610723
+        DB::table('profesor_curso')->insert([ //id=32
+          'profesor_id'=>126,
+          'curso_id'=>20
+        ]);//SAFR570402
+        DB::table('profesor_curso')->insert([ //id=33
+          'profesor_id'=>126,
+          'curso_id'=>21
+        ]);//SAFR570402
 
         //PARTICIPANTES DE LOS CURSOS
         DB::table('participante_curso')->insert([
@@ -3695,6 +4125,12 @@ Qué es una computadora y cómo funciona',
           'acreditacion'=>true
         ]);
 
+        DB::table('participante_curso')->insert([ //id=136
+          'curso_id'=>16,
+          'profesor_id'=>56,
+          'asistencia'=>true,
+          'acreditacion'=>true
+        ]);
 
         DB::table('participante_curso')->insert([ //id=141
           'curso_id'=>17,
@@ -3773,6 +4209,12 @@ Qué es una computadora y cómo funciona',
           'acreditacion'=>false
         ]);
 
+        DB::table('participante_curso')->insert([ //id=147
+          'curso_id'=>17,
+          'profesor_id'=>53,
+          'asistencia'=>true,
+          'acreditacion'=>true
+        ]);
 
         DB::table('participante_curso')->insert([ //id=152
           'curso_id'=>17,
@@ -3872,6 +4314,138 @@ Qué es una computadora y cómo funciona',
           'acreditacion'=>true
         ]);
 
+        DB::table('participante_curso')->insert([ //id=165
+          'curso_id'=>19,
+          'profesor_id'=>121,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'calificacion'=>10
+        ]);//JAMA901116
+
+        DB::table('participante_curso')->insert([ //id=166
+          'curso_id'=>19,
+          'profesor_id'=>122,
+          'asistencia'=>false,
+          'acreditacion'=>false,
+          //'calificacion'=>10,
+					'espera'=>0
+        ]);//HEAJ601030
+        DB::table('participante_curso')->insert([ //id=167
+          'curso_id'=>19,
+          'profesor_id'=>123,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'calificacion'=>10,
+					'espera'=>0
+        ]);//LAAA600811
+        DB::table('participante_curso')->insert([ //id=168
+          //'id'=>503,
+          'curso_id'=>19,
+          'profesor_id'=>124,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'calificacion'=>10,
+					'espera'=>0
+        ]);//MAGH400414
+        DB::table('participante_curso')->insert([ //id=169
+          //'id'=>504,
+          'curso_id'=>19,
+          'profesor_id'=>125,
+          'asistencia'=>true,
+          'acreditacion'=>false,
+          //'calificacion'=>10,
+					'espera'=>0
+        ]);//NAAC590816
+        DB::table('participante_curso')->insert([ //id=170
+          //'id'=>506,
+          'curso_id'=>20,
+          'profesor_id'=>127,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'calificacion'=>10,
+					'espera'=>0
+        ]);//AAMD810813
+        DB::table('participante_curso')->insert([ //id=171
+          //'id'=>507,
+          'curso_id'=>20,
+          'profesor_id'=>128,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'calificacion'=>10,
+					'espera'=>0
+        ]);//AARE941113
+        DB::table('participante_curso')->insert([ //id=172
+          //'id'=>508,
+          'curso_id'=>20,
+          'profesor_id'=>129,
+          'asistencia'=>true,
+          'acreditacion'=>false,
+          //'calificacion'=>10,
+					'espera'=>0
+        ]);//AEBO930408
+        DB::table('participante_curso')->insert([ //id=173
+          //'id'=>509,
+          'curso_id'=>20,
+          'profesor_id'=>130,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'calificacion'=>10,
+					'espera'=>0
+        ]);//AEGC550710
+        DB::table('participante_curso')->insert([ //id=174
+          //'id'=>510,
+          'curso_id'=>20,
+          'profesor_id'=>131,
+          'asistencia'=>true,
+          'acreditacion'=>false,
+          'calificacion'=>10,
+					'espera'=>0
+        ]);//AUCL901007
+        DB::table('participante_curso')->insert([ //id=175
+          //'id'=>511,
+          'curso_id'=>21,
+          'profesor_id'=>132,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'calificacion'=>10,
+					'espera'=>0
+        ]); //AAME750211
+        DB::table('participante_curso')->insert([ //id=176
+          //'id'=>512,
+          'curso_id'=>21,
+          'profesor_id'=>133,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'calificacion'=>10,
+					'espera'=>0
+        ]); //AELG840222
+        DB::table('participante_curso')->insert([ //id=177
+          //'id'=>513,
+          'curso_id'=>21,
+          'profesor_id'=>134,
+          'asistencia'=>true,
+          'acreditacion'=>false,
+          'calificacion'=>10,
+					'espera'=>0
+        ]);//AUAC840720
+        DB::table('participante_curso')->insert([ //id=178
+          //'id'=>514,
+          'curso_id'=>21,
+          'profesor_id'=>135,
+          'asistencia'=>true,
+          'acreditacion'=>false,
+          //'calificacion'=>10,
+					'espera'=>0
+        ]);//AUDC660503
+        DB::table('participante_curso')->insert([ //id=179
+          //'id'=>515,
+          'curso_id'=>21,
+          'profesor_id'=>136,
+          'asistencia'=>false,
+          'acreditacion'=>false,
+          //'calificacion'=>10,
+					'espera'=>0
+        ]);//AUHA730329
         //ENCUESTAS PARA REPORTE DE COMENTARIOS Y SUGERENCIAS
         DB::table('_evaluacion_final_curso')->insert([
           'p1_1'=>'80',
@@ -4141,6 +4715,326 @@ Qué es una computadora y cómo funciona',
           'p11' => '100',
           'participante_id' => 3,
           'instructor_id' => 4
+        ]);
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'50',
+          'p1_2'=>'60',
+          'p1_3'=>'80',
+          'p1_4'=>'95',
+          'p1_5'=>'100',
+          'p2_1'=>'100',
+          'p2_2'=>'95',
+          'p2_3'=>'80',
+          'p2_4'=>'60',
+          'p3_1'=>'50',
+          'p3_2'=>'60',
+          'p3_3'=>'80',
+          'p3_4'=>'95',
+          'p7'=>false,
+          'p8'=>'["1","null"]',
+          'p9'=>'La nueva paqueria de Office',
+          'sug'=>'Mejorar las isntalaciones',
+          'otros'=>'programacion',
+          'conocimiento'=>'["2"]',
+          'tematica'=>'tematica',
+          'horarios'=>'9:00-13:00',
+          'horarioi'=>'13:00-15:00',
+          'participante_curso_id'=>167
+        ]);
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '95',
+          'p2' => '95',
+          'p3' => '100',
+          'p4' => '80',
+          'p5' => '60',
+          'p6' => '50',
+          'p7' => '60',
+          'p8' => '80',
+          'p9' => '100',
+          'p10' => '60',
+          'p11' => '80',
+          'participante_id' => 167,
+          'instructor_id' => 31
+        ]);
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'50',
+          'p1_2'=>'60',
+          'p1_3'=>'80',
+          'p1_4'=>'95',
+          'p1_5'=>'100',
+          'p2_1'=>'95',
+          'p2_2'=>'100',
+          'p2_3'=>'80',
+          'p2_4'=>'95',
+          'p3_1'=>'50',
+          'p3_2'=>'60',
+          'p3_3'=>'80',
+          'p3_4'=>'95',
+          'p7'=>true,
+          'p8'=>'["1","null"]',
+          'p9'=>'El profesor',
+          'sug'=>'Se debe mejorar la forma de evaluacion',
+          'otros'=>'programacion',
+          'conocimiento'=>'["2"]',
+          'tematica'=>'tematica',
+          'horarios'=>'9:00-13:00',
+          'horarioi'=>'13:00-15:00',
+          'participante_curso_id'=>169
+        ]);
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '50',
+          'p2' => '60',
+          'p3' => '80',
+          'p4' => '50',
+          'p5' => '80',
+          'p6' => '60',
+          'p7' => '60',
+          'p8' => '80',
+          'p9' => '50',
+          'p10' => '60',
+          'p11' => '80',
+          'participante_id' => 169,
+          'instructor_id' => 31
+        ]);
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'80',
+          'p1_2'=>'95',
+          'p1_3'=>'100',
+          'p1_4'=>'95',
+          'p1_5'=>'50',
+          'p2_1'=>'80',
+          'p2_2'=>'80',
+          'p2_3'=>'95',
+          'p2_4'=>'100',
+          'p3_1'=>'95',
+          'p3_2'=>'100',
+          'p3_3'=>'95',
+          'p3_4'=>'100',
+          'p7'=>true,
+          'p8'=>'["1","null"]',
+          'p9'=>'El material proporcionado',
+          'sug'=>'Mejorar las instalaciones',
+          'otros'=>'programacion',
+          'conocimiento'=>'["2"]',
+          'tematica'=>'tematica',
+          'horarios'=>'9:00-13:00',
+          'horarioi'=>'13:00-15:00',
+          'participante_curso_id'=>170
+        ]);
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '50',
+          'p2' => '60',
+          'p3' => '50',
+          'p4' => '80',
+          'p5' => '95',
+          'p6' => '80',
+          'p7' => '100',
+          'p8' => '95',
+          'p9' => '80',
+          'p10' => '60',
+          'p11' => '100',
+          'participante_id' => 170,
+          'instructor_id' => 31
+        ]);
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'60',
+          'p1_2'=>'50',
+          'p1_3'=>'80',
+          'p1_4'=>'60',
+          'p1_5'=>'100',
+          'p2_1'=>'50',
+          'p2_2'=>'60',
+          'p2_3'=>'80',
+          'p2_4'=>'95',
+          'p3_1'=>'50',
+          'p3_2'=>'60',
+          'p3_3'=>'80',
+          'p3_4'=>'95',
+          'p7'=>true,
+          'p8'=>'["1","null"]',
+          'p9'=>'Los conceptos vistos',
+          'sug'=>'Mejorar las instalaciones',
+          'otros'=>'programacion',
+          'conocimiento'=>'["2"]',
+          'tematica'=>'tematica',
+          'horarios'=>'9:00-13:00',
+          'horarioi'=>'13:00-15:00',
+          'participante_curso_id'=>172
+        ]);
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '50',
+          'p2' => '60',
+          'p3' => '100',
+          'p4' => '80',
+          'p5' => '95',
+          'p6' => '60',
+          'p7' => '95',
+          'p8' => '100',
+          'p9' => '100',
+          'p10' => '95',
+          'p11' => '80',
+          'participante_id' => 172,
+          'instructor_id' => 32
+        ]);
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'60',
+          'p1_2'=>'50',
+          'p1_3'=>'80',
+          'p1_4'=>'100',
+          'p1_5'=>'80',
+          'p2_1'=>'60',
+          'p2_2'=>'80',
+          'p2_3'=>'95',
+          'p2_4'=>'100',
+          'p3_1'=>'50',
+          'p3_2'=>'60',
+          'p3_3'=>'50',
+          'p3_4'=>'50',
+          'p7'=>true,
+          'p8'=>'["1","null"]',
+          'p9'=>'El orden que dio el temario',
+          'sug'=>'Mejores temas a abarcar',
+          'otros'=>'programacion',
+          'conocimiento'=>'["2"]',
+          'tematica'=>'tematica',
+          'horarios'=>'9:00-13:00',
+          'horarioi'=>'13:00-15:00',
+          'participante_curso_id'=>173
+        ]);
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '50',
+          'p2' => '60',
+          'p3' => '80',
+          'p4' => '100',
+          'p5' => '60',
+          'p6' => '100',
+          'p7' => '95',
+          'p8' => '80',
+          'p9' => '100',
+          'p10' => '60',
+          'p11' => '80',
+          'participante_id' => 173,
+          'instructor_id' => 32
+        ]);
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'95',
+          'p1_2'=>'95',
+          'p1_3'=>'100',
+          'p1_4'=>'80',
+          'p1_5'=>'60',
+          'p2_1'=>'80',
+          'p2_2'=>'100',
+          'p2_3'=>'95',
+          'p2_4'=>'100',
+          'p3_1'=>'60',
+          'p3_2'=>'80',
+          'p3_3'=>'60',
+          'p3_4'=>'100',
+          'p7'=>false,
+          'p8'=>'["1","null"]',
+          'p9'=>'El color del formato',
+          'sug'=>'Mejorar la presencia de software',
+          'otros'=>'programacion',
+          'conocimiento'=>'["2"]',
+          'tematica'=>'tematica',
+          'horarios'=>'9:00-13:00',
+          'horarioi'=>'13:00-15:00',
+          'participante_curso_id'=>178
+        ]);
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '50',
+          'p2' => '60',
+          'p3' => '60',
+          'p4' => '60',
+          'p5' => '80',
+          'p6' => '100',
+          'p7' => '95',
+          'p8' => '80',
+          'p9' => '60',
+          'p10' => '80',
+          'p11' => '60',
+          'participante_id' => 178,
+          'instructor_id' => 33
+        ]);
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'100',
+          'p1_2'=>'100',
+          'p1_3'=>'95',
+          'p1_4'=>'80',
+          'p1_5'=>'60',
+          'p2_1'=>'60',
+          'p2_2'=>'80',
+          'p2_3'=>'60',
+          'p2_4'=>'95',
+          'p3_1'=>'50',
+          'p3_2'=>'60',
+          'p3_3'=>'100',
+          'p3_4'=>'95',
+          'p7'=>true,
+          'p8'=>'["1","null"]',
+          'p9'=>'El color del formato',
+          'sug'=>'Mejorar la presencia de software',
+          'otros'=>'programacion',
+          'conocimiento'=>'["2"]',
+          'tematica'=>'tematica',
+          'horarios'=>'9:00-13:00',
+          'horarioi'=>'13:00-15:00',
+          'participante_curso_id'=>179
+        ]);
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '50',
+          'p2' => '60',
+          'p3' => '80',
+          'p4' => '95',
+          'p5' => '60',
+          'p6' => '95',
+          'p7' => '100',
+          'p8' => '60',
+          'p9' => '80',
+          'p10' => '95',
+          'p11' => '80',
+          'participante_id' => 179,
+          'instructor_id' => 33
+        ]);
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'100',
+          'p1_2'=>'50',
+          'p1_3'=>'80',
+          'p1_4'=>'100',
+          'p1_5'=>'95',
+          'p2_1'=>'95',
+          'p2_2'=>'100',
+          'p2_3'=>'80',
+          'p2_4'=>'60',
+          'p3_1'=>'80',
+          'p3_2'=>'60',
+          'p3_3'=>'95',
+          'p3_4'=>'80',
+          'p7'=>-1,
+          'p8'=>'["1","null"]',
+          'p9'=>'La presencia de motores de construccion',
+          'sug'=>'Mejorar la presentacion del curso',
+          'otros'=>'programacion',
+          'conocimiento'=>'["2"]',
+          'tematica'=>'tematica',
+          'horarios'=>'9:00-13:00',
+          'horarioi'=>'13:00-15:00',
+          'participante_curso_id'=>180
+        ]);
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '100',
+          'p2' => '95',
+          'p3' => '100',
+          'p4' => '80',
+          'p5' => '95',
+          'p6' => '80',
+          'p7' => '60',
+          'p8' => '80',
+          'p9' => '60',
+          'p10' => '50',
+          'p11' => '60',
+          'participante_id' => 180,
+          'instructor_id' => 33
         ]);
   }
 }

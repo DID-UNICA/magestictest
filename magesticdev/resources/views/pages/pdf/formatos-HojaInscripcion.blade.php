@@ -76,7 +76,7 @@ body {
 	<!--bases de datos-->
 	<br>
 	Fechas 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<u>{{$curso->fecha_inicio}} {{$curso->fecha_fin}}</u><br>
+	<u>{{$curso->getFechaInicio()}} {{$curso->getFechaFin()}}</u><br>
 	Sede&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
 	<u>{{$salon->sede}} - {{$salon->ubicacion}}</u>
 	<br>

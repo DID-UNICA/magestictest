@@ -79,8 +79,16 @@ html{
 		text-transform: uppercase;
 }
 
+.header{
+  margin-top: 50px;
+}
+
 .header2{
-	margin-top: -170px;
+  @if((ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/65))>($curso->getNumProfesoresInst()))
+  margin-top: -{{220+((ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/65)>4)?(11*(ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/65)-4)):0)}}px;
+  @else
+  margin-top: -{{220+(($curso->getNumProfesoresInst()>4)?(11*($curso->getNumProfesoresInst()-4)):0)}}px;
+  @endif
 	position: fixed;
 }
 .margen3{
@@ -88,8 +96,11 @@ html{
 }
 
 @page {
-
-margin-top: 6cm;
+@if((ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/65))>($curso->getNumProfesoresInst()))
+margin-top: {{250+((ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/65)>4)?(11*(ceil((strlen($tipo)+strlen($cursoCatalogo->nombre_curso)+2)/65)-4)):0)}}px;
+@else
+margin-top: {{250+(($curso->getNumProfesoresInst()>4)?(11*($curso->getNumProfesoresInst()-4)):0)}}px;
+@endif
 margin-bottom: 75px;
 }
 
@@ -98,7 +109,8 @@ margin-top: 35px;
 }
 
 body{
-    margin: 0px;
+  margin: 0px;
+  margin-top: -50px;
 }
 </style>
 <body>
@@ -187,7 +199,7 @@ body{
     <script type="text/php">$pdf->close_object();</script>
   </div>
 
-	<div id="header">
+	<div class="header">
 		<table  id="tabla_encabezado">
 				<td width= 9% class="margen">
           <img id="imagen_izquierda"  src="img/asistencia.jpeg">
@@ -212,7 +224,7 @@ body{
         Fecha de emisión
       </td>
       <td class="margen">
-                  2017/03/30
+                  30/03/2017
       </td>
       <td class="margen">
         Versión

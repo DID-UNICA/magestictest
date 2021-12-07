@@ -273,4 +273,8 @@ class Profesor extends Authenticatable
         }
         return $encuesta->sug;
     }
+
+    public function getFechaNacimiento(){
+      return substr($this->fecha_nacimiento,8).'/'.substr($this->fecha_nacimiento,5,2).'/'.substr($this->fecha_nacimiento,0,4);
+    }
 }

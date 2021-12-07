@@ -46,8 +46,8 @@
                     @foreach($cursos as $curso)
                         <tr>
                             <td>{{ $curso->semestre_imparticion }} </td>
-                            <td>{{ $curso->fecha_inicio}}</td>
-                            <td>{{ $curso->fecha_fin}}</td>
+                            <td>{{ $curso->getFechaInicio()}}</td>
+                            <td>{{ $curso->getFechaFin()}}</td>
                             <td>{{ $tipoConstancia}}</td>
                             <td><a href="{{ route('constancias.generar',[$curso->id,$tipoConstancia]) }}" class="btn btn-info">Generar</a>
                         </tr>

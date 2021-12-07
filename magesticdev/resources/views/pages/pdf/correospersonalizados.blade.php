@@ -106,7 +106,7 @@ body {
 		<div id=encabezado_4>CENTRO DE DOCENCIA</div>
 		<div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
         <div id=encabezado_6>Reporte de Cursos solicitados</div>
-		<div id=encabezado_7>{{$curso->getNombreCursoSinClave()}}</div>
+		<div id=encabezado_7>{{$tematicas}}</div>
         <hr class="line">
         <div id=title-part>Participante</div>
         <hr class="line">

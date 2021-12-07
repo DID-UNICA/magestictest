@@ -83,7 +83,7 @@ class Curso extends Model
         return $this->hora_fin;
     }
     public function getFechaFin(){
-        return $this->fecha_fin;
+        return substr($this->fecha_fin,8).'/'.substr($this->fecha_fin,5,2).'/'.substr($this->fecha_fin,0,4);
     }
     //TODO:Arreglar este método, para obtener toda la fecha con carbon lista
     public function translate_month($month){
@@ -115,7 +115,7 @@ class Curso extends Model
         return $month;
     }
     public function getFechaInicio(){
-        return $this->fecha_inicio;
+        return substr($this->fecha_inicio,8).'/'.substr($this->fecha_inicio,5,2).'/'.substr($this->fecha_inicio,0,4);
     }
 
     public function getFecha(){
@@ -446,6 +446,11 @@ class Curso extends Model
         return $cadena;
     }
 
+    public function getNumProfesoresInst(){
+        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->get();        
+        return count($profesoresCurso);
+    }
+
     public function getProfesoresArray(){
         $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->get();
         $cadena = "";
@@ -539,6 +544,12 @@ class Curso extends Model
     public function allSalon(){
         $salon = Salon::all();
         return $salon;
+    }
+    public function getFechaEnvioConstancia(){
+        return substr($this->fecha_envio_constancia,8).'/'.substr($this->fecha_envio_constancia,5,2).'/'.substr($this->fecha_envio_constancia,0,4);
+    }
+    public function getFechaEnvioReconocimiento(){
+        return substr($this->fecha_envio_reconocimiento,8).'/'.substr($this->fecha_envio_reconocimiento,5,2).'/'.substr($this->fecha_envio_reconocimiento,0,4);
     }
 
 }

@@ -50,7 +50,7 @@
 
     <div class="form-group col-md-3 col-sm-6">
       {!!Form::label("fecha_nacimiento", "Fecha de Nacimiento:")!!}
-      {!!Form::text("fecha_nacimiento", $user->fecha_nacimiento, [ "class" => "form-control", "placeholder" => "Fecha de nacimiento", "required","disabled"])!!}
+      {!!Form::text("fecha_nacimiento", $user->getFechaNacimiento(), [ "class" => "form-control", "placeholder" => "Fecha de nacimiento", "required","disabled"])!!}
     </div>
 
     <div class="form-group col-md-3 col-sm-6">

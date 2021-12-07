@@ -42,12 +42,12 @@
 
     <div class="form-group col-md-6">
       {!!Form::label("fecha_inicio", "Fecha de inicio:")!!}
-      {!!Form::text("fecha_inicio", $modulo->fecha_inicio, [ "class" => "form-control", "placeholder" => "Fecha de inicio", "required","disabled"])!!}
+      {!!Form::text("fecha_inicio", $modulo->getFechaInicio(), [ "class" => "form-control", "placeholder" => "Fecha de inicio", "required","disabled"])!!}
     </div>
 
     <div class="form-group col-md-6">
       {!!Form::label("fecha_fin", "Fecha de fin:")!!}
-      {!!Form::text("fecha_fin", $modulo->fecha_fin, [ "class" => "form-control", "placeholder" => "Fecha de fin", "required","disabled"])!!}
+      {!!Form::text("fecha_fin", $modulo->getFechaFin(), [ "class" => "form-control", "placeholder" => "Fecha de fin", "required","disabled"])!!}
     </div>
 
     <div class="form-group col-md-6">

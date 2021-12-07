@@ -97,12 +97,12 @@
   </div>
       <div class="form-group col-md-6">
           {!!Form::label("fecha_inicio", "Fecha de inicio:")!!}
-          {!!Form::date("fecha_inicio", $modulo->fecha_inicio, [ "class" => "form-control", "placeholder" => "Fecha de inicio", "required",""])!!}
+          {!!Form::date("fecha_inicio", $modulo->getFechaInicio(), [ "class" => "form-control", "placeholder" => "Fecha de inicio", "required",""])!!}
       </div>
 
     <div class="form-group col-md-6">
         {!!Form::label("fecha_fin", "Fecha de fin:")!!}
-        {!!Form::date("fecha_fin", $modulo->fecha_fin, [ "class" => "form-control", "placeholder" => "Fecha de fin", "required",""])!!}
+        {!!Form::date("fecha_fin", $modulo->getFechaFin(), [ "class" => "form-control", "placeholder" => "Fecha de fin", "required",""])!!}
     </div>
   </div>
 

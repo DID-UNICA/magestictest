@@ -39,13 +39,13 @@
 
                             <div class="form-group col-md-4">
                                 {!!Form::label("fecha_inicio", "Fecha de incio")!!}
-                                {!!Form::text("fecha_inicio", $user->fecha_inicio, [ "class" => "form-control", "placeholder" => "Fecha inicio", "required","disabled"])!!}
+                                {!!Form::text("fecha_inicio", $user->getFechaInicio(), [ "class" => "form-control", "placeholder" => "Fecha inicio", "required","disabled"])!!}
                             </div>
                         </div>
 
                         <div class="form-group col-md-6">
                             {!!Form::label("fecha_fin", "Fecha de fin")!!}
-                            {!!Form::text("fecha_fin", $user->fecha_fin, [ "class" => "form-control", "placeholder" => "Fecha de fin", "required","disabled"])!!}
+                            {!!Form::text("fecha_fin", $user->getFechaFin(), [ "class" => "form-control", "placeholder" => "Fecha de fin", "required","disabled"])!!}
                         </div>
 
                         <div class="form-group col-md-6">

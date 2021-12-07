@@ -61,7 +61,7 @@
             cursos[{{$i}}] = {
                 id: {{ $cursos[$i]->id}},
                 catalogo_id: {{ $cursos[$i]->catalogo_id}},
-                fecha_inicio: "{{$cursos[$i]->fecha_inicio}}",
+                fecha_inicio: "{{$cursos[$i]->getFechaInicio()}}",
                 semestre: "{{$cursos[$i]->getSemestre()}}",
                 profesores: "{{$cursos[$i]->getProfesores()}}"
             };

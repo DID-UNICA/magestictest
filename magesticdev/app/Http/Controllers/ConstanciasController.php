@@ -110,8 +110,7 @@ class ConstanciasController extends Controller{
 
       //Obtención de fechas
       $fechaimp = $curso->getFecha();
-      $fecha = Carbon::parse($curso->getFechaFin());
-      $fecha = $fecha->format('d/m/Y');
+      $fecha = $curso->getFechaFin();
       $fecha = explode("/",$fecha);
       $anio = $fecha[2];
       $dia_a = (int) $fecha[0];

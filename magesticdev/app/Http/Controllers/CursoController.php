@@ -235,7 +235,7 @@ class CursoController extends Controller
         $user->hora_fin = $request->hora_fin;
         $user->dias_semana = $request->dias_semana;
         $user->numero_sesiones = $request->numero_sesiones;
-        $user->sesiones = $request->sesiones;
+        $user->sesiones = str_replace("-","/",$request->sesiones);
         $user->acreditacion = $request->acreditacion;
         $user->costo = $request->costo;
         $user->cupo_maximo = $request->cupo_maximo;
@@ -259,7 +259,7 @@ class CursoController extends Controller
         $modulo->hora_fin = $request->hora_fin;
         $modulo->dias_semana = $request->dias_semana;
         $modulo->numero_sesiones = $request->numero_sesiones;
-        $modulo->sesiones = $request->sesiones;
+        $modulo->sesiones = str_replace("-","/",$request->sesiones);
         $modulo->acreditacion = $request->acreditacion;
         $modulo->costo = $request->costo;
         $modulo->cupo_maximo = $request->cupo_maximo;
@@ -562,7 +562,7 @@ class CursoController extends Controller
         $curso->hora_fin = $request->hora_fin;
         $curso->dias_semana = $dias_semana;
         $curso->numero_sesiones = $request->numero_sesiones;
-        $curso->sesiones = $request->sesiones;
+        $curso->sesiones = str_replace("-","/",$request->sesiones);
         $curso->acreditacion = $request->acreditacion;
         $curso->costo = $request->costo;
         $curso->cupo_maximo = $request->cupo_maximo;
@@ -621,7 +621,7 @@ class CursoController extends Controller
         $curso->hora_fin = $request->hora_fin;
         $curso->dias_semana = $dias_semana;
         $curso->numero_sesiones = $request->numero_sesiones;
-        $curso->sesiones = $request->sesiones;
+        $curso->sesiones = str_replace("-","/",$request->sesiones);
         $curso->acreditacion = $request->acreditacion;
         $curso->costo = $request->costo;
         $curso->cupo_maximo = $request->cupo_maximo;
