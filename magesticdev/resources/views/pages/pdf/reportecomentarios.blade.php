@@ -128,7 +128,14 @@ body {
 </style>
 
 <body>
-
+<script type="text/php">
+    if ( isset($pdf) ) {
+        $pdf->page_script('
+            $font = $fontMetrics->get_font("Calibri, sans-serif", "normal");
+            $pdf->text(10, 10, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
+        ');
+    }
+</script>
 <div id="header">
 <div class=encabezado id=encabezado_8>{{$periodo}}</div>
   <table class="table-titulos" width=100%>
@@ -213,11 +220,3 @@ body {
     </div>
 </div>
 
-<script type="text/php">
-    if ( isset($pdf) ) {
-        $pdf->page_script('
-            $font = $fontMetrics->get_font("Calibri, sans-serif", "normal");
-            $pdf->text(490, 750, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
-        ');
-    }
-</script>

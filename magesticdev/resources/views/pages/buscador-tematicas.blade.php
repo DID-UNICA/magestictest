@@ -15,8 +15,8 @@
     </div>
     <section class="content-inner">
     <br>
-    <div class="panel panel-default">
     @include ('partials.messages')
+    <div class="panel panel-default">
       <div class="panel-heading">
         <div class="container">
           <h3>Búsqueda de palabras clave</h3>
