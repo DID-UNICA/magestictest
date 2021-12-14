@@ -132,7 +132,7 @@ body {
     if ( isset($pdf) ) {
         $pdf->page_script('
             $font = $fontMetrics->get_font("Calibri, sans-serif", "normal");
-            $pdf->text(10, 10, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
+            $pdf->text(490, 750, "Página $PAGE_NUM de $PAGE_COUNT", $font, 10);
         ');
     }
 </script>
