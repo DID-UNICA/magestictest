@@ -187,7 +187,7 @@ class DiplomasController extends Controller{
             break;
           }
           //El participante canceló su inscripción
-          if($participante->cancelación){
+          if($participante->cancelacion){
             $acredito = false;
             break;
           }

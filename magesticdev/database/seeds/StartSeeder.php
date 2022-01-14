@@ -2438,39 +2438,42 @@ Qué es una computadora y cómo funciona',
         DB::table('catalogo_cursos')->insert([ //id=20
           //'id' => 500,
           'nombre_curso' =>'Actualización a Office 2007',
-          'duracion_curso' => '20',
+          'duracion_curso' => '15',
           'coordinacion_id' => 2,
-          'tipo' => 'E',
-          'institucion' => 'DGAPA',
-          'dirigido' => 'Administradores',
-          'objetivo' => 'Que los que tomen el curso refuerzen sus conocimientos administrativos',
-          'contenido' => 'Que es la administracion y sus derivados',
+          'tipo' => 'CT',
+          'institucion' => 'CDD',
+          'dirigido' => 'Todas las áreas y Divisiones de la Facultad de Ingeniería, así como personal Administrativo.',
+          'objetivo' => 'Que el alumno se familiarice y maneje la nueva versión de Office 2007, que maneje algunas técnicas que le permitan la creación de documentos con un alto nivel de calidad en su presentación y aprenda el manejo de herramientas para la utilización eficiente de la hoja de cálculo electrónica, además de poder realizar presentaciones profesionales.',
+          'antecedentes' => 'Word, Excel, Porwerpoint',
+          'contenido' => 'Word, Excel, Porwerpoint',
           'fecha_disenio' => '2018-05-18',
           'clave_curso' => 'COCU041'
         ]);
         DB::table('catalogo_cursos')->insert([ //id=21
           //'id' => 501,
           'nombre_curso' =>'Access',
-          'duracion_curso' => '20',
+          'duracion_curso' => '12',
           'coordinacion_id' => 2,
-          'tipo' => 'E',
-          'institucion' => 'DGAPA',
-          'dirigido' => 'Administradores',
-          'objetivo' => 'Que los que tomen el curso refuerzen sus conocimientos administrativos',
-          'contenido' => 'Que es la administracion y sus derivados',
+          'tipo' => 'CT',
+          'institucion' => 'CDD',
+          'dirigido' => '-',
+          'objetivo' => '-',
+          'contenido' => '-',
           'fecha_disenio' => '2018-05-18',
           'clave_curso' => 'COCU021'
         ]);
         DB::table('catalogo_cursos')->insert([ //id=22
           //'id' => 502,
           'nombre_curso' =>'Access básico',
-          'duracion_curso' => '20',
+          'duracion_curso' => '15',
           'coordinacion_id' => 2,
-          'tipo' => 'E',
-          'institucion' => 'DGAPA',
-          'dirigido' => 'Administradores',
-          'objetivo' => 'Que los que tomen el curso refuerzen sus conocimientos administrativos',
-          'contenido' => 'Que es la administracion y sus derivados',
+          'tipo' => 'CT',
+          'institucion' => 'CDD',
+          'antecedentes' => 'Manejo intermedio de ambiente Windows, básico de Microsoft, básico de Microsoft Excel.',
+          'dirigido' => 'Profesores de la Facultad de Ingeniería',
+          'objetivo' => 'Que el participante conozca y maneje Microsoft Access para la creación y modificación de bases de datos, además de aplicarlo en sus actividades docentes y académicas, logrando así un mejor aprovechamiento de los recursos que ofrece la Facultad de Ingeniería',
+          'contenido' => 'Reconocimiento de los antecedentes y necesidades de cada uno de los participantes.
+          Introducción a las Bases de Datos (BD).',
           'fecha_disenio' => '2018-05-18',
           'clave_curso' => 'COCU129'
         ]);
@@ -2837,13 +2840,13 @@ Qué es una computadora y cómo funciona',
           'semestre_anio' => 2022,
           'semestre_pi'=>"1",
           'semestre_si' => "i",
-          'fecha_inicio' => '2021-01-17',
-          'fecha_fin' => '2021-01-21',
-          'hora_inicio' => '14:00',
+          'fecha_inicio' => '2022-01-17',
+          'fecha_fin' => '2022-01-21',
+          'hora_inicio' => '12:00',
           'hora_fin' => '17:00',
-          'dias_semana' => 'Lunes,Martes',
-          'numero_sesiones' => 5,
-          'sesiones' => "2020-01-06,2020-01-07,2020-01-13,2020-01-14,2020-01-20,2020-01-21,2020-01-27,2020-01-28,2020-02-10,2020-02-11",
+          'dias_semana' => 'Lunes,Miercoles,Viernes',
+          'numero_sesiones' => 3,
+          'sesiones' => "2022-01-17,2022-01-19,2022-01-21",
           'acreditacion' => 8,
           'costo' => 2000,
           'cupo_maximo' => 20,
@@ -2856,17 +2859,17 @@ Qué es una computadora y cómo funciona',
           'semestre_anio' => 2022,
           'semestre_pi'=>"1",
           'semestre_si' => "i",
-          'fecha_inicio' => '2021-01-03',
-          'fecha_fin' => '2021-01-10',
-          'hora_inicio' => '14:00',
-          'hora_fin' => '16:00',
-          'dias_semana' => 'Lunes,Martes',
-          'numero_sesiones' => 6,
-          'sesiones' => "2020-01-06,2020-01-07,2020-01-13,2020-01-14,2020-01-20,2020-01-21,2020-01-27,2020-01-28,2020-02-10,2020-02-11",
+          'fecha_inicio' => '2022-01-03',
+          'fecha_fin' => '2022-01-05',
+          'hora_inicio' => '12:00',
+          'hora_fin' => '18:00',
+          'dias_semana' => 'Lunes,Miercoles',
+          'numero_sesiones' => 2,
+          'sesiones' => "2022-01-03,2022-01-05",
           'acreditacion' => 8,
           'costo' => 2000,
           'cupo_maximo' => 20,
-          'cupo_minimo' => 1,
+          'cupo_minimo' => 10,
           'catalogo_id' => 21,
           'salon_id' => 1
         ]); 
@@ -2875,13 +2878,13 @@ Qué es una computadora y cómo funciona',
           'semestre_anio' => 2022,
           'semestre_pi'=>"1",
           'semestre_si' => "i",
-          'fecha_inicio' => '2021-01-03',
-          'fecha_fin' => '2021-01-07',
-          'hora_inicio' => '14:00',
+          'fecha_inicio' => '2022-01-03',
+          'fecha_fin' => '2022-01-07',
+          'hora_inicio' => '12:00',
           'hora_fin' => '17:00',
-          'dias_semana' => 'Lunes,Martes',
-          'numero_sesiones' => 5,
-          'sesiones' => "2020-01-06,2020-01-07,2020-01-13,2020-01-14,2020-01-20,2020-01-21,2020-01-27,2020-01-28,2020-02-10,2020-02-11",
+          'dias_semana' => 'Lunes,Miercoles,Viernes',
+          'numero_sesiones' => 3,
+          'sesiones' => "2022-01-03,2022-01-05,2022-01-07",
           'acreditacion' => 8,
           'costo' => 2000,
           'cupo_maximo' => 20,
@@ -4314,136 +4317,189 @@ Qué es una computadora y cómo funciona',
           'acreditacion'=>true
         ]);
 
-        DB::table('participante_curso')->insert([ //id=165
+        DB::table('participante_curso')->insert([ //id=168
           'curso_id'=>19,
           'profesor_id'=>121,
           'asistencia'=>true,
           'acreditacion'=>true,
+          'confirmacion'=>false,
+          'pago_curso'=>false,
+          'cancelacion'=>false,
+          'contesto_hoja_evaluacion'=>true,
           'calificacion'=>10
         ]);//JAMA901116
 
-        DB::table('participante_curso')->insert([ //id=166
+        DB::table('participante_curso')->insert([ //id=169
           'curso_id'=>19,
           'profesor_id'=>122,
           'asistencia'=>false,
+          'confirmacion'=>false,
+          'pago_curso'=>false,
+          'cancelacion'=>false,
+          'contesto_hoja_evaluacion'=>false,
           'acreditacion'=>false,
-          //'calificacion'=>10,
 					'espera'=>0
         ]);//HEAJ601030
-        DB::table('participante_curso')->insert([ //id=167
+        DB::table('participante_curso')->insert([ //id=170
           'curso_id'=>19,
           'profesor_id'=>123,
           'asistencia'=>true,
           'acreditacion'=>true,
+          'pago_curso'=>false,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'contesto_hoja_evaluacion'=>true,
           'calificacion'=>10,
 					'espera'=>0
         ]);//LAAA600811
-        DB::table('participante_curso')->insert([ //id=168
+        DB::table('participante_curso')->insert([ //id=171
           //'id'=>503,
           'curso_id'=>19,
           'profesor_id'=>124,
           'asistencia'=>true,
           'acreditacion'=>true,
           'calificacion'=>10,
+          'pago_curso'=>false,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'contesto_hoja_evaluacion'=>true,
 					'espera'=>0
         ]);//MAGH400414
-        DB::table('participante_curso')->insert([ //id=169
+        DB::table('participante_curso')->insert([ //id=172
           //'id'=>504,
           'curso_id'=>19,
           'profesor_id'=>125,
           'asistencia'=>true,
           'acreditacion'=>false,
-          //'calificacion'=>10,
+          'pago_curso'=>false,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'contesto_hoja_evaluacion'=>false,
 					'espera'=>0
         ]);//NAAC590816
-        DB::table('participante_curso')->insert([ //id=170
+        DB::table('participante_curso')->insert([ //id=173
           //'id'=>506,
           'curso_id'=>20,
           'profesor_id'=>127,
           'asistencia'=>true,
+          'confirmacion'=>false,
           'acreditacion'=>true,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>true,
           'calificacion'=>10,
 					'espera'=>0
         ]);//AAMD810813
-        DB::table('participante_curso')->insert([ //id=171
+        DB::table('participante_curso')->insert([ //id=174
           //'id'=>507,
           'curso_id'=>20,
           'profesor_id'=>128,
           'asistencia'=>true,
           'acreditacion'=>true,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>true,
           'calificacion'=>10,
 					'espera'=>0
         ]);//AARE941113
-        DB::table('participante_curso')->insert([ //id=172
+        DB::table('participante_curso')->insert([ //id=175
           //'id'=>508,
           'curso_id'=>20,
           'profesor_id'=>129,
           'asistencia'=>true,
+          'confirmacion'=>false,
           'acreditacion'=>false,
-          //'calificacion'=>10,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>false,
 					'espera'=>0
         ]);//AEBO930408
-        DB::table('participante_curso')->insert([ //id=173
+        DB::table('participante_curso')->insert([ //id=176
           //'id'=>509,
           'curso_id'=>20,
           'profesor_id'=>130,
           'asistencia'=>true,
           'acreditacion'=>true,
           'calificacion'=>10,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>false,
 					'espera'=>0
         ]);//AEGC550710
-        DB::table('participante_curso')->insert([ //id=174
+        DB::table('participante_curso')->insert([ //id=177
           //'id'=>510,
           'curso_id'=>20,
           'profesor_id'=>131,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>10,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>false,
 					'espera'=>0
         ]);//AUCL901007
-        DB::table('participante_curso')->insert([ //id=175
+        DB::table('participante_curso')->insert([ //id=178
           //'id'=>511,
           'curso_id'=>21,
           'profesor_id'=>132,
           'asistencia'=>true,
           'acreditacion'=>true,
           'calificacion'=>10,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>true,
 					'espera'=>0
         ]); //AAME750211
-        DB::table('participante_curso')->insert([ //id=176
+        DB::table('participante_curso')->insert([ //id=179
           //'id'=>512,
           'curso_id'=>21,
           'profesor_id'=>133,
           'asistencia'=>true,
           'acreditacion'=>true,
           'calificacion'=>10,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>true,
 					'espera'=>0
         ]); //AELG840222
-        DB::table('participante_curso')->insert([ //id=177
+        DB::table('participante_curso')->insert([ //id=180
           //'id'=>513,
           'curso_id'=>21,
           'profesor_id'=>134,
           'asistencia'=>true,
           'acreditacion'=>false,
-          'calificacion'=>10,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>true,
 					'espera'=>0
         ]);//AUAC840720
-        DB::table('participante_curso')->insert([ //id=178
+        DB::table('participante_curso')->insert([ //id=181
           //'id'=>514,
           'curso_id'=>21,
           'profesor_id'=>135,
           'asistencia'=>true,
+          'confirmacion'=>false,
           'acreditacion'=>false,
-          //'calificacion'=>10,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>false,
 					'espera'=>0
         ]);//AUDC660503
-        DB::table('participante_curso')->insert([ //id=179
+        DB::table('participante_curso')->insert([ //id=182
           //'id'=>515,
           'curso_id'=>21,
           'profesor_id'=>136,
           'asistencia'=>false,
           'acreditacion'=>false,
-          //'calificacion'=>10,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>false,
 					'espera'=>0
         ]);//AUHA730329
         //ENCUESTAS PARA REPORTE DE COMENTARIOS Y SUGERENCIAS
@@ -4737,9 +4793,9 @@ Qué es una computadora y cómo funciona',
           'otros'=>'office y calculo',
           'conocimiento'=>'["2"]',
           'tematica'=>'Autocad',
-          'horarios'=>'9:00-13:00',
-          'horarioi'=>'13:00-15:00',
-          'participante_curso_id'=>167
+          'horarios'=>'Lunes y viernes de 10:00 a 18:00',
+          'horarioi'=>'Sabado y domingo de 10 a 18',
+          'participante_curso_id'=>168
         ]);
         DB::table('_evaluacion_instructor_curso')->insert([
           'p1' => '95',
@@ -4753,7 +4809,7 @@ Qué es una computadora y cómo funciona',
           'p9' => '100',
           'p10' => '60',
           'p11' => '80',
-          'participante_id' => 167,
+          'participante_id' => 168,
           'instructor_id' => 31
         ]);
         DB::table('_evaluacion_final_curso')->insert([
@@ -4775,11 +4831,11 @@ Qué es una computadora y cómo funciona',
           'p9'=>'El profesor',
           'sug'=>'Se debe mejorar la forma de evaluacion',
           'otros'=>'autocad',
-          'conocimiento'=>'["2"]',
+          'conocimiento'=>'["3"]',
           'tematica'=>'Calculo',
-          'horarios'=>'9:00-13:00',
-          'horarioi'=>'13:00-15:00',
-          'participante_curso_id'=>169
+          'horarios'=>'Viernes de 8 a 10',
+          'horarioi'=>'Jueves de 8 a 10',
+          'participante_curso_id'=>170
         ]);
         DB::table('_evaluacion_instructor_curso')->insert([
           'p1' => '50',
@@ -4793,7 +4849,7 @@ Qué es una computadora y cómo funciona',
           'p9' => '50',
           'p10' => '60',
           'p11' => '80',
-          'participante_id' => 169,
+          'participante_id' => 170,
           'instructor_id' => 31
         ]);
         DB::table('_evaluacion_final_curso')->insert([
@@ -4815,11 +4871,11 @@ Qué es una computadora y cómo funciona',
           'p9'=>'El material proporcionado',
           'sug'=>'Mejorar las instalaciones',
           'otros'=>'word',
-          'conocimiento'=>'["2"]',
+          'conocimiento'=>'["3"]',
           'tematica'=>'Autocad',
-          'horarios'=>'9:00-13:00',
-          'horarioi'=>'13:00-15:00',
-          'participante_curso_id'=>170
+          'horarios'=>'Jueves por la noche',
+          'horarioi'=>'Lunes por la noche',
+          'participante_curso_id'=>171
         ]);
         DB::table('_evaluacion_instructor_curso')->insert([
           'p1' => '50',
@@ -4833,7 +4889,7 @@ Qué es una computadora y cómo funciona',
           'p9' => '80',
           'p10' => '60',
           'p11' => '100',
-          'participante_id' => 170,
+          'participante_id' => 171,
           'instructor_id' => 31
         ]);
         DB::table('_evaluacion_final_curso')->insert([
@@ -4855,11 +4911,11 @@ Qué es una computadora y cómo funciona',
           'p9'=>'Los conceptos vistos',
           'sug'=>'Mejorar las instalaciones',
           'otros'=>'word y autocad',
-          'conocimiento'=>'["2"]',
+          'conocimiento'=>'["3"]',
           'tematica'=>'programacion',
-          'horarios'=>'9:00-13:00',
-          'horarioi'=>'13:00-15:00',
-          'participante_curso_id'=>172
+          'horarios'=>'Lunes 10:00',
+          'horarioi'=>'Lunes 10:00',
+          'participante_curso_id'=>173
         ]);
         DB::table('_evaluacion_instructor_curso')->insert([
           'p1' => '50',
@@ -4873,7 +4929,7 @@ Qué es una computadora y cómo funciona',
           'p9' => '100',
           'p10' => '95',
           'p11' => '80',
-          'participante_id' => 172,
+          'participante_id' => 173,
           'instructor_id' => 32
         ]);
         DB::table('_evaluacion_final_curso')->insert([
@@ -4897,9 +4953,9 @@ Qué es una computadora y cómo funciona',
           'otros'=>'autocad,word',
           'conocimiento'=>'["2"]',
           'tematica'=>'Office',
-          'horarios'=>'9:00-13:00',
-          'horarioi'=>'13:00-15:00',
-          'participante_curso_id'=>173
+          'horarios'=>'Lunes y miércoles de 10 a 12',
+          'horarioi'=>'Lunes y miércoles de 10 a 12',
+          'participante_curso_id'=>174
         ]);
         DB::table('_evaluacion_instructor_curso')->insert([
           'p1' => '50',
@@ -4913,7 +4969,7 @@ Qué es una computadora y cómo funciona',
           'p9' => '100',
           'p10' => '60',
           'p11' => '80',
-          'participante_id' => 173,
+          'participante_id' => 174,
           'instructor_id' => 32
         ]);
         DB::table('_evaluacion_final_curso')->insert([
@@ -4935,10 +4991,10 @@ Qué es una computadora y cómo funciona',
           'p9'=>'El color del formato',
           'sug'=>'Mejorar la presencia de software',
           'otros'=>'autocad, word',
-          'conocimiento'=>'["2"]',
+          'conocimiento'=>'["3"]',
           'tematica'=>'programacion',
-          'horarios'=>'9:00-13:00',
-          'horarioi'=>'13:00-15:00',
+          'horarios'=>'Sábados y domingos por la noche',
+          'horarioi'=>'Lunes a viernes de 12:00 a 12:30',
           'participante_curso_id'=>178
         ]);
         DB::table('_evaluacion_instructor_curso')->insert([
@@ -4975,10 +5031,10 @@ Qué es una computadora y cómo funciona',
           'p9'=>'El color del formato',
           'sug'=>'Mejorar la presencia de software',
           'otros'=>'office',
-          'conocimiento'=>'["2"]',
+          'conocimiento'=>'["3"]',
           'tematica'=>'Autocad',
-          'horarios'=>'9:00-13:00',
-          'horarioi'=>'13:00-15:00',
+          'horarios'=>'Martes por la noche',
+          'horarioi'=>'Martes por la tarde y noche',
           'participante_curso_id'=>179
         ]);
         DB::table('_evaluacion_instructor_curso')->insert([
@@ -5015,10 +5071,10 @@ Qué es una computadora y cómo funciona',
           'p9'=>'La presencia de motores de construccion',
           'sug'=>'Mejorar la presentacion del curso',
           'otros'=>'office, word y autocad',
-          'conocimiento'=>'["2"]',
+          'conocimiento'=>'["3"]',
           'tematica'=>'Calculo',
-          'horarios'=>'9:00-13:00',
-          'horarioi'=>'13:00-15:00',
+          'horarios'=>'Martes Jueves 12:00-19:00',
+          'horarioi'=>'Martes Jueves 12:00-19:00',
           'participante_curso_id'=>180
         ]);
         DB::table('_evaluacion_instructor_curso')->insert([

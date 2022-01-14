@@ -97,7 +97,7 @@ body {
 	    <div class=seccion>Inscritos</div>
 		<?php 
         foreach($participantes as $alumno){  
-			if($alumno->cancelación == FALSE and $alumno->espera == 0){
+			if($alumno->cancelacion == FALSE and $alumno->espera == 0){
 	        print("
 	        <table width=100%>
 	        	<tr>
@@ -113,7 +113,7 @@ body {
 		<div class=seccion>Lista de Espera</div>
 		<?php 
         foreach($participantes as $alumno){  
-			if($alumno->cancelación == FALSE and $alumno->espera >= 1){
+			if($alumno->cancelacion == FALSE and $alumno->espera >= 1){
 	        print("
 	        <table width=100%>
 	        	<tr>

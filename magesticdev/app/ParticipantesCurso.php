@@ -16,9 +16,9 @@ class ParticipantesCurso extends Model
      */
     protected $fillable = [
         'curso_id','profesor_id','confirmacion','asistencia','pago_curso',
-        'monto_pago','cancelación',
+        'monto_pago','cancelacion',
         'espera', 'estuvo_en_lista','contesto_hoja_evaluacion','acreditacion',
-        'causa_no_acreditacion','calificacion','inscrito','comentario','adicional',
+        'causa_no_acreditacion','calificacion','comentario','adicional',
         'folio_inst','folio_peque'
     ];
     public function getProfesor(){

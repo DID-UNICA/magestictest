@@ -133,7 +133,7 @@ class FormatosController extends Controller
             '=',
             'participante_curso.profesor_id'
         )->where('participante_curso.curso_id',$id)
-        ->select('profesors.*', 'participante_curso.cancelación', 
+        ->select('profesors.*', 'participante_curso.cancelacion', 
             'participante_curso.espera'
         )
         ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")

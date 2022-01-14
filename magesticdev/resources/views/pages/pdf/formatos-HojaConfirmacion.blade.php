@@ -87,7 +87,7 @@ hr{
 	
 		<?php 
         foreach($participantes as $alumno){  
-			if($alumno->cancelación == FALSE and $alumno->espera == 0){
+			if($alumno->cancelacion == FALSE and $alumno->espera == 0){
 	        print("
 	        <table width=100%>
 	        	<tr >

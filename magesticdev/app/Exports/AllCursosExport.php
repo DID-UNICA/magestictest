@@ -80,7 +80,7 @@ class AllCursosExport implements FromView, ShouldAutosize
             'pc.asistencia AS asistencia',
             'pc.acreditacion AS acreditacion',
             'pc.causa_no_acreditacion AS causa',
-            'pc.cancelación AS cancelacion',
+            'pc.cancelacion AS cancelacion',
             'pc.estuvo_en_lista AS lista',
             'pc.espera AS num_lista',
             'pc.calificacion AS calificacion',

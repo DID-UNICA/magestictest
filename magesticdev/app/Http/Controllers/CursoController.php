@@ -653,7 +653,7 @@ class CursoController extends Controller
 
       //Cancelados y lista de espera
       $enLista = ParticipantesCurso::select('id')->where('estuvo_en_lista',true)->where('curso_id',$id)->count();
-      $cancelados = ParticipantesCurso::select('id')->where('cancelación',true)->where('curso_id',$id)->count();
+      $cancelados = ParticipantesCurso::select('id')->where('cancelacion',true)->where('curso_id',$id)->count();
       
       $countAux = 0;
       if($count > ($enLista+$cancelados))
@@ -747,7 +747,7 @@ class CursoController extends Controller
             ->where('profesor_id',$alumno)
             ->get();
             $participante = $participantes[0];
-            $participante->cancelación = true;
+            $participante->cancelacion = true;
             $participante->save();
         }
     }*/
@@ -759,7 +759,7 @@ class CursoController extends Controller
             ->where('profesor_id',$cancelacion)
             ->get();
             $participante = $participantes[0];
-            $participante->cancelación = true;
+            $participante->cancelacion = true;
             $participante->estuvo_en_lista = false;
             $participante->espera = 0;
             $participante->save();
@@ -810,12 +810,12 @@ class CursoController extends Controller
 
         if($request->cancelaciones){
             if(in_array($profesor_id,$request->cancelaciones)){
-                $participante->cancelación = true;
+                $participante->cancelacion = true;
             }else{
-                $participante->cancelación = false;
+                $participante->cancelacion = false;
             }
         }else{
-            $participante->cancelación = false;
+            $participante->cancelacion = false;
 
         }
 
@@ -888,7 +888,7 @@ class CursoController extends Controller
             ->count();
         $cancelados = ParticipantesCurso::select('id')
             ->where('curso_id',$request->curso_id)
-            ->where('cancelación',true)
+            ->where('cancelacion',true)
             ->count();
         $cupo = Curso::findOrFail($request->curso_id)->cupo_maximo;
 //Queda pendiente el registro

@@ -18,7 +18,7 @@ class CreateParticipanteCurso extends Migration
             $table->boolean('asistencia')->nullable();
             $table->boolean('confirmacion')->nullable();
             $table->boolean('pago_curso')->nullable();
-            $table->boolean('cancelación')->nullable();
+            $table->boolean('cancelacion')->nullable();
             $table->boolean('estuvo_en_lista')->nullable();
             $table->Double('monto_pago')->nullable();
             $table->Integer('espera')->nullable();
@@ -29,8 +29,6 @@ class CreateParticipanteCurso extends Migration
             $table->string('folio_peque')->nullable();
             //TODO Preguntar a la maestra si realmente es necesario y si no se usa quitar, se observa con el participante en alguna evaluacion
             $table->boolean('contesto_hoja_evaluacion')->nullable();
-            
-            $table->boolean('inscrito')->nullable();
             $table->Integer('curso_id')->unsigned();
             $table->Integer('profesor_id')->unsigned();
             $table->foreign('curso_id')->references('id')->on('cursos');
