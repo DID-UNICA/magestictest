@@ -104,6 +104,15 @@
       </textarea>
     </div>
 
+    <div class="form-group col-md-6">
+      {!!Form::label("labelSGC", "SGC:")!!}
+      @if($user->sgc)
+      <input type="checkbox" name="SGC" id="SGC" style="border-radius:.12em;height: 24px;width: 24px;" checked disabled>
+      @else
+      <input type="checkbox" name="SGC" id="SGC" style="border-radius:.12em;height: 24px;width: 24px;" disabled>
+      @endif
+    </div>
+
     <div class="form-group col-md-6" style="margin: 5px">
       <a href="{{ URL::to('curso/actualizar', $user->id) }}" class="btn btn-info">Actualizar información</a>
       <a href="{{ URL::to('curso/instructores', $user->id) }}" class="btn btn-success">Modificar Instructores</a>

@@ -2513,7 +2513,8 @@ Qué es una computadora y cómo funciona',
             'cupo_maximo' => 32,
             'cupo_minimo' => 1,
             'catalogo_id' => 1,
-            'salon_id' => 1
+            'salon_id' => 1,
+            'sgc' => false
         ]);
 
         DB::table('cursos')->insert([ //id=2
@@ -2532,7 +2533,8 @@ Qué es una computadora y cómo funciona',
             'cupo_maximo' => 5,
             'cupo_minimo' => 1,
             'catalogo_id' => 2,
-            'salon_id' => 1
+            'salon_id' => 1,
+            'sgc' => false
         ]);
         DB::table('cursos')->insert([ //id=3
             'semestre_anio' => 2020,
@@ -2550,7 +2552,8 @@ Qué es una computadora y cómo funciona',
             'cupo_maximo' => 20,
             'cupo_minimo' => 5,
             'catalogo_id' => 3,
-            'salon_id' => 1
+            'salon_id' => 1,
+            'sgc' => false
         ]);
 
         DB::table('cursos')->insert([ //id=4
@@ -2569,7 +2572,8 @@ Qué es una computadora y cómo funciona',
             'cupo_maximo' => 20,
             'cupo_minimo' => 5,
             'catalogo_id' => 4,
-            'salon_id' => 2
+            'salon_id' => 2,
+            'sgc' => false
         ]);
         DB::table('cursos')->insert([ //id=5
             'semestre_anio' => 2020,
@@ -2587,7 +2591,8 @@ Qué es una computadora y cómo funciona',
             'cupo_maximo' => 20,
             'cupo_minimo' => 5,
             'catalogo_id' => 6,
-            'salon_id' => 3
+            'salon_id' => 3,
+            'sgc' => false
         ]);
         DB::table('cursos')->insert([ //id=6
             'semestre_anio' => 2015,
@@ -2605,7 +2610,8 @@ Qué es una computadora y cómo funciona',
             'cupo_maximo' => 20,
             'cupo_minimo' => 5,
             'catalogo_id' => 7,
-            'salon_id' => 3
+            'salon_id' => 3,
+            'sgc' => true
         ]);
         DB::table('cursos')->insert([ //id=7
             'semestre_anio' => 2018,
@@ -2623,7 +2629,8 @@ Qué es una computadora y cómo funciona',
             'cupo_maximo' => 20,
             'cupo_minimo' => 5,
             'catalogo_id' => 3,
-            'salon_id' => 2
+            'salon_id' => 2,
+            'sgc' => true
         ]);
         DB::table('cursos')->insert([ //id=8
             'semestre_anio' => 2018,
@@ -2641,7 +2648,8 @@ Qué es una computadora y cómo funciona',
             'cupo_maximo' => 20,
             'cupo_minimo' => 5,
             'catalogo_id' => 7,
-            'salon_id' => 1
+            'salon_id' => 1,
+            'sgc' => true
         ]);
         DB::table('cursos')->insert([ //id=9
             'semestre_anio' => 2014,
@@ -2659,7 +2667,8 @@ Qué es una computadora y cómo funciona',
             'cupo_maximo' => 20,
             'cupo_minimo' => 5,
             'catalogo_id' => 5,
-            'salon_id' => 1
+            'salon_id' => 1,
+            'sgc' => false
         ]);
         
         DB::table('cursos')->insert([ //id=10
@@ -2678,7 +2687,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 16,
           'cupo_minimo' => 8,
           'catalogo_id' => 10,
-          'salon_id' => 1
+          'salon_id' => 1,
+          'sgc' => false
         ]);
 
         DB::table('cursos')->insert([ //id=11
@@ -2697,7 +2707,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 19,
           'cupo_minimo' => 15,
           'catalogo_id' => 11,
-          'salon_id' => 2
+          'salon_id' => 2,
+          'sgc' => false
         ]);
 
 
@@ -2717,7 +2728,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 19,
           'cupo_minimo' => 15,
           'catalogo_id' => 12,
-          'salon_id' => 2
+          'salon_id' => 2,
+          'sgc' => false
           
         ]);
 
@@ -2737,7 +2749,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 19,
           'cupo_minimo' => 15,
           'catalogo_id' => 13,
-          'salon_id' => 2
+          'salon_id' => 2,
+          'sgc' => false
           
         ]);
 
@@ -2757,7 +2770,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 15,
           'cupo_minimo' => 5,
           'catalogo_id' => 14,
-          'salon_id' => 1
+          'salon_id' => 1,
+          'sgc' => false
         ]);
 
         DB::table('cursos')->insert([ //id=15
@@ -2776,7 +2790,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 15,
           'cupo_minimo' => 5,
           'catalogo_id' => 15,
-          'salon_id' => 1
+          'salon_id' => 1,
+          'sgc' => false
         ]);
 
         DB::table('cursos')->insert([ //id=16
@@ -2795,7 +2810,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 19,
           'cupo_minimo' => 16,
           'catalogo_id' => 16,
-          'salon_id' => 1
+          'salon_id' => 1,
+          'sgc' => false
         ]);
 
         DB::table('cursos')->insert([ //id=17
@@ -2814,7 +2830,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 19,
           'cupo_minimo' => 15,
           'catalogo_id' => 17,
-          'salon_id' => 1
+          'salon_id' => 1,
+          'sgc' => false
         ]);
 
         DB::table('cursos')->insert([ //id=18
@@ -2833,7 +2850,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 19,
           'cupo_minimo' => 15,
           'catalogo_id' => 9,
-          'salon_id' => 1
+          'salon_id' => 1,
+          'sgc' => false
         ]);
         DB::table('cursos')->insert([ //id=19
           //'id' => 500,
@@ -2852,7 +2870,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 20,
           'cupo_minimo' => 1,
           'catalogo_id' => 20,
-          'salon_id' => 1
+          'salon_id' => 1,
+          'sgc' => false
         ]); 
         DB::table('cursos')->insert([ //id=20
           //'id' => 501,
@@ -2871,7 +2890,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 20,
           'cupo_minimo' => 10,
           'catalogo_id' => 21,
-          'salon_id' => 1
+          'salon_id' => 1,
+          'sgc' => false
         ]); 
         DB::table('cursos')->insert([ //id=21
           //'id' => 502,
@@ -2890,7 +2910,8 @@ Qué es una computadora y cómo funciona',
           'cupo_maximo' => 20,
           'cupo_minimo' => 1,
           'catalogo_id' => 22,
-          'salon_id' => 1
+          'salon_id' => 1,
+          'sgc' => false
         ]); 
         //SECRETARIO DE APOYO A LA DOCENCIA
         DB::table('secretario_apoyo')->insert([

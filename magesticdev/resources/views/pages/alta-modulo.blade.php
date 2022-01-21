@@ -239,6 +239,16 @@
             @endif
           </div>
         </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">SGC:</label>
+
+            <div class="col-md-6">
+                <input type="checkbox" name="SGC" id="SGC" style="border-radius:.12em;height: 24px;width: 24px;">
+                <p style="display:inline;font-size: large;vertical-align: super;" onclick="pSGC()"> Sistema de Gestión de Calidad</p>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
               <button disabled type="submit" class="btn btn-primary" id="boton" onclick="validador()">
@@ -505,6 +515,12 @@
 
 
       });
+    </script>
+    <script type="text/javascript">
+        function pSGC(argument) {
+            let sgc_box = document.getElementById('SGC');
+            sgc_box.checked = !sgc_box.checked;
+        }
     </script>
 
   </section>

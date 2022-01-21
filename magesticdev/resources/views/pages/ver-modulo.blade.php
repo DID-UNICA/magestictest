@@ -96,6 +96,15 @@
     </div>
 
     <div class="form-group col-md-6">
+      {!!Form::label("labelSGC", "SGC:")!!}
+      @if($modulo->sgc)
+      <input type="checkbox" name="SGC" id="SGC" style="border-radius:.12em;height: 24px;width: 24px;" checked disabled>
+      @else
+      <input type="checkbox" name="SGC" id="SGC" style="border-radius:.12em;height: 24px;width: 24px;" disabled>
+      @endif
+    </div>
+
+    <div class="form-group col-md-6">
       {!!Form::label("diplomado", "Diplomado asociado")!!}
       @if($modulo->getDiplomado())
         {!!Form::text("diplomado", $modulo->getDiplomado()->nombre_diplomado, [ "class" => "form-control", "placeholder" => "Cupo mínimo", "required","disabled"])!!}

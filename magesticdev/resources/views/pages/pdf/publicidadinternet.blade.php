@@ -198,8 +198,8 @@ $GLOBALS["header"] = NULL;
 		<div height="10%" style="background-color:white">
 		<hr>
 			<div class=encabezado id=encabezado_1>UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
-			<img id= img2 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudos/escudounam_color.jpg" width="100" height="110" align=left>
-			<img id=img1 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudo_fi_color.png" width="100" height="114" align=right>
+			<img id= img2 src="img/escudounam-color.png" width="100" height="110" align=left>
+			<img id=img1 src="img/escudo_fi_color.png" width="100" height="114" align=right>
 			<div class=encabezado id=encabezado_2>FACULTAD DE INGENIERÍA</div>
 			<div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>
 			<div id=encabezado_4>CENTRO DE DOCENCIA</div>

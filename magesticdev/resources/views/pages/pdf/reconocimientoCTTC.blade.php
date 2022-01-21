@@ -121,7 +121,7 @@ body {
   <body id=fondo>
     <div>
       <div class=encabezado id=encabezado_1>UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
-      <img id=img1 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudo_fi_color.png" width="166" height="198">
+      <img id=img1 src="img/escudo_fi_color.png" width="166" height="198">
       <img id= img2 src='img/escudounam-color.png' width="174" height="221">
       <div class=encabezado id=encabezado_2>FACULTAD DE INGENIERÍA</div>
       <div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>

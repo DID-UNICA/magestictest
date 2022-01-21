@@ -36,6 +36,8 @@ class CreateTableCursos extends Migration
             $table->foreign('salon_id')->references('id')->on('salons');
             $table->foreign('diplomado_id')->references('id')->on('diplomados');
 
+            $table->boolean('sgc');
+
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

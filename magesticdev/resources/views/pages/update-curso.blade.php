@@ -173,6 +173,15 @@
         {!!Form::label("salon_id", "Sede:")!!}
         {!!Form::select("salon_id", $curso->allSalon()->pluck('sede','id'),$curso->getIdSalon(),['class'=>'form-control'])!!}
     </div>
+    <div class="form-group col-md-6">
+        {!!Form::label("salon_id", "SGC:")!!}
+        @if($curso->sgc)
+        <input type="checkbox" name="SGC" id="SGC" style="border-radius:.12em;height: 24px;width: 24px;" checked>
+        @else
+        <input type="checkbox" name="SGC" id="SGC" style="border-radius:.12em;height: 24px;width: 24px;">
+        @endif
+        <p style="display:inline;font-size: large;vertical-align: super;" onclick="pSGC()"> Sistema de Gestión de Calidad</p>
+    </div>
     <div class="col-md-4">
     <hr>
     <button type="submit" class="btn btn-primary btn-md col-md-offset-1">Actualizar</button>
@@ -375,6 +384,12 @@
     });
 
   });
+</script>
+<script type="text/javascript">
+    function pSGC(argument) {
+        let sgc_box = document.getElementById('SGC');
+        sgc_box.checked = !sgc_box.checked;
+    }
 </script>
 </section>
 @endsection

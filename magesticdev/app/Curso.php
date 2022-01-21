@@ -19,7 +19,7 @@ class Curso extends Model
      */
     protected $fillable = [
         'id','semestre_anio','semestre_pi','semestre_si','fecha_inicio','fecha_fin','hora_inicio','hora_fin','dias_semana',
-        'numero_sesiones','sesiones','acreditacion','costo','cupo_maximo','cupo_minimo','catalogo_id','salon_id', 'fecha_envio_constancia', 'fecha_envio_reconocimiento'
+        'numero_sesiones','sesiones','acreditacion','costo','cupo_maximo','cupo_minimo','catalogo_id','salon_id', 'sgc', 'fecha_envio_constancia', 'fecha_envio_reconocimiento'
     ];
 
     public function getTypeId(){
@@ -66,10 +66,13 @@ class Curso extends Model
 
         }
     }
+    public function getSGC(){
+        return $this->sgc;
+    }
     public function getCatalogoCurso(){
       $catalogo = CatalogoCurso::find($this->catalogo_id);
       return $catalogo;
-  }
+    }
     public function getCupoMax(){
         return $this->cupo_maximo;
     }

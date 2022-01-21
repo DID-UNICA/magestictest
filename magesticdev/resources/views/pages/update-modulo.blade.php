@@ -97,12 +97,12 @@
   </div>
       <div class="form-group col-md-6">
           {!!Form::label("fecha_inicio", "Fecha de inicio:")!!}
-          {!!Form::date("fecha_inicio", $modulo->getFechaInicio(), [ "class" => "form-control", "placeholder" => "Fecha de inicio", "required",""])!!}
+          {!!Form::date("fecha_inicio", $modulo->fecha_inicio, [ "class" => "form-control", "placeholder" => "Fecha de inicio", "required",""])!!}
       </div>
 
     <div class="form-group col-md-6">
         {!!Form::label("fecha_fin", "Fecha de fin:")!!}
-        {!!Form::date("fecha_fin", $modulo->getFechaFin(), [ "class" => "form-control", "placeholder" => "Fecha de fin", "required",""])!!}
+        {!!Form::date("fecha_fin", $modulo->fecha_fin, [ "class" => "form-control", "placeholder" => "Fecha de fin", "required",""])!!}
     </div>
   </div>
 
@@ -173,6 +173,15 @@
         {!!Form::label("salon_id", "Sede:")!!}
         {!!Form::select("salon_id", $modulo->allSalon()->pluck('sede','id'),$modulo->getIdSalon(),['class'=>'form-control'])!!}
     </div>
+    <div class="form-group col-md-6">
+        {!!Form::label("salon_id", "SGC:")!!}
+        @if($modulo->sgc)
+        <input type="checkbox" name="SGC" id="SGC" style="border-radius:.12em;height: 24px;width: 24px;" checked>
+        @else
+        <input type="checkbox" name="SGC" id="SGC" style="border-radius:.12em;height: 24px;width: 24px;">
+        @endif
+        <p style="display:inline;font-size: large;vertical-align: super;" onclick="pSGC()"> Sistema de Gestión de Calidad</p>
+    </div>    
     <div class="col-md-4">
     <hr>
     <button type="submit" class="btn btn-primary btn-md col-md-offset-1">Actualizar</button>
@@ -374,6 +383,12 @@
     });
 
   });
+</script>
+<script type="text/javascript">
+    function pSGC(argument) {
+        let sgc_box = document.getElementById('SGC');
+        sgc_box.checked = !sgc_box.checked;
+    }
 </script>
 </section>
 @endsection

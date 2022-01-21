@@ -224,24 +224,25 @@ class CursoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Curso::find($id);
-        $user->semestre_anio = $request->semestreAnio;
-        $user->semestre_pi = $request->semestreTemporada;
-        $user->semestre_si = $request->semestreInter;
-        $user->catalogo_id = $request->catalogo_id;
-        $user->fecha_inicio = $request->fecha_inicio;
-        $user->fecha_fin = $request->fecha_fin;
-        $user->hora_inicio = $request->hora_inicio;
-        $user->hora_fin = $request->hora_fin;
-        $user->dias_semana = $request->dias_semana;
-        $user->numero_sesiones = $request->numero_sesiones;
-        $user->sesiones = str_replace("-","/",$request->sesiones);
-        $user->acreditacion = $request->acreditacion;
-        $user->costo = $request->costo;
-        $user->cupo_maximo = $request->cupo_maximo;
-        $user->cupo_minimo = $request->cupo_minimo;
-        $user->salon_id = $request->salon_id;
-        $user->save();
+        $curso = Curso::find($id);
+        $curso->semestre_anio = $request->semestreAnio;
+        $curso->semestre_pi = $request->semestreTemporada;
+        $curso->semestre_si = $request->semestreInter;
+        $curso->catalogo_id = $request->catalogo_id;
+        $curso->fecha_inicio = $request->fecha_inicio;
+        $curso->fecha_fin = $request->fecha_fin;
+        $curso->hora_inicio = $request->hora_inicio;
+        $curso->hora_fin = $request->hora_fin;
+        $curso->dias_semana = $request->dias_semana;
+        $curso->numero_sesiones = $request->numero_sesiones;
+        $curso->sesiones = str_replace("-","/",$request->sesiones);
+        $curso->acreditacion = $request->acreditacion;
+        $curso->costo = $request->costo;
+        $curso->cupo_maximo = $request->cupo_maximo;
+        $curso->cupo_minimo = $request->cupo_minimo;
+        $curso->salon_id = $request->salon_id;
+        $curso->sgc = ($request->SGC == 'on') ? (true):(false);
+        $curso->save();
         return redirect()->route('curso.show',$id)
           ->with('success', 'Se han actualizado los datos correctamente');
     }
@@ -265,6 +266,7 @@ class CursoController extends Controller
         $modulo->cupo_maximo = $request->cupo_maximo;
         $modulo->cupo_minimo = $request->cupo_minimo;
         $modulo->salon_id = $request->salon_id;
+        $modulo->sgc = ($request->SGC == 'on') ? (true):(false);
         $modulo->save();
         return redirect()->route('modulo.ver', $modulo->id)
           ->with('success', 'Se han actualizado los datos correctamente');
@@ -569,6 +571,7 @@ class CursoController extends Controller
         $curso->cupo_minimo = $request->cupo_minimo;
         $curso->catalogo_id = $request->catalogo_id;
         $curso->salon_id = $request->salon_id;
+        $curso->sgc = ($request->SGC == 'on') ? (true):(false);
         $curso->save();
 
         return redirect()->route('curso.modificarInstructores', $curso->id)
@@ -628,6 +631,7 @@ class CursoController extends Controller
         $curso->cupo_minimo = $request->cupo_minimo;
         $curso->catalogo_id = $catalogo_modulo_id;
         $curso->salon_id = $request->salon_id;
+        $curso->sgc = ($request->SGC == 'on') ? (true):(false);
         $curso->save();
 
         return redirect()->route('curso.modificarInstructores', $curso->id)

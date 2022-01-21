@@ -127,7 +127,7 @@ body {
   <body id=fondo>
     <div>
       <div class=encabezado id=encabezado_1>UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</div>
-      <img id=img1 src="http://www.ingenieria.unam.mx/nuestra_facultad/images/institucionales/escudo_fi_color.png" width="166" height="198">
+      <img id=img1 src="img/escudo_fi_color.png" width="166" height="198">
       <img id= img2 src='img/escudounam-color.png' width="174" height="221">
       <div class=encabezado id=encabezado_2>FACULTAD DE INGENIERÍA</div>
       <div id=encabezado_3>SECRETARÍA DE APOYO A LA DOCENCIA</div>
@@ -160,7 +160,7 @@ body {
           </tr>
         </table>
         <p style="font-size:12pt;">El día {{$fechaimp}}</h5>
-        <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
+        <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$duracion}} h</h5>
         <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
         <p style="font-size: 8pt; padding-bottom: 0.8cm;">Ciudad Universitaria, Cd. Mx., a {{$fechaimp}}</h6>
       </div>
