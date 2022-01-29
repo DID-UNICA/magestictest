@@ -150,7 +150,7 @@ body {
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
-          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 50%;">{{$tema}}</td>
+          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 0.5cm;">{{$tema}}</td>
           </tr>
           <tr width="15cm">
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 85%;">{{$seminario}}</td>

@@ -21,7 +21,7 @@ class CreateTableCursos extends Migration
             $table->integer('numero_sesiones');
             $table->String('sesiones');
             $table->integer('acreditacion');
-            $table->double('costo');
+            $table->double('costo')->nullable();
             $table->integer('cupo_maximo');
             $table->integer('cupo_minimo');
             $table->date('fecha_envio_constancia')->nullable();
@@ -36,7 +36,7 @@ class CreateTableCursos extends Migration
             $table->foreign('salon_id')->references('id')->on('salons');
             $table->foreign('diplomado_id')->references('id')->on('diplomados');
 
-            $table->boolean('sgc');
+            $table->boolean('sgc')->nullable();
 
             $table->timestamps();
         });

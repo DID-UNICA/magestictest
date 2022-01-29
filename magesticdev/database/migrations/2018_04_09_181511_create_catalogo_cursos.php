@@ -17,14 +17,14 @@ class CreateCatalogoCursos extends Migration
             $table->increments('id')->unique();
             $table->string('clave_curso',25)->unique();
             $table->string('nombre_curso',300);
-            $table->string('duracion_curso');
-            $table->string('tipo');
-            $table->string('institucion');
+            $table->string('duracion_curso')->nullable();
+            $table->string('tipo')->nullable();
+            $table->string('institucion')->nullable();
             $table->longText('dirigido')->nullable();
             $table->longText('objetivo')->nullable();
             $table->longText('contenido')->nullable();
             $table->longText('antecedentes')->nullable();
-            $table->date('fecha_disenio');
+            $table->date('fecha_disenio')->nullable();
 
             $table->integer('coordinacion_id')->unsigned();
             $table->foreign('coordinacion_id')->references('id')->on('coordinacions');

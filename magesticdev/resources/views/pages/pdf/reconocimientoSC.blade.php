@@ -135,12 +135,12 @@ body {
       <div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
       <br>
       <div class="centro">
-      @if($coordinacion->genero=="masculino")
+      @if($coordinacion->genero=="M")
         <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento al:</h2>
-      @elseif($coordinacion->genero=="femenino")
-        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a la:</h2>
+      @elseif($coordinacion->genero=="F")
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a la:</h2>
       @else
-        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a:</h2>
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a:</h2>
       @endif
         <br>
         <h2 class='nombre_profesor'>{{$coordinacion->grado}} {{$coordinacion->coordinador}}</h2>
