@@ -14,7 +14,7 @@ class EvaluacionFinalCurso extends Migration
     public function up()
     {
         Schema::create('_evaluacion_final_curso', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->start_from(4931);
             //1. DESARROLLO DEL CURSO
             $table->integer('p1_1')->nullable();
             $table->integer('p1_2')->nullable();
@@ -36,9 +36,9 @@ class EvaluacionFinalCurso extends Migration
             //8. ¿CÓMO SE ENTERÓ DEL CURSO/SEMINARIO?
             $table->string('p8',300)->nullable();
             //Lo mejor del curso fue / Lo que me aportó el seminario fue:
-            $table->string('p9',300)->nullable();
+            $table->string('p9',1500)->nullable();
             //Sugerencias y recomendaciones:	
-            $table->string('sug',300)->nullable();
+            $table->string('sug',3000)->nullable();
             //¿Qué otros cursos, talleres, seminarios o temáticos le gustaría que se impartiesen o tomasen en cuenta para próximas actividades?
             $table->string('otros',300)->nullable();
             //ÁREA DE CONOCIMIENTO 
@@ -47,9 +47,9 @@ class EvaluacionFinalCurso extends Migration
             $table->string('tematica',300)->nullable();
             //¿En qué horarios le gustaría que se impartiesen los cursos, talleres, seminarios o diplomados?
             //Horarios Semestrales:
-            $table->string('horarios',100)->nullable();
+            $table->string('horarios',300)->nullable();
             //Horarios Intersemestrales:
-            $table->string('horarioi',100)->nullable();
+            $table->string('horarioi',300)->nullable();
             $table->integer('participante_curso_id')->unsigned();
             $table->foreign('participante_curso_id','participante_curso_id')
                   ->references('id')->on('participante_curso');

@@ -135,16 +135,16 @@ body {
       <div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
       <br>
       <div class="centro">
-      @if($coordinacion->genero=="masculino")
+      @if($coordinacion->genero=="M")
         <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento al:</h2>
-      @elseif($coordinacion->genero=="femenino")
-        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a la:</h2>
+      @elseif($coordinacion->genero=="F")
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a la:</h2>
       @else
-        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a:</h2>
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a:</h2>
       @endif
         <br>
         <h2 class='nombre_profesor'>{{$coordinacion->grado}} {{$coordinacion->coordinador}}</h2>
-
+      @if(strlen($cursoCatalogo->nombre_curso) < 110)
         <table width="15cm" align="center">
           <tr width="15cm">
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
@@ -153,6 +153,16 @@ body {
             <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
         </table>
+      @else  
+        <table width="15cm" align="center" style=" margin-bottom: 2em;">
+          <tr width="15cm">
+          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 19pt;">{{$cursoCatalogo->nombre_curso}}</td>
+          </tr>
+        </table>
+      @endif
         <p style="font-size:12pt;">{{$fechaimp}}</h5>
         <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
         <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>

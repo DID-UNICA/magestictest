@@ -67,6 +67,9 @@ class FormatosController extends Controller
             $pdf = PDF::loadView('pages.pdf.reportecursosperiodo', $datos)
             ->setPaper('letter');
             return $pdf->download('Reporte'.$periodo.'.pdf'); 
+        }elseif ($request->type2 == 'historico'){
+            $path=public_path('hist/access.xlsx');
+            return response()->download($path);
         }
     }
   

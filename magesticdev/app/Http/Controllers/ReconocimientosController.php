@@ -246,7 +246,7 @@ class ReconocimientosController extends Controller{
       }
 
       // OBTENCIÓN DE INSTRUCTORES
-      $instructores = ProfesoresCurso::where('curso_id',$id)->get();
+      $instructores = ProfesoresCurso::where('curso_id',$id)->get()->sortBy('id');
       if($instructores->count() == 0)
         return redirect()->back()->with(
           'danger', 'No hay instructores asignados en este curso'

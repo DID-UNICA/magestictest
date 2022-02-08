@@ -2043,6 +2043,25 @@ en impuestos universitarios.',
         'unam' => true,
         'facultad_id' =>14
       ]);
+
+      DB::table('profesors')->insert([ //id=137
+        'nombres' => 'Jose Benito',
+        'apellido_paterno' => 'Gómez',
+        'apellido_materno' => 'Daza',
+        'rfc' => 'GODB540321',
+        'numero_trabajador' => '111159',
+        
+        'fecha_nacimiento' => '1972-05-17',
+        'telefono' => '5556228023',
+        'grado' => 'Ingeniería',
+        'abreviatura_grado' => 'Ing.',
+        'email' => 'jgomezd54@hotmail.com',
+        'semblanza_corta' => 'Ingeniero geofisico, con especilidad en volcanes y terremotos y maestria en rocas.',
+        'genero' => 'masculino',
+        'facebook' => 'face',
+        'unam' => true,
+        'facultad_id' =>14
+      ]);
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>1,
         'categoria_nivel_id'=>1,
@@ -2137,6 +2156,12 @@ en impuestos universitarios.',
         'profesor_id'=>8,
         'categoria_nivel_id'=>3,
         'numero'=>2
+      ]);
+
+      DB::table('profesores_categorias')->insert([ //id=119
+        'profesor_id'=>136,
+        'categoria_nivel_id'=>16,
+        'numero'=>1
       ]);
         
       //COORDINADOR DEL CENTRO DE DOCENCIA
@@ -2476,6 +2501,20 @@ Qué es una computadora y cómo funciona',
           Introducción a las Bases de Datos (BD).',
           'fecha_disenio' => '2018-05-18',
           'clave_curso' => 'COCU129'
+        ]);
+
+        DB::table('catalogo_cursos')->insert([ //id=23
+          'nombre_curso' =>'Salud Emocional',
+          'duracion_curso' => '8',
+          'coordinacion_id' => 5,
+          'tipo' => 'CT',
+          'institucion' => 'CDD',
+          'antecedentes' => 'Curso de prueba',
+          'dirigido' => 'Profesores de la Facultad de Ingeniería',
+          'objetivo' => 'Curso de prueba',
+          'contenido' => 'Curso de prueba.',
+          'fecha_disenio' => '2022-02-05',
+          'clave_curso' => 'DHCU178'
         ]);
         //TEMAS DE SEMINARIO PARA CURSO ECUACIONES DIFERENCIALES
         DB::table('temas_seminarios')->insert([
@@ -2912,7 +2951,27 @@ Qué es una computadora y cómo funciona',
           'catalogo_id' => 22,
           'salon_id' => 1,
           'sgc' => false
-        ]); 
+        ]);
+
+        DB::table('cursos')->insert([ //id=22
+          'semestre_anio' => 2023,
+          'semestre_pi'=>"1",
+          'semestre_si' => "i",
+          'fecha_inicio' => '2022-01-18',
+          'fecha_fin' => '2022-01-21',
+          'hora_inicio' => '16:00',
+          'hora_fin' => '18:00',
+          'dias_semana' => 'Martes,Miercoles,Jueves,Viernes',
+          'numero_sesiones' => 4,
+          'sesiones' => "2022-01-18,2022-01-19,2022-01-20,2022-01-21",
+          'acreditacion' => 8,
+          'costo' => 2000,
+          'cupo_maximo' => 10,
+          'cupo_minimo' => 4,
+          'catalogo_id' => 23,
+          'salon_id' => 5,
+          'sgc' => false
+        ]);
         //SECRETARIO DE APOYO A LA DOCENCIA
         DB::table('secretario_apoyo')->insert([
           'secretario' => "Claudia Loreto Miranda",
@@ -3098,6 +3157,11 @@ Qué es una computadora y cómo funciona',
         DB::table('profesor_curso')->insert([ //id=33
           'profesor_id'=>126,
           'curso_id'=>21
+        ]);//SAFR570402
+
+        DB::table('profesor_curso')->insert([ //id=34
+          'profesor_id'=>137,
+          'curso_id'=>22
         ]);//SAFR570402
 
         //PARTICIPANTES DE LOS CURSOS
@@ -4523,6 +4587,58 @@ Qué es una computadora y cómo funciona',
           'contesto_hoja_evaluacion'=>false,
 					'espera'=>0
         ]);//AUHA730329
+
+        DB::table('participante_curso')->insert([ //id=183
+          'curso_id'=>22,
+          'profesor_id'=>127,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>true,
+          'calificacion' => 10,
+					'espera'=>0
+        ]);
+
+        DB::table('participante_curso')->insert([ //id=183
+          'curso_id'=>22,
+          'profesor_id'=>128,
+          'asistencia'=>true,
+          'acreditacion'=>false,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'contesto_hoja_evaluacion'=>true,
+					'espera'=>0
+        ]);
+
+        DB::table('participante_curso')->insert([ //id=183
+          'curso_id'=>22,
+          'profesor_id'=>129,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'calificacion'=>10,
+          'contesto_hoja_evaluacion'=>true,
+					'espera'=>0
+        ]);
+
+        DB::table('participante_curso')->insert([ //id=183
+          'curso_id'=>22,
+          'profesor_id'=>130,
+          'asistencia'=>true,
+          'acreditacion'=>true,
+          'confirmacion'=>false,
+          'cancelacion'=>false,
+          'pago_curso'=>false,
+          'calificacion'=>10,
+          'contesto_hoja_evaluacion'=>false,
+					'espera'=>0
+        ]);
+
         //ENCUESTAS PARA REPORTE DE COMENTARIOS Y SUGERENCIAS
         DB::table('_evaluacion_final_curso')->insert([
           'p1_1'=>'80',
@@ -5112,6 +5228,132 @@ Qué es una computadora y cómo funciona',
           'p11' => '60',
           'participante_id' => 180,
           'instructor_id' => 33
+        ]);
+
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'95',
+          'p1_2'=>'100',
+          'p1_3'=>'80',
+          'p1_4'=>'60',
+          'p1_5'=>'50',
+          'p2_1'=>'50',
+          'p2_2'=>'60',
+          'p2_3'=>'80',
+          'p2_4'=>'95',
+          'p3_1'=>'80',
+          'p3_2'=>'60',
+          'p3_3'=>'95',
+          'p3_4'=>'50',
+          'p7'=>1,
+          'p8'=>'["1","null"]',
+          'p9'=>'La presencia de motores de construccion',
+          'sug'=>'Mejorar la presentacion del curso',
+          'otros'=>'office, word y autocad',
+          'conocimiento'=>'["3"]',
+          'tematica'=>'Calculo',
+          'horarios'=>'Lu, Ma, Mi todos los días',
+          'horarioi'=>'Lu, Ma, Mi medio dia',
+          'participante_curso_id'=>183
+        ]);
+
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '100',
+          'p2' => '100',
+          'p3' => '95',
+          'p4' => '95',
+          'p5' => '80',
+          'p6' => '80',
+          'p7' => '60',
+          'p8' => '95',
+          'p9' => '80',
+          'p10' => '95',
+          'p11' => '100',
+          'participante_id' => 183,
+          'instructor_id' => 34
+        ]);
+
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'80',
+          'p1_2'=>'80',
+          'p1_3'=>'80',
+          'p1_4'=>'95',
+          'p1_5'=>'60',
+          'p2_1'=>'50',
+          'p2_2'=>'60',
+          'p2_3'=>'50',
+          'p2_4'=>'80',
+          'p3_1'=>'60',
+          'p3_2'=>'50',
+          'p3_3'=>'80',
+          'p3_4'=>'100',
+          'p7'=>0,
+          'p8'=>'["1","null"]',
+          'p9'=>'La presencia de motores de construccion',
+          'sug'=>'Mejorar la presentacion del curso',
+          'otros'=>'office, word y autocad',
+          'conocimiento'=>'["1"]',
+          'tematica'=>'Calculo',
+          'horarios'=>'Martes a las 3:00',
+          'horarioi'=>'Martes y Lunes a las 3:00',
+          'participante_curso_id'=>184
+        ]);
+
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '100',
+          'p2' => '100',
+          'p3' => '95',
+          'p4' => '95',
+          'p5' => '80',
+          'p6' => '80',
+          'p7' => '60',
+          'p8' => '60',
+          'p9' => '50',
+          'p10' => '50',
+          'p11' => '80',
+          'participante_id' => 184,
+          'instructor_id' => 34
+        ]);
+
+        DB::table('_evaluacion_final_curso')->insert([
+          'p1_1'=>'60',
+          'p1_2'=>'50',
+          'p1_3'=>'80',
+          'p1_4'=>'95',
+          'p1_5'=>'80',
+          'p2_1'=>'60',
+          'p2_2'=>'50',
+          'p2_3'=>'80',
+          'p2_4'=>'95',
+          'p3_1'=>'50',
+          'p3_2'=>'60',
+          'p3_3'=>'80',
+          'p3_4'=>'95',
+          'p7'=>1,
+          'p8'=>'["2","null"]',
+          'p9'=>'La presencia de motores de construccion',
+          'sug'=>'Mejorar la presentacion del curso',
+          'otros'=>'office, word y autocad',
+          'conocimiento'=>'["2"]',
+          'tematica'=>'Calculo',
+          'horarios'=>'Lunes 9:00 a 11:00',
+          'horarioi'=>'Todos los días',
+          'participante_curso_id'=>185
+        ]);
+
+        DB::table('_evaluacion_instructor_curso')->insert([
+          'p1' => '80',
+          'p2' => '95',
+          'p3' => '100',
+          'p4' => '100',
+          'p5' => '95',
+          'p6' => '80',
+          'p7' => '95',
+          'p8' => '95',
+          'p9' => '80',
+          'p10' => '100',
+          'p11' => '100',
+          'participante_id' => 185,
+          'instructor_id' => 34
         ]);
   }
 }

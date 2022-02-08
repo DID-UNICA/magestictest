@@ -14,7 +14,7 @@ class EvaluacionInstructorCurso extends Migration
     public function up()
     {
         Schema::create('_evaluacion_instructor_curso', function(Blueprint $table){
-          $table->increments('id');
+          $table->increments('id')->start_from(6541);
           $table->integer('p1')->nullable();
           $table->integer('p2')->nullable();
           $table->integer('p3')->nullable();

@@ -48,14 +48,15 @@ class TemaSeminarioController extends Controller
         $ts->delete();
         return redirect()->back()->with('success', 'Tema de seminario eliminado exitosamente.');
       }catch(\Illuminate\Database\QueryException $e){
-        return redirect()->back()->with('danger', 'Problemas al eliminar el tema del seminario, verifique que no esté asociado a ningún instructor.');
+        return redirect()->back()->with('danger', 'Problemas al eliminar el tema del seminario,'.
+                                                  ' verifique que no esté asociado a ningún instructor.');
       }
     }
 
     public function index($cat_curso_id){
       $cat_curso = CatalogoCurso::findOrFail($cat_curso_id);
       return view('pages.update-temas-seminario-catalogo')
-        ->with('ts',TemaSeminario::where('catalogo_id', $cat_curso->id)->get())
+        ->with('ts',TemaSeminario::where('catalogo_id', $cat_curso->id)->get()->sortBy('id'))
         ->with('ct', $cat_curso->id);
     }
 

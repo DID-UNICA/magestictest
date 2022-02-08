@@ -9,7 +9,7 @@ class CreateTableCursos extends Migration
     public function up()
     {
         Schema::create('cursos', function (Blueprint $table) {
-            $table->increments('id')->unique();
+            $table->increments('id')->unique()->start_from(510);
             $table->integer('semestre_anio');
             $table->string('semestre_pi');
             $table->string('semestre_si');
@@ -17,11 +17,11 @@ class CreateTableCursos extends Migration
             $table->date('fecha_fin');
             $table->string('hora_inicio');
             $table->string('hora_fin');
-            $table->String('dias_semana');
+            $table->String('dias_semana')->nullable();
             $table->integer('numero_sesiones');
             $table->String('sesiones');
             $table->integer('acreditacion');
-            $table->double('costo');
+            $table->double('costo')->nullable();
             $table->integer('cupo_maximo');
             $table->integer('cupo_minimo');
             $table->date('fecha_envio_constancia')->nullable();
@@ -36,7 +36,7 @@ class CreateTableCursos extends Migration
             $table->foreign('salon_id')->references('id')->on('salons');
             $table->foreign('diplomado_id')->references('id')->on('diplomados');
 
-            $table->boolean('sgc');
+            $table->boolean('sgc')->nullable();
 
             $table->timestamps();
         });

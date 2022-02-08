@@ -14,7 +14,7 @@ class CreateSalonsTable extends Migration
     public function up()
     {
         Schema::create('salons', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->start_from(57);
             $table->String('sede');
             $table->string('capacidad')->nullable();
             $table->string('ubicacion')->nullable();

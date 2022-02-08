@@ -12,7 +12,7 @@ class CreateParticipanteCurso extends Migration
     public function up()
     {
         Schema::create('participante_curso', function (Blueprint $table) {
-            $table->increments('id')->unique();
+            $table->increments('id')->unique()->start_from(8414);
             $table->boolean('adicional')->nullable();
             $table->boolean('acreditacion')->nullable();
             $table->boolean('asistencia')->nullable();

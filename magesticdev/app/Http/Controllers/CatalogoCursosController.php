@@ -316,7 +316,7 @@ class CatalogoCursosController extends Controller
         try{
             $catalogoCurso->save();
         } catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()->with('danger', 'Error al almacenar en la base de datos');
+          return redirect()->back()->with('danger', 'Error al almacenar en la base de datos');
         }
         if($request->tipo === 'S'){
             return redirect()->route('catalogo-curso.ver-ts',$catalogoCurso->id)->with('success','Catálogo de curso creado');

@@ -12,7 +12,7 @@ class CreateProfesorCurso extends Migration
     public function up()
     {
         Schema::create('profesor_curso', function (Blueprint $table) {
-            $table->increments('id')->unique();
+            $table->increments('id')->unique()->start_from(689);
             $table->Integer('curso_id')->unsigned();
             $table->Integer('profesor_id')->unsigned();
             $table->Integer('tema_seminario_id')->unsigned()->nullable();

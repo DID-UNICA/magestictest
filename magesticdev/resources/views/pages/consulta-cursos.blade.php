@@ -127,6 +127,7 @@
                       <option value="excel2">Libro de Folios</option>
                       <option value="periodo">Reporte de Cursos</option>
                       <option value="sugerencia">Reporte de Sugerencias</option>
+                      <option value="historico">Histórico de Access</option>
                     </select>
                     <span style="margin-top:10px" class="input-group-btn col-md-2">
                       <button class="btn btn-secondary" type="submit">Generar</button>
@@ -212,7 +213,7 @@
         function deter2(){
           var e = document.getElementById("myselect2");
           var strE = e.options[e.selectedIndex].text;
-          if(strE =="Reporte en Excel" || strE =="Libro de Folios"){
+          if(strE =="Reporte en Excel" || strE =="Libro de Folios" || strE=="Histórico de Access"){
             document.getElementById('F1').style.display = 'none';
             document.getElementById('Anio3').removeAttribute("required");
           }else{
