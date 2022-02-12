@@ -135,21 +135,41 @@ body {
       <div id=encabezado_5>"Ing. Gilberto Borja Navarrete"</div>
       <br>
       <div class="centro">
-        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.5cm;">Otorgan el presente</h3>
-        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">A G R A D E C I M I E N T O</h3>
+        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.4cm;">Otorgan el presente</h3>
+        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.9cm;">A G R A D E C I M I E N T O</h3>
         @if($profesor->genero=="masculino")
-          <h3 style="text-align: center;font-size: 18pt;font-style:normal; margin-top: 1cm;">al: </h2>
+          <h3 style="text-align: center;font-size: 16pt;font-style:normal; margin-top: 0.8cm;">al: </h2>
         @elseif($profesor->genero=="femenino")
-          <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;"> a la: </h2>
+          <h3 style="text-align: center;font-size: 16pt;font-style: normal; margin-top: 0.8cm;"> a la: </h2>
         @else
-          <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;"> a: </h2>
+          <h3 style="text-align: center;font-size: 16pt;font-style: normal; margin-top: 0.8cm;"> a: </h2>
          @endif
         <br>
-        <h1 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h1>
+        <h1 class='nombre_profesor' style="margin-top: 0.2cm; margin-bottom: -0.5cm;">{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h1>
 
         <table width="15cm" align="center">
           <tr width="15cm">
-            <td height="2cm" align="center" vertical-align="top" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
+          @if(strlen($cursoCatalogo->nombre_curso) < 70)
+            <td height="0.5cm" align="center" vertical-align="top" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
+          @elseif(strlen($cursoCatalogo->nombre_curso) < 100)
+            <td height="0.5cm" align="center" vertical-align="top" style="font-size: 12pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 18pt;">{{$cursoCatalogo->nombre_curso}}</td>
+          @elseif(strlen($cursoCatalogo->nombre_curso) < 180)
+            <td height="0.5cm" align="center" vertical-align="top" style="font-size: 10pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 16pt;">{{$cursoCatalogo->nombre_curso}}</td>
+          @else
+            <td height="0.5cm" align="center" vertical-align="top" style="font-size: 8pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 14pt;">{{$cursoCatalogo->nombre_curso}}</td>
+          @endif
           </tr>
         </table>
 

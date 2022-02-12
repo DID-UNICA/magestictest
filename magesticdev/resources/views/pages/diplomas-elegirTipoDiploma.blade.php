@@ -61,8 +61,8 @@
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="form-group col-md-1" style="margin-right: 5px;">
-                    <button type="submit" class="btn btn-info form-control" name="id" value="{{$diplomado->id}}">Generar</button>
+                  <div class="form-group col-md-1" >
+                    <button type="submit" class="btn btn-info" name="id" value="{{$diplomado->id}}">Generar</button>
                   </div>
                 </div>
               </div>

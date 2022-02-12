@@ -143,8 +143,8 @@ body {
       <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a:</h2>
       @endif
         <br>
-        @if(strlen($cursoCatalogo->nombre_curso) < 110)
-        <h2 class='nombre_profesor'>{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
+        @if(strlen($cursoCatalogo->nombre_curso) < 78)
+        <h2 class='nombre_profesor' style="margin-bottom: -0.2em;">{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
 
         <table width="15cm" align="center">
           <tr width="15cm">
@@ -157,9 +157,9 @@ body {
             <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 85%;">{{$seminario}}</td>
           </tr>
           <tr width="15cm">
-            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
+            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">H{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
-        @else
+        @elseif(strlen($cursoCatalogo->nombre_curso) < 100)
         <h2 class='nombre_profesor' style="margin-bottom: -0.2em;">{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
 
         <table width="15cm" align="center">
@@ -173,7 +173,55 @@ body {
             <td height="0.3cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$seminario}}</td>
           </tr>
           <tr width="15cm">
-            <td height="1.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 16pt;">{{$cursoCatalogo->nombre_curso}}</td>
+            <td height="1.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 17pt;">I{{$cursoCatalogo->nombre_curso}}</td>
+          </tr>
+        @elseif(strlen($cursoCatalogo->nombre_curso) < 190)
+        <h2 class='nombre_profesor' style="margin-bottom: -0.2em;">{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
+
+        <table width="15cm" align="center">
+          <tr width="15cm">
+            <td height="0.5cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="0.5cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$tema}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="0.3cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$seminario}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="1.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 15pt;">J{{$cursoCatalogo->nombre_curso}}</td>
+          </tr>
+        @elseif(strlen($cursoCatalogo->nombre_curso) < 210)
+        <h2 class='nombre_profesor' style="margin-bottom: -0.2em;">{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
+
+        <table width="15cm" align="center">
+          <tr width="15cm">
+            <td height="0.5cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="0.5cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$tema}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="0.3cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$seminario}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="1.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 14pt;">K{{$cursoCatalogo->nombre_curso}}</td>
+          </tr>
+        @else
+        <h2 class='nombre_profesor' style="margin-bottom: -0.2em;">{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
+
+        <table width="15cm" align="center">
+          <tr width="15cm">
+            <td height="0.5cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="0.5cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$tema}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="0.3cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$seminario}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="1.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 13pt;">L{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
         @endif
         </table>

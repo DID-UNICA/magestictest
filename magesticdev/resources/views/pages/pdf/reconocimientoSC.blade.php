@@ -144,7 +144,7 @@ body {
       @endif
         <br>
         <h2 class='nombre_profesor'>{{$coordinacion->grado}} {{$coordinacion->coordinador}}</h2>
-      @if(strlen($cursoCatalogo->nombre_curso) < 110)
+      @if(strlen($cursoCatalogo->nombre_curso) < 100)
         <table width="15cm" align="center">
           <tr width="15cm">
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
@@ -153,13 +153,40 @@ body {
             <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
         </table>
-      @else  
+      @elseif(strlen($cursoCatalogo->nombre_curso) < 145)
         <table width="15cm" align="center" style=" margin-bottom: 2em;">
           <tr width="15cm">
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
             <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 19pt;">{{$cursoCatalogo->nombre_curso}}</td>
+          </tr>
+        </table>
+      @elseif(strlen($cursoCatalogo->nombre_curso) < 190)
+        <table width="15cm" align="center" style=" margin-bottom: 0em;">
+          <tr width="15cm">
+          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 19pt;">{{$cursoCatalogo->nombre_curso}}</td>
+          </tr>
+        </table>
+      @elseif(strlen($cursoCatalogo->nombre_curso) < 210)
+        <table width="15cm" align="center" style=" margin-bottom: 0em;">
+          <tr width="15cm">
+          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 17pt;">{{$cursoCatalogo->nombre_curso}}</td>
+          </tr>
+        </table>
+      @else
+        <table width="15cm" align="center" style=" margin-bottom: 0em;">
+          <tr width="15cm">
+          <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+          </tr>
+          <tr width="15cm">
+            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 16pt;">{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
         </table>
       @endif

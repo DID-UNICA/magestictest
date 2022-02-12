@@ -47,17 +47,17 @@ body {
     font-style:italic;
     font-size: 43px;
     line-height: 100%;
-    padding-top: 15%;
+    padding-top: 12%;
 }
 .nombre_diplomado{
     font-family:'Campan', serif;
     font-style:italic;
     color: #003796;
     font-size: 33px;
+    text-align: center;
     
 }
 .centro {
-    line-height: 20%;
     text-align: center;
 }
 .por{
@@ -172,8 +172,20 @@ body {
     <br>
     <div class="centro">
       <p class='nombre_profesor'>{{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</p>
-      <p class='por' style="padding-top: 4.3cm;">por haber concluido satisfactoriamente los estudios del:</p>
-      <p class='nombre_diplomado' style="padding-top: 0.3cm; margin-bottom: 0cm;">Diplomado "{{$diplomado->nombre_diplomado}}"</p>
+      <p class='por' style="padding-top: 3.8cm;">por haber concluido satisfactoriamente los estudios del:</p>
+      <table width="15cm" align="center" style="margin-top: -0.2cm; margin-bottom: -0.4cm;">
+        <tr width="15cm">
+          @if(strlen($diplomado->nombre_diplomado) < 70)
+            <td class='nombre_diplomado' height="2cm" style="vertical-align: super;">"{{$diplomado->nombre_diplomado}}"</td>
+          @elseif(strlen($diplomado->nombre_diplomado) < 100)
+            <td class='nombre_diplomado' height="2cm" style="vertical-align: super; font-size: 18pt;">"{{$diplomado->nombre_diplomado}}"</td>
+          @elseif(strlen($diplomado->nombre_diplomado) < 180)
+            <td class='nombre_diplomado' height="2cm" style="vertical-align: super; font-size: 16pt;">"{{$diplomado->nombre_diplomado}}"</td>
+          @else
+            <td class='nombre_diplomado' height="2cm" style="vertical-align: super; font-size: 14pt;">"{{$diplomado->nombre_diplomado}}"</td>
+          @endif
+        </tr>
+      </table>
     </div>
     <div>
       <p class="datos_diplomado" style="margin-bottom: 0cm; padding-top: 0.2cm;">Del {{$fechaimp}} </h5>
@@ -225,7 +237,7 @@ body {
     @foreach($cursos as $curso)
     <tr>
       <td width=80% class = "izq">
-       <strong> Módulo {{$curso->num_modulo}}.</strong>  {{$curso->getNombreCursoSinClave()}}
+       {{$curso->getNombreCursoSinClave()}}
       </td>
       <td width=20% class = "califi">
         {{$calificaciones[$loop->index]}}
