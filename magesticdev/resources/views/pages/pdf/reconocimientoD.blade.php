@@ -139,7 +139,7 @@ body {
         <h2 class='nombre_profesor' style="margin-top: 0.5cm; margin-bottom: 0cm;">{{$profesor->abreviatura_grado}} {{$profesor->nombres}} {{$profesor->apellido_paterno}} {{$profesor->apellido_materno}}</h2>
         <table width="15cm" align="center" style="margin-bottom: -0.3cm;">
           <tr width="15cm">
-            @if(strlen($cursoCatalogo->nombre_curso) < 70)
+            @if(strlen($cursoCatalogo->nombre_curso) < 110)
             <td height="0.25cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
@@ -147,7 +147,7 @@ body {
           </tr>
           <tr width="15cm" >
             <td height="0.3cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: super; font-weight: bold; font-size: 14pt;line-height: 30%;">el cual forma parte del Diplomado:</td>
-            @elseif(strlen($cursoCatalogo->nombre_curso) < 120)
+            @elseif(strlen($cursoCatalogo->nombre_curso) < 140)
             <td height="0.2cm" align="center" style="font-size: 11pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
@@ -155,33 +155,23 @@ body {
           </tr>
           <tr width="15cm" >
             <td height="0.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: super; font-weight: bold; font-size: 11pt;line-height: 30%;">el cual forma parte del Diplomado:</td>
-            @elseif(strlen($cursoCatalogo->nombre_curso) < 180)
-            <td height="0.2cm" align="center" style="font-size: 10pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
-          </tr>
-          <tr width="15cm">
-            <td height="1.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 13pt;">{{$cursoCatalogo->nombre_curso}}</td>
-          </tr>
-          <tr width="15cm" >
-            <td height="0.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: super; font-weight: bold; font-size: 10pt;line-height: 30%;">el cual forma parte del Diplomado:</td>
             @else
-            <td height="0.2cm" align="center" style="font-size: 8pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+            <td height="0.2cm" align="center" style="font-size: 12pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
             <td height="1.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 14pt;">{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
           <tr width="15cm" >
-            <td height="0.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: super; font-weight: bold; font-size: 8pt;line-height: 30%;">el cual forma parte del Diplomado:</td>
+            <td height="0.2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: super; font-weight: bold; font-size: 12pt;line-height: 30%;">el cual forma parte del Diplomado:</td>
             @endif
           </tr>
           <tr width="15cm">
-            @if(strlen($diplomado->nombre_diplomado) < 70)
+            @if(strlen($diplomado->nombre_diplomado) < 110)
             <td height="1cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 14pt;line-height: 30%;">"{{$diplomado->nombre_diplomado}}"</td>
-            @elseif(strlen($diplomado->nombre_diplomado) < 120)
-            <td height="1cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 12pt;">"{{$diplomado->nombre_diplomado}}"</td>
-            @elseif(strlen($diplomado->nombre_diplomado) < 180)
-            <td height="1cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 10pt;">"{{$diplomado->nombre_diplomado}}"</td>
+            @elseif(strlen($diplomado->nombre_diplomado) < 140)
+            <td height="1cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 13pt;">"{{$diplomado->nombre_diplomado}}"</td>
             @else
-            <td height="1cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 8pt;">"{{$diplomado->nombre_diplomado}}"</td>
+            <td height="1cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 12pt;">"{{$diplomado->nombre_diplomado}}"</td>
             @endif
           </tr>
         </table>

@@ -174,36 +174,26 @@ body {
       <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
       <p style="font-size: 8pt; padding-bottom: 1.9cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
     </div>
-    <div class="tabla-centro">
+    <div class="tabla-centro" style="position: relative;">
 
     <table class="tabla-centro">
       <tr>
-        <td class="firma1" style="padding-top: 1cm; padding-left: 2.5cm;">______________________</td>
-        <td class="firma1" style="padding-top: 1cm; padding-right: 2.5cm;">______________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm; padding-left: 2.5cm;">___________________</td>
+        <td width=260 class="firma1" style="padding-top: 1cm; padding-right: 2.5cm;">__________________</td>
       </tr>
       <tr>
-        <td class="firma" style="font-weight: bold; font-size: 11pt; padding-left: 2.5cm;  padding-top: 0.3cm;"> {{$firmante2}}</td> 
-        <td class="firma" style="font-weight: bold; font-size: 11pt; padding-right: 2.5cm;  padding-top: 0.3cm;">{{$firmante1}}</td>
+        <td class="firma" style="font-weight: bold; font-size: 10pt; padding-left: 2.5cm;  padding-top: 0.3cm;"> {{$firmante2}}</td> 
+        <td class="firma" style="font-weight: bold; font-size: 10pt; padding-right: 2.5cm;  padding-top: 0.3cm;">{{$firmante1}}</td>
       </tr>
-    </table> 
-
-
-
-
-
         <!--<td class="firma" style="font-size: 8pt; padding-left: 2.5cm;">{{$descripcion2}}</td>-->
         <!--<td class="firma" style="font-size: 8pt; padding-right: 2.5cm;">{{$descripcion1}}</td>-->
+  
+      <tr>
+        <td class='firma' style='font-size: 8pt; padding-left: 2.5cm;'>{{$descripcion2}}</td>
+        <td class='firma' style='font-size: 8pt; padding-right: 2.5cm;'>{{$descripcion1}}</td>
+      </tr>
+    </table>
   </div>
-    <table width="4.2cm" style="position: absolute; top: 18cm; left: 5.3cm;">
-      <tr>
-        <td width="2cm" height="0.25cm" class="firma" style="font-size: 8pt;">{{$descripcion2}}</td>
-      </tr>
-    </table>
-    <table width="4.2cm" style="position: absolute; top: 18cm; right:5.5cm;">
-      <tr>
-        <td width="2cm" height="0.25cm" class="firma" style="font-size: 8pt;">{{$descripcion1}}</td>
-      </tr>
-    </table>
 
 <!--
   <div width="4.2cm" style="margin: auto;">  

@@ -19,47 +19,35 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 class AllCursosPartialExport implements FromView, ShouldAutosize
 {
     use Exportable;
-    public function view():View {   
+    public function view():View {
       $cursos = Curso::all();
-      //PRIMERO ENCONTRAR RECONOCIMIENTOS
-      $registros = array();
       foreach($cursos as $curso){
         $catalogo_curso = CatalogoCurso::find($curso->catalogo_id);
-        $instructores = ProfesoresCurso::where('curso_id',$curso->id)->get();
-        foreach($instructores as $instructor){
+        $curso->nombre_catalogo = $catalogo_curso->nombre_curso;
+        $curso->semiperiodo = $curso->getSemestre();
+        $curso->emision = $catalogo_curso->institucion;
+        $curso->instructores = ProfesoresCurso::where('curso_id', $curso->id)->get();
+        $curso->participantes = ParticipantesCurso::where('curso_id',$curso->id)->get();
+        $curso->fecha_envio_reconocimiento = $curso->getFechaEnvioReconocimiento();
+        $curso->fecha_envio_constancia = $curso->getFechaEnvioConstancia();
+        foreach($curso->instructores as $instructor){
           $profesor = Profesor::find($instructor->profesor_id);
-          $fecha_envio = $curso->getFechaEnvioReconocimiento();
-          if($fecha_envio == "" or !$fecha_envio or strlen($fecha_envio)<6)
-            $fecha_envio = '';
-          $tmp = array(
-            'folio' => $instructor->folio_inst,
-            'tipo' => 'INSTRUCTOR',
-            'nombre' => $profesor->getFirmanteConstancia(),
-            'curso' => $catalogo_curso->nombre_curso,
-            'semiperiodo' => $curso->getSemestre(),
-            'fecha_envio' => $fecha_envio,
-            'emision' => $catalogo_curso->institucion
-          );
-          array_push($registros, $tmp);
+          $instructor->ord = $profesor->getNombres();
+          $instructor->nombre = $profesor->getFirmanteConstancia();
         }
-        $participantes = ParticipantesCurso::where('curso_id',$curso->id)->get();
-        foreach($participantes as $participante){
-          $profesor = Profesor::find($participante->profesor_id);
-          $fecha_envio = $curso->fecha_envio_constancia;
-          if($fecha_envio == "" or !$fecha_envio)
-            $fecha_envio = '';
-          $tmp = array(
-            'folio' => $participante->folio_inst,
-            'tipo' => 'PARTICIPANTE',
-            'nombre' => $profesor->getFirmanteConstancia(),
-            'curso' => $catalogo_curso->nombre_curso,
-            'semiperiodo' => $curso->getSemestre(),
-            'fecha_envio' => $fecha_envio,
-            'emision' => $catalogo_curso->institucion
-          );
-          array_push($registros, $tmp);
+        foreach($curso->participantes as $participante){
+          $participante->nombre = Profesor::find($participante->profesor_id)->getNombres();
         }
+        $curso->instructores = $curso->instructores->sortBy('ord');
+        $curso->participantes = $curso->participantes->sortBy('nombre');
       }
-      return view('exports.libro_folios', ['registros'=>$registros]);
+      $cursos = $cursos->sortBy(function ($registro, $key){
+        if($registro['semestre_si']==='s')
+          $x = 1;
+        if($registro['semestre_si']==='i')
+          $x = 2;
+        return $registro['semestre_anio'].$registro['semestre_pi'].$x;
+      });
+      return view('exports.libro_folios', ['cursos'=>$cursos]);
     }
 }

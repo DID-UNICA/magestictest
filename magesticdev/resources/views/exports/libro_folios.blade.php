@@ -12,17 +12,29 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($registros as $registro)
-    <tr>
-      <td>{{ $registro['folio'] }}</td>
-      <td>{{ $registro['tipo'] }}</td>
-      <td>{{ $registro['nombre'] }}</td>
-      <td>{{ $registro['curso'] }}</td>
-      <td>{{ $registro['semiperiodo'] }}</td>
-      <td>{{ $registro['fecha_envio'] }}</td>
-      <td>{{ $registro['emision'] }}</td>
-    </tr>
+    @foreach($cursos as $curso)
+      @foreach($curso->instructores as $instructor)
+      <tr>
+      <td>{{$instructor->folio_inst}}</td>
+        <td>INSTRUCTOR</td>
+        <td>{{$instructor->nombre}}</td>
+        <td>{{$curso->nombre_catalogo}}</td>
+        <td>{{$curso->semiperiodo}}</td>
+        <td>{{$curso->fecha_envio_reconocimiento}}</td>
+        <td>{{$curso->emision}}</td>
+      </tr>
+      @endforeach
+      @foreach($curso->participantes as $participante)
+        <tr>
+          <td>{{$participante->folio_inst}}</td>
+          <td>PARTICIPANTE</td>
+          <td>{{$participante->nombre}}</td>
+          <td>{{$curso->nombre_catalogo}}</td>
+          <td>{{$curso->semiperiodo}}</td>
+          <td>{{$curso->fecha_envio_constancia}}</td>
+          <td>{{$curso->emision}}</td>
+        </tr>
+      @endforeach
     @endforeach
     </tbody>
-</table>
 </html>

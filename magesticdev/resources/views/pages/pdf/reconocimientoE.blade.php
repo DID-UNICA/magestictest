@@ -149,26 +149,16 @@ body {
 
         <table width="15cm" align="center">
           <tr width="15cm">
-          @if(strlen($cursoCatalogo->nombre_curso) < 70)
+          @if(strlen($cursoCatalogo->nombre_curso) < 110)
             <td height="0.5cm" align="center" vertical-align="top" style="font-size: 14pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
           </tr>
           <tr width="15cm">
             <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
-          @elseif(strlen($cursoCatalogo->nombre_curso) < 100)
+          @else
             <td height="0.5cm" align="center" vertical-align="top" style="font-size: 12pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
           </tr>
           <tr width="15cm">
             <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 18pt;">{{$cursoCatalogo->nombre_curso}}</td>
-          @elseif(strlen($cursoCatalogo->nombre_curso) < 180)
-            <td height="0.5cm" align="center" vertical-align="top" style="font-size: 10pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
-          </tr>
-          <tr width="15cm">
-            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 16pt;">{{$cursoCatalogo->nombre_curso}}</td>
-          @else
-            <td height="0.5cm" align="center" vertical-align="top" style="font-size: 8pt; vertical-align: top; font-weight: bold; line-height: 100%;">{{$tema}}</td>
-          </tr>
-          <tr width="15cm">
-            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 14pt;">{{$cursoCatalogo->nombre_curso}}</td>
           @endif
           </tr>
         </table>

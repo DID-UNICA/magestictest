@@ -2538,7 +2538,7 @@ Qué es una computadora y cómo funciona',
         //CURSOS DE PRUEBA
         DB::table('cursos')->insert([ //id=1
             'semestre_anio' => 2020,
-            'semestre_pi'=>"2",
+            'semestre_pi'=>"1",
             'semestre_si' => "i",
             'fecha_inicio' => '2020-01-06',
             'fecha_fin' => '2020-02-11',
@@ -2559,7 +2559,7 @@ Qué es una computadora y cómo funciona',
         DB::table('cursos')->insert([ //id=2
             'semestre_anio' => 2020,
             'semestre_pi'=>"2",
-            'semestre_si' => "i",
+            'semestre_si' => "s",
             'fecha_inicio' => '2020-12-01',
             'fecha_fin' => '2020-12-29',
             'hora_inicio' => '14:00',

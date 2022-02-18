@@ -170,17 +170,17 @@ body{
           <td class="valores">De {{$curso->hora_inicio}} a {{$curso->hora_fin}} h</td>
         </tr>
     </table>
-    <table style="width: 85%">
+    <table style="width: 100%">
       <tr >
-        <td class="titulos" width=13%> Número total de horas que abarca el curso</td>
-        <td class="valores" width=20%>{{ $cursoCatalogo->duracion_curso }}</td>
-        <td class="titulos" width=17%>Fechas de impartición</td>
+        <td class="titulos" width=6%> Número total de horas que abarca el curso</td>
+        <td class="valores" align='left' width=2%>{{ $cursoCatalogo->duracion_curso }}</td>
+        <td class="titulos" align='left' width=17%>Fechas de impartición</td>
       </tr>
     </table>
 
     <table id="tabla_lista" align="center" style="width: 100%">
       <tr align="center" class="margen">
-        <th class="margen3" width="25%"><b>Nombre del participante</b></th>
+        <th class="margen3" width="30%"><b>Nombre del participante</b></th>
         <td class="margen3" width="5%"><b></b></td>
         <td class="margen3" width="5%"><b></b></td>
         <td class="margen3" width="5%"><b></b></td>
@@ -193,7 +193,7 @@ body{
         <td class="margen3" width="5%"><b></b></td>
         <td class="margen3" width="5%"><b></b></td>
         <td class="margen3" width="5%"><b></b></td>
-        <th class="margen3" width="10%"><b>Calificación</b></th>
+        <th class="margen3" width="6%"><b>Calificación</b></th>
       </tr>
     </table>
     <script type="text/php">$pdf->close_object();</script>
@@ -209,7 +209,7 @@ body{
           Secretaría de Apoyo a la Docencia<br>
           Centro de Docencia "Ing. Gilberto Borja Navarrete"<br/>
           Sistema de Gestión de la Calidad<br/>
-          Norma ISO 9001-2015<br/>
+          Norma ISO 9001:2015<br/>
           Formato
 				</td>
 				<td width= 9% class="margen">
@@ -268,17 +268,17 @@ body{
         <td class="valores">De {{$curso->hora_inicio}} a {{$curso->hora_fin}} h</td>
       </tr>
     </table>
-    <table style="width: 85%">
-      <tr >
-        <td class="titulos" width=13%> Número total de horas que abarca el curso</td>
-        <td class="valores" width=20%>{{ $cursoCatalogo->duracion_curso }}</td>
-        <td class="titulos" width=17%>Fechas de impartición</td>
+    <table style="width: 100%">
+      <tr>
+        <td class="titulos" width=6%> Número total de horas que abarca el curso</td>
+        <td class="valores" align='left' width=2%>{{ $cursoCatalogo->duracion_curso }}</td>
+        <td class="titulos" align='left' width=17%>Fechas de impartición</td>
       </tr>
 		</table>
 
     <table id="tabla_lista" align="center" style="width: 100%">
       <tr align="center" class="margen">
-        <th class="margen3" width="25%"><b>Nombre del participante</b></th>
+        <th class="margen3" width="30%"><b>Nombre del participante</b></th>
         <td class="margen3" width="5%"><b></b></td>
         <td class="margen3" width="5%"><b></b></td>
         <td class="margen3" width="5%"><b></b></td>
@@ -290,8 +290,8 @@ body{
         <td class="margen3" width="5%"><b></b></td>
         <td class="margen3" width="5%"><b></b></td>
         <td class="margen3" width="5%"><b></b></td>
-            <td class="margen3" width="5%"><b></b></td>
-        <th class="margen3" width="10%"><b>Calificación</b></th>
+        <td class="margen3" width="5%"><b></b></td>
+        <th class="margen3" width="6%"><b>Calificación</b></th>
       </tr>
     </table>
   </div> <!--Cierra div del header-->	    
@@ -305,7 +305,7 @@ body{
           $num_lista += 1;
         print("
           <tr >
-            <td class='margen2' style='font-size: 11px;'width=25%>{$num_lista}.     {$alumno->apellido_paterno} {$alumno->apellido_materno} {$alumno->nombres}</td>
+        <td class='margen2' style='font-size: 11px;'width=30%>{$num_lista}.     {$alumno->apellido_paterno} {$alumno->apellido_materno} {$alumno->nombres}</td>
         <td class='margen2' width='5%'><b></b></td>
         <td class='margen2' width='5%'><b></b></td>
         <td class='margen2' width='5%'><b></b></td>
@@ -316,9 +316,9 @@ body{
         <td class='margen2' width='5%'><b></b></td>
         <td class='margen2' width='5%'><b></b></td>
         <td class='margen2' width='5%'><b></b></td>
-                  <td class='margen2' width='5%'><b></b></td>
-                  <td class='margen2' width='5%'><b></b></td>
-        <td class='margen2' width='10%'><b></b></td>
+        <td class='margen2' width='5%'><b></b></td>
+        <td class='margen2' width='5%'><b></b></td>
+        <td class='margen2' width='6%'><b></b></td>
 
         </tr>
         ");	//Corregido el font-size de 13 px a 11px

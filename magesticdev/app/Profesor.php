@@ -37,6 +37,12 @@ class Profesor extends Authenticatable
     public function getNombres(){
         return $this->apellido_paterno." ".$this->apellido_materno." ".$this->nombres;
     }
+    public function getNombresNoAcento(){
+      $unwanted_array = array('á'=>'a','é'=>'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ñ' => 'Ñ');
+      $unaccent = strtr($this->apellido_paterno." ".$this->apellido_materno." ".$this->nombres,$unwanted_array);
+      return strtoupper($unaccent);
+    }
+
     public function getDescripcionConstancia(){
       if($this->genero === 'femenino')
         return 'Instructora';

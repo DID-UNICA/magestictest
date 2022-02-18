@@ -395,6 +395,9 @@ class Curso extends Model
     public function getSemestre(){
         return $this->semestre_anio."-".$this->semestre_pi." ".$this->semestre_si." ";
     }
+    public function getSemestre2(){
+      return $this->semestre_anio."-".$this->semestre_pi.$this->semestre_si;
+  }
 
     public function getSalon(){
         $salon = Salon::findOrFail($this->salon_id)->sede;
@@ -438,16 +441,17 @@ class Curso extends Model
 
         if ( count($profesoresCurso) == 1 ){
             $profesor=Profesor::find($profesoresCurso[0]->profesor_id);
-            $cadena.=$profesor->nombres." ";
             $cadena.=$profesor->apellido_paterno." ";
-            $cadena.=$profesor->apellido_materno;
+            $cadena.=$profesor->apellido_materno." ";
+            $cadena.=$profesor->nombres;
+
             return $cadena;
         }
         foreach($profesoresCurso as $profesorCurso){
             $profesor=Profesor::find($profesorCurso->profesor_id);
-            $cadena.=$profesor->nombres." ";
             $cadena.=$profesor->apellido_paterno." ";
-            $cadena.=$profesor->apellido_materno."\n";
+            $cadena.=$profesor->apellido_materno." ";
+            $cadena.=$profesor->nombres."\n";
         }
         $cadena= substr($cadena, 0, -1);
         return $cadena;
@@ -552,11 +556,64 @@ class Curso extends Model
         $salon = Salon::all();
         return $salon;
     }
+
     public function getFechaEnvioConstancia(){
-        return substr($this->fecha_envio_constancia,8).'/'.substr($this->fecha_envio_constancia,5,2).'/'.substr($this->fecha_envio_constancia,0,4);
-    }
+      if(!$this->fecha_envio_constancia)
+        return '';
+      if(substr($this->fecha_envio_constancia,5,2) === '01')
+        $mes = 'enero';
+      if(substr($this->fecha_envio_constancia,5,2) === '02')
+        $mes = 'febrero';
+      if(substr($this->fecha_envio_constancia,5,2) === '03')
+        $mes = 'marzo';
+      if(substr($this->fecha_envio_constancia,5,2) === '04')
+        $mes = 'abril';
+      if(substr($this->fecha_envio_constancia,5,2) === '05')
+        $mes = 'mayo';
+      if(substr($this->fecha_envio_constancia,5,2) === '06')
+        $mes = 'junio';
+      if(substr($this->fecha_envio_constancia,5,2) === '07')
+        $mes = 'julio';
+      if(substr($this->fecha_envio_constancia,5,2) === '08')
+        $mes = 'agosto';
+      if(substr($this->fecha_envio_constancia,5,2) === '09')
+        $mes = 'septiembre';
+      if(substr($this->fecha_envio_constancia,5,2) === '10')
+        $mes = 'octubre';
+      if(substr($this->fecha_envio_constancia,5,2) === '11')
+        $mes = 'noviembre';
+      if(substr($this->fecha_envio_constancia,5,2) === '12')
+        $mes = 'diciembre';
+      return substr($this->fecha_envio_constancia,8).' de '.$mes.' de '.substr($this->fecha_envio_constancia,0,4);
+  }
     public function getFechaEnvioReconocimiento(){
-        return substr($this->fecha_envio_reconocimiento,8).'/'.substr($this->fecha_envio_reconocimiento,5,2).'/'.substr($this->fecha_envio_reconocimiento,0,4);
+      if(!$this->fecha_envio_reconocimiento)
+        return '';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '01')
+        $mes = 'enero';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '02')
+        $mes = 'febrero';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '03')
+        $mes = 'marzo';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '04')
+        $mes = 'abril';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '05')
+        $mes = 'mayo';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '06')
+        $mes = 'junio';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '07')
+        $mes = 'julio';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '08')
+        $mes = 'agosto';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '09')
+        $mes = 'septiembre';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '10')
+        $mes = 'octubre';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '11')
+        $mes = 'noviembre';
+      if(substr($this->fecha_envio_reconocimiento,5,2) === '12')
+        $mes = 'diciembre';
+      return substr($this->fecha_envio_reconocimiento,8).' de '.$mes.' de '.substr($this->fecha_envio_reconocimiento,0,4);
     }
 
 }
