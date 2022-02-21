@@ -1,0 +1,30 @@
+﻿id,categoria,abreviatura
+1,Administrativo,Adm
+2,Ayudante de Profesor A,AYTE PROF A
+3,Ayudante de Profesor B,AYTE PROF B
+4,Funcionario,FUNC
+5,Investigador Asociado B TC,INV ASOC B T C
+6,Investigador Titular A TC,INV TIT A T C
+7,Investigador Titular B TC,INV TIT B T C
+8,Investigador Titular C TC,INV TIT C T C
+9,Profesor de asignatura A,PROF ASIG A
+10,Profesor de asignatura B,PROF ASIG B
+11,Profesor de Carrera Asociado A TC,PROF ASO A T C
+12,Profesor de Carrera Asociado B MT,PROF ASO B M T
+13,Profesor de Carrera Asociado B TC,PROF ASO B T C
+14,Profesor de Carrera Asociado C MT,PROF ASO C M T
+15,Profesor de Carrera Asociado C TC,PROF ASO C T C
+16,Profesor Emérito,PROF EMERITO
+17,Profesor de Carrera Titular A TC,PROF TIT A T C
+18,Profesor de Carrera Titular B TC,PROF TIT B T C
+19,Profesor de Carrera Titular C TC,PROF TIT C T C
+20,Técnico Académico Asociado A TC,TEC ASOC A T C
+21,Técnico Académico Asociado B TC,TEC ASOC B T C
+22,Técnico Académico Asociado C TC,TEC ASOC C T C
+23,Técnico Académico Auxiliar A MT,TEC AUX A T C
+24,Técnico Académico Auxiliar B MT,TEC AUX B M T
+25,Técnico Académico Auxiliar B TC,TEC AUX B T C
+26,Técnico Académico Auxiliar C TC,TEC AUX C T C
+27,Técnico Académico Titular A TC,TEC TIT A T C
+28,Técnico Académico Titular B TC,TEC TIT B T C
+29,Técnico Académico Titular C TC,TEC TIT C T C
