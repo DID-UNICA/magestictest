@@ -63,8 +63,8 @@ html{
 	border-left: 1px solid black;
 	border-right: 1px solid black;
 	border-bottom: 0.5px solid black;
-	width: 15cm;
-	height: 5cm;
+	width: 15.6cm;
+	height: 4.7cm;
 }
 </style>
 <body>

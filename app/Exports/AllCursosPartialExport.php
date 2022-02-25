@@ -38,8 +38,12 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
         foreach($curso->participantes as $participante){
           $participante->nombre = Profesor::find($participante->profesor_id)->getNombres();
         }
-        $curso->instructores = $curso->instructores->sortBy('ord');
-        $curso->participantes = $curso->participantes->sortBy('nombre');
+        $curso->instructores = $curso->instructores->sortBy(function ($registro, $key){
+          return $registro['folio_inst'].$registro['ord'];
+        } );
+        $curso->participantes = $curso->participantes->sortBy(function ($registro, $key){
+          return $registro['folio_inst'].$registro['nombre'];
+        });
       }
       $cursos = $cursos->sortBy(function ($registro, $key){
         if($registro['semestre_si']==='s')
