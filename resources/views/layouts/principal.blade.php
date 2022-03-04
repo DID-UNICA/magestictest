@@ -45,7 +45,7 @@
                                 <input name="id" value="{{ auth()->user()->id }}">
                             </form>
 
-                            <form id="register-form" action="{{ route('registrar') }}" method="POST" style="display: none;">
+                            <form id="register-form" action="{{ route('registrar') }}" method="GET" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>

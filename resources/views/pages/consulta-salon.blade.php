@@ -19,6 +19,7 @@
                     <h3>Lista de salones</h3>
                       
  {!! Form::open(["action" => "SalonController@search", "method" => "POST"])!!}
+ {{ csrf_field() }}
   <div class="input-group">
       {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Salon"])!!}
       {!! Form::select('type', array(

@@ -22,6 +22,7 @@
                 <h3>Escoger instructores del tema</h2>
                 <h3>Lista de de instructores</h3>
                   {!! Form::open(["route" => ["profesor.consulta4", $curso->id, $tema_id], "method" => "POST"]) !!}
+                  {{ csrf_field() }}
                 <div class="input-group">
                     {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Profesor"])!!}
                     {!! Form::select('type', array(
@@ -50,6 +51,7 @@
                     </tr>
                     @foreach($profesores as $profesor)
                         {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.altaInstructorSeminario', $curso->id,$profesor->id, $tema_id] ,'files' => true, 'method' => 'POST' )) !!}
+                        {{ csrf_field() }}
                         <tr>
                             <td>{{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }} {{ $profesor->nombres }}</td>
                             <td>{{ $profesor->email}}</td>
@@ -77,6 +79,7 @@
                     </tr>
                     @foreach($instructores as $instructor)
                         {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.bajaInstructorSeminario', $curso->id,$instructor->getProfesor()->id, $tema_id] ,'files' => true, 'method' => 'POST' )) !!}
+                        {{ csrf_field() }}
                         <tr>
                             <td>{{ $instructor->getProfesor()->apellido_paterno }} {{ $instructor->getProfesor()->apellido_materno }} {{ $instructor->getProfesor()->nombres }}</td>
                             <td>{{ $instructor->getProfesor()->email}}</td>

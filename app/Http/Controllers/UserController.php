@@ -62,4 +62,25 @@ class UserController extends Controller
         }
         return view('welcome');
     }
+    public function create(Request $request){
+      $user = new User;
+      $user->apellido_paterno = request('apellido_paterno');
+      $user->apellido_materno = request('apellido_materno');
+      $user->nombres = request('nombres');
+      if(strlen(request('email'))>0)
+        $user->email = request('email');
+      if(request('password') == request('password_confirmation') && strlen(request('password')) > 0)
+        $user->password = bcrypt(request('password'));
+      else
+        return redirect()->back()->with('danger', 'Las contraseñas no coinciden o son nulas');
+      if( strlen(request('usuario')) === 0)
+        return view('auth.register')->with('danger', 'El nombre de usuario no puede ser nulo');
+      try{
+        $user->usuario = request('usuario');
+        $user->save();
+      } catch(\Illuminate\Database\QueryException $e){
+        return redirect()->back()->with('danger', 'El nombre de usuario ya está ocupado');
+      }
+      return redirect('/admin')->with('success', 'El usuario ha sido registrado');
+    }
 }

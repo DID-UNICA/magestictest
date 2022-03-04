@@ -1,14 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
+                @include('partials.messages')
+
                 <div class="panel-heading">Registrar</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('usuario.create') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('usuario') ? ' has-error' : '' }}">
@@ -29,7 +32,7 @@
                             <label for="nombres" class="col-md-4 control-label">Nombre</label>
 
                             <div class="col-md-6">
-                                <input id="nombres" type="text" class="form-control" name="nombres" value="{{ old('nombres') }}" r-equired autofocus>
+                                <input id="nombres" type="text" class="form-control" name="nombres" value="{{ old('nombres') }}" required autofocus>
 
                                 @if ($errors->has('nombres'))
                                     <span class="help-block">
@@ -72,7 +75,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">

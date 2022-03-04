@@ -23,6 +23,7 @@
         <div class="panel-heading">
           <h3>Catálogo de Módulos</h3>
           {!! Form::open(["route" => "catalogo.modulo.search", "method" => "POST"]) !!}
+          {{ csrf_field() }}
           <div class="row">
             <div class="col-sm-6">
               {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Curso",'style'=>'margin: 5px;'])!!}

@@ -19,6 +19,8 @@
           <div class="container" style="margin:3px;">
             <h1>Consulta de Diplomados</h1>
             {!! Form::open(["route" => ["diplomado.search"], "method" => "POST"]) !!}
+            {{ csrf_field() }}
+
               <div class="row">
                 <div class="form-group col-sm-6">
                   {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Diplomado", "id"=>"entrada"])!!}

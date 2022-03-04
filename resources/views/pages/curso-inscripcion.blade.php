@@ -23,6 +23,7 @@
                 <h3>Cupo máximo: {{$count}}/{{$curso->cupo_maximo}}</h3><h3>Lista de espera: {{$lista}}</h3>
                 @if($count >= $curso->cupo_maximo)<div class="alert alert-danger" role='alert'>El curso ya está lleno, las siguientes inscripciones entrarán a lista de espera.</div>@endif
                 {!! Form::open(["route" => ["profesor.consulta1", $curso->id], "method" => "POST"]) !!}
+                {{ csrf_field() }}
                 <div class="input-group">
                     {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Profesor"])!!}
                     {!! Form::select('type', array(
@@ -58,6 +59,7 @@
                     </tr>
                     @foreach($users as $user)
                     {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.registrar', $user->id,$curso->id] ,'files' => true, 'method' => 'POST' )) !!}
+                    {{ csrf_field() }}
                         <tr>
                             <td>{{ $user->apellido_paterno }} {{ $user->apellido_materno }} {{ $user->nombres }}</td>
                             <td>{{ $user->email}}</td>

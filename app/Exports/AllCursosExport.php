@@ -48,7 +48,7 @@ class AllCursosExport implements FromView, ShouldAutosize
           $x = 'a';
         if($registro['semestre_si']=='i')
           $x = 'b';
-        return $registro['semestre_anio'].$registro['semestre_pi'].$x.$registro['clave'].$registro['nombre'];
+        return $registro['semestre_anio'].$registro['semestre_pi'].$x.$registro['clave'].$registro['folio_inst'].$registro['nombre'];
       });
       return view('exports.todoscursos', ['registros'=>$participantes]);
     }

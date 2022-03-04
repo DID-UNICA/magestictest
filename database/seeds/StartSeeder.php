@@ -2179,9 +2179,9 @@ en impuestos universitarios.',
       DB::table('coordinacions')->insert([
         'abreviatura'=>'CO',
         'nombre_coordinacion'=>'Formación y Desarrollo en Cómputo',
-        'coordinador'=>'Daniela Lopez Gomez',
-        'genero' => 'F',
-        'grado'=>'M.C.C',
+        'coordinador'=>'Gabriel López Domínguez',
+        'genero' => 'M',
+        'grado'=>'M. en I.',
         'es_admin'=> False,
         'password'=> Hash::make('1234')
       ]);
@@ -2189,9 +2189,9 @@ en impuestos universitarios.',
       DB::table('coordinacions')->insert([
         'abreviatura'=>'DI',
         'nombre_coordinacion'=>'Área Disciplinar e Investigación Educativa',
-        'coordinador'=>'Roman Dominguez Perez',
-        'genero' => 'M',
-        'grado'=>'M.E.M.',
+        'coordinador'=>'Martha Rosa Del Moral Nieto',
+        'genero' => 'F',
+        'grado'=>'Dra.',
         'es_admin'=> False,
         'password'=> Hash::make('1234')
       ]);
@@ -2199,9 +2199,9 @@ en impuestos universitarios.',
       DB::table('coordinacions')->insert([
         'nombre_coordinacion' => 'Formación y Desarrollo Didáctico Pedagógico',
         'abreviatura' => 'DP',
-        'coordinador' => 'Daniel Morales',
-        'genero' => 'M',
-        'grado' => 'M.E.M.',
+        'coordinador' => 'Arely Hernández Valverde',
+        'genero' => 'F',
+        'grado' => 'Lic.',
         'es_admin'=> False,
         'password' => Hash::make('1234'),
       ]);
@@ -2209,9 +2209,9 @@ en impuestos universitarios.',
       DB::table('coordinacions')->insert([
         'nombre_coordinacion' => 'Formación en Desarrollo Humano',
         'abreviatura' => 'DH',
-        'coordinador' => 'Jacob Hernandez',
-        'genero' => 'M',
-        'grado' => 'M.E.M.',
+        'coordinador' => 'María Elena Cano Salazar',
+        'genero' => 'F',
+        'grado' => 'Mtra.',
         'es_admin'=> False,
         'password' => Hash::make('1234'),
       ]);
@@ -2219,9 +2219,9 @@ en impuestos universitarios.',
       DB::table('coordinacions')->insert([
         'nombre_coordinacion' => 'Área de Gestión y Vinculación',
         'abreviatura' => 'GV',
-        'coordinador' => 'Jorge Luis Morales',
-        'genero' => 'M',
-        'grado' => 'M.E.M.',
+        'coordinador' => 'Jacquelyn Martínez Alavez',
+        'genero' => 'F',
+        'grado' => 'Mtra.',
         'es_admin'=> True,
         'password' => Hash::make('1234'),
       ]);
@@ -2910,7 +2910,7 @@ Qué es una computadora y cómo funciona',
           'cupo_minimo' => 1,
           'catalogo_id' => 20,
           'salon_id' => 1,
-          'sgc' => false
+          'sgc' => true
         ]); 
         DB::table('cursos')->insert([ //id=20
           //'id' => 501,
@@ -2930,7 +2930,7 @@ Qué es una computadora y cómo funciona',
           'cupo_minimo' => 10,
           'catalogo_id' => 21,
           'salon_id' => 1,
-          'sgc' => false
+          'sgc' => true
         ]); 
         DB::table('cursos')->insert([ //id=21
           //'id' => 502,
@@ -2950,7 +2950,7 @@ Qué es una computadora y cómo funciona',
           'cupo_minimo' => 1,
           'catalogo_id' => 22,
           'salon_id' => 1,
-          'sgc' => false
+          'sgc' => true
         ]);
 
         DB::table('cursos')->insert([ //id=22
@@ -2979,7 +2979,7 @@ Qué es una computadora y cómo funciona',
           'genero' => 'F'
         ]);
 
-        //DIRECCIÓN DEL CENTRO DE DOCENCIA (DATO DE PRUEBA)
+        //DIRECCIÓN (DATO DE PRUEBA)
         DB::table('direccion')->insert([
           'director' => "Gabriel Aguilar Luna",
           'comentarios' => 'Ingeniero en computacion egresado de la UNAM, trabajo mucho tiempo en cargos administraticos en la FI',
@@ -5049,7 +5049,7 @@ Qué es una computadora y cómo funciona',
           'sug'=>'Mejorar las instalaciones',
           'otros'=>'word y autocad',
           'conocimiento'=>'["3"]',
-          'tematica'=>'programacion',
+          'tematica'=>'Amor a la familia',
           'horarios'=>'Lunes 10:00',
           'horarioi'=>'Lunes 10:00',
           'participante_curso_id'=>173
@@ -5089,7 +5089,7 @@ Qué es una computadora y cómo funciona',
           'sug'=>'Mejores temas a abarcar',
           'otros'=>'autocad,word',
           'conocimiento'=>'["2"]',
-          'tematica'=>'Office',
+          'tematica'=>'Project',
           'horarios'=>'Lunes y miércoles de 10 a 12',
           'horarioi'=>'Lunes y miércoles de 10 a 12',
           'participante_curso_id'=>174
