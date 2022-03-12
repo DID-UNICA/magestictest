@@ -15,47 +15,52 @@ class StartSeeder extends Seeder
     {
         //USUARIOS DE PRUEBA
         DB::table('users')->insert([
-            'nombres'=> 'Mauricio',
-            'apellido_paterno' => 'Ramos',
-            'apellido_materno' => 'Villaseñor',
-            'email' => 'mauri334455@gmail.com',
-            'usuario' => 'mauri334455',
-            'password' => Hash::make('amores334455')
+          'nombre'=> 'Coordinación del Centro de Docencia',
+          'usuario' => 'CoordCDD',
+          'es_admin' => true,
+          'password' => Hash::make('COORD3#')
         ]);
 
         DB::table('users')->insert([
-          'nombres'=> 'Margarita',
-          'apellido_paterno' => 'Ramírez',
-          'apellido_materno' => 'Galindo',
-          'email' => 'margarita@ejemplo.com',
-          'usuario' => 'margarita',
-          'password' => Hash::make('margarita')
+          'nombre'=> 'Gestión y Vinculación',
+          'usuario' => 'Ges_Vinc',
+          'es_admin' => true,
+          'password' => Hash::make('SuperUsuario1#')
         ]);
 
         DB::table('users')->insert([
-          'nombres'=> 'Jacquelyn',
-          'apellido_paterno' => 'Martinez',
-          'apellido_materno' => 'Alavez',
-          'email' => 'jacquelynmartineza@yahoo.com.mx',
-          'usuario' => 'jacquelyn',
-          'password' => Hash::make('jacquelyn')
+          'nombre'=> 'Soporte Area',
+          'usuario' => 'SoporteArea',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario1#')
         ]);
 
         DB::table('users')->insert([
-          'nombres'=> 'Soporte',
-          'apellido_paterno' => 'Soporte',
-          'apellido_materno' => 'Soporte',
-          'email' => 'ejemplo@gmail.com',
-          'usuario' => 'soporte',
-          'password' => Hash::make('soporte')
+          'nombre'=> 'Invitado Formácion y Desarrollo en Cómputo',
+          'usuario' => 'InvitadoCO',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario#2COa1')
         ]);
 
         DB::table('users')->insert([
-          'nombres'=> 'Francisco',
-          'apellido_paterno' => 'Guzmán',
-          'email' => 'francko_gm@hotmail.com',
-          'usuario' => 'francisco',
-          'password' => Hash::make('francisco')
+          'nombre'=> 'Invitado Área Disciplinar e Investigación Educativa',
+          'usuario' => 'InvitadoDI',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario#2Dib2')
+        ]);
+
+        DB::table('users')->insert([
+          'nombre'=> 'Invitado Formación en Desarrollo Humano',
+          'usuario' => 'InvitadoDH',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario#2DHc3')
+        ]);
+
+        DB::table('users')->insert([
+          'nombre'=> 'Invitado Formación y Desarrollo Didáctico Pedagógico',
+          'usuario' => 'InvitadoDP',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario#2DPd4')
         ]);
 
         //SEDES DE PRUEBA
@@ -2170,9 +2175,9 @@ en impuestos universitarios.',
         'nombre_coordinacion'=>'Coordinación Del Centro de Docencia',
         'coordinador'=>'Margarita Ramírez Galindo',
         'genero' => 'F',
-        'grado'=>'M.E.M',
+        'grado'=>'M.E.M.',
         'es_admin'=> True,
-        'password'=> Hash::make('1234')
+        'password'=> Hash::make('COORD3#')
       ]);
       
       //COORDINACIONES DEL CENTRO DE DOCENCIA, COORDINADORES DE PRUEBA
@@ -2183,7 +2188,7 @@ en impuestos universitarios.',
         'genero' => 'M',
         'grado'=>'M. en I.',
         'es_admin'=> False,
-        'password'=> Hash::make('1234')
+        'password'=> Hash::make('Computacion31$')
       ]);
   
       DB::table('coordinacions')->insert([
@@ -2193,7 +2198,7 @@ en impuestos universitarios.',
         'genero' => 'F',
         'grado'=>'Dra.',
         'es_admin'=> False,
-        'password'=> Hash::make('1234')
+        'password'=> Hash::make('Dieduca87%')
       ]);
       
       DB::table('coordinacions')->insert([
@@ -2203,7 +2208,7 @@ en impuestos universitarios.',
         'genero' => 'F',
         'grado' => 'Lic.',
         'es_admin'=> False,
-        'password' => Hash::make('1234'),
+        'password' => Hash::make('Dida&gica54'),
       ]);
   
       DB::table('coordinacions')->insert([
@@ -2213,7 +2218,7 @@ en impuestos universitarios.',
         'genero' => 'F',
         'grado' => 'Mtra.',
         'es_admin'=> False,
-        'password' => Hash::make('1234'),
+        'password' => Hash::make('Dehm@no91'),
       ]);
       
       DB::table('coordinacions')->insert([
@@ -2223,7 +2228,7 @@ en impuestos universitarios.',
         'genero' => 'F',
         'grado' => 'Mtra.',
         'es_admin'=> True,
-        'password' => Hash::make('1234'),
+        'password' => Hash::make('SuperUsuario1#'),
       ]);
 
       //CATÁLOGO DE CURSOS DE PRUEBA

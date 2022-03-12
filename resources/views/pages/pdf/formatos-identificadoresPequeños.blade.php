@@ -64,7 +64,7 @@ html{
 	border-right: 1px solid black;
 	border-bottom: 0.5px solid black;
 	width: 15.6cm;
-	height: 4.7cm;
+	height: 4.9cm;
 }
 </style>
 <body>

@@ -1,0 +1,7 @@
+usar xammp
+clonar con git
+instalar composer
+configurar el .env
+migrar la base
+php serve
+

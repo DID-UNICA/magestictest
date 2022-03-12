@@ -41,46 +41,99 @@ class UserController extends Controller
         ]);
     }
     
-    public function edit(User $user)
-    {
-        $user = Auth::user();
-        return view("pages.update-usuario")
-            ->with("user",$user);
+    public function verUsuarios() {
+      if(Auth::user()->es_admin)
+        return view('pages.ver-usuarios')->with('users', User::all());
+      return redirect('/admin');
     }
 
-    
-    public function update(User $user, Request $request)
-    {
-        if (Hash::check($request->current_password, $request->user()->password)) {
-            $user = Auth::user();
-            $user->apellido_paterno = request('apellido_paterno');
-            $user->apellido_materno = request('apellido_materno');
-            $user->nombres = request('nombres');
-            $user->email = request('email');
-            $user->password = strlen(request('password')) > 0 ? bcrypt(request('password')) : $user->password;
-            $user->save();
-        }
-        return view('welcome');
+    public function crear() {
+      if(!Auth::user()->es_admin)
+        return redirect('/admin');
+      return view('auth.register');
     }
+
+    public function edit($id)
+    {
+      if(Auth::user()->es_admin){
+        $user = User::findOrFail($id);
+        return view("pages.update-usuario")
+            ->with("user",$user);
+      }
+      return redirect('/admin');
+    }
+
+
+    
+    public function update($id, Request $request)
+    {
+      if(!Auth::user()->es_admin)
+        return redirect('/admin');
+      $user = User::findOrFail($id);
+        if (Hash::check($request->current_password, $user->password)) {
+            $user->nombre = request('nombre');
+            $user->email = request('email');
+            if(strlen(request('password')) > 0)
+              if(request('password') == request('password_confirmation'))
+                $user->password = bcrypt(request('password'));
+              else
+                return redirect()
+                  ->back()
+                  ->with('danger', 'La contraseña nueva no coincide con su confirmación');
+            if( strlen(request('usuario')) === 0)
+              return redirect()
+                ->back()
+                ->with('danger', 'El nombre de usuario no puede ser nulo');
+            if($request->es_admin)
+              $user->es_admin = true;
+            else
+              $user->es_admin = false;
+            try{
+              if($user->usuario != request('usuario'))
+                $user->usuario = request('usuario');
+              $user->save();
+              return redirect()->route('verUsuarios')->with('success','Cambios realizados correctamente');
+            } catch(\Illuminate\Database\QueryException $e){
+              return redirect()
+                ->back()
+                ->with('danger', 'El nombre de usuario ya está ocupado');
+            }
+        }
+        return redirect()->back()->with('danger','La contraseña actual es incorrecta');
+    }
+
     public function create(Request $request){
+      if(!Auth::user()->es_admin)
+        return redirect('/admin');
+
       $user = new User;
-      $user->apellido_paterno = request('apellido_paterno');
-      $user->apellido_materno = request('apellido_materno');
-      $user->nombres = request('nombres');
-      if(strlen(request('email'))>0)
-        $user->email = request('email');
-      if(request('password') == request('password_confirmation') && strlen(request('password')) > 0)
-        $user->password = bcrypt(request('password'));
-      else
-        return redirect()->back()->with('danger', 'Las contraseñas no coinciden o son nulas');
+      $user->nombre = request('nombre');
+      $user->email = request('email');
       if( strlen(request('usuario')) === 0)
-        return view('auth.register')->with('danger', 'El nombre de usuario no puede ser nulo');
+        return redirect()->back()->with('danger', 'El nombre de usuario no puede ser nulo');
+      $user->usuario = request('usuario');
+      if(strlen(request('password')) == 0)
+        return redirect()->back()->with('danger', 'No se ingresó una contraseña');
+      if(!(request('password') === request('password_confirmation')))
+        return redirect()->back()->with('danger', 'Las contraseñas no coinciden');
+      $user->password = bcrypt(request('password'));
+      if($request->es_admin)
+        $user->es_admin = true;
+      else
+        $user->es_admin = false;
       try{
-        $user->usuario = request('usuario');
         $user->save();
       } catch(\Illuminate\Database\QueryException $e){
-        return redirect()->back()->with('danger', 'El nombre de usuario ya está ocupado');
+        return redirect()->back()->with('danger', 'El nombre de usuario ya está ocupado. Pruebe con otro.');
       }
-      return redirect('/admin')->with('success', 'El usuario ha sido registrado');
+      return redirect('/verUsuarios')->with('success', 'El usuario ha sido registrado');
+    }
+
+    public function delete($id){
+      if(!Auth::user()->es_admin)
+        return redirect('/admin');
+      $user = User::findOrFail($id);
+      $user->delete();
+      return redirect()->back()->with('success','Cuenta de usuario eliminada correctamente');
     }
 }

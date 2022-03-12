@@ -1,9 +1,10 @@
 /vendor/
+!/vendor/lynx39/lara-pdf-merger/src/LynX39/LaraPdfMerger/
 node_modules/
 npm-debug.log
 yarn-error.log
-.env
-
+composer.lock
+.vscode
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
@@ -17,10 +18,20 @@ public_html/storage
 public_html/hot
 
 storage/*.key
-magesticdev/.env
-CDEval/.env
+.env
+.env-mysql
 Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
 
+*.DS_Store
+.DS_Store
+resources/views/pages/.DS_Store
+resources/views/.DS_Store
+*.lock
+composer.lock
+
+init.zsh
+
+resources/pages/tmp*

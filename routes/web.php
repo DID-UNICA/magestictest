@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('home');
-Route::get('/registrar', function () {return view('auth.register');})->name('registrar');
+
 
 
 /* Rutas de Profesor */
@@ -252,6 +252,11 @@ Route::get('reportecursos', 'FormatosController@generarreporte')->name('reporte.
 Route::get('reportecursos/{periodo}', 'FormatosController@generarreporteperiodo')->name('reporte.periodo');
 
 /* Rutas Usuario */
-Route::post('usuario/edit', "UserController@edit")->name('usuario.editar');
-Route::post('usuario/actualizar', "UserController@update")->name('usuario.update');
-Route::post('usuario/crear', "UserController@create")->name('usuario.create');
+Route::get('usuario/edit/{id}', "UserController@edit")->name('usuario.editar');
+Route::post('usuario/actualizar/{id}', "UserController@update")->name('usuario.update');
+Route::post('usuario/create', "UserController@create")->name('usuario.create');
+Route::get('usuario/crear', "UserController@crear")->name('usuario.nuevo');
+Route::get('usuario/eliminar/{id}', "UserController@delete")->name('usuario.delete');
+Route::get('/verUsuarios', 'UserController@verUsuarios')->name('verUsuarios');
+
+

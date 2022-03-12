@@ -67,7 +67,7 @@ html{
 	border-left: 1px solid black;
 	border-right: 1px solid black;
 	border-bottom: 0.5px solid black;
-	width: 18.90cm;
+	width: 19.1cm;
 	height: 7.60cm;
 }
 </style>
