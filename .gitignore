@@ -1,5 +1,5 @@
-/vendor/
-!/vendor/lynx39/lara-pdf-merger/src/LynX39/LaraPdfMerger/
+
+
 node_modules/
 npm-debug.log
 yarn-error.log
