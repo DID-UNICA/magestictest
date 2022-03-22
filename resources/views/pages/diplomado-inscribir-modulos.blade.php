@@ -21,7 +21,6 @@
                 <h2>{{ $diplomado->nombre_diplomado}}</h2>
                 <h3>Lista de Módulos</h3>
                   {!! Form::open(["route" => ["modulo.search.diplomado", $diplomado->id], "method" => "POST"]) !!}
-                  {{ csrf_field() }}
                 <div class="input-group">
                     {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Módulo"])!!}
                     {!! Form::select('type', array(
@@ -47,7 +46,6 @@
                     </tr>
                       @foreach($modulos as $modulo)
                         {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['diplomado.modulo.create', $diplomado->id,$modulo->id] ,'files' => true, 'method' => 'POST' )) !!}
-                        {{ csrf_field() }}
                           <tr>
                               <td>{{ $modulo->getNombreCurso() }}</td>
                               <td>{{ $modulo->getSemestre()}}</td>

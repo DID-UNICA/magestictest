@@ -40,16 +40,32 @@
                                 {{ csrf_field() }}
                             </form>
 
-                           
+                            <form id="ajustes-form" action="{{ route('usuario.editar') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                                <input name="id" value="{{ auth()->user()->id }}">
+                            </form>
+
+                            <form id="register-form" action="{{ route('registrar') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
                         </li>
                         <li>
-                            @if(Auth::user()->es_admin)
-                              <a href="{{ route('verUsuarios') }}">
-                                  <div style="text-align: left;">
-                                  Ver Usuarios
-                                  </div>
-                              </a>
-                            @endif
+                            <a href="{{ route('usuario.editar') }}"
+                               onclick="event.preventDefault();
+                                document.getElementById('ajustes-form').submit();">
+                                <div style="text-align: left;">
+                                Cuenta 
+                               
+                                </div>
+                            </a>
+
+                            <a href="{{ route('register') }}"
+                              onclick="event.preventDefault();
+                              document.getElementById('register-form').submit();">
+                              <div style="text-align: left;">
+                              Registrar Usuario
+                              </div>
+                            </a>
                             
                             <a href="{{ route('logout') }}"
                                onclick="event.preventDefault();

@@ -27,9 +27,7 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
         $curso->semiperiodo = $curso->getSemestre();
         $curso->emision = $catalogo_curso->institucion;
         $curso->instructores = ProfesoresCurso::where('curso_id', $curso->id)->get();
-        $curso->participantes = ParticipantesCurso::where('curso_id',$curso->id)
-          ->where('acreditacion',true)
-          ->get();
+        $curso->participantes = ParticipantesCurso::where('curso_id',$curso->id)->get();
         $curso->fecha_envio_reconocimiento = $curso->getFechaEnvioReconocimiento();
         $curso->fecha_envio_constancia = $curso->getFechaEnvioConstancia();
         foreach($curso->instructores as $instructor){

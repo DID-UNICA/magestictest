@@ -21,7 +21,6 @@
                 <h3>Catálogo de cursos</h3>
 
                 {!! Form::open(["route" => "catalogo-cursos.consulta", "method" => "POST"]) !!}
-                {{ csrf_field() }}
                 <div class="input-group">
                     {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Curso"])!!}
                     {!! Form::select('type', array(

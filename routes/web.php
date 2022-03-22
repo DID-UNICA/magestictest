@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('home');
-
+Route::post('/registrar', function () {return view('auth.register');})->name('registrar');
 
 
 /* Rutas de Profesor */
@@ -46,6 +46,7 @@ Route::get('curso/actualizar/{id}', "CursoController@edit")->name('curso.update'
 Route::get('curso/inscripcion/{id}', "CursoController@inscripcionParticipante")->name('curso.inscripcion');
 Route::post('curso/inscripcion/{curso_id}/busqueda', "ProfesorController@search1")->name('profesor.consulta1');
 Route::post('curso/inscripcion/{curso_id}/search2', "ProfesorController@search2")->name('profesor.consulta2');
+Route::post('curso/inscripcion/{curso_id}/{tema_id}/search3', "ProfesorController@search3")->name('profesor.consulta3');
 Route::post('curso/inscripcion/{curso_id}/{tema_id}/search4', "ProfesorController@search4")->name('profesor.consulta4');
 Route::get('curso/generar-formatos/{curso}', "CursoController@GenerarFormatos")->name('curso.generar-formatos');
 Route::get('curso/ver-profesores/{curso}', "CursoController@verParticipante")->name('curso.ver-participante');
@@ -252,11 +253,5 @@ Route::get('reportecursos', 'FormatosController@generarreporte')->name('reporte.
 Route::get('reportecursos/{periodo}', 'FormatosController@generarreporteperiodo')->name('reporte.periodo');
 
 /* Rutas Usuario */
-Route::get('usuario/edit/{id}', "UserController@edit")->name('usuario.editar');
-Route::post('usuario/actualizar/{id}', "UserController@update")->name('usuario.update');
-Route::post('usuario/create', "UserController@create")->name('usuario.create');
-Route::get('usuario/crear', "UserController@crear")->name('usuario.nuevo');
-Route::get('usuario/eliminar/{id}', "UserController@delete")->name('usuario.delete');
-Route::get('/verUsuarios', 'UserController@verUsuarios')->name('verUsuarios');
-
-
+Route::post('usuario/edit', "UserController@edit")->name('usuario.editar');
+Route::post('usuario/actualizar', "UserController@update")->name('usuario.update');

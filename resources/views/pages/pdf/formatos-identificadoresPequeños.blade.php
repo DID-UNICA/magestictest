@@ -16,7 +16,7 @@ html{
 	margin-top: 0.1cm;
 }
 .nombre-largo{
-	font-size: 32px;
+	font-size: 50px;
 	font-family:'Tangerine', serif;
 	font-weight: bold;
 	text-align: center;
@@ -64,7 +64,7 @@ html{
 	border-right: 1px solid black;
 	border-bottom: 0.5px solid black;
 	width: 15.6cm;
-	height: 4.9cm;
+	height: 4.7cm;
 }
 </style>
 <body>
