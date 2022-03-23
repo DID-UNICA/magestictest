@@ -15,25 +15,76 @@ html{
 	margin-left: 2%;
 	margin-top: 0.1cm;
 }
-.nombre-largo{
-	font-size: 50px;
+.nombre-pequenio{
+	font-size: 79px;
 	font-family:'Tangerine', serif;
 	font-weight: bold;
 	text-align: center;
-	padding-top: 1cm;
 }
+
 .nombre-mediano{
-	font-size: 70px;
+	font-size: 64px;
+	font-family:'Tangerine', serif;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 0.4cm;
+}
+.nombre-mediano-2{
+	font-size: 60px;
 	font-family:'Tangerine', serif;
 	font-weight: bold;
 	text-align: center;
 	padding-top: 0.6cm;
+	word-wrap:break-word;
 }
-.nombre-pequenio{
-	font-size: 85px;
+.nombre-mediano-3{
+	font-size: 57px;
 	font-family:'Tangerine', serif;
 	font-weight: bold;
 	text-align: center;
+	padding-top: 0.6cm;
+	word-wrap:break-word;
+}
+
+.nombre-largo{
+	font-size: 32px;
+	font-family:'Tangerine', serif;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 1cm;
+	word-wrap:break-word;
+}
+.nombre-largo-2{
+	font-size: 46px;
+	font-family:'Tangerine', serif;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 1cm;
+	word-wrap:break-word;
+}
+.nombre-largo-3{
+	font-size: 46px;
+	font-family:'Tangerine', serif;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 1cm;
+	word-wrap:break-word;
+}
+.nombre-largo-4{
+	font-size: 45px;
+	font-family:'Tangerine', serif;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 1cm;
+	word-wrap:break-word;
+}
+.nombre-largo-5{
+	font-size: 40px;
+	font-family:'Tangerine', serif;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 1cm;
+	word-wrap:break-word;
 }
 .curso{
 	font-size: 11px;
@@ -64,7 +115,7 @@ html{
 	border-right: 1px solid black;
 	border-bottom: 0.5px solid black;
 	width: 15.6cm;
-	height: 4.7cm;
+	height: 4.9cm;
 }
 </style>
 <body>
@@ -102,6 +153,18 @@ html{
 							<div class=nombre-pequenio> {{ $alumno->nombres }} </div>
 						@elseif(strlen($alumno->nombres) <= 16)
 							<div class=nombre-mediano> {{ $alumno->nombres }} </div>
+						@elseif(strlen($alumno->nombres) > 16 and strlen($alumno->nombres)<= 18)
+							<div class=nombre-mediano-2> {{ $alumno->nombres }} </div>
+						@elseif(strlen($alumno->nombres) > 18 and strlen($alumno->nombres)<= 20)
+							<div class=nombre-mediano-3> {{ $alumno->nombres }} </div>
+						@elseif(strlen($alumno->nombres) > 20 and strlen($alumno->nombres)<= 22)
+							<div class=nombre-largo-2> {{ $alumno->nombres }} </div>
+						@elseif(strlen($alumno->nombres) > 22 and strlen($alumno->nombres)<= 24)
+							<div class=nombre-largo-3> {{ $alumno->nombres }} </div>
+						@elseif(strlen($alumno->nombres) > 24 and strlen($alumno->nombres)<= 26)
+							<div class=nombre-largo-4> {{ $alumno->nombres }} </div>
+						@elseif(strlen($alumno->nombres) > 26 and strlen($alumno->nombres)<= 28)
+							<div class=nombre-largo-5> {{ $alumno->nombres }} </div>
 						@else
 							<div class=nombre-largo> {{ $alumno->nombres }} </div>
 						@endif

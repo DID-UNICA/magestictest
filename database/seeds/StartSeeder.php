@@ -15,47 +15,52 @@ class StartSeeder extends Seeder
     {
         //USUARIOS DE PRUEBA
         DB::table('users')->insert([
-            'nombres'=> 'Mauricio',
-            'apellido_paterno' => 'Ramos',
-            'apellido_materno' => 'Villaseñor',
-            'email' => 'mauri334455@gmail.com',
-            'usuario' => 'mauri334455',
-            'password' => Hash::make('amores334455')
+          'nombre'=> 'Coordinación del Centro de Docencia',
+          'usuario' => 'CoordCDD',
+          'es_admin' => true,
+          'password' => Hash::make('COORD3#')
         ]);
 
         DB::table('users')->insert([
-          'nombres'=> 'Margarita',
-          'apellido_paterno' => 'Ramírez',
-          'apellido_materno' => 'Galindo',
-          'email' => 'margarita@ejemplo.com',
-          'usuario' => 'margarita',
-          'password' => Hash::make('margarita')
+          'nombre'=> 'Gestión y Vinculación',
+          'usuario' => 'Ges_Vinc',
+          'es_admin' => true,
+          'password' => Hash::make('SuperUsuario1#')
         ]);
 
         DB::table('users')->insert([
-          'nombres'=> 'Jacquelyn',
-          'apellido_paterno' => 'Martinez',
-          'apellido_materno' => 'Alavez',
-          'email' => 'jacquelynmartineza@yahoo.com.mx',
-          'usuario' => 'jacquelyn',
-          'password' => Hash::make('jacquelyn')
+          'nombre'=> 'Soporte Area',
+          'usuario' => 'SoporteArea',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario1#')
         ]);
 
         DB::table('users')->insert([
-          'nombres'=> 'Soporte',
-          'apellido_paterno' => 'Soporte',
-          'apellido_materno' => 'Soporte',
-          'email' => 'ejemplo@gmail.com',
-          'usuario' => 'soporte',
-          'password' => Hash::make('soporte')
+          'nombre'=> 'Invitado Formácion y Desarrollo en Cómputo',
+          'usuario' => 'InvitadoCO',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario#2COa1')
         ]);
 
         DB::table('users')->insert([
-          'nombres'=> 'Francisco',
-          'apellido_paterno' => 'Guzmán',
-          'email' => 'francko_gm@hotmail.com',
-          'usuario' => 'francisco',
-          'password' => Hash::make('francisco')
+          'nombre'=> 'Invitado Área Disciplinar e Investigación Educativa',
+          'usuario' => 'InvitadoDI',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario#2Dib2')
+        ]);
+
+        DB::table('users')->insert([
+          'nombre'=> 'Invitado Formación en Desarrollo Humano',
+          'usuario' => 'InvitadoDH',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario#2DHc3')
+        ]);
+
+        DB::table('users')->insert([
+          'nombre'=> 'Invitado Formación y Desarrollo Didáctico Pedagógico',
+          'usuario' => 'InvitadoDP',
+          'es_admin' => false,
+          'password' => Hash::make('Usuario#2DPd4')
         ]);
 
         //SEDES DE PRUEBA
@@ -2170,60 +2175,60 @@ en impuestos universitarios.',
         'nombre_coordinacion'=>'Coordinación Del Centro de Docencia',
         'coordinador'=>'Margarita Ramírez Galindo',
         'genero' => 'F',
-        'grado'=>'M.E.M',
+        'grado'=>'M.E.M.',
         'es_admin'=> True,
-        'password'=> Hash::make('1234')
+        'password'=> Hash::make('COORD3#')
       ]);
       
       //COORDINACIONES DEL CENTRO DE DOCENCIA, COORDINADORES DE PRUEBA
       DB::table('coordinacions')->insert([
         'abreviatura'=>'CO',
         'nombre_coordinacion'=>'Formación y Desarrollo en Cómputo',
-        'coordinador'=>'Daniela Lopez Gomez',
-        'genero' => 'F',
-        'grado'=>'M.C.C',
+        'coordinador'=>'Gabriel López Domínguez',
+        'genero' => 'M',
+        'grado'=>'M. en I.',
         'es_admin'=> False,
-        'password'=> Hash::make('1234')
+        'password'=> Hash::make('Computacion31$')
       ]);
   
       DB::table('coordinacions')->insert([
         'abreviatura'=>'DI',
         'nombre_coordinacion'=>'Área Disciplinar e Investigación Educativa',
-        'coordinador'=>'Roman Dominguez Perez',
-        'genero' => 'M',
-        'grado'=>'M.E.M.',
+        'coordinador'=>'Martha Rosa Del Moral Nieto',
+        'genero' => 'F',
+        'grado'=>'Dra.',
         'es_admin'=> False,
-        'password'=> Hash::make('1234')
+        'password'=> Hash::make('Dieduca87%')
       ]);
       
       DB::table('coordinacions')->insert([
         'nombre_coordinacion' => 'Formación y Desarrollo Didáctico Pedagógico',
         'abreviatura' => 'DP',
-        'coordinador' => 'Daniel Morales',
-        'genero' => 'M',
-        'grado' => 'M.E.M.',
+        'coordinador' => 'Arely Hernández Valverde',
+        'genero' => 'F',
+        'grado' => 'Lic.',
         'es_admin'=> False,
-        'password' => Hash::make('1234'),
+        'password' => Hash::make('Dida&gica54'),
       ]);
   
       DB::table('coordinacions')->insert([
         'nombre_coordinacion' => 'Formación en Desarrollo Humano',
         'abreviatura' => 'DH',
-        'coordinador' => 'Jacob Hernandez',
-        'genero' => 'M',
-        'grado' => 'M.E.M.',
+        'coordinador' => 'María Elena Cano Salazar',
+        'genero' => 'F',
+        'grado' => 'Mtra.',
         'es_admin'=> False,
-        'password' => Hash::make('1234'),
+        'password' => Hash::make('Dehm@no91'),
       ]);
       
       DB::table('coordinacions')->insert([
         'nombre_coordinacion' => 'Área de Gestión y Vinculación',
         'abreviatura' => 'GV',
-        'coordinador' => 'Jorge Luis Morales',
-        'genero' => 'M',
-        'grado' => 'M.E.M.',
+        'coordinador' => 'Jacquelyn Martínez Alavez',
+        'genero' => 'F',
+        'grado' => 'Mtra.',
         'es_admin'=> True,
-        'password' => Hash::make('1234'),
+        'password' => Hash::make('SuperUsuario1#'),
       ]);
 
       //CATÁLOGO DE CURSOS DE PRUEBA
@@ -2910,7 +2915,7 @@ Qué es una computadora y cómo funciona',
           'cupo_minimo' => 1,
           'catalogo_id' => 20,
           'salon_id' => 1,
-          'sgc' => false
+          'sgc' => true
         ]); 
         DB::table('cursos')->insert([ //id=20
           //'id' => 501,
@@ -2930,7 +2935,7 @@ Qué es una computadora y cómo funciona',
           'cupo_minimo' => 10,
           'catalogo_id' => 21,
           'salon_id' => 1,
-          'sgc' => false
+          'sgc' => true
         ]); 
         DB::table('cursos')->insert([ //id=21
           //'id' => 502,
@@ -2950,7 +2955,7 @@ Qué es una computadora y cómo funciona',
           'cupo_minimo' => 1,
           'catalogo_id' => 22,
           'salon_id' => 1,
-          'sgc' => false
+          'sgc' => true
         ]);
 
         DB::table('cursos')->insert([ //id=22
@@ -2979,7 +2984,7 @@ Qué es una computadora y cómo funciona',
           'genero' => 'F'
         ]);
 
-        //DIRECCIÓN DEL CENTRO DE DOCENCIA (DATO DE PRUEBA)
+        //DIRECCIÓN (DATO DE PRUEBA)
         DB::table('direccion')->insert([
           'director' => "Gabriel Aguilar Luna",
           'comentarios' => 'Ingeniero en computacion egresado de la UNAM, trabajo mucho tiempo en cargos administraticos en la FI',

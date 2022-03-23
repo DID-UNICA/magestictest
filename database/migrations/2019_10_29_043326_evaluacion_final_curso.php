@@ -38,7 +38,7 @@ class EvaluacionFinalCurso extends Migration
             //Lo mejor del curso fue / Lo que me aportó el seminario fue:
             $table->string('p9',1500)->nullable();
             //Sugerencias y recomendaciones:	
-            $table->string('sug',3000)->nullable();
+            $table->string('sug',1500)->nullable();
             //¿Qué otros cursos, talleres, seminarios o temáticos le gustaría que se impartiesen o tomasen en cuenta para próximas actividades?
             $table->string('otros',300)->nullable();
             //ÁREA DE CONOCIMIENTO 

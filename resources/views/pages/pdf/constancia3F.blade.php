@@ -144,13 +144,21 @@ body {
 
       <table width="15cm" align="center">
         <tr width="15cm">
-         <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
+         <td height="0.35cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
         </tr>
         <tr width="15cm">
-        @if(strlen($cursoCatalogo->nombre_curso) < 110)
-          <td height="1.75cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
+        @if(strlen($cursoCatalogo->nombre_curso) < 90)
+          <td height="1.85cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
+        @elseif(strlen($cursoCatalogo->nombre_curso) < 150)
+          <td height="1.85cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;font-size: 18pt;">{{$cursoCatalogo->nombre_curso}}</td>
+        @elseif(strlen($cursoCatalogo->nombre_curso) < 170)
+          <td height="1.85cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;font-size: 16pt;">{{$cursoCatalogo->nombre_curso}}</td>
+        @elseif(strlen($cursoCatalogo->nombre_curso) < 190)
+          <td height="1.85cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;font-size: 14pt;">{{$cursoCatalogo->nombre_curso}}</td>
+        @elseif(strlen($cursoCatalogo->nombre_curso) < 285)
+          <td height="1.85cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;font-size: 13pt;">{{$cursoCatalogo->nombre_curso}}</td>
         @else
-          <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 18pt;">{{$cursoCatalogo->nombre_curso}}</td>
+          <td height="1.85cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;font-size: 12pt;">{{$cursoCatalogo->nombre_curso}}</td>
         @endif
         </tr>
 

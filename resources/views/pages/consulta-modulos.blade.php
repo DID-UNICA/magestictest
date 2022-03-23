@@ -24,6 +24,8 @@
           <div class="container">
             <h3>Módulos Programados</h3>
             {!! Form::open(["route" => ["modulo.search"], "method" => "POST"]) !!}
+            {{ csrf_field() }}
+
               <div class="input-group">
                 <div class="row row-eq-height align-items-center">
                   <div class="row">

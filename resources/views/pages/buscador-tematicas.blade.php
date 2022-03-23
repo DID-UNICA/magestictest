@@ -21,6 +21,7 @@
         <div class="container">
           <h3>Búsqueda de palabras clave</h3>
           {!! Form::open(["route" => ["formatos.correos",$curso_id,"B2"], "method" => "POST"]) !!}
+          {{ csrf_field() }}
             <div class="col-md-12">
               <div class="form-group">
                 <label for="words">Ingrese palabras clave (Separadas por #):</label>

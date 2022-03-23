@@ -24,6 +24,7 @@
           <div style="margin-left:25px"; class="container">
             <h3>Cursos Programados</h3>
             {!! Form::open(["route" => ["curso.Csearch"], "method" => "POST"]) !!}
+            {{ csrf_field() }}
               <div class="input-group">
                 <div class="row row-eq-height align-items-center">
                   <div class="row">

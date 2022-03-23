@@ -23,31 +23,23 @@
         <td style='background-color:#339b43'></td>
         <td style='background-color:#339b43'></td>
       </tr>
-    @foreach($cursos as $curso)
-      @foreach($curso->instructores as $instructor)
+    @foreach($usuarios as $usuario)
       <tr>
-        <td style='background-color:#ca6464'>{{$instructor->folio_inst}}</td>
-        <td>{{$instructor->folio_peque}}</td>
-        <td>INSTRUCTOR</td>
-        <td style='background-color:yellow'>{{$instructor->nombre}}</td>
-        <td>{{$curso->nombre_catalogo}}</td>
-        <td>{{$curso->semiperiodo}}</td>
-        <td>{{$curso->fecha_envio_reconocimiento}}</td>
-        <td>{{$curso->emision}}</td>
-      </tr>
-      @endforeach
-      @foreach($curso->participantes as $participante)
-        <tr>
-          <td style='background-color:#CFE2F3'>{{$participante->folio_inst}}</td>
-          <td>{{$instructor->folio_peque}}</td>
+        @if(get_class($usuario) == 'App\ProfesoresCurso')
+          <td style='background-color:#ca6464'>{{$usuario->folio_inst}}</td>
+          <td>{{$usuario->folio_peque}}</td>
+          <td>INSTRUCTOR</td>
+        @else
+          <td style='background-color:#CFE2F3'>{{$usuario->folio_inst}}</td>
+          <td>{{$usuario->folio_peque}}</td>
           <td>PARTICIPANTE</td>
-          <td style='background-color:yellow'>{{$participante->nombre}}</td>
-          <td>{{$curso->nombre_catalogo}}</td>
-          <td>{{$curso->semiperiodo}}</td>
-          <td>{{$curso->fecha_envio_constancia}}</td>
-          <td>{{$curso->emision}}</td>
-        </tr>
-      @endforeach
+        @endif
+        <td style='background-color:yellow'>{{$usuario->nombre}}</td>
+        <td>{{$usuario->nombre_catalogo}}</td>
+        <td>{{$usuario->semiperiodo}}</td>
+        <td>{{$usuario->fecha_envio_reconocimiento}}</td>
+        <td>{{$usuario->emision}}</td>
+      </tr>
     @endforeach
     </tbody>
 </html>

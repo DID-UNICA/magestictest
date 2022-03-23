@@ -21,6 +21,7 @@
                 <h2>{{ $curso->getNombreCurso()}}</h2>
                 <h3>Lista de de instructores</h3>
                   {!! Form::open(["route" => ["profesor.consulta2", $curso->id], "method" => "POST"]) !!}
+                  {{ csrf_field() }}
                 <div class="input-group">
                     {!!Form::text("pattern", null, [ "class" => "form-control", "placeholder" => "Buscar Profesor"])!!}
                     {!! Form::select('type', array(
@@ -41,7 +42,7 @@
                 </div>
             </div>
             <div class="panel-body tablaFija">
-                <table class="col-md-6">
+                <table class="col-md-11">
                     <tr>
                       <th style='text-align:center;'>Profesores</th>
                     </tr>
@@ -51,8 +52,10 @@
                         <th>RFC</th>
                         <th>Número Trabajador</th>
                     </tr>
+                    @if(sizeof($profesores)!=0)
                     @foreach($profesores as $profesor)
                         {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.altaInstructores', $curso->id,$profesor->id] ,'files' => true, 'method' => 'POST' )) !!}
+                        {{ csrf_field() }}
                         <tr>
                             <td>{{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }} {{ $profesor->nombres }}</td>
                             <td>{{ $profesor->email}}</td>
@@ -64,9 +67,12 @@
                         </tr>
                     {!! Form::close() !!}
                     @endforeach
+                    @else
+                    <tr><td><hr><h3>No hay resultados</h3><hr></td></tr>
+                    @endif
                 </table>
 
-                <table class="col-md-6">
+                <table class="col-md-11">
                     <tr>
                       <th style='text-align:center;'>Instructores</th>
                     </tr>
@@ -78,6 +84,7 @@
                     </tr>
                     @foreach($instructores as $instructor)
                         {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.bajaInstructores',$curso->id, $instructor->id] ,'files' => true, 'method' => 'POST' )) !!}
+                        {{ csrf_field() }}
                         <tr>
                             <td>{{ $instructor->apellido_paterno }} {{ $instructor->apellido_materno }} {{ $instructor->nombres }}</td>
                             <td>{{ $instructor->email}}</td>

@@ -53,29 +53,32 @@ body {
 }
 .table-cursos{
   width: 100%;
+  
 }
 .table-cursos .col-th {
     font-weight:normal;
     text-align:center;
     vertical-align:bottom;
-    font-size: 14px;
+    font-size: 12px;
     font-family:'Tangerine', serif;
-    
-    
+    table-layout: fixed; 
 }
 
 .col-td-cl{
   text-align: left;
   font-size:10px;
+  word-wrap: break-word;
 }
 
 .col-td-nombre{
   text-align: left;
-  font-size:13px;
+  font-size:12px;
+  word-wrap: break-word;
 }
 .col-td-inst{
   text-align: left;
-  font-size:12px;
+  font-size:11px;
+  word-wrap: break-word;
 }
 .col-td-fif{
   text-align: left;
@@ -83,19 +86,20 @@ body {
 }
 .col-td-fechas{
   text-align: left;
-  font-size:13px;
+  font-size:12px;
+  word-wrap: break-word;
 }
 .col-td-horario{
   text-align: center;
-  font-size:13px;
+  font-size:11px;
 }
 .col-td-duracion{
   text-align: center;
-  font-size:13px;
+  font-size:11px;
 }
 .col-td-salon{
   text-align: left;
-  font-size:13px;
+  font-size:12px;
 }
 .col-td-cupo{
   text-align: center;
@@ -122,39 +126,40 @@ body {
     <table class="table-cursos" width=100%>
     <thead>
     <tr>
-        <th width=5% class="col-th">Clave y leyenda de constancia</th>
+        <th width=8% class="col-th">Clave y leyenda de constancia</th>
         <th width=20% class="col-th">Nombre del curso</th>
-        <th width=20% class="col-th">Instructor(es)</th>
+        <th width=17% class="col-th">Instructor(es)</th>
         <th width=25% class="col-th" colspan="2">Fechas</th>
-        <th width=5% class="col-th">Horario</th>
+        <th width=8% class="col-th">Horario</th>
         <th width=5% class="col-th">Horas</th>
         <th width=10% class="col-th">Sede</th>
-        <th width=10% class="col-th">Cupo máximo y mínimo</th>
+        <th width=7% class="col-th">Cupo máximo y mínimo</th>
     </tr>
     </thead>
     </table>
-    <hr>
     <table class="table-cursos" width=100%>
     <tbody>
         @foreach($cursos as $curso)
         <tr>
-            <td width=5% class="col-td-cl">{{$curso->getClave()}}</td>
+            <td width=8% class="col-td-cl">{{$curso->getClave()}}</td>
             <td width=20% class="col-td-nombre" rowspan=2>{{$curso->getNombreCursoSinClave()}}</td>
-            <td width=20% class="col-td-inst" rowspan=2>{{$curso->getProfesores()}}</td>
+            <td width=17% class="col-td-inst" rowspan=2>{{$curso->getProfesores()}}</td>
             <td width=10% class="col-td-fif">{{$curso->getFechaInicio()}}</td>
             <td width=15% class="col-td-fechas"rowspan=2>{{$curso->getFecha()}}</td>
-            <td width=5% class="col-td-horario">{{$curso->getHoraInicio()}}</td>
+            <td width=8% class="col-td-horario">{{$curso->getHoraInicio()}}</td>
             <td width=5% class="col-td-duracion" rowspan=2>{{$curso->getDuracion()}}</td>
             <td width=10% class="col-td-salon" rowspan=2>{{$curso->getSalon()}}</td>
-            <td width=10% class="col-td-cupo"> {{$curso->getCupoMax()}}</td>
+            <td width=7% class="col-td-cupo"> {{$curso->getCupoMax()}}</td>
         </tr>
         <tr>
             <td width=5% class="col-td-cl">{{$curso->leyenda}}</td>
             <td width=10% class="col-td-fif">{{$curso->getFechaFin()}}</td>
-            <td width=5% class="col-td-horario">{{$curso->getHoraFin()}}</td>
-            <td width=10% class="col-td-cupo">{{$curso->getCupoMin()}}</td>
+            <td width=8% class="col-td-horario">{{$curso->getHoraFin()}}</td>
+            <td width=7% class="col-td-cupo">{{$curso->getCupoMin()}}</td>
         </tr>
         @endforeach
     </tbody>
     </table>
     </div>
+  </div>
+</body>
