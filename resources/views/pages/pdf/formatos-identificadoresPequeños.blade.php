@@ -47,7 +47,7 @@ html{
 }
 
 .nombre-largo{
-	font-size: 32px;
+	font-size: 25px;
 	font-family:'Tangerine', serif;
 	font-weight: bold;
 	text-align: center;
