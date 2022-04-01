@@ -2069,7 +2069,7 @@ en impuestos universitarios.',
       ]);
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>1,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>2,
         'numero'=>1
       ]);
 
@@ -2081,61 +2081,61 @@ en impuestos universitarios.',
 
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>2,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>2,
         'numero'=>1
       ]);
 
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>2,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>4,
         'numero'=>2
       ]);
 
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>3,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>2,
         'numero'=>1
       ]);
       
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>3,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>4,
         'numero'=>2
       ]);
 
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>4,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>2,
         'numero'=>1
       ]);
 
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>4,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>4,
         'numero'=>2
       ]);
 
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>5,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>2,
         'numero'=>1
       ]);
 
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>5,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>4,
         'numero'=>2
       ]);
 
-      DB::table('profesores_categorias')->insert([ //id=119
-        'profesor_id'=>6,
-        'categoria_nivel_id'=>1,
-        'numero'=>1
-      ]);
-      
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>6,
         'categoria_nivel_id'=>2,
+        'numero'=>1
+      ]);
+      
+      DB::table('profesores_categorias')->insert([ //id=119
+        'profesor_id'=>6,
+        'categoria_nivel_id'=>4,
         'numero'=>2
       ]);
 
@@ -2147,7 +2147,7 @@ en impuestos universitarios.',
       
       DB::table('profesores_categorias')->insert([ //id=119
         'profesor_id'=>7,
-        'categoria_nivel_id'=>1,
+        'categoria_nivel_id'=>3,
         'numero'=>2
       ]);
 

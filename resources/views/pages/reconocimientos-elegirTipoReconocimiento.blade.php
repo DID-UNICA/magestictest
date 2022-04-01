@@ -26,7 +26,7 @@
     @include ('partials.messages')
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3>Coordinación de Gestión y Vinculación</h3>
+        <h3>Generación de Formatos</h3>
       </div>
       <div class="panel-body">
         @include('flash::message')

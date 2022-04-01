@@ -25,6 +25,7 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
       foreach($cursos as $curso){
         $catalogo_curso = CatalogoCurso::find($curso->catalogo_id);
         $curso->nombre_catalogo = $catalogo_curso->nombre_curso;
+        $curso->clave = $catalogo_curso->clave_curso;
         $curso->semiperiodo = $curso->getSemestre();
         $curso->emision = $catalogo_curso->institucion;
         $curso->instructores = ProfesoresCurso::where('curso_id', $curso->id)->get();
@@ -38,9 +39,13 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
           $profesor = Profesor::find($instructor->profesor_id);
           $instructor->ord = $profesor->getNombres();
           $instructor->nombre = $profesor->getFirmanteConstancia();
+          $instructor->categoria = $profesor->getCategoria_1();
+          $instructor->clave = $curso->clave;
           $instructor->nombre_catalogo = $curso->nombre_catalogo;
+          $instructor->fecha_inicio = $curso->getFechaInicio();
+          $instructor->fecha_fin = $curso->getFechaFin();
           $instructor->semiperiodo = $curso->semiperiodo;
-          $instructor->fecha_envio_reconocimiento = $curso->fecha_envio_reconocimiento;
+          $instructor->fecha_envio = $curso->fecha_envio_reconocimiento;
           $instructor->emision = $curso->emision;
           $instructor->semestre_anio = $curso->semestre_anio;
           $instructor->semestre_pi = $curso->semestre_pi;
@@ -49,9 +54,13 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
         }
         foreach($curso->participantes as $participante){
           $participante->nombre = Profesor::find($participante->profesor_id)->getNombres();
+          $participante->categoria = $profesor->getCategoria_1();
+          $participante->clave = $curso->clave;
           $participante->nombre_catalogo = $curso->nombre_catalogo;
+          $participante->fecha_inicio = $curso->getFechaInicio();
+          $participante->fecha_fin = $curso->getFechaFin();
           $participante->semiperiodo = $curso->semiperiodo;
-          $participante->fecha_envio_reconocimiento = $curso->fecha_envio_reconocimiento;
+          $participante->fecha_envio = $curso->fecha_envio_constancia;
           $participante->emision = $curso->emision;
           $participante->ord = $participante->nombre;
           $participante->semestre_anio = $curso->semestre_anio;
