@@ -4,7 +4,6 @@
 
 @section('contenido')
         <!--Body content-->
-
 <div class="content">
     <div class="top-bar">
         <a href="#menu" class="side-menu-link burger">
@@ -18,7 +17,7 @@
         @include ('partials.messages')
         <div class="panel panel-default">
 					<div class="panel-heading">
-							<h1>Curso</h1>
+							<h1 class='header'>Curso</h1>
 							<h2>{{ $user->nombre_curso }} </h2>
 					</div>
 					<div class="panel-body">

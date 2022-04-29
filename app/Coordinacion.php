@@ -39,4 +39,5 @@ class Coordinacion extends Authenticatable
     public function getNombreFirma(){
       return $this->grado.' '.$this->coordinador;
     }
+    
 }

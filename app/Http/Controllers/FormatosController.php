@@ -28,15 +28,33 @@ class FormatosController extends Controller
         }elseif($request->type2 == 'excel2'){
             return (new AllCursosPartialExport)->download('reporte_parcial.xlsx');
         }elseif ($request->type2 == 'sugerencia'){
-            $coordinaciones = Coordinacion::where('nombre_coordinacion','<>', 'Coordinación Del Centro de Docencia')->get();
-            $cursos = Curso::all()
-                ->where('semestre_anio', $anio)
-                ->where('semestre_pi', $pi)
-                ->where('semestre_si', $si);
+          
+          $coordinaciones = Coordinacion::where('nombre_coordinacion','<>', 'Coordinación Del Centro de Docencia')
+            ->select('id as coord_id','nombre_coordinacion')
+            ->get();
+          foreach($coordinaciones as $coordinacion){
+            $coordinacion->cursos = DB::table('catalogo_cursos as cc')
+              ->join('cursos as c', 'c.catalogo_id', '=', 'cc.id')
+              ->where('cc.coordinacion_id', $coordinacion->coord_id)
+              ->where('c.semestre_anio', $anio)
+              ->where('c.semestre_pi', $pi)
+              ->where('c.semestre_si', $si)
+              ->select('c.id as curso_id', 'cc.nombre_curso')
+              ->get();
+            foreach($coordinacion->cursos as $curso){
+              $curso->sugerencias = DB::table('participante_curso as pc')
+                ->join('profesors as p', 'pc.profesor_id', '=', 'p.id')
+                ->join('_evaluacion_final_curso as e', 'e.participante_curso_id', '=', 'pc.id')
+                ->where('pc.curso_id', $curso->curso_id)
+                ->where('e.sug', 'not like', 'Ninguna')
+                ->where('e.sug', 'not like', 'En blanco')
+                ->select('p.nombres', 'p.apellido_paterno', 'p.apellido_materno', 'e.sug')
+                ->get();
+            }
+          }
             $datos = array(
                 'periodo'=>$periodo, 
-                'coordinaciones'=>$coordinaciones,
-                'cursos'=>$cursos
+                'coordinaciones'=>$coordinaciones
             );
             $pdf = PDF::loadView('pages.pdf.reportecomentarios', $datos)
                 ->setPaper('letter');
