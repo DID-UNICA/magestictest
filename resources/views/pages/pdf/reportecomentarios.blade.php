@@ -221,10 +221,6 @@ body {
         <tbody>
           <tr>
             <td width=50%>P Procede</td>
-            <td width=50%>C Comentar con los involucrados</td>
-          </tr>
-          <tr>
-            <td width=50%>A Analizar</td>
             <td width=50%>NP No procede </td>
           </tr>
         </tbody>

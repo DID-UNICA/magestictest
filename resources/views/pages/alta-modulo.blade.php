@@ -133,7 +133,7 @@
                 </td>
               </tr>
             </table>
-            <p1 style="color: red;"> *Recuerde que la fecha de fin debe coincidir con el día de la semana seleccionado </p1>
+            <p1 style="color: red;"> *Recuerde que para el correcto funcionamiento del calendario de sesiones, la fecha de fin  seleccionada arriba, debe coincidir con uno de los días de la semana seleccionados.</p1>
             @if ($errors->has('dias_semana'))
               <span class="help-block">
                 <strong>{{ $errors->first('dias_semana') }}</strong>
