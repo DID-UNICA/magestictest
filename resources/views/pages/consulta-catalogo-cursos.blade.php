@@ -36,19 +36,17 @@
                 </div>
             </div>
             <div class="panel-body tablaFija">
-
                 <table class="col-md-12">
                     <tr>
                         <th>Clave</th>
                         <th>Nombre del curso</th>
                         <th>Coordinación</th>
-
                     </tr>
                     @foreach($users as $user )
                         <tr>
-                            <td>{{$user->clave_curso}}</td>
-                            <td>{{$user->nombre_curso}}</td>
-                            <td>{{$user->getCoordinacion()}}</td>
+                            <td style='padding-right: 15px;'>{{$user->clave_curso}}</td>
+                            <td style='padding-right: 15px;'>{{$user->nombre_curso}}</td>
+                            <td style='padding-right: 15px;'>{{$user->getCoordinacion()}}</td>
                             <td><a href="{{ URL::to('curso/nuevo', $user->id) }}" style="margin: 10px;" class="btn btn-success">Dar de alta</a>
                                 <a href="{{ URL::to('catalogo-cursos', $user->id) }}" style="margin: 10px;" class="btn btn-info">Detalles</a>
                                 <button type="button" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#myModal{{$user->clave_curso}}">Dar de baja</button>

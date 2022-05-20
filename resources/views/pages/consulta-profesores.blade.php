@@ -35,7 +35,7 @@
               </div>
           </div>
           <div class="panel-body tablaFija">
-              <table class="col-md-12">
+              <table>
                   <tr>
                       <th>Nombre</th>
                       <th>Correo</th>
@@ -45,7 +45,7 @@
                   @foreach($users as $user)
                       <tr>
                           <td> {{ $user->apellido_paterno }} {{ $user->apellido_materno }} {{ $user->nombres }}</td>
-                          <td>{{ $user->email}}</td>
+                          <td style='word-break:break-all;'>{{ $user->email}}</td>
                           <td>{{ $user->rfc}}</td>
                           <td align="center">{{ $user->numero_trabajador}}</td>
                           <td>
