@@ -335,49 +335,27 @@ class CursoController extends Controller
       $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%" . $request->pattern . "%'))")->where('tipo', '<>', 'D')->get();
       $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
         ->get();
-      return view('pages.consulta-cursos')->with("cursos", $res_busqueda);
     } elseif ($request->type == "fechas") {
-      $aux = collect();
-      switch ($request->Sem . $request->IO) {
-        case '1i':
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio)->where("semestre_pi", '1')->where("semestre_si", 's')->get());
-          break;
-        case '2s':
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio)->where("semestre_pi", '1')->where("semestre_si", 's')->get());
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio)->where("semestre_pi", '1')->where("semestre_si", 'i')->get());
-          break;
-        case '2i':
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio)->where("semestre_pi", '1')->where("semestre_si", 's')->get());
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio)->where("semestre_pi", '1')->where("semestre_si", 'i')->get());
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio)->where("semestre_pi", '2')->where("semestre_si", 's')->get());
-          break;
-        default:
-          break;
-      }
-      switch ($request->Sem2 . $request->IO2) {
-        case '1s':
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio2)->where("semestre_pi", '1')->where("semestre_si", 'i')->get());
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio2)->where("semestre_pi", '2')->where("semestre_si", 'i')->get());
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio2)->where("semestre_pi", '2')->where("semestre_si", 's')->get());
-          break;
-        case '1i':
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio2)->where("semestre_pi", '2')->where("semestre_si", 'i')->get());
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio2)->where("semestre_pi", '2')->where("semestre_si", 's')->get());
-          break;
-        case '2s':
-          $aux->push(Curso::select('id')->where("semestre_anio", $request->anio2)->where("semestre_pi", '2')->where("semestre_si", 'i')->get());
-          break;
-        default:
-          break;
-      }
-      $res_busqueda = Curso::join('catalogo_cursos', 'catalogo_cursos.id', '=', 'cursos.catalogo_id')
-        ->where('catalogo_cursos.tipo', '!=', '\'D\'')
-        ->where("cursos.semestre_anio", ">=", $request->anio)->where("cursos.semestre_anio", "<=", $request->anio2)
-        ->whereNotIn("cursos.id", $aux->flatten()->filter(function ($value, $key) {
-          return $value->count() > 0;
-        }))
+      if($request->anio > $request->anio2)
+        return redirect()->route('curso.consulta')->with('danger', 'El año de inicio es mayor que el año de fin, por favor verifique.');
+      if($request->Sem === '3')
+          $sem_num = '%' ;
+      else
+        $sem_num = $request->Sem;
+      if($request->IO === 'a')
+        $sem_type = '%' ;
+      else
+        $sem_type = $request->IO;
+        
+      $res_busqueda = Curso::where("semestre_anio",'>=', $request->anio)
+        ->where("semestre_anio", "<=", $request->anio2)
+        ->whereRaw("semestre_pi LIKE '".$sem_num."'")
+        ->whereRaw("semestre_si LIKE '".$sem_type."'")
         ->get();
-      return view('pages.consulta-cursos')->with("cursos", $res_busqueda);
+
+      $res_busqueda->filter(function ($value){
+        return $value->getTipo() != 'D';
+      });
     } elseif ($request->type == "titular") {
       $words = explode(" ", $request->pattern);
       foreach ($words as $word) {
@@ -388,16 +366,18 @@ class CursoController extends Controller
           ->get();
       }
       $curso_prof = ProfesoresCurso::select('curso_id')->whereIn('profesor_id', $profesores)->get();
-      $res_busqueda = Curso::join('catalogo_cursos', 'catalogo_cursos.id', '=', 'cursos.catalogo_id')
-        ->where('catalogo_cursos.tipo', '<>', 'D')
-        ->whereIn('cursos.id', $curso_prof)->get();
-      return view('pages.consulta-cursos')->with("cursos", $res_busqueda);
+      $res_busqueda = Curso::whereIn('cursos.id', $curso_prof)->get();
+      $res_busqueda->filter(function ($value){
+        return $value->getTipo() != 'D';
+      });
     } elseif ($request->type == "clave") {
       $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%" . $request->pattern . "%'))")->where('tipo', '<>', 'D')->get();
       $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
         ->get();
-      return view('pages.consulta-cursos')->with("cursos", $res_busqueda);
     }
+    if($res_busqueda->isEmpty())
+      return redirect()->route('curso.consulta')->with('warning', 'No hubo resultados en su búsqueda.');
+    return view('pages.consulta-cursos')->with("cursos", $res_busqueda);
   }
 
   public function searchModulo(Request $request)
