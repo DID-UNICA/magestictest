@@ -35,7 +35,7 @@ class Tematica:
         toReturn += self.tematica +"|"
         toReturn += self.semestre_anio +"|"
         toReturn += self.semestre_pi +"|"
-        toReturn += self.semestre_si +"|"
+        toReturn += self.semestre_si
         toReturn += "\n"
 
         return toReturn

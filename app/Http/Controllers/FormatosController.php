@@ -12,6 +12,7 @@ use App\Profesor;
 use App\Coordinacion;
 use Carbon\Carbon;
 use App\Salon;
+use App\HistoricoTematicas;
 use App\Exports\AllCursosExport;
 use App\Exports\AllCursosPartialExport;
 use Dompdf;
@@ -106,27 +107,48 @@ class FormatosController extends Controller
         else
             $str_tematicas = $str_tematicas . ', '.$tematica;
       $interesados = $curso->getInteresados($tematicas);
-      $new_interesados = array(); 
-      if($interesados === 0)
+      if(($interesados[0] === 0 && $interesados[1] === 0) || $interesados == 0)
         return redirect()->back()->with('info', 'No hubo interesados con esas temáticas.');
       //Deshacemos colección
-        foreach($interesados as $interesados_curso){
-        foreach($interesados_curso as $interesado){
-           array_push($new_interesados, $interesado->id);
+      if($interesados[0] !== 0){
+            $new_interesados = array(); 
+            foreach($interesados[0] as $interesados_curso){
+            foreach($interesados_curso as $interesado){
+                array_push($new_interesados, $interesado->id);
+              }
+            }
+            //Eliminamos duplicados
+            $arrUnicos = array_count_values($new_interesados);
+            $arrPreFinal=array();
+            foreach ($arrUnicos  as $key => $value)  {
+              array_push($arrPreFinal, $key);
+            }
+            //Obtenemos a los interesados finalmente
+            $arrayFinal = array();
+            foreach($arrPreFinal as $inter){
+              $participante = ParticipantesCurso::findOrFail($inter);
+              array_push($arrayFinal, $participante);
+            }
         }
-      }
-      //Eliminamos duplicados
-      $arrUnicos = array_count_values($new_interesados);
-      $arrPreFinal=array();
-      foreach ($arrUnicos  as $key => $value)  {
-        array_push($arrPreFinal, $key);
-      }
-      //Obtenemos a los interesados finalmente
-      $arrayFinal = array();
-      foreach($arrPreFinal as $inter){
-        $participante = ParticipantesCurso::findOrFail($inter);
-        array_push($arrayFinal, $participante);
-      }
+        if($interesados[1] !== 0){
+            $new_interesados = array();
+            foreach($interesados[1] as $interesados_curso){
+            foreach($interesados_curso as $interesado){
+                array_push($new_interesados, $interesado->id);
+              }
+            }
+            //Eliminamos duplicados
+            $arrUnicos = array_count_values($new_interesados);
+            $arrPreFinal=array();
+            foreach ($arrUnicos  as $key => $value)  {
+              array_push($arrPreFinal, $key);
+            }
+            //Obtenemos a los interesados finalmente
+            foreach($arrPreFinal as $inter){
+              $participante = HistoricoTematicas::findOrFail($inter);
+              array_push($arrayFinal, $participante);
+            }
+        }
       $datos = array(
           'curso' => $curso,
           'interesados'=> $arrayFinal,

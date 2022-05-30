@@ -112,28 +112,49 @@ body {
         <hr class="line">
 	</div>
     @foreach($interesados as $interesado)
+      @if(get_class($interesado) == 'App\ParticipantesCurso')
         @php
-            $profesor = $interesado->getProfesor();
-            $cursoMatch = $interesado->getCurso();
-            $catalogoMatch = $interesado->getCatalogoCurso();
+              $profesor = $interesado->getProfesor();
+              $cursoMatch = $interesado->getCurso();
+              $catalogoMatch = $interesado->getCatalogoCurso();
         @endphp
-    <div>
-        <table class="table-titulos" width=100%>
-            <thead>
-                <tr>
-                    <th width=40% class="col-th">{{$profesor->getNombresMayus()}}</th>
-                    <th width=40% class="col-th">{{$profesor->email}}</th>
-                    <th width=20% class="col-th">{{$profesor->telefono}}</th>
-                </tr>
-            </thead>
-        </table>
-        <div class="message">
-            <p class="message-content">Estimado profesor@ {{$profesor->getNombreSinApellidos()}}, hemos detectado que en el semestre {{$cursoMatch->getSemestre()}} ud. tomó el curso</p>
-            <p class="message-references">{{$catalogoMatch->nombre_curso}}</p>
-            <p class="message-content">en el cual solicitó la impartición de {{$tematicas}} y nos complace informarle que en este periodo el CDD ha abierto un curso que responde a esa temática.</p>
-            <p class="message-content">Esperando que el curso que hemos desarrollado sea de su interés, nos despedimos de Ud. enviándole un cordial saludo.</p>
+        <div>
+            <table class="table-titulos" width=100%>
+                <thead>
+                    <tr>
+                        <th width=40% class="col-th">{{$profesor->getNombresMayus()}}</th>
+                        <th width=40% class="col-th">{{$profesor->email}}</th>
+                        <th width=20% class="col-th">{{$profesor->telefono}}</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="message">
+                <p class="message-content">Estimado profesor@ {{$profesor->getNombreSinApellidos()}}, hemos detectado que en el semestre {{$cursoMatch->getSemestre()}} ud. tomó el curso</p>
+                <p class="message-references">{{$catalogoMatch->nombre_curso}}</p>
+                <p class="message-content">en el cual solicitó la impartición de {{$tematicas}} y nos complace informarle que en este periodo el CDD ha abierto un curso que responde a esa temática.</p>
+                <p class="message-content">Esperando que el curso que hemos desarrollado sea de su interés, nos despedimos de Ud. enviándole un cordial saludo.</p>
+            </div>
+            <hr class="line">
         </div>
-        <hr class="line">
-    </div>
+      @else
+        <div>
+            <table class="table-titulos" width=100%>
+                <thead>
+                    <tr>
+                        <th width=40% class="col-th">{{$interesado->getNombresMayus()}}</th>
+                        <th width=40% class="col-th">{{$interesado->email_profesor}}</th>
+                        <th width=20% class="col-th">{{$interesado->telefono}}</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="message">
+                <p class="message-content">Estimado profesor@ {{$interesado->nombres_profesor}} {{$interesado->apellido_paterno_profesor}} {{$interesado->apellido_materno_profesor}}, hemos detectado que en el semestre {{$interesado->semestre_anio}}-{{$interesado->semestre_pi}} {{$interesado->semestre_si}} ud. tomó el curso</p>
+                <p class="message-references">{{$interesado->nombre_curso}}</p>
+                <p class="message-content">en el cual solicitó la impartición de {{$interesado->tematica}} y nos complace informarle que en este periodo el CDD ha abierto un curso que responde a esa temática.</p>
+                <p class="message-content">Esperando que el curso que hemos desarrollado sea de su interés, nos despedimos de Ud. enviándole un cordial saludo.</p>
+            </div>
+            <hr class="line">
+        </div>
+      @endif
     @endforeach
 </div>

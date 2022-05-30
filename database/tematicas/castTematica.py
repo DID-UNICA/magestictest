@@ -36,9 +36,11 @@ def getTematicas():
             vars.append(campos_catalogo[llave][count])
         t.Tematica.count = contador
         registro = t.Tematica(vars)
+        existe_curso = False
         for catalogo in registros_catalogo:
             if(registros_catalogo[catalogo].getCVECurso() == vars[1]):
                 registro.setNombreCurso(registros_catalogo[catalogo].getNombreCurso())
+                existe_curso = True
                 break
 
         existe_profesor = False
@@ -49,7 +51,7 @@ def getTematicas():
                     existe_profesor = True
                 break
 
-        if(existe_profesor):
+        if(existe_profesor and existe_curso):
             registros_tematicas.append(registro)
             contador += 1
         

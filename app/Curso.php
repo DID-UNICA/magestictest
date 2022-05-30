@@ -367,8 +367,10 @@ class Curso extends Model
     //TODO Optimizar este metodo y su padre
     public function getInteresados($tematicas){
         $interesados_collection = array();
+        $interesados_hist_collection = array();
         foreach($tematicas as $tematica){
             $encuestascursos = EncuestaFinalCurso::whereRaw("lower(unaccent(otros)) LIKE lower(unaccent('%".$tematica."%'))")->get();
+            $encuestascursos_hist = HistoricoTematicas::select('id')->whereRaw("lower(unaccent(tematica)) LIKE lower(unaccent('%".$tematica."%'))")->get();
             foreach($encuestascursos as $encuestacurso){
                 $interesados = DB::table('_evaluacion_final_curso')
                             ->join('participante_curso', '_evaluacion_final_curso.participante_curso_id', '=', 'participante_curso.id')
@@ -380,10 +382,17 @@ class Curso extends Model
                 else
                     array_push($interesados_collection, $interesados);
             }
+            if($encuestascursos_hist->isEmpty())
+                continue;
+            else
+                array_push($interesados_hist_collection, $encuestascursos_hist);
         }
-        if (empty($interesados_collection))
+        if (empty($interesados_collection) && empty($interesados_hist_collection))
             return 0; //No hubo interesados con esas tematicas
-        return $interesados_collection;
+        $resultados = array();
+        array_push($resultados, $interesados_collection);
+        array_push($resultados, $interesados_hist_collection);
+        return $resultados;
     }
 
     public function getDuracion(){
