@@ -49,9 +49,8 @@ Route::post('curso/inscripcion/{curso_id}/search2', "ProfesorController@search2"
 Route::post('curso/inscripcion/{curso_id}/{tema_id}/search4', "ProfesorController@search4")->name('profesor.consulta4');
 Route::get('curso/generar-formatos/{curso}', "CursoController@GenerarFormatos")->name('curso.generar-formatos');
 Route::get('curso/ver-profesores/{curso}', "CursoController@verParticipante")->name('curso.ver-participante');
-Route::get('curso/modificar-instructor-tema/{curso_id}/{tema_id}', "CursoController@modificarInstructoresSeminario")->name('profesorts.update');
-Route::post('curso/modificar-instructor-tema/asignar/{curso_id}/{profesor_id}/{tema_id}', "CursoController@altaInstructorSeminario")->name('curso.altaInstructorSeminario');
-Route::post('curso/modificar-instructor-tema/eliminar/{curso_id}/{profesor_id}/{tema_id}', "CursoController@bajaInstructorSeminario")->name('curso.bajaInstructorSeminario');
+Route::get('curso/ver-temas-asignados/{curso_id}', "CursoController@verTemasAsignados")->name('curso.ver-temas-asignados');
+Route::post('curso/modificar-instructor-tema/{instructor_id}', "CursoController@modificarInstructorSeminario")->name('profesorts.update');
 Route::post('curso/ver-profesores/response/', "CursoController@verRespuesta")->name('curso.ver-respuesta');
 Route::get('curso/baja-profesor/{id}/{curso_id}/{espera}',"CursoController@bajaParticipante")->name('curso.baja-participante');
 //aqui se registran ambos parametros en la tabla intermedia

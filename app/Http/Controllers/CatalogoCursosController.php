@@ -52,7 +52,8 @@ class CatalogoCursosController extends Controller
      */
     public function nuevo()
     {
-      $coordinaciones = Coordinacion::where('nombre_coordinacion','<>','Coordinación Del Centro de Docencia')->get();
+      $coordinaciones = Coordinacion::where('nombre_coordinacion','<>','Coordinación Del Centro de Docencia')
+        ->where('nombre_coordinacion','<>', 'Área de Gestión y Vinculación')->get();
       $catalogo_cursos = CatalogoCurso::all();
       $profesores = Profesor::all();
 

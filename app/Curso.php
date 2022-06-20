@@ -495,25 +495,26 @@ class Curso extends Model
       return ProfesoresCurso::where('curso_id', $this->id)->get();
     }
 
-    public function getTemasInstrsSeminario(){
-      $temas = array();
-      $tmps = $this->getCatalogoCurso()->getTemasSeminario();
-      foreach($tmps as $tmp){
-        $instructores = ProfesoresCurso::where('curso_id', $this->id)
-          ->where('tema_seminario_id', $tmp->id)->get();
-        $pretemas = ["nombre" => $tmp->nombre, "id"=> $tmp->id, "instructor"=> 'Sin asignar'];
-        if(!$instructores->isEmpty()){
-          foreach($instructores as $index => $instructor){
-            if($index === 0)
-              $pretemas["instructor"] = $instructor->getProfesor()->getNombres2();
-            else
-              $pretemas["instructor"] = $pretemas["instructor"].', '.$instructor->getProfesor()->getNombres2();
-          }
-        }
-        array_push($temas, $pretemas);
-      }
-      return $temas;
-    }
+    //TODO:Borrar metodo
+    // public function getTemasInstrsSeminario(){
+    //   $temas = array();
+    //   $tmps = $this->getCatalogoCurso()->getTemasSeminario();
+    //   foreach($tmps as $tmp){
+    //     $instructores = ProfesoresCurso::where('curso_id', $this->id)
+    //       ->where('tema_seminario_id', $tmp->id)->get();
+    //     $pretemas = ["nombre" => $tmp->nombre, "id"=> $tmp->id, "instructor"=> 'Sin asignar'];
+    //     if(!$instructores->isEmpty()){
+    //       foreach($instructores as $index => $instructor){
+    //         if($index === 0)
+    //           $pretemas["instructor"] = $instructor->getProfesor()->getNombres2();
+    //         else
+    //           $pretemas["instructor"] = $pretemas["instructor"].', '.$instructor->getProfesor()->getNombres2();
+    //       }
+    //     }
+    //     array_push($temas, $pretemas);
+    //   }
+    //   return $temas;
+    // }
 
     public function getParticipantes(){
         $profesor = Profesor::join('participante_curso', 'profesors.id', '=', 'participante_curso.profesor_id')

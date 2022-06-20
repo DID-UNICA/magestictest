@@ -118,7 +118,7 @@
                   <a href="{{ URL::to('curso/instructores', $user->id) }}" class="btn btn-success">Modificar Instructores</a>
                   <button type="button" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#myModal{{$user->id}}">Dar de baja</button>
                   @if($user->getTipo() === 'S')
-                    <a href="{{ route('curso.modificarInstructores', $user->id) }}" class="btn btn-warning">Asignar temas</a>
+                    <a href="{{ route('curso.ver-temas-asignados', $user->id) }}" class="btn btn-warning">Asignar temas</a>
                   @endif
                 </div>
               </div>

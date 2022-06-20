@@ -173,7 +173,7 @@ body{
     <table style="width: 100%">
       <tr >
         <td class="titulos" width=6%> Número total de horas que abarca el curso</td>
-        <td class="valores" align='left' width=2%>{{ $cursoCatalogo->duracion_curso }}</td>
+        <td class="valores" align='left' width=2%>{{ number_format($cursoCatalogo->duracion_curso, 0, '', '') }}</td>
         <td class="titulos" align='left' width=17%>Fechas de impartición</td>
       </tr>
     </table>
@@ -271,7 +271,7 @@ body{
     <table style="width: 100%">
       <tr>
         <td class="titulos" width=6%> Número total de horas que abarca el curso</td>
-        <td class="valores" align='left' width=2%>{{ $cursoCatalogo->duracion_curso }}</td>
+        <td class="valores" align='left' width=2%>{{ number_format($cursoCatalogo->duracion_curso, 0, '', '') }}</td>
         <td class="titulos" align='left' width=17%>Fechas de impartición</td>
       </tr>
 		</table>

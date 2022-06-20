@@ -26,7 +26,8 @@ protected $fillable = [
     }
     
     public function allCoordinacion(){
-        $coordinacion = Coordinacion::where('nombre_coordinacion','<>', 'Coordinación Del Centro de Docencia')->get();
+        $coordinacion = Coordinacion::where('nombre_coordinacion','<>', 'Coordinación Del Centro de Docencia')
+          ->where('nombre_coordinacion','<>', 'Área de Gestión y Vinculación')->get();
         return $coordinacion;
     }
 
@@ -37,7 +38,7 @@ protected $fillable = [
         return TemaSeminario::where('catalogo_id', $this->id)->get()->count();
     }
     public function getTemasSeminario(){
-        return TemaSeminario::where('catalogo_id', $this->id)->get();
+        return TemaSeminario::where('catalogo_id', $this->id)->get(['id', 'nombre']);
     }
     public function getDiplomado(){
       return Diplomado::findOrFail($this->diplomado_id);

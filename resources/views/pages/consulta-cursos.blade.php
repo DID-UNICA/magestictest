@@ -36,11 +36,11 @@
                 <div class="row">
                   <div class="col-md-4">
                     <label id="AnioP" for="name" class="control-label">Año inicio:</label>
-                    <input id="Anio" type="year" class="form-control" name="anio" placeholder="Año">
+                    <input id="Anio" type="number" class="form-control" name="anio" placeholder="Año">
                   </div>
                   <div class="col-md-4">
                     <label id="AnioP2" for="name" class="control-label">Año fin:</label>
-                    <input id="Anio2" type="year" class="form-control" name="anio2" placeholder="Año">
+                    <input id="Anio2" type="number" class="form-control" name="anio2" placeholder="Año">
                   </div>
                 </div>
                 <div class='row' style='margin-top: 20px'>
@@ -53,6 +53,7 @@
                     {!!Form::select('IO', array('i' => 'Intersemestral', 's' => 'Semestral', 'a' => 'Ambos'), null, ["id" => "IO", "class" => "form-control"]);!!}
                   </div>
                 </div>
+                  <p class='form-label'>*Para buscar en un solo año, ingrese el mismo valor de año para inicio y para fin.</p>
               </div>
               <hr id="hr">
               <div class="row">

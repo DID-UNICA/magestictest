@@ -34,63 +34,63 @@ class CursoController extends Controller
   {
     $curso = Curso::findOrFail($id);
     if ($curso->getTipo() === 'S') {
-      return view('pages.asignar-temas-seminario')
-        ->with('curso', $curso)
-        ->with('temas', $curso->getTemasInstrsSeminario());
+      $profesores = Profesor::whereNotIn(
+        'id',
+        ProfesoresCurso::select('profesor_id')->where('curso_id', $id)->get()
+      )->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+      ->get();
+    } else {
+      $profesores = Profesor::whereNotIn(
+        'id',
+        ProfesoresCurso::select('profesor_id')->where('curso_id', $id)->get()
+      )->whereNotIn(
+        'id',
+        ParticipantesCurso::select('profesor_id')->where('curso_id', $id)->get()
+      )->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+      ->get();
     }
-    $profesores = Profesor::whereNotIn(
-      'id',
-      ProfesoresCurso::select('profesor_id')->where('curso_id', $id)->get()
-    )->get();
+
     $instructores = Profesor::whereIn(
       'id',
       ProfesoresCurso::select('profesor_id')->where('curso_id', $id)->get()
-    )->get();
+    )->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+    ->get();
+
     return view('pages.curso-inscribir-instructores')
       ->with('curso', $curso)
       ->with('profesores', $profesores)
       ->with('instructores', $instructores);
   }
 
-  public function modificarInstructoresSeminario($curso_id, $tema_id)
-  {
-    $curso = Curso::findOrFail($curso_id);
-    $profesores = Profesor::whereNotIn(
-      'id',
-      ProfesoresCurso::select('profesor_id')->where('curso_id', $curso_id)
-        ->where('tema_seminario_id', $tema_id)->get()
-    )->get();
-    $instructores = ProfesoresCurso::where('curso_id', $curso_id)
-      ->where('tema_seminario_id', $tema_id)->get();
-    return view('pages.curso-inscribir-instructores-seminario')
+  public function verTemasAsignados($curso_id){
+    try {
+      $curso = Curso::findOrFail($curso_id);
+    } catch (\Exception $e) {
+      return redirect()->back()->with('danger', 'Curso no encontrado.');
+    }
+    return view('pages.asignar-temas-seminario')
       ->with('curso', $curso)
-      ->with('profesores', $profesores)
-      ->with('instructores', $instructores)
-      ->with('tema_id', $tema_id);
+      ->with('instructores', $curso->getProfesoresCurso())
+      ->with('temas', $curso->getCatalogoCurso()->getTemasSeminario());
   }
 
-  public function altaInstructorSeminario(Request $request, $curso_id, $profesor_id, $tema_id)
+  public function modificarInstructorSeminario(Request $request, $instructor_id)
   {
-    $instructor = new ProfesoresCurso;
-    $instructor->curso_id = $curso_id;
-    $instructor->profesor_id = $profesor_id;
-    if (!$request->fecha_exposicion)
-      return redirect()->back()->with('danger', 'La fecha es obligatoria');
-    $instructor->fecha_exposicion = $request->fecha_exposicion;
-    $instructor->tema_seminario_id = $tema_id;
+    try {
+      $instructor = ProfesoresCurso::findOrFail($instructor_id);
+    } catch (\Exception $e) {
+      return redirect()->back()->with('danger', 'Instructor no encontrado');
+    }
+    if($request->fecha)
+      $instructor->fecha_exposicion = $request->fecha;
+    else
+      $instructor->fecha_exposicion = NULL;
+    if($request->tema_seminario == 0)
+      $instructor->tema_seminario_id = NULL;
+    else
+      $instructor->tema_seminario_id = $request->tema_seminario;
     $instructor->save();
-    return redirect()->route('profesorts.update', [$curso_id, $tema_id])
-      ->with('success', "El profesor ahora es instructor");
-  }
-
-  public function bajaInstructorSeminario($curso_id, $profesor_id, $tema_id)
-  {
-    $instructor = ProfesoresCurso::where('curso_id', $curso_id)
-      ->where('profesor_id', $profesor_id)
-      ->where('tema_seminario_id', $tema_id);
-    $instructor->delete();
-    return redirect()->route('profesorts.update', [$curso_id, $tema_id])
-      ->with('warning', "El profesor ya no es más un instructor del curso");
+    return redirect()->back()->with('success', 'Cambio guardado correctamente');
   }
 
   public function altaInstructores($curso_id, $profesor_id)
@@ -336,6 +336,10 @@ class CursoController extends Controller
       $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
         ->get();
     } elseif ($request->type == "fechas") {
+      if(!$request->anio)
+        return redirect()->route('curso.consulta')->with('danger', 'Es necesario un año de inicio.');
+      if(!$request->anio2)
+        return redirect()->route('curso.consulta')->with('danger', 'Es necesario un año de fin.');
       if($request->anio > $request->anio2)
         return redirect()->route('curso.consulta')->with('danger', 'El año de inicio es mayor que el año de fin, por favor verifique.');
       if($request->Sem === '3')
@@ -678,13 +682,22 @@ class CursoController extends Controller
       ->count();
 
     //Profesores que se pueden inscribir al curso
-    $users = Profesor::select('*')
-      ->whereNotIn('id', Profesor::join('participante_curso', 'participante_curso.profesor_id', 'profesors.id')
-        ->where('participante_curso.curso_id', $id)
-        ->select('profesors.id')->get())
-      ->whereNotIn('id', ProfesoresCurso::where('curso_id', $id)->select('profesor_id')->get())
-      ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
-      ->get();
+    if ($curso->getTipo() === "S") {
+      $users = Profesor::select('*')
+        ->whereNotIn('id', Profesor::join('participante_curso', 'participante_curso.profesor_id', 'profesors.id')
+          ->where('participante_curso.curso_id', $id)
+          ->select('profesors.id')->get())
+        ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+        ->get();
+    } else {
+      $users = Profesor::select('*')
+        ->whereNotIn('id', Profesor::join('participante_curso', 'participante_curso.profesor_id', 'profesors.id')
+          ->where('participante_curso.curso_id', $id)
+          ->select('profesors.id')->get())
+        ->whereNotIn('id', ProfesoresCurso::where('curso_id', $id)->select('profesor_id')->get())
+        ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+        ->get();
+    }
 
     //Cancelados y lista de espera
     $enLista = ParticipantesCurso::select('id')->where('estuvo_en_lista', true)->where('curso_id', $id)->count();
