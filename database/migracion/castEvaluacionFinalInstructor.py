@@ -42,7 +42,7 @@ def getEvaluaciones():
             vars.append(campos_catalogo[llave][count])
         semestre = vars[1].split('-')
         semestreInt = int(semestre[0])
-        if(semestreInt >= 2014):
+        if(semestreInt >= 2022):
             efc.EvaluacionFinalInstructor.count = contador
             registro = efc.EvaluacionFinalInstructor(vars)
             registros_evaluaciones[count] = registro

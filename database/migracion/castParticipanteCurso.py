@@ -36,25 +36,25 @@ def getParticipantes():
         for llave in campos_catalogo:
             vars.append(campos_catalogo[llave][count])
 
-        semestre = vars[1].split('-')
+        semestre = vars[0].split('-')
         semestreInt = int(semestre[0])
-        if(semestreInt >= 2014):
+        if(semestreInt >= 2022):
             pc.ParticipanteCurso.count = contador
             registro = pc.ParticipanteCurso(vars)
             registros_participantes[count] = registro
             fk = 0
             fkCatalogo = 0
             for catalogo in registros_catalogo:
-                if(registros_catalogo[catalogo].getCVECurso() == vars[2]):
+                if(registros_catalogo[catalogo].getCVECurso() == vars[1]):
                     fkCatalogo = registros_catalogo[catalogo].getPK()
                     break
             for curso in registros_cursos:
-                if(registros_cursos[curso].getSemestre() == vars[1] and registros_cursos[curso].getCatalogoId() == fkCatalogo):
+                if(registros_cursos[curso].getSemestre() == vars[0] and registros_cursos[curso].getCatalogoId() == fkCatalogo):
                     fk = registros_cursos[curso].getPK()
             registros_participantes[count].setCurso_id(fk)
             fk = 0
             for profesor in registros_profesores:
-                if(registros_profesores[profesor].getRFC() == vars[4]):
+                if(registros_profesores[profesor].getRFC() == vars[3]):
                     fk = profesor + 1
                     break
             registros_participantes[count].setProfesor_id(fk)

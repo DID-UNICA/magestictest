@@ -10,4 +10,4 @@ class Sede:
         return self.sede
 
     def __str__(self):
-        return str(self.pk) + "#" + self.sede + "#" + str(self.capacidad) + "\n"
+        return str(self.pk)+"#"+self.sede + "#" + str(self.capacidad) + "\n"

@@ -27,6 +27,7 @@ class Curso:
         self.catalogo_id = ""
         self.salon_id = vars[4]
         self.diplomado_id = ""
+        self.sgc = vars[len(vars)-5]
 
     def __str__(self):
         toReturn = str(self.pk) +"|"
@@ -51,7 +52,8 @@ class Curso:
         toReturn += self.num_modulo +"|"
         toReturn += str(self.catalogo_id)+"|"
         toReturn += str(self.salon_id)+"|"
-        toReturn += str(self.diplomado_id)
+        toReturn += str(self.diplomado_id)+"|"
+        toReturn += str(self.sgc)
         toReturn += "\n"
         return toReturn
 

@@ -1,22 +1,19 @@
-from typing_extensions import ParamSpecKwargs
-
-
 class ParticipanteCurso:
     count = 0
 
     def __init__(self,vars):
         self.pk = self.count
-        self.acreditacion = vars[7],
-        self.asistencia = vars[6],
-        self.calificacion = vars[19],
-        self.confirmacion = vars[5],
-        self.pago_curso = vars[9],
-        self.cancelacion = vars[14],
-        self.monto_pago = vars[10],
-        self.causa_no_acreditacion = vars[8],
-        self.estuvo_en_lista = vars[15],
-        self.espera = vars[16],
-        self.contesto_hoja_evaluacion = vars[17]
+        self.acreditacion = vars[6],
+        self.asistencia = vars[5],
+        self.calificacion = vars[18],
+        self.confirmacion = vars[4],
+        self.pago_curso = vars[8],
+        self.cancelacion = vars[13],
+        self.monto_pago = vars[9],
+        self.causa_no_acreditacion = vars[7],
+        self.estuvo_en_lista = vars[14],
+        self.espera = vars[15],
+        self.contesto_hoja_evaluacion = vars[16]
 
         #print(vars[6]+","+vars[5]+","+vars[18]+","+vars[4]+","+vars[8]+","+vars[13]+","+vars[9]+","+vars[7]+","+vars[14]+","+vars[15]+","+vars[16])
         #print(vars[18])

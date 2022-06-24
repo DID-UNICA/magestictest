@@ -6,43 +6,43 @@ class EvaluacionFinal:
 
     def __init__(self, vars):
         self.pk = self.count,
-        self.p1_1 = vars[24],
-        self.p1_2 = vars[25],
-        self.p1_3 = vars[26],
-        self.p1_4 = vars[27],
-        self.p1_5 = vars[28],
-        self.p2_1 = vars[29]
-        self.p2_2 = vars[30],
-        self.p2_3 = vars[31],
-        self.p2_4 = vars[32],
-        self.p3_1 = vars[33],
-        self.p3_2 = vars[34],
-        self.p3_3 = vars[35],
-        self.p3_4 = vars[36],
-        self.p7 = vars[37],
+        self.p1_1 = vars[23],
+        self.p1_2 = vars[24],
+        self.p1_3 = vars[25],
+        self.p1_4 = vars[26],
+        self.p1_5 = vars[27],
+        self.p2_1 = vars[28]
+        self.p2_2 = vars[29],
+        self.p2_3 = vars[30],
+        self.p2_4 = vars[31],
+        self.p3_1 = vars[32],
+        self.p3_2 = vars[33],
+        self.p3_3 = vars[34],
+        self.p3_4 = vars[35],
+        self.p7 = vars[36],
         
         lista = []
-        if(vars[39]):   
-            lista.append('1')
+        if(vars[38]):   
+            lista.append("1")
+        if(vars[39]):
+            lista.append("2")
         if(vars[40]):
-            lista.append('2')
+            lista.append("3")
         if(vars[41]):
-            lista.append('3')
-        if(vars[42]):
-            lista.append('4')
+            lista.append("4")
         self.p8 = lista
-        self.p9 = vars[44],
-        self.sug = vars[45]
-        self.horarios = vars[49],
-        self.horarioi = vars[50],
+        self.p9 = vars[43],
+        self.sug = vars[44]
+        self.horarios = vars[48],
+        self.horarioi = vars[49],
         self.participante_curso_id = vars[0]
         lista = []
+        if(vars[45]):
+            lista.append("1")
         if(vars[46]):
-            lista.append('1')
+            lista.append("2")
         if(vars[47]):
-            lista.append('2')
-        if(vars[48]):
-            lista.append('3')
+            lista.append("3")
         self.conocimiento = lista
         print(self.pk)
     

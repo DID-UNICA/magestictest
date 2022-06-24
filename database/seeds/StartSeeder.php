@@ -415,7 +415,45 @@ class StartSeeder extends Seeder
         DB::table('categoria_nivel')->insert([
           'categoria' => 'Técnico Titular C TC', 'abreviatura' => 'TEC TIT C T C'
         ]);
-        
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Profesor de Carrera Asociado A TC', 'abreviatura' => 'PROF ASO A T C'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Profesor de Carrera Asociado B MT', 'abreviatura' => 'PROF ASO B M T'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Profesor de Carrera Asociado B TC', 'abreviatura' => 'PROF ASO B T C'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Profesor de Carrera Asociado C MT', 'abreviatura' => 'PROF ASO C M T'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Profesor de Carrera Asociado C TC', 'abreviatura' => 'PROF ASO C T C'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Profesor de Carrera Asociado A MT', 'abreviatura' => 'PROF ASO A M T'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Docente Jubilado', 'abreviatura' => 'JUBILADO DOCENTE'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Jefe de departamento', 'abreviatura' => 'JEFE DE DEPTO.'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Técnico Auxiliar C MT', 'abreviatura' => 'TEC AUX C M T'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Jefe de Área', 'abreviatura' => 'JEFE DE AREA'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Personal con Honorarios', 'abreviatura' => 'Honorarios'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Investigador Asociado C TC', 'abreviatura' => 'INV ASOC C TC'
+        ]);
+        DB::table('categoria_nivel')->insert([
+          'categoria' => 'Profesor con Honorarios', 'abreviatura' => 'HONORARIOS  SER PRO'
+        ]);
 
         //PROFESORES DE PRUEBA
         DB::table('profesors')->insert([

@@ -32,7 +32,7 @@ def getCursos():
             vars.append(campos_catalogo[llave][count])
         semestre = vars[0].split('-')
         semestreInt = int(semestre[0])
-        if(semestreInt >= 2014):
+        if(semestreInt >= 2022):
             C.Curso.count = contador
             registro = C.Curso(vars)
             registros_cursos[count]=registro

@@ -252,7 +252,11 @@ class ReconocimientosController extends Controller
     }
 
     // OBTENCIÓN DE INSTRUCTORES
-    $instructores = ProfesoresCurso::where('curso_id', $id)->get()->sortBy('id');
+    $instructores = ProfesoresCurso::leftJoin('profesors', 'profesors.id','=','profesor_curso.profesor_id')
+    ->where('profesor_curso.curso_id', $id)
+    ->select('profesor_curso.*')
+    ->orderByRaw("lower(unaccent(profesors.apellido_paterno)),lower(unaccent(profesors.apellido_materno)),lower(unaccent(profesors.nombres))")
+    ->get();
     if ($instructores->count() == 0)
       return redirect()->back()->with(
         'danger',
@@ -327,7 +331,7 @@ class ReconocimientosController extends Controller
           'length4' => $length4
         )
       )->setPaper('letter', 'landscape');
-      $nombreArchivo = strval($iter) . 'Coordinador_' . $coordinacion->coordinador . '_R.pdf';
+      $nombreArchivo = strval($iter) . '_Coordinador_' . $coordinacion->getNombreArchivo() . '_R.pdf';
       $pdf->save(resource_path('views/pages/tmp' . $hash_aux . '/' . $nombreArchivo));
       $pdfMerger->addPDF(resource_path('views/pages/tmp' . $hash_aux . '/' . $nombreArchivo), 'all', 'L');
       $zip::addString($nombreArchivo, $pdf->download($nombreArchivo));

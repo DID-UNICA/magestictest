@@ -25,15 +25,17 @@ def getEvaluaciones():
         vars = []
         for llave in campos_catalogo:
             vars.append(campos_catalogo[llave][count])
-        semestre = vars[1].split('-')
+        print(vars[0])
+        semestre = vars[0].split('-')
         semestreInt = int(semestre[0])
-        if(semestreInt >= 2014 and vars[17]):
+        if(semestreInt >= 2022):
             contador_id += 1
             e.EvaluacionFinal.count = contador_id
             registro = e.EvaluacionFinal(vars)
             registro.setPK(contador_id)
             registros_evaluaciones[count] = registro
     
+    print(campos)
     return registros_evaluaciones
 
 registros_evaluaciones = getEvaluaciones()

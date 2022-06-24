@@ -40,4 +40,7 @@ class Coordinacion extends Authenticatable
       return $this->grado.' '.$this->coordinador;
     }
     
+    public function getNombreArchivo() {
+      return str_replace(' ', '', $this->coordinador);
+    }
 }
