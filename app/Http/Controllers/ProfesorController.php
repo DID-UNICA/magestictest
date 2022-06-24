@@ -295,7 +295,7 @@ class ProfesorController extends Controller
   public function search4(Request $request, $id, $tema_id)
   {
     $curso = Curso::findOrFail($id);
-    $instructores = ProfesoresCurso::where('curso_id', $id)
+    $instructores = ProfesoresCurso::where('curso_id', $id)->where('profesor_id', '<>', NULL)
       ->where('tema_seminario_id', $tema_id)->get();
     $words = explode(" ", $request->pattern);
     $arreglo_aux = array();

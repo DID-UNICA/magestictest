@@ -107,12 +107,12 @@ class CursoController extends Controller
   {
     $curso = Curso::findOrFail($curso_id);
     if ($curso->getTipoCadena() === 'S') {
-      $expositores = ProfesoresCurso::where('curso_id', $curso_id)->where('profesor_id', $profesor_id)->get();
+      $expositores = ProfesoresCurso::where('curso_id', $curso_id)->where('profesor_id', '<>', NULL)->where('profesor_id', $profesor_id)->get();
       foreach ($expositores as $expositor) {
         $expositor->delete();
       }
     } else {
-      $instructor = ProfesoresCurso::where('curso_id', $curso_id)->where('profesor_id', $profesor_id);
+      $instructor = ProfesoresCurso::where('curso_id', $curso_id)->where('profesor_id', '<>', NULL)->where('profesor_id', $profesor_id);
       try {
         $instructor->delete();
       } catch (\Illuminate\Database\QueryException $e) {
@@ -597,6 +597,18 @@ class CursoController extends Controller
     $curso->sgc = ($request->SGC == 'on') ? (true) : (false);
     $curso->save();
 
+    // Es necesario crear una instancia de instructor para el folio del coordinador
+    if ($curso->getTipo() === 'S') {
+      try {
+        $curso_coordinador = new ProfesoresCurso;
+        $curso_coordinador->curso_id = $curso->id;
+        $curso_coordinador->es_coordinador = TRUE;
+        $curso_coordinador->save();
+      } catch (Exception $e) {
+        $curso->delete();
+        return redirect()->back()->with('danger', 'Problemas al relacionar al coordinador del seminario.');
+      }
+    }
     return redirect()->route('curso.modificarInstructores', $curso->id)
       ->with('warning', 'Asigne instructores ahora o posteriormente');
   }
@@ -694,7 +706,7 @@ class CursoController extends Controller
         ->whereNotIn('id', Profesor::join('participante_curso', 'participante_curso.profesor_id', 'profesors.id')
           ->where('participante_curso.curso_id', $id)
           ->select('profesors.id')->get())
-        ->whereNotIn('id', ProfesoresCurso::where('curso_id', $id)->select('profesor_id')->get())
+        ->whereNotIn('id', ProfesoresCurso::where('curso_id', $id)->where('profesor_id', '<>', NULL)->select('profesor_id')->get())
         ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
         ->get();
     }

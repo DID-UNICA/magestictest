@@ -15,7 +15,7 @@ class ProfesoresCurso extends Model
      * @var array
      */
     protected $fillable = [
-       'curso_id','profesor_id','tema_seminario_id', 'folio_inst','folio_peque','fecha_envio','fecha_exposicion'];
+       'curso_id','profesor_id','tema_seminario_id', 'folio_inst','folio_peque','fecha_envio','fecha_exposicion', 'es_coordinador'];
 
     public function getProfesor(){
       return Profesor::findOrFail($this->profesor_id);

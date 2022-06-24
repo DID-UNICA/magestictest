@@ -61,7 +61,7 @@ class ConstanciasController extends Controller{
   public function selectType($id)
     {
         $curso = Curso::findOrFail($id);
-        $tmp = ProfesoresCurso::where('curso_id', $id)->get();
+        $tmp = ProfesoresCurso::where('curso_id', $id)->where('profesor_id', '<>', NULL)->get();
         $cuenta = $tmp->count();
         $folio_inst = "123";
         $folio_peque = "123";
@@ -239,7 +239,7 @@ class ConstanciasController extends Controller{
         }
 
         //Obtención de Instructores
-        $profesoresCurso = ProfesoresCurso::where('curso_id',$id)->get();
+        $profesoresCurso = ProfesoresCurso::where('curso_id',$id)->where('profesor_id', '<>', NULL)->get();
         $profesores = array();
         foreach($profesoresCurso as $profesorCurso){
             $tmp = Profesor::find($profesorCurso->profesor_id);

@@ -422,7 +422,7 @@ class Curso extends Model
         return $profesor;
     }
     public function getProfesores(){
-        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->get();
+        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->where('profesor_id', '<>', NULL)->get();
 
         $cadena="";
 
@@ -444,7 +444,7 @@ class Curso extends Model
     }
 
     public function getProfesoresInst(){
-        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->get();
+        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->where('profesor_id', '<>', NULL)->get();
 
         $cadena="";
 
@@ -467,12 +467,12 @@ class Curso extends Model
     }
 
     public function getNumProfesoresInst(){
-        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->get();        
+        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->where('profesor_id', '<>', NULL)->get();        
         return count($profesoresCurso);
     }
 
     public function getProfesoresArray(){
-        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->get();
+        $profesoresCurso = ProfesoresCurso::where('curso_id',$this->id)->where('profesor_id', '<>', NULL)->get();
         $cadena = "";
         $profesores = array();
         foreach($profesoresCurso as $profesorCurso){
@@ -492,7 +492,7 @@ class Curso extends Model
         return $instructores;
     }
     public function getProfesoresCurso(){
-      return ProfesoresCurso::where('curso_id', $this->id)->get();
+      return ProfesoresCurso::where('curso_id', $this->id)->where('profesor_id', '<>', NULL)->get();
     }
 
     //TODO:Borrar metodo
@@ -548,6 +548,10 @@ class Curso extends Model
     public function getCoordinacionId(){
         $catcurso = CatalogoCurso::find($this->catalogo_id);
         return $catcurso->coordinacion_id;
+    }
+    public function getCoordinacion(){
+      $catalogo = CatalogoCurso::find($this->catalogo_id);
+      return Coordinacion::findOrFail($catalogo->coordinacion_id);
     }
 
     public function getDiplomado(){

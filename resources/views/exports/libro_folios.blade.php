@@ -33,7 +33,11 @@
       </tr>
     @foreach($usuarios as $usuario)
       <tr>
-        @if(get_class($usuario) == 'App\ProfesoresCurso')
+        @if($usuario->type === 'COORDINADOR')
+          <td style='background-color:#ca6464'>{{$usuario->folio_inst}}</td>
+          <td>{{$usuario->folio_peque}}</td>
+          <td>COORDINADOR</td>
+        @elseif($usuario->type === 'INSTRUCTOR')
           <td style='background-color:#ca6464'>{{$usuario->folio_inst}}</td>
           <td>{{$usuario->folio_peque}}</td>
           <td>INSTRUCTOR</td>

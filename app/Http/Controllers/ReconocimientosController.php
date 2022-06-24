@@ -253,6 +253,7 @@ class ReconocimientosController extends Controller
 
     // OBTENCIÓN DE INSTRUCTORES
     $instructores = ProfesoresCurso::leftJoin('profesors', 'profesors.id','=','profesor_curso.profesor_id')
+    ->where('profesor_curso.profesor_id', '<>', NULL)
     ->where('profesor_curso.curso_id', $id)
     ->select('profesor_curso.*')
     ->orderByRaw("lower(unaccent(profesors.apellido_paterno)),lower(unaccent(profesors.apellido_materno)),lower(unaccent(profesors.nombres))")
@@ -298,14 +299,24 @@ class ReconocimientosController extends Controller
     //PDF del coordinador
     if ($cursoCatalogo->tipo == "S") {
       $numLista = app('App\Http\Controllers\ReconocimientosController')->convertirACadena($iter);
+      $coordinador_curso = ProfesoresCurso::where('curso_id', $curso->id)
+        ->where('profesor_id', NULL)
+        ->first();
+      if(!$coordinador_curso){
+        $coordinador_curso = new ProfesoresCurso;
+        $coordinador_curso->curso_id = $curso->id;
+        $coordinador_curso->profesor_id = NULL;
+        $coordinador_curso->es_coordinador = TRUE;
+      }
       if ($request->gen_folio_inst) {
-        $folio_inst = $request->folio_inst . $numLista;
+        $coordinador_curso->folio_inst = $request->folio_inst . $numLista;
       } else
-        $folio_inst = "";
+        $coordinador_curso->folio_inst = "";
       if ($folio_der > 0)
-        $folio_peque = strval($folio_der);
+        $coordinador_curso->folio_peque = strval($folio_der);
       else
-        $folio_peque = "";
+        $coordinador_curso->folio_peque = "";
+      $coordinador_curso->save();
       // fecha de todo el seminario
       if (!isset($coordinacion)) {
         $coordinacion = Coordinacion::findOrFail($cursoCatalogo->coordinacion_id);
@@ -322,8 +333,8 @@ class ReconocimientosController extends Controller
           'numFirmantes' => $numFirmantes,
           'fechaimp' => $fechaimp,
           'texto' => $request->sem_pers_coord,
-          'folio' => $folio_inst,
-          'folio_der' => $folio_peque,
+          'folio' => $coordinador_curso->folio_inst,
+          'folio_der' => $coordinador_curso->folio_peque,
           'length0' => $length0,
           'length1' => $length1,
           'length2' => $length2,

@@ -14,9 +14,9 @@ class CreateProfesorCurso extends Migration
         Schema::create('profesor_curso', function (Blueprint $table) {
             $table->increments('id')->unique()->start_from(689);
             $table->Integer('curso_id')->unsigned();
-            $table->Integer('profesor_id')->unsigned();
+            $table->Integer('profesor_id')->unsigned()->nullable();
             $table->Integer('tema_seminario_id')->unsigned()->nullable();
-
+            $table->boolean('es_coordinador')->nullable();
             $table->string('folio_inst')->nullable();
             $table->string('folio_peque')->nullable();
             $table->date('fecha_envio')->nullable();

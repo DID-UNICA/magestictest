@@ -36,21 +36,31 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
         $curso->fecha_envio_reconocimiento = $curso->getFechaEnvioReconocimiento();
         $curso->fecha_envio_constancia = $curso->getFechaEnvioConstancia();
         foreach($curso->instructores as $instructor){
-          $profesor = Profesor::find($instructor->profesor_id);
-          $instructor->ord = $profesor->getNombres();
-          $instructor->nombre = $profesor->getFirmanteConstancia();
-          $instructor->categoria = $profesor->getCategoria_1();
-          $instructor->clave = $curso->clave;
-          $instructor->nombre_catalogo = $curso->nombre_catalogo;
-          $instructor->fecha_inicio = $curso->getFechaInicio();
-          $instructor->fecha_fin = $curso->getFechaFin();
-          $instructor->semiperiodo = $curso->semiperiodo;
-          $instructor->fecha_envio = $curso->fecha_envio_reconocimiento;
-          $instructor->emision = $curso->emision;
-          $instructor->semestre_anio = $curso->semestre_anio;
-          $instructor->semestre_pi = $curso->semestre_pi;
-          $instructor->semestre_si = $curso->semestre_si;
-          $instructor->folio_inst_num = (int)$instructor->folio_inst;
+          if($instructor->profesor_id){
+            $profesor = Profesor::find($instructor->profesor_id);
+            $instructor->ord = $profesor->getNombres();
+            $instructor->nombre = $profesor->getFirmanteConstancia();
+            $instructor->categoria = $profesor->getCategoria_1();
+            $instructor->type = 'INSTRUCTOR';
+          }
+          else{
+            $coord = $curso->getCoordinacion();
+            $instructor->ord = $coord->coordinador;
+            $instructor->nombre = $coord->getNombreFirma();
+            $instructor->categoria = '';
+            $instructor->type = 'COORDINADOR';
+          }
+            $instructor->clave = $curso->clave;
+            $instructor->nombre_catalogo = $curso->nombre_catalogo;
+            $instructor->fecha_inicio = $curso->getFechaInicio();
+            $instructor->fecha_fin = $curso->getFechaFin();
+            $instructor->semiperiodo = $curso->semiperiodo;
+            $instructor->fecha_envio = $curso->fecha_envio_reconocimiento;
+            $instructor->emision = $curso->emision;
+            $instructor->semestre_anio = $curso->semestre_anio;
+            $instructor->semestre_pi = $curso->semestre_pi;
+            $instructor->semestre_si = $curso->semestre_si;
+            $instructor->folio_inst_num = (int)$instructor->folio_inst;
         }
         foreach($curso->participantes as $participante){
           $participante->nombre = Profesor::find($participante->profesor_id)->getNombres();
@@ -67,6 +77,7 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
           $participante->semestre_pi = $curso->semestre_pi;
           $participante->semestre_si = $curso->semestre_si;
           $participante->folio_inst_num = (int)$participante->folio_inst;
+          $participante->type = 'PARTICIPANTE';
         }
         $usuarios = $usuarios->merge($curso->instructores->merge($curso->participantes));
       }
