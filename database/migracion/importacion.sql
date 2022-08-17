@@ -35,16 +35,16 @@ copy _evaluacion_final_curso(id, p1_1,p1_2,p1_3,p1_4,p1_5,p2_1,p2_2,p2_3,p2_4,p3
 copy _evaluacion_instructor_curso(id,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,participante_id,instructor_id) from 'E:\CDD\migracion\Evaluacion_final_instructor.csv' delimiter ',' csv;
 
 --Cambio de las secuencias para poder agregar nuevos datos
-alter sequence catalogo_cursos_id_seq restart with 774;
+alter sequence catalogo_cursos_id_seq restart with 785;
 alter sequence salons_id_seq restart with 59;
-alter sequence profesors_id_seq restart with 5529;
+alter sequence profesors_id_seq restart with 5554;
 alter sequence cursos_id_seq restart with 37;
-alter sequence participante_curso_id_seq restart with 774;
-alter sequence profesor_curso_id_seq restart with 34;
-alter sequence _evaluacion_final_curso_id_seq restart with 773;
-alter sequence _evaluacion_instructor_curso_id_seq restart with 276;
+alter sequence participante_curso_id_seq restart with 788;
+alter sequence profesor_curso_id_seq restart with 53;
+alter sequence _evaluacion_final_curso_id_seq restart with 380;
+alter sequence _evaluacion_instructor_curso_id_seq restart with 446;
 alter sequence profesores_categorias_id_seq restart with 5529;
 
 delete from historico_tematicas where id > 0;
 copy historico_tematicas(id,nombre_curso,nombres_profesor,apellido_paterno_profesor,apellido_materno_profesor,email_profesor,telefono,tematica,semestre_anio,semestre_pi,semestre_si) from 'E:\CDD\tematicas\Tematicas.csv' delimiter '|' csv;
-alter sequence historico_tematicas_id_seq restart with 8248;
+alter sequence historico_tematicas_id_seq restart with 8840;
