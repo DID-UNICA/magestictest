@@ -87,11 +87,10 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
         $x = 1;
       if ($registro['semestre_si'] === 'i')
         $x = 2;
-      if (is_null($registro['folio_inst']))
-        $y = 2;
+      if (is_null($registro['folio_inst']) or $registro['folio_inst'] === '' or $registro['folio_inst'] === ' ')
+        return '2'.$registro['semestre_anio'] . $registro['semestre_pi'] . $x . $registro['nombre_catalogo'] . $registro['type'] . $registro['ord'];
       else
-        $y = 1;
-      return $y . $registro['folio_inst'] . $registro['semestre_anio'] . $registro['semestre_pi'] . $x . $registro['nombre_catalogo'] . $registro['ord'];
+        return '1'.$registro['semestre_anio'] . $registro['semestre_pi'] .  $x . $registro['nombre_catalogo'] . $registro['type'] . $registro['folio_inst'] . $registro['ord'];
     }, SORT_NATURAL);
     return view('exports.libro_folios', ['usuarios' => $usuarios]);
   }
