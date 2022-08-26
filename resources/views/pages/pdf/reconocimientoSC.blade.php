@@ -136,11 +136,11 @@ body {
       <br>
       <div class="centro">
       @if($coordinacion->genero=="M")
-        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento al:</h2>
+        <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento al:</h2>
       @elseif($coordinacion->genero=="F")
-      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a la:</h2>
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento a la:</h2>
       @else
-      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 0.7cm;">Otorgan el presente reconocimiento a:</h2>
+      <h3 style="text-align: center;font-size: 18pt;font-style: normal; margin-top: 1cm;">Otorgan el presente reconocimiento a:</h2>
       @endif
         <br>
         <h2 class='nombre_profesor'>{{$coordinacion->grado}} {{$coordinacion->coordinador}}</h2>
@@ -150,7 +150,7 @@ body {
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
-            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
+            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold;">{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
         </table>
       @elseif(strlen($cursoCatalogo->nombre_curso) < 145)
@@ -159,7 +159,7 @@ body {
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
-            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 19pt;">{{$cursoCatalogo->nombre_curso}}</td>
+            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 19pt;">{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
         </table>
       @elseif(strlen($cursoCatalogo->nombre_curso) < 190)
@@ -168,7 +168,7 @@ body {
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
-            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 19pt;">{{$cursoCatalogo->nombre_curso}}</td>
+            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 19pt;">{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
         </table>
       @elseif(strlen($cursoCatalogo->nombre_curso) < 210)
@@ -177,7 +177,7 @@ body {
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
-            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 17pt;">{{$cursoCatalogo->nombre_curso}}</td>
+            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 17pt;">{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
         </table>
       @else
@@ -186,14 +186,14 @@ body {
           <td height="0.5cm" align="center" style="font-size: 14pt; vertical-align: top; font-weight: bold;">{{$texto}}</td>
           </tr>
           <tr width="15cm">
-            <td height="1.5cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 16pt;">{{$cursoCatalogo->nombre_curso}}</td>
+            <td height="2cm" align="center" vertical-align="top" class='nombre_curso' style="vertical-align: top; font-weight: bold; font-size: 16pt;">{{$cursoCatalogo->nombre_curso}}</td>
           </tr>
         </table>
       @endif
         <p style="font-size:12pt;">{{$fechaimp}}</h5>
         <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
         <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>
-        <p style="font-size: 8pt; padding-bottom: 0.8cm;">Ciudad Universitaria, Cd. Mx., a {{$fecha}}</h6>
+        <p style="font-size: 8pt; padding-bottom: 0.8cm;">Ciudad Universitaria, Cd. Mx., {{$fecha}}</h6>
       </div>
       <div class = "tabla-centro" style="position: relative;">
         <table class = "tabla-centro">

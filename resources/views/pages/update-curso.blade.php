@@ -102,7 +102,7 @@
 
     <div class="form-group col-md-6">
         {!!Form::label("fecha_fin", "Fecha de fin:")!!}
-        {!!Form::date("fecha_fin", $curso->fecha_fin, [ "class" => "form-control", "placeholder" => "Fecha de fin", "required",""])!!}
+        {!!Form::date("fecha_fin", $curso->fecha_fin, [ "class" => "form-control", "placeholder" => "Fecha de fin", "required","onchange" => "update_cal()"])!!}
     </div>
   </div>
 
@@ -129,29 +129,21 @@
     <div class="form-group col-md-12">
         {!!Form::label("sesiones", "Sesiones:")!!}
         {!!Form::text("sesiones", $curso->sesiones, [ "class" => "form-control", "placeholder" => "YYYY-MM-DD,YYYY-MM-DD", "required",""])!!}
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-12 row">
-            <div class="col-md-12">
-                <div id="demo" class="yui3-skin-sam yui3-g">
-                    <div id="leftcolumn" class="yui3-u">
-                       <!-- Container for the calendar -->
-                       <div id="mycalendar"></div>
-                    </div>
-                    <div id="rightcolumn" class="yui3-u">
-                        <div id="links" style="padding-left:10px;">
-                            Dias seleccionados: <span id="selecteddate"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p1 style="color: red;"> *Recuerde que para el correcto funcionamiento
+          de las constancias y reconocimientos, la fecha de inicio, la fecha de 
+          fin, los días de la semana y el número de sesiones seleccionados deben
+          corresponder con las sesiones que se están ingresando. De lo contrario
+          podrían surgir errores. El formato de las sesiones es YYYY-MM-DD y van
+          separadas únicamente por coma.
+        </p1>
     </div>
 
     <div class="form-group col-md-6">
         {!!Form::label("acreditacion", "Acreditación:")!!}
-        {!!Form::number("acreditacion", $curso->acreditacion, [ "class" => "form-control", "placeholder" => "Acreditación", "required",""])!!}
+        {!!Form::number("acreditacion", $curso->acreditacion, 
+                      [ "class"       => "form-control", 
+                        "placeholder" => "Acreditación", 
+                        "required",""])!!}
     </div>
 
     <div class="form-group col-md-6">
@@ -191,7 +183,7 @@
 </div>
 </div>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     YUI().use('calendar', 'datatype-date', 'cssbutton',  function(Y) {
 
     // Create a new instance of calendar, placing it in
@@ -384,7 +376,7 @@
     });
 
   });
-</script>
+</script> --}}
 <script type="text/javascript">
     function pSGC(argument) {
         let sgc_box = document.getElementById('SGC');

@@ -414,19 +414,47 @@ class ReconocimientosController extends Controller
           )
             ->setPaper('letter', 'landscape');
         } elseif ($cursoCatalogo->tipo == "S") {
-          try {
-            $tema = TemaSeminario::findOrFail($instructor->tema_seminario_id);
-          } catch (\Exception $e) {
-            return redirect()->back()->with('danger', 'Alguno de los instructores no posee tema de seminario asociado.');
-          }
-          if (!$fechaimp = $instructor->getFechaImparticion())
-            return redirect()->back()
-              ->with(
-                'danger',
-                'Uno de los instructores no tiene fecha de impartición en su tema del seminario'
-              );
-          $pdf = PDF::loadView(
-            'pages.pdf.reconocimientoS',
+          if(!$request->notema){
+            //Sí quiere temas
+            try {
+              $tema = TemaSeminario::findOrFail($instructor->tema_seminario_id);
+            } catch (\Exception $e) {
+              return redirect()->back()->with('danger', 'Alguno de los instructores no posee tema de seminario asociado.');
+            }
+            if (!$fechaimp = $instructor->getFechaImparticion())
+              return redirect()->back()
+                ->with(
+                  'danger',
+                  'Uno de los instructores no tiene fecha de impartición en su tema del seminario'
+                );
+            $pdf = PDF::loadView(
+              'pages.pdf.reconocimientoS',
+              array(
+                'curso' => $curso,
+                'profesor' => $profesor,
+                'cursoCatalogo' => $cursoCatalogo,
+                'fecha' => $fecha,
+                'firmantes' => $firmantes,
+                'descripciones' => $descripciones,
+                'numFirmantes' => $numFirmantes,
+                'fechaimp' => $fechaimp,
+                'duracion' => $tema->duracion,
+                'tema' => $tema->nombre,
+                'seminario' => $request->sem_pers,
+                'texto' => $request->texto_pers,
+                'folio' => $instructor->folio_inst,
+                'folio_der' => $instructor->folio_peque,
+                'length0' => $length0,
+                'length1' => $length1,
+                'length2' => $length2,
+                'length3' => $length3,
+                'length4' => $length4
+              )
+            )->setPaper('letter', 'landscape');
+          } else {
+            //No quiere temas
+            $pdf = PDF::loadView(
+              'pages.pdf.reconocimientoCTTC',
             array(
               'curso' => $curso,
               'profesor' => $profesor,
@@ -436,9 +464,6 @@ class ReconocimientosController extends Controller
               'descripciones' => $descripciones,
               'numFirmantes' => $numFirmantes,
               'fechaimp' => $fechaimp,
-              'duracion' => $tema->duracion,
-              'tema' => $tema->nombre,
-              'seminario' => $request->sem_pers,
               'texto' => $request->texto_pers,
               'folio' => $instructor->folio_inst,
               'folio_der' => $instructor->folio_peque,
@@ -447,8 +472,9 @@ class ReconocimientosController extends Controller
               'length2' => $length2,
               'length3' => $length3,
               'length4' => $length4
-            )
-          )->setPaper('letter', 'landscape');
+              )
+            )->setPaper('letter', 'landscape');
+          }
         } elseif ($cursoCatalogo->tipo == "D") {
           $diplomado = Diplomado::findOrFail($curso->diplomado_id);
           $pdf = PDF::loadView(

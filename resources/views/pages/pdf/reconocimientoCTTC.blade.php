@@ -153,10 +153,6 @@ body {
         </table>
 
 
-      <!-- <h3 style="font-size: 14pt;padding-top: 0.5cm;">por impartir el {{$curso->getTipoCadena()}}</h3>
-        <h2 class='nombre_curso' style="padding-top: 0.2cm;">{{$cursoCatalogo->nombre_curso}}</h2> -->
-
-
         <p style="font-size:12pt;">{{$fechaimp}}</h5>
         <p style="padding-bottom: 0.3cm; padding-top: 0.3cm; font-size:12pt">Duración: {{$cursoCatalogo->duracion_curso }} h</h5>
         <p style="line-height: 20%; font-size: 12pt; font-weight: bold; padding-bottom: 0.2cm;">"POR MI RAZA HABLARÁ EL ESPÍRITU"</h6>

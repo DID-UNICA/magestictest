@@ -105,7 +105,7 @@
               </div>
             </div>
 
-            <!-- Texto personalizado si el tipo es Seminario -->
+            <!-- Texto personalizado-->
             <div class="form-group row">
               {!!Form::label("texto_pers", "Texto personalizado:", ["class"=>"col-md-3"])!!}
               <div class="col-md-6">
@@ -113,20 +113,30 @@
               </div>
             </div>
             @if($curso->getTipo()=='S')
-             <!-- Texto para personalizar seminario -->
-             <div class="form-group row">
-              {!!Form::label("sem_pers", "Segundo texto personalizado para el reconocimiento:", ["class"=>"col-md-3"])!!}
-              <div class="col-md-6">
-                {!!Form::text("sem_pers",null,["placeholder"=>"Ej. En el seminario","required","class"=>"form-control"])!!}
-              </div>
-            </div>
             <!-- Texto para personalizar leyenda coordinador seminario -->
             <div class="form-group row">
-              {!!Form::label("sem_pers_coord", "Segundo texto personalizado para el reconocimiento del coordinador:", ["class"=>"col-md-3"])!!}
+              {!!Form::label("sem_pers_coord", "Texto personalizado para el reconocimiento del coordinador:", ["class"=>"col-md-3"])!!}
               <div class="col-md-6">
                 {!!Form::text("sem_pers_coord",null,["placeholder"=>"Ej. Por coordinar el VII seminario","required","class"=>"form-control"])!!}
               </div>
             </div>
+             <!-- Texto para personalizar seminario -->
+             <div class="form-group row">
+               {!!Form::label("notema", "Formato sin incluir los temas asociados a los instructores:", ["class"=>"col-md-3"])!!}
+               <div class="col-md-6">
+                 {!!Form::checkbox("notema",'1',false)!!}
+               </div>
+             </div>
+
+             <div id='seg_text' class="form-group row">
+              {!!Form::label("sem_pers", "Segundo texto personalizado para indicar el tema impartido (opcional):", ["class"=>"col-md-3"])!!}
+              <div class="col-md-6">
+                {!!Form::text("sem_pers",null,["required","placeholder"=>"Ej. En el seminario","class"=>"form-control"])!!}
+              </div>
+            </div>
+            
+
+            
             @endif    
             <!-- Texto personalizado si el tipo es evento -->
             @if ($curso->getTipo()=='D')
@@ -230,6 +240,22 @@
           </form>
       </div>
 <script>
+  function formSem(){
+    let checkboxFormatoSem = document.getElementById('notema');
+    let divSegText = document.getElementById('seg_text')
+    let input = document.getElementById('sem_pers')
+    checkboxFormatoSem.addEventListener('change', () => {
+      console.log('Desde funcion')
+      if(checkboxFormatoSem.checked === false){
+        divSegText.style.display="block";
+        input.required=true;
+      }else{
+        divSegText.style.display="none";
+        input.required=false;
+      }
+    });
+  }
+
   function folioInst(){
     let checkboxFolioInst = document.getElementById("gen_folio_inst");
     let divFolioInst = document.getElementById("folioInst");
@@ -307,5 +333,6 @@
 	}
 folioInst();
 folioPeque();
+formSem();
 </script>
 @endsection

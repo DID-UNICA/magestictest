@@ -36,9 +36,14 @@ class CursoController extends Controller
     if ($curso->getTipo() === 'S') {
       $profesores = Profesor::whereNotIn(
         'id',
-        ProfesoresCurso::select('profesor_id')->where('curso_id', $id)->get()
-      )->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
-      ->get();
+        ProfesoresCurso::select('profesor_id')
+          ->where('curso_id', $id)
+          ->where('profesor_id', '<>', NULL)
+          ->get()
+        )->orderByRaw("lower(unaccent(apellido_paterno)),
+                       lower(unaccent(apellido_materno)),
+                       lower(unaccent(nombres))")
+        ->get();
     } else {
       $profesores = Profesor::whereNotIn(
         'id',
@@ -46,14 +51,18 @@ class CursoController extends Controller
       )->whereNotIn(
         'id',
         ParticipantesCurso::select('profesor_id')->where('curso_id', $id)->get()
-      )->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+      )->orderByRaw("lower(unaccent(apellido_paterno)),
+                     lower(unaccent(apellido_materno)),
+                     lower(unaccent(nombres))")
       ->get();
     }
 
     $instructores = Profesor::whereIn(
       'id',
       ProfesoresCurso::select('profesor_id')->where('curso_id', $id)->get()
-    )->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
+    )->orderByRaw("lower(unaccent(apellido_paterno)),
+                   lower(unaccent(apellido_materno)),
+                   lower(unaccent(nombres))")
     ->get();
 
     return view('pages.curso-inscribir-instructores')
@@ -107,12 +116,17 @@ class CursoController extends Controller
   {
     $curso = Curso::findOrFail($curso_id);
     if ($curso->getTipoCadena() === 'S') {
-      $expositores = ProfesoresCurso::where('curso_id', $curso_id)->where('profesor_id', '<>', NULL)->where('profesor_id', $profesor_id)->get();
+      $expositores = ProfesoresCurso::where('curso_id', $curso_id)
+                                    ->where('profesor_id', '<>', NULL)
+                                    ->where('profesor_id', $profesor_id)
+                                    ->get();
       foreach ($expositores as $expositor) {
         $expositor->delete();
       }
     } else {
-      $instructor = ProfesoresCurso::where('curso_id', $curso_id)->where('profesor_id', '<>', NULL)->where('profesor_id', $profesor_id);
+      $instructor = ProfesoresCurso::where('curso_id', $curso_id)
+                                   ->where('profesor_id', '<>', NULL)
+                                   ->where('profesor_id', $profesor_id);
       try {
         $instructor->delete();
       } catch (\Illuminate\Database\QueryException $e) {
@@ -130,7 +144,9 @@ class CursoController extends Controller
   public function index()
   {
     return view("pages.consulta-cursos")
-      ->with("cursos", $cursos = Curso::join('catalogo_cursos', 'catalogo_cursos.id', '=', 'cursos.catalogo_id')
+      ->with("cursos", $cursos = Curso::join('catalogo_cursos',
+                                             'catalogo_cursos.id', '=',
+                                             'cursos.catalogo_id')
         ->where('catalogo_cursos.tipo', '<>', 'D')
         ->select('cursos.*')->get());
   }
