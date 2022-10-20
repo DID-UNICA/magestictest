@@ -3,9 +3,9 @@
 --@Descripción: Script de creación de base local para pruebas
 --del proyecto.
 --Se ejecuta con \i
-create user magestic with encrypted password 'password';
-create database magestic with owner magestic encoding UTF8;
-grant all privileges on database magestic to magestic;
+create user magesticd with encrypted password 'magesticd';
+create database magesticd with owner magesticd encoding UTF8;
+grant all privileges on database magesticd to magesticd;
 
 --Es necesario en fedora instalar:
 --sudo dnf install postgresql-contrib
