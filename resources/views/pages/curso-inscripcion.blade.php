@@ -18,10 +18,10 @@
         @include ('partials.messages')
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2>{{ $curso->getNombreCurso()}}</h2>
+                <h2>{{ $curso->nombre_curso}}</h2>
                 <h3>Lista de profesores</h3>
-                <h3>Cupo máximo: {{$count}}/{{$curso->cupo_maximo}}</h3><h3>Lista de espera: {{$lista}}</h3>
-                @if($count >= $curso->cupo_maximo)<div class="alert alert-danger" role='alert'>El curso ya está lleno, las siguientes inscripciones entrarán a lista de espera.</div>@endif
+                <h3>Cupo máximo: {{$curso->participant_count}}/{{$curso->cupo_maximo}}</h3><h3>Lista de espera: {{$curso->list_count}}</h3>
+                @if($curso->participant_count >= $curso->cupo_maximo)<div class="alert alert-danger" role='alert'>El curso ya está lleno, las siguientes inscripciones entrarán a lista de espera.</div>@endif
                 {!! Form::open(["route" => ["profesor.consulta1", $curso->id], "method" => "POST"]) !!}
                 {{ csrf_field() }}
                 <div class="input-group">
@@ -30,21 +30,16 @@
                       'nombre' => 'Por nombre',
                       'correo' => 'Por correo',
                       'rfc' => 'Por RFC',
-                        'num' => 'Por número trabajador'),
+                      'num' => 'Por número trabajador'),
                       null,['class' => 'btn dropdown-toggle pull-left', 'style'=>'margin:5px;'] ) !!}
-                    {!!Form::hidden('count',$count)!!}
-                    {!!Form::hidden('cupo',$curso->cupo_maximo)!!}
-                    {!!Form::hidden('curso',$curso)!!}
-                    {!!Form::hidden('nombre_curso',$curso->getNombreCurso())!!}
                 {!! Form::close() !!}
                     <div class="row form-group">
-                         <button style="margin:5px;" class="btn btn-success " type="submit">Buscar</button>
-                          @if($curso->getTipo() === 'D')
-                            <a style="margin: 5px;" href="{{ route('modulo.consulta') }}" class="btn btn-info">Regresar</a>
-                          @else
-                            <a style="margin:5px;" href="{{ route('curso.consulta') }}" class="btn btn-info">Regresar</a>
-                          @endif
-
+                      <button style="margin:5px;" class="btn btn-success " type="submit">Buscar</button>
+                      @if($curso->tipo === 'D')
+                        <a style="margin: 5px;" href="{{ route('modulo.consulta') }}" class="btn btn-info">Regresar</a>
+                      @else
+                        <a style="margin:5px;" href="{{ route('curso.consulta') }}" class="btn btn-info">Regresar</a>
+                      @endif
                     </div>
                 </div>
             </div>
@@ -57,14 +52,14 @@
                         <th>RFC</th>
                         <th>Número Trabajador</th>
                     </tr>
-                    @foreach($users as $user)
-                    {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.registrar', $user->id,$curso->id] ,'files' => true, 'method' => 'POST' )) !!}
+                    @foreach($profesores as $profesor)
+                    {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.registrar', $profesor->id,$curso->id] ,'files' => true, 'method' => 'POST' )) !!}
                     {{ csrf_field() }}
                         <tr>
-                            <td>{{ $user->apellido_paterno }} {{ $user->apellido_materno }} {{ $user->nombres }}</td>
-                            <td>{{ $user->email}}</td>
-                            <td>{{ $user->rfc}}</td>
-                            <td>{{ $user->numero_trabajador}}</td>
+                            <td>{{ $profesor->nombre }}</td>
+                            <td>{{ $profesor->email}}</td>
+                            <td>{{ $profesor->rfc}}</td>
+                            <td>{{ $profesor->numero_trabajador}}</td>
                             <td>
                                 <button class="btn btn-success" style="margin-bottom: 15px;" type="submit">Dar de Alta</button>
                             </td>

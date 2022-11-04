@@ -10,7 +10,7 @@ use App\ParticipantesCurso;
 use App\ProfesoresCurso;
 use App\Profesor;
 use App\Salon;
-use App\Http\Controllers\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Session;
 
@@ -30,46 +30,6 @@ class CursoController extends Controller
 
    * @return vista para consultar los Cursos Programados
    */
-  public function vistaInstructores($id)
-  {
-    $curso = Curso::findOrFail($id);
-    if ($curso->getTipo() === 'S') {
-      $profesores = Profesor::whereNotIn(
-        'id',
-        ProfesoresCurso::select('profesor_id')
-          ->where('curso_id', $id)
-          ->where('profesor_id', '<>', NULL)
-          ->get()
-        )->orderByRaw("lower(unaccent(apellido_paterno)),
-                       lower(unaccent(apellido_materno)),
-                       lower(unaccent(nombres))")
-        ->get();
-    } else {
-      $profesores = Profesor::whereNotIn(
-        'id',
-        ProfesoresCurso::select('profesor_id')->where('curso_id', $id)->get()
-      )->whereNotIn(
-        'id',
-        ParticipantesCurso::select('profesor_id')->where('curso_id', $id)->get()
-      )->orderByRaw("lower(unaccent(apellido_paterno)),
-                     lower(unaccent(apellido_materno)),
-                     lower(unaccent(nombres))")
-      ->get();
-    }
-
-    $instructores = Profesor::whereIn(
-      'id',
-      ProfesoresCurso::select('profesor_id')->where('curso_id', $id)->get()
-    )->orderByRaw("lower(unaccent(apellido_paterno)),
-                   lower(unaccent(apellido_materno)),
-                   lower(unaccent(nombres))")
-    ->get();
-
-    return view('pages.curso-inscribir-instructores')
-      ->with('curso', $curso)
-      ->with('profesores', $profesores)
-      ->with('instructores', $instructores);
-  }
 
   public function verTemasAsignados($curso_id){
     try {
@@ -143,12 +103,23 @@ class CursoController extends Controller
 
   public function index()
   {
+    $cursos = DB::table('cursos as c')
+                ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
+                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
+                ->where('cc.tipo', '<>', 'D')
+                ->groupBy('c.id', 'cc.nombre_curso', 
+                          'cc.clave_curso','semestre')
+                ->orderBy('cc.clave_curso')
+                ->selectRaw("c.id, 
+                  concat(cc.nombre_curso,' (',cc.clave_curso,')') as nombre, 
+                  string_agg(concat_ws(' ', p.nombres, p.apellido_paterno, 
+                    p.apellido_materno), '/') as instructores,
+                  concat(c.semestre_anio,'-',c.semestre_pi,' ', c.semestre_si) 
+                  as semestre")
+                ->get();
     return view("pages.consulta-cursos")
-      ->with("cursos", $cursos = Curso::join('catalogo_cursos',
-                                             'catalogo_cursos.id', '=',
-                                             'cursos.catalogo_id')
-        ->where('catalogo_cursos.tipo', '<>', 'D')
-        ->select('cursos.*')->get());
+      ->with("cursos", $cursos);
   }
 
   public function verModulosDiplomado($diplomado_id)
@@ -699,46 +670,6 @@ class CursoController extends Controller
 
     return redirect()->route('curso.modificarInstructores', $curso->id)
       ->with('warning', 'Asigne instructores ahora o posteriormente');
-  }
-
-  public function inscripcionParticipante($id)
-  {
-    //Datos del curso y cantidad de participantes
-    $curso = Curso::findOrFail($id);
-    $count = ParticipantesCurso::select('id')
-      ->where('curso_id', $id)
-      ->count();
-
-    //Profesores que se pueden inscribir al curso
-    if ($curso->getTipo() === "S") {
-      $users = Profesor::select('*')
-        ->whereNotIn('id', Profesor::join('participante_curso', 'participante_curso.profesor_id', 'profesors.id')
-          ->where('participante_curso.curso_id', $id)
-          ->select('profesors.id')->get())
-        ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
-        ->get();
-    } else {
-      $users = Profesor::select('*')
-        ->whereNotIn('id', Profesor::join('participante_curso', 'participante_curso.profesor_id', 'profesors.id')
-          ->where('participante_curso.curso_id', $id)
-          ->select('profesors.id')->get())
-        ->whereNotIn('id', ProfesoresCurso::where('curso_id', $id)->where('profesor_id', '<>', NULL)->select('profesor_id')->get())
-        ->orderByRaw("lower(unaccent(apellido_paterno)),lower(unaccent(apellido_materno)),lower(unaccent(nombres))")
-        ->get();
-    }
-
-    //Cancelados y lista de espera
-    $enLista = ParticipantesCurso::select('id')->where('estuvo_en_lista', true)->where('curso_id', $id)->count();
-    $cancelados = ParticipantesCurso::select('id')->where('cancelacion', true)->where('curso_id', $id)->count();
-
-    $countAux = 0;
-    if ($count > ($enLista + $cancelados))
-      $countAux = $count - $enLista - $cancelados;
-    return view("pages.curso-inscripcion")
-      ->with("users", $users)
-      ->with("count", $countAux)
-      ->with("curso", $curso)
-      ->with("lista", $enLista);
   }
 
   public function GenerarFormatos($id)

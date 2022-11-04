@@ -42,18 +42,18 @@
                         <th>Nombre del curso</th>
                         <th>Coordinación</th>
                     </tr>
-                    @foreach($users as $user )
+                    @foreach($catalogues as $catalogue )
                         <tr>
-                            <td style='padding-right: 15px;'>{{$user->clave_curso}}</td>
-                            <td style='padding-right: 15px;'>{{$user->nombre_curso}}</td>
-                            <td style='padding-right: 15px;'>{{$user->getCoordinacion()}}</td>
-                            <td><a href="{{ URL::to('curso/nuevo', $user->id) }}" style="margin: 10px;" class="btn btn-success">Dar de alta</a>
-                                <a href="{{ URL::to('catalogo-cursos', $user->id) }}" style="margin: 10px;" class="btn btn-info">Detalles</a>
-                                <button type="button" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#myModal{{$user->clave_curso}}">Dar de baja</button>
+                            <td style='padding-right: 15px;'>{{$catalogue->clave_curso}}</td>
+                            <td style='padding-right: 15px;'>{{$catalogue->nombre_curso}}</td>
+                            <td style='padding-right: 15px;'>{{$catalogue->nombre_coordinacion}}</td>
+                            <td><a href="{{ URL::to('curso/nuevo', $catalogue->id) }}" style="margin: 10px;" class="btn btn-success">Dar de alta</a>
+                                <a href="{{ URL::to('catalogo-cursos', $catalogue->id) }}" style="margin: 10px;" class="btn btn-info">Detalles</a>
+                                <button type="button" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#myModal{{$catalogue->clave_curso}}">Dar de baja</button>
                             </td>
                         </tr>
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal{{$user->clave_curso}}" role="dialog">
+                    <div class="modal fade" id="myModal{{$catalogue->clave_curso}}" role="dialog">
                       <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -62,11 +62,11 @@
                             <h4 class="modal-title">Eliminar Curso</h4>
                           </div>
                           <div class="modal-body">
-                            <p>¿Está seguro de eliminar el curso {{$user->nombre_curso}}, con clave: {{$user->clave_curso}}?</p>
+                            <p>¿Está seguro de eliminar el curso {{$catalogue->nombre_curso}}, con clave: {{$catalogue->clave_curso}}?</p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-normal" data-dismiss="modal" aria-label="Close">Cancelar</button>
-                            <a href="{{ URL::to('catalogo-cursos/baja', $user->id) }}" class="btn btn-danger">Dar de baja</a>
+                            <a href="{{ URL::to('catalogo-cursos/baja', $catalogue->id) }}" class="btn btn-danger">Dar de baja</a>
                           </div>
                         </div>
                       </div>

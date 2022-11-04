@@ -14,7 +14,7 @@
     </a>
   </div>
   <section class="content-inner">
-    @if(sizeof($cursos)==0)
+    @if($cursos->isEmpty())
     <div class="alert alert-danger" role='alert'>No hay resultados</div>
     @endif
     <br>
@@ -131,9 +131,9 @@
         </tr>
         @foreach($cursos as $curso)
         <tr>
-          <td>{{ $curso->getNombreCurso() }} </td>
-          <td>{{$curso->getProfesores() }}</td>
-          <td>{{ $curso->getSemestre() }}</td>
+          <td>{{ $curso->nombre }} </td>
+          <td>{{$curso->instructores }}</td>
+          <td>{{ $curso->semestre }}</td>
           <td class="boton">
             <a href="{{ URL::to('curso/generar-formatos',$curso->id) }}" class="btn btn-primary" style="margin-bottom: 15px;">Generar formatos</a>
             <a href="{{ URL::to('curso/ver-profesores',$curso->id) }}" class="btn btn-warning" style="margin-bottom: 15px;">Ver Curso</a>
@@ -154,7 +154,7 @@
                 <h4 class="modal-title">Eliminar Curso</h4>
               </div>
               <div class="modal-body">
-                <p><b>¿Está seguro de eliminar el curso {{ $curso->getNombreCurso() }}?<br>Profesores:{{$curso->getProfesores() }}</b></p>
+                <p><b>¿Está seguro de eliminar el curso {{ $curso->nombre }}?<br>Profesores:{{$curso->instructores }}</b></p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-normal" data-dismiss="modal" aria-label="Close">Cancelar</button>

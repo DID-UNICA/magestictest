@@ -6,6 +6,7 @@
 create user magesticd with encrypted password 'magesticd';
 create database magesticd with owner magesticd encoding UTF8;
 grant all privileges on database magesticd to magesticd;
+grant pg_read_server_files to magesticd;
 
 --Es necesario en fedora instalar:
 --sudo dnf install postgresql-contrib

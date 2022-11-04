@@ -26,8 +26,7 @@ Route::get('/admin', 'HomeController@index')->name('home');
 /* Rutas de Profesor */
 Route::get('profesor/nuevo', "ProfesorController@nuevo")->name("profesor.nuevo");
 Route::post('profesor/save', "ProfesorController@create")->name('profesor.store');
-//Route::get('profesor', "ProfesorController@index")->name("profesor.consulta");
-Route::get('profesor/', "ProfesorController@search")->name('profesor.consulta');
+Route::get('profesores/ver', "ProfesorController@index")->name('profesor.consulta');
 Route::get('profesor/cursos/{id}', "ProfesorController@cursos")->name('profesor.cursos');
 Route::get('profesor/{id}', "ProfesorController@show")->name('profesor.show');
 Route::get('profesor/actualizar/{id}', "ProfesorController@edit")->name('profesor.update');
@@ -43,9 +42,9 @@ Route::get('curso', "CursoController@index")->name("curso.consulta");
 Route::post('cursos/busqueda', "CursoController@Csearch")->name('curso.Csearch');
 Route::get('cursos/busquedapalabras/{id}', "CursoController@searchWords")->name('curso.Wsearch');
 Route::get('curso/actualizar/{id}', "CursoController@edit")->name('curso.update');
-Route::get('curso/inscripcion/{id}', "CursoController@inscripcionParticipante")->name('curso.inscripcion');
-Route::post('curso/inscripcion/{curso_id}/busqueda', "ProfesorController@search1")->name('profesor.consulta1');
-Route::post('curso/inscripcion/{curso_id}/search2', "ProfesorController@search2")->name('profesor.consulta2');
+Route::get('curso/inscripcion/{id}', "ProfesorController@inscribirParticipante")->name('curso.inscripcion');
+Route::post('curso/inscripcion/{curso_id}/busqueda', "ProfesorController@inscribirParticipante")->name('profesor.consulta1');
+Route::post('curso/inscripcion/{curso_id}/search2', "ProfesorController@vistaInstructores")->name('profesor.consulta2');
 Route::post('curso/inscripcion/{curso_id}/{tema_id}/search4', "ProfesorController@search4")->name('profesor.consulta4');
 Route::get('curso/generar-formatos/{curso}', "CursoController@GenerarFormatos")->name('curso.generar-formatos');
 Route::get('curso/ver-profesores/{curso}', "CursoController@verParticipante")->name('curso.ver-participante');
@@ -58,7 +57,7 @@ Route::post('curso/registrar/{id}/{curso_id}', "CursoController@registrarPartici
 Route::put('curso/actualizar/{id}', "CursoController@update")->name('curso.actualizar');
 Route::get('curso/baja/{id}', "CursoController@delete");
 Route::get('curso/bajad/{id}', "CursoController@deleteModulo");
-Route::get('curso/instructores/{id}', "CursoController@vistaInstructores")->name('curso.modificarInstructores');
+Route::get('curso/instructores/{id}', "ProfesorController@vistaInstructores")->name('curso.modificarInstructores');
 Route::post('curso/instructores/alta/{curso_id}/{profesor_id}', "CursoController@altaInstructores")->name('curso.altaInstructores');
 Route::post('curso/instructores/baja/{curso_id}/{profesor_id}', "CursoController@bajaInstructores")->name('curso.bajaInstructores');
 

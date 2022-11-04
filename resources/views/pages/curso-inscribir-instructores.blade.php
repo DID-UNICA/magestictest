@@ -18,7 +18,7 @@
     @include ('partials.messages')
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h2>{{ $curso->getNombreCurso()}}</h2>
+        <h2>{{ $curso->nombre}}</h2>
         <h3>Lista de de instructores</h3>
         {!! Form::open(["route" => ["profesor.consulta2", $curso->id], "method" => "POST"]) !!}
         {{ csrf_field() }}
@@ -32,7 +32,7 @@
           null,['class' => 'btn dropdown-toggle pull-left', 'style' => 'margin-top:3px'] ) !!}
           <span class="col-md-6" style='padding-top:3px'>
             <button class="btn btn-info" type="submit">Buscar</button>
-            @if($curso->getTipo()==='D')
+            @if($curso->tipo === 'D')
             <a href="{{ route('modulo.consulta') }}" class="btn btn-danger">Regresar</a>
             @else
             <a href="{{ route('curso.consulta') }}" class="btn btn-danger">Regresar</a>
@@ -52,21 +52,21 @@
             <th>RFC</th>
             <th>Número Trabajador</th>
           </tr>
-          @if(sizeof($profesores)!=0)
-          @foreach($profesores as $profesor)
-          {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.altaInstructores', $curso->id,$profesor->id] ,'files' => true, 'method' => 'POST' )) !!}
-          {{ csrf_field() }}
-          <tr>
-            <td>{{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }} {{ $profesor->nombres }}</td>
-            <td>{{ $profesor->email}}</td>
-            <td>{{ $profesor->rfc}}</td>
-            <td>{{ $profesor->numero_trabajador}}</td>
-            <td>
-              <button class="btn btn-success" style="margin-bottom: 15px;" type="submit">Asignar</button>
-            </td>
-          </tr>
-          {!! Form::close() !!}
-          @endforeach
+          @if($profesores->isNotEmpty())
+            @foreach($profesores as $profesor)
+            {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.altaInstructores', $curso->id,$profesor->id] ,'files' => true, 'method' => 'POST' )) !!}
+            {{ csrf_field() }}
+            <tr>
+              <td>{{ $profesor->nombre }} </td>
+              <td>{{ $profesor->email}}</td>
+              <td>{{ $profesor->rfc}}</td>
+              <td>{{ $profesor->numero_trabajador}}</td>
+              <td>
+                <button class="btn btn-success" style="margin-bottom: 15px;" type="submit">Asignar</button>
+              </td>
+            </tr>
+            {!! Form::close() !!}
+            @endforeach
           @else
           <tr>
             <td>
@@ -92,7 +92,7 @@
           {!! Form::open(array('class' => 'form-horizontal', 'role' =>'form', 'route'=> ['curso.bajaInstructores',$curso->id, $instructor->id] ,'files' => true, 'method' => 'POST' )) !!}
           {{ csrf_field() }}
           <tr>
-            <td>{{ $instructor->apellido_paterno }} {{ $instructor->apellido_materno }} {{ $instructor->nombres }}</td>
+            <td>{{ $instructor->nombre }}</td>
             <td>{{ $instructor->email}}</td>
             <td>{{ $instructor->rfc}}</td>
             <td>{{ $instructor->numero_trabajador}}</td>
@@ -109,7 +109,7 @@
                   <h4 class="modal-title">Eliminar Instructor</h4>
                 </div>
                 <div class="modal-body">
-                  <p>¿Está seguro de eliminar al instructor {{ $instructor->nombres .' '.$instructor->apellido_paterno.' '.$instructor->apellido_materno }}</p>
+                  <p>¿Está seguro de eliminar al instructor {{ $instructor->nombre }}</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-normal" data-dismiss="modal" aria-label="Close">Cancelar</button>
@@ -122,7 +122,5 @@
           @endforeach
         </table>
       </div>
-
-
   </section>
   @endsection

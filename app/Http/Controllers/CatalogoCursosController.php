@@ -7,7 +7,7 @@ use App\Curso;
 use App\CatalogoCurso;
 use App\TemaSeminario;
 use App\Profesor;
-use App\Http\Controllers\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CatalogoCursosController extends Controller
@@ -39,9 +39,18 @@ class CatalogoCursosController extends Controller
     }
 
     public function verCatalogosCursos(){
-      $catalogos = CatalogoCurso::where('tipo','<>','D')->get();
+      $catalogues = DB::table('catalogo_cursos as cc')
+               ->join('coordinacions as c', 'c.id', '=', 'cc.coordinacion_id')
+               ->select('cc.id', 'cc.clave_curso', 'cc.nombre_curso', 
+                         'c.nombre_coordinacion')
+               ->where('tipo', '<>', 'D')
+               ->get();
       return view("pages.consulta-catalogo-cursos")
-        ->with('users', $catalogos);
+           ->with('catalogues', $catalogues);
+
+      // $catalogos = CatalogoCurso::where('tipo','<>','D')->get();
+      // return view("pages.consulta-catalogo-cursos")
+      //   ->with('users', $catalogos);
     }
 
     
@@ -193,8 +202,14 @@ class CatalogoCursosController extends Controller
         if($request->type == "nombre"){
           $words=explode(" ", $request->pattern);
           foreach($words as $word){
-              array_push($arreglo_aux, CatalogoCurso::where('tipo', '<>','D')->whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%".$word."%'))")
-                  ->get());
+              array_push($arreglo_aux, 
+              DB::table('catalogo_cursos as cc')
+               ->join('coordinacions as c', 'c.id', '=', 'cc.coordinacion_id')
+               ->select('cc.id', 'cc.clave_curso', 'cc.nombre_curso', 
+                         'c.nombre_coordinacion')
+               ->where('tipo', '<>', 'D')
+               ->whereRaw("lower(unaccent(cc.nombre_curso)) ILIKE lower(unaccent('%".$word."%'))")
+               ->get());
           }
           foreach ($arreglo_aux as $tmp) {
               $catalogos = $catalogos->concat($tmp);
@@ -202,8 +217,13 @@ class CatalogoCursosController extends Controller
         }elseif($request->type == "clave"){
             $words=explode(" ", $request->pattern);
             foreach($words as $word){
-                $catalogos = CatalogoCurso::whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%".$word."%'))")->where('tipo','<>','D')
-                    -> get();
+                $catalogos = DB::table('catalogo_cursos as cc')
+                ->join('coordinacions as c', 'c.id', '=', 'cc.coordinacion_id')
+                ->select('cc.id', 'cc.clave_curso', 'cc.nombre_curso', 
+                          'c.nombre_coordinacion')
+                ->where('tipo', '<>', 'D')
+                ->whereRaw("lower(unaccent(cc.clave_curso)) ILIKE lower(unaccent('%".$word."%'))")
+                ->get();
             }
         }
         elseif($request->type == "coordinacion"){
@@ -216,14 +236,20 @@ class CatalogoCursosController extends Controller
                 foreach ($aux as $value) {
                     array_push($aux2, $value->id);
                 }
-                $catalogos = CatalogoCurso::whereIn("coordinacion_id", $aux2)->where('tipo','<>','D')->get();;
+                $catalogos = DB::table('catalogo_cursos as cc')
+                ->join('coordinacions as c', 'c.id', '=', 'cc.coordinacion_id')
+                ->select('cc.id', 'cc.clave_curso', 'cc.nombre_curso', 
+                          'c.nombre_coordinacion')
+                ->where('tipo', '<>', 'D')
+                ->whereIn("cc.coordinacion_id", $aux2)
+                ->get();
         }
         if($catalogos->isEmpty()){
           return redirect()->route('catalogo-cursos.ver.todos')
             ->with('warning', 'No se encontraron resultados');
         }
         return view("pages.consulta-catalogo-cursos")
-            ->with("users",$catalogos);
+            ->with("catalogues",$catalogos);
     }
 
     public function searchModulos(Request $request)

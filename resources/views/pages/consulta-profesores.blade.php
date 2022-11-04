@@ -34,51 +34,57 @@
                    </span>
               </div>
           </div>
-          <div class="panel-body tablaFija">
-              <table>
-                  <tr>
-                      <th>Nombre</th>
-                      <th>Correo</th>
-                      <th>RFC</th>
-                      <th>Número Trabajador</th>
-                  </tr>
-                  @foreach($users as $user)
-                      <tr>
-                          <td> {{ $user->apellido_paterno }} {{ $user->apellido_materno }} {{ $user->nombres }}</td>
-                          <td style='word-break:break-all;'>{{ $user->email}}</td>
-                          <td>{{ $user->rfc}}</td>
-                          <td align="center">{{ $user->numero_trabajador}}</td>
-                          <td>
-                              <a href="{{ URL::to('profesor/cursos', $user->id) }}" style="margin: 10px;" class="btn btn-warning">Cursos</a>
-                              <a href="{{ URL::to('profesor', $user->id) }}" style="margin: 10px;" class="btn btn-info">Detalles</a>
-                              <a href="{{ URL::to('historialprofesor', $user->id) }}" style="margin: 10px;" class="btn btn-success">Historial</a>
-                              <button type="button" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#myModal{{$user->id}}">Dar de baja</button>
-                          </td>
-                      </tr>
-                  
-                  <!-- Modal -->
-                    <div class="modal fade" id="myModal{{$user->id}}" role="dialog">
-                      <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Eliminar Profesor</h4>
-                          </div>
-                          <div class="modal-body">
-                            <p>¿Está seguro de eliminar al profesor {{ $user->nombres }} {{ $user->apellido_paterno }} {{ $user->apellido_materno }}?</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-normal" data-dismiss="modal" aria-label="Close">Cancelar</button>
-                            <a href="{{ URL::to('profesor/baja', $user->id) }}" class="btn btn-danger">Dar de baja</a>
+          @if($profesores->isNotEmpty())
+            <div class="panel-body tablaFija">
+                <table>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>RFC</th>
+                        <th>Número Trabajador</th>
+                    </tr>
+                    @foreach($profesores as $profesor)
+                        <tr>
+                            <td> {{ $profesor->nombre }}</td>
+                            <td style='word-break:break-all;'>{{ $profesor->email}}</td>
+                            <td>{{ $profesor->rfc}}</td>
+                            <td align="center">{{ $profesor->numero_trabajador}}</td>
+                            <td>
+                                <a href="{{ URL::to('profesor/cursos', $profesor->id) }}" style="margin: 10px;" class="btn btn-warning">Cursos</a>
+                                <a href="{{ URL::to('profesor', $profesor->id) }}" style="margin: 10px;" class="btn btn-info">Detalles</a>
+                                <a href="{{ URL::to('historialprofesor', $profesor->id) }}" style="margin: 10px;" class="btn btn-success">Historial</a>
+                                <button type="button" class="btn btn-danger" style="margin: 10px;" data-toggle="modal" data-target="#myModal{{$profesor->id}}">Dar de baja</button>
+                            </td>
+                        </tr>
+                    
+                    <!-- Modal -->
+                      <div class="modal fade" id="myModal{{$profesor->id}}" role="dialog">
+                        <div class="modal-dialog">
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Eliminar Profesor</h4>
+                            </div>
+                            <div class="modal-body">
+                              <p>¿Está seguro de eliminar al profesor {{ $profesor->nombres }} {{ $profesor->apellido_paterno }} {{ $profesor->apellido_materno }}?</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-normal" data-dismiss="modal" aria-label="Close">Cancelar</button>
+                              <a href="{{ URL::to('profesor/baja', $profesor->id) }}" class="btn btn-danger">Dar de baja</a>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                  @endforeach
-              </table>
+                    @endforeach
+                </table>
+            </div>
+          @else
+          <div class="panel-body">
+            <h4>*No hubo resultados con el patrón ingresado</h4>
           </div>
+          @endif
      </section>
      
 @endsection
