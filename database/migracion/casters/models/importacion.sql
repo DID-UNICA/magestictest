@@ -42,7 +42,7 @@ alter sequence cursos_id_seq restart with 47;
 alter sequence participante_curso_id_seq restart with 871;
 alter sequence profesor_curso_id_seq restart with 55;
 alter sequence _evaluacion_final_curso_id_seq restart with 788;
-alter sequence _evaluacion_instructor_curso_id_seq restart with 563;
+alter sequence _evaluacion_instructor_curso_id_seq restart with 551;
 alter sequence profesores_categorias_id_seq restart with 5546;
 
 delete from historico_tematicas where id > 0;

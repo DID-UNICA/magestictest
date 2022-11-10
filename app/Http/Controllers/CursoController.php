@@ -319,9 +319,22 @@ class CursoController extends Controller
   {
 
     if ($request->type == "nombre_curso") {
-      $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(nombre_curso)) ILIKE lower(unaccent('%" . $request->pattern . "%'))")->where('tipo', '<>', 'D')->get();
-      $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
-        ->get();
+      $cursos = DB::table('cursos as c')
+                ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
+                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
+                ->where('cc.tipo', '<>', 'D')
+                ->whereRaw("lower(unaccent(replace(nombre_curso, ' ',''))) ILIKE lower(unaccent(replace('%" . $request->pattern . "%', ' ', '')))")
+                ->groupBy('c.id', 'cc.nombre_curso', 
+                          'cc.clave_curso','semestre')
+                ->orderBy('cc.clave_curso')
+                ->selectRaw("c.id, 
+                  concat(cc.nombre_curso,' (',cc.clave_curso,')') as nombre, 
+                  string_agg(concat_ws(' ', p.nombres, p.apellido_paterno, 
+                    p.apellido_materno), '/') as instructores,
+                  concat(c.semestre_anio,'-',c.semestre_pi,' ', c.semestre_si) 
+                  as semestre")
+                ->get();
     } elseif ($request->type == "fechas") {
       if(!$request->anio)
         return redirect()->route('curso.consulta')->with('danger', 'Es necesario un año de inicio.');
@@ -337,16 +350,27 @@ class CursoController extends Controller
         $sem_type = '%' ;
       else
         $sem_type = $request->IO;
-        
-      $res_busqueda = Curso::where("semestre_anio",'>=', $request->anio)
-        ->where("semestre_anio", "<=", $request->anio2)
-        ->whereRaw("semestre_pi LIKE '".$sem_num."'")
-        ->whereRaw("semestre_si LIKE '".$sem_type."'")
-        ->get();
 
-      $res_busqueda->filter(function ($value){
-        return $value->getTipo() != 'D';
-      });
+        $cursos = DB::table('cursos as c')
+                ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
+                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
+                ->where('cc.tipo', '<>', 'D')
+                ->where("c.semestre_anio",'>=', $request->anio)
+                ->where("c.semestre_anio", "<=", $request->anio2)
+                ->whereRaw("c.semestre_pi LIKE '".$sem_num."'")
+                ->whereRaw("c.semestre_si LIKE '".$sem_type."'")
+                ->groupBy('c.id', 'cc.nombre_curso', 
+                          'cc.clave_curso','semestre')
+                ->orderBy('cc.clave_curso')
+                ->selectRaw("c.id, 
+                  concat(cc.nombre_curso,' (',cc.clave_curso,')') as nombre, 
+                  string_agg(concat_ws(' ', p.nombres, p.apellido_paterno, 
+                    p.apellido_materno), '/') as instructores,
+                  concat(c.semestre_anio,'-',c.semestre_pi,' ', c.semestre_si) 
+                  as semestre")
+                ->get();
+
     } elseif ($request->type == "titular") {
       $words = explode(" ", $request->pattern);
       foreach ($words as $word) {
@@ -357,18 +381,44 @@ class CursoController extends Controller
           ->get();
       }
       $curso_prof = ProfesoresCurso::select('curso_id')->whereIn('profesor_id', $profesores)->get();
-      $res_busqueda = Curso::whereIn('cursos.id', $curso_prof)->get();
-      $res_busqueda->filter(function ($value){
-        return $value->getTipo() != 'D';
-      });
+      $cursos = DB::table('cursos as c')
+                ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
+                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
+                ->where('cc.tipo', '<>', 'D')
+                ->whereIn('c.id', $curso_prof)
+                ->groupBy('c.id', 'cc.nombre_curso', 
+                          'cc.clave_curso','semestre')
+                ->orderBy('cc.clave_curso')
+                ->selectRaw("c.id, 
+                  concat(cc.nombre_curso,' (',cc.clave_curso,')') as nombre, 
+                  string_agg(concat_ws(' ', p.nombres, p.apellido_paterno, 
+                    p.apellido_materno), '/') as instructores,
+                  concat(c.semestre_anio,'-',c.semestre_pi,' ', c.semestre_si) 
+                  as semestre")
+                ->get();
     } elseif ($request->type == "clave") {
-      $catalogos_res = CatalogoCurso::select('id')->whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%" . $request->pattern . "%'))")->where('tipo', '<>', 'D')->get();
-      $res_busqueda = Curso::whereIn('catalogo_id', $catalogos_res)
-        ->get();
+
+      $cursos = DB::table('cursos as c')
+                ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
+                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
+                ->where('cc.tipo', '<>', 'D')
+                ->whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%" . $request->pattern . "%'))")
+                ->groupBy('c.id', 'cc.nombre_curso', 
+                          'cc.clave_curso','semestre')
+                ->orderBy('cc.clave_curso')
+                ->selectRaw("c.id, 
+                  concat(cc.nombre_curso,' (',cc.clave_curso,')') as nombre, 
+                  string_agg(concat_ws(' ', p.nombres, p.apellido_paterno, 
+                    p.apellido_materno), '/') as instructores,
+                  concat(c.semestre_anio,'-',c.semestre_pi,' ', c.semestre_si) 
+                  as semestre")
+                ->get();
     }
-    if($res_busqueda->isEmpty())
+    if($cursos->isEmpty())
       return redirect()->route('curso.consulta')->with('warning', 'No hubo resultados en su búsqueda.');
-    return view('pages.consulta-cursos')->with("cursos", $res_busqueda);
+    return view('pages.consulta-cursos')->with("cursos", $cursos);
   }
 
   public function searchModulo(Request $request)
