@@ -40,9 +40,11 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
         if ($instructor->profesor_id) {
           $profesor = Profesor::find($instructor->profesor_id);
           $instructor->ord = $profesor->getNombres();
+          $instructor->carreras = $profesor->getCarrerasString();
           $instructor->nombre = $profesor->getFirmanteConstancia();
           $instructor->categoria = $profesor->getCategoria_1();
           $instructor->type = 'INSTRUCTOR';
+          //TODO:El coordinador sera profesor ahora
         } else {
           $coord = $curso->getCoordinacion();
           $instructor->ord = $coord->coordinador;
@@ -63,8 +65,10 @@ class AllCursosPartialExport implements FromView, ShouldAutosize
         $instructor->folio_inst_num = (int)$instructor->folio_inst;
       }
       foreach ($curso->participantes as $participante) {
-        $participante->nombre = Profesor::find($participante->profesor_id)->getNombres();
+        $profesor = Profesor::find($participante->profesor_id);
+        $participante->nombre = $profesor->getNombres();
         $participante->categoria = $profesor->getCategoria_1();
+        $participante->carreras = $profesor->getCarrerasString();
         $participante->clave = $curso->clave;
         $participante->nombre_catalogo = $curso->nombre_catalogo;
         $participante->fecha_inicio = $curso->getFechaInicio();

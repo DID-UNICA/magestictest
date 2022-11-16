@@ -208,6 +208,15 @@ class Profesor extends Authenticatable
           ->get();
         return $carreras;
     }
+//Retorna un String de carreras
+  public function getCarrerasString()
+    {
+        return DB::table('profesores_carreras')
+          ->join('carreras', 'carreras.id', '=', 'profesores_carreras.id_carrera')
+          ->select('carreras.nombre')
+          ->where('profesores_carreras.id_profesor', '=', $this->id)
+          ->get()->implode('nombre', ', ');
+    }
 
 //Retorna las carreras como una cadena
     public function getCarrerasPorNombre()

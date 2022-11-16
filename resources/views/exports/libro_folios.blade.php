@@ -7,6 +7,7 @@
         <th style='font-weight:bold; background-color:#f1c232'>TIPO PARTICIPANTE/INSTRUCTOR</th>
         <th style='font-weight:bold; background-color:#f1c232'>NOMBRE</th>
         <th style='font-weight:bold; background-color:#f1c232'>NOMBRAMIENTO</th>
+        <th style='font-weight:bold; background-color:#f1c232'>CARRERAS</th>
         <th style='font-weight:bold; background-color:#f1c232'>CLAVE DE CURSO</th>
         <th style='font-weight:bold; background-color:#f1c232'>CURSO</th>
         <th style='font-weight:bold; background-color:#f1c232'>FECHA DE INICIO</th>
@@ -48,6 +49,7 @@
         @endif
         <td style='background-color:yellow'>{{$usuario->nombre}}</td>
         <td>{{$usuario->categoria}}</td>
+        <td>{{$usuario->carreras}}</td>
         <td>{{$usuario->clave}}</td>
         <td>{{$usuario->nombre_catalogo}}</td>
         <td>{{$usuario->fecha_inicio}}</td>

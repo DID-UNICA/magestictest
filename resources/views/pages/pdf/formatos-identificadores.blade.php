@@ -138,6 +138,7 @@ html{
 		@endphp
 		<table>
 	  @foreach($participantes as $alumno)
+    @if(!$alumno->cancelacion)
 				@if($iter === 4)
 					</table>
 					<div style='page-break-after: always;'></div>
@@ -190,6 +191,7 @@ html{
 						</td>
 					</tr>
 					</table>
+          @endif
 			@endforeach
 	</div>
 </body>
