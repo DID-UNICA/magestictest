@@ -105,7 +105,7 @@ class CursoController extends Controller
   {
     $cursos = DB::table('cursos as c')
                 ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
-                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->leftJoin('profesors as p', 'p.id', '=', 'pc.profesor_id')
                 ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
                 ->where('cc.tipo', '<>', 'D')
                 ->groupBy('c.id', 'cc.nombre_curso', 
@@ -321,7 +321,7 @@ class CursoController extends Controller
     if ($request->type == "nombre_curso") {
       $cursos = DB::table('cursos as c')
                 ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
-                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->leftJoin('profesors as p', 'p.id', '=', 'pc.profesor_id')
                 ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
                 ->where('cc.tipo', '<>', 'D')
                 ->whereRaw("lower(unaccent(replace(nombre_curso, ' ',''))) ILIKE lower(unaccent(replace('%" . $request->pattern . "%', ' ', '')))")
@@ -353,7 +353,7 @@ class CursoController extends Controller
 
         $cursos = DB::table('cursos as c')
                 ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
-                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->leftJoin('profesors as p', 'p.id', '=', 'pc.profesor_id')
                 ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
                 ->where('cc.tipo', '<>', 'D')
                 ->where("c.semestre_anio",'>=', $request->anio)
@@ -383,7 +383,7 @@ class CursoController extends Controller
       $curso_prof = ProfesoresCurso::select('curso_id')->whereIn('profesor_id', $profesores)->get();
       $cursos = DB::table('cursos as c')
                 ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
-                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->leftJoin('profesors as p', 'p.id', '=', 'pc.profesor_id')
                 ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
                 ->where('cc.tipo', '<>', 'D')
                 ->whereIn('c.id', $curso_prof)
@@ -401,7 +401,7 @@ class CursoController extends Controller
 
       $cursos = DB::table('cursos as c')
                 ->join('profesor_curso as pc', 'pc.curso_id', '=', 'c.id')
-                ->join('profesors as p', 'p.id', '=', 'pc.profesor_id')
+                ->leftJoin('profesors as p', 'p.id', '=', 'pc.profesor_id')
                 ->join('catalogo_cursos as cc', 'cc.id', '=', 'c.catalogo_id')
                 ->where('cc.tipo', '<>', 'D')
                 ->whereRaw("lower(unaccent(clave_curso)) ILIKE lower(unaccent('%" . $request->pattern . "%'))")

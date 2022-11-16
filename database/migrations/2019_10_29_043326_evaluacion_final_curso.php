@@ -42,7 +42,7 @@ class EvaluacionFinalCurso extends Migration
             //¿Qué otros cursos, talleres, seminarios o temáticos le gustaría que se impartiesen o tomasen en cuenta para próximas actividades?
             $table->string('otros',300)->nullable();
             //ÁREA DE CONOCIMIENTO 
-            $table->string('conocimiento',300)->nullable();
+            $table->text('conocimiento',300)->nullable();
             //Temáticas:	
             $table->string('tematica',300)->nullable();
             //¿En qué horarios le gustaría que se impartiesen los cursos, talleres, seminarios o diplomados?
