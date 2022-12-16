@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-set_time_limit(120);
+set_time_limit(3600);
 
 class Curso extends Model
 {

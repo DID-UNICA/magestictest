@@ -51,6 +51,7 @@ class EvaluacionFinalCurso extends Migration
             //Horarios Intersemestrales:
             $table->string('horarioi',300)->nullable();
             $table->integer('participante_curso_id')->unsigned();
+            $table->unique('participante_curso_id');
             $table->foreign('participante_curso_id','participante_curso_id')
                   ->references('id')->on('participante_curso');
           });

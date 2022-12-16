@@ -37,7 +37,7 @@
             <td>{{ $registro['nombre'] }}</td>
             <td>{{ $registro['categoria'] }}</td>
             <td>{{ $registro['division'] }}</td>
-            <td>{{ $registro['nombrec'] }}</td>
+            <td>{{ $registro['nombre_curso'] }}</td>
             <td>{{ $registro['duracion'] }}</td>
             <td>{{ $registro['fecha_inicio'] }}</td>
             <td>{{ $registro['fecha_fin'] }}</td>

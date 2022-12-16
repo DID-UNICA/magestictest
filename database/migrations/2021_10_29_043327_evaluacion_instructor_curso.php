@@ -28,6 +28,7 @@ class EvaluacionInstructorCurso extends Migration
           $table->integer('p11')->nullable();
           $table->integer('participante_id')->unsigned();
           $table->integer('instructor_id')->unsigned();
+          $table->unique(['participante_id', 'instructor_id']);
 
           $table->foreign('participante_id','participante_id')
                 ->references('id')->on('participante_curso');

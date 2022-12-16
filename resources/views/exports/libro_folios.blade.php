@@ -31,6 +31,7 @@
         <td style='background-color:#339b43'></td>
         <td style='background-color:#339b43'></td>
         <td style='background-color:#339b43'></td>
+        <td style='background-color:#339b43'></td>
       </tr>
     @foreach($usuarios as $usuario)
       <tr>
