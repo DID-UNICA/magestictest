@@ -895,17 +895,6 @@ class CursoController extends Controller
       }
 
 
-      if ($request->hoja_evaluacion) {
-        if (in_array($profesor_id, $request->hoja_evaluacion)) {
-          $participante->contesto_hoja_evaluacion = true;
-        } else {
-          $participante->contesto_hoja_evaluacion = false;
-        }
-      } else {
-        $participante->contesto_hoja_evaluacion = false;
-      }
-
-
       if ($request->pago_curso) {
         if (in_array($profesor_id, $request->pago_curso)) {
           $participante->pago_curso = true;
